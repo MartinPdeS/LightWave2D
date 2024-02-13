@@ -5,7 +5,7 @@ import sys
 from MPSPlots.styles import use_mpsplots_style
 from packaging.version import parse
 
-from LightWave2D.tools.directories import (
+from LightWave2D.directories import (
     project_path,
     doc_css_path,
     version_path,
