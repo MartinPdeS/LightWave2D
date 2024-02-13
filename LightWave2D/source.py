@@ -23,6 +23,10 @@ class PointSource():
 
         self.omega = 2 * numpy.pi * self.frequency
 
+        x, y = self.position
+
+        self.p0 = self.grid.get_coordinate(x=x, y=y)
+
 
 @dataclass
 class LineSource():
