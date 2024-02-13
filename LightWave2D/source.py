@@ -27,6 +27,10 @@ class PointSource():
 
         self.p0 = self.grid.get_coordinate(x=x, y=y)
 
+    def add_source_to_field(self, field: numpy.ndarray, time) -> None:
+        rows, cols = self.slice_indexes
+        field[self.p0.x_index, self.p0.y_index] += self.amplitude * numpy.sin(self.omega * time)
+
 
 @dataclass
 class LineSource():

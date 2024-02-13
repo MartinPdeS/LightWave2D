@@ -28,7 +28,7 @@ jobs:
                 package-name: LightWave2D
                 python-version: "3.11"
                 auth: ${{ secrets.GIST_TOKEN }}
-                gistID: 49dc3e2c41180ac9018ae803a8acd177
+                gistID: ec3ae9cb78858c919205d85b8bf67e6b
 
     publish_documentation:
         if: "contains(github.event.head_commit.message, '[publish]')"
