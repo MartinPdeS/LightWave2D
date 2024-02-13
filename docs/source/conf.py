@@ -2,18 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from sphinx_gallery.sorting import ExplicitOrder
 from MPSPlots.styles import use_mpsplots_style
 from packaging.version import parse
 
-from PyFDTD.tools.directories import (
+from LightWave2D.tools.directories import (
     project_path,
     doc_css_path,
     version_path,
 )
 
 sys.path.insert(0, project_path)
-sys.path.insert(0, project_path.joinpath('PyFDTD'))
+sys.path.insert(0, project_path.joinpath('LightWave2D'))
 
 
 def setup(app):
@@ -28,7 +27,7 @@ autodoc_mock_imports = [
     'scipy',
 ]
 
-project = 'PyFDTD'
+project = 'LightWave2D'
 copyright = '2021, Martin Poinsinet de Sivry-Houle'
 author = 'Martin Poinsinet de Sivry-Houle'
 today_fmt = '%B %d, %Y'
@@ -112,14 +111,14 @@ else:
 html_theme_options = {
     # Navigation bar
     "logo": {
-        "alt_text": "PyFDTD's logo",
-        "text": "PyFDTD",
+        "alt_text": "LightWave2D's logo",
+        "text": "LightWave2D",
         "link": "https://pymiesim.readthedocs.io/en/latest/",
     },
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/MartinPdeS/PyFDTD",
+            "url": "https://github.com/MartinPdeS/LightWave2D",
             "icon": "fa-brands fa-github",
         },
         {
@@ -141,24 +140,24 @@ html_theme_options = {
 }
 
 
-htmlhelp_basename = 'PyFDTDdoc'
+htmlhelp_basename = 'LightWave2Ddoc'
 
 latex_elements = {}
 
 
 latex_documents = [
-    (master_doc, 'PyFDTD.tex', 'PyFDTD Documentation',
+    (master_doc, 'LightWave2D.tex', 'LightWave2D Documentation',
      'Martin Poinsinet de Sivry-Houle', 'manual'),
 ]
 
 man_pages = [
-    (master_doc, 'pymiesim', 'PyFDTD Documentation',
+    (master_doc, 'pymiesim', 'LightWave2D Documentation',
      [author], 1)
 ]
 
 texinfo_documents = [
-    (master_doc, 'PyFDTD', 'PyFDTD Documentation',
-     author, 'PyFDTD', 'One line description of project.',
+    (master_doc, 'LightWave2D', 'LightWave2D Documentation',
+     author, 'LightWave2D', 'One line description of project.',
      'Miscellaneous'),
 ]
 
