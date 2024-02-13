@@ -20,7 +20,7 @@ jobs:
 
     publish_coverage:
         if: "contains(github.event.head_commit.message, '[publish]')"
-        needs: [ManyLinux_x86_64]
+        needs: [build_pure_python]
         runs-on: ubuntu-latest
         steps:
           - uses: MartinPdeS/MPSActions/publish_coverage@master
@@ -28,12 +28,11 @@ jobs:
                 package-name: LightWave2D
                 python-version: "3.11"
                 auth: ${{ secrets.GIST_TOKEN }}
-                gistID: f0955be398d59efac69042c1b0fbece2
-
+                gistID: 49dc3e2c41180ac9018ae803a8acd177
 
     publish_documentation:
         if: "contains(github.event.head_commit.message, '[publish]')"
-        needs: [ManyLinux_x86_64]
+        needs: [build_pure_python]
         runs-on: ubuntu-latest
         steps:
           - uses: MartinPdeS/MPSActions/publish_documentation@master
@@ -42,10 +41,9 @@ jobs:
                 package-name: LightWave2D
                 python-version: "3.11" #no documentation for python 3.7 (pickle5 not present˘)
 
-
     publish_wheel:
         if: "contains(github.event.head_commit.message, '[publish]')"
-        needs: [Windows_x86_64, ManyLinux_x86_64, macos_x86_64, publish_documentation, publish_coverage]
+        needs: [build_pure_python, publish_documentation, publish_coverage]
         runs-on: ubuntu-latest
         steps:
           - uses: MartinPdeS/MPSActions/publish_pypi@master
