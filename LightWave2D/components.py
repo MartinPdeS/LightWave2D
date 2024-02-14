@@ -2,6 +2,7 @@ import numpy
 from dataclasses import dataclass
 from LightWave2D.grid import Grid
 from MPSPlots.render2D import SceneList, Axis
+from LightWave2D.physics import Physics
 
 
 class BaseComponent():
@@ -71,6 +72,11 @@ class BaseComponent():
 
     def add_to_mesh(self, epsilon_r_mesh: numpy.ndarray) -> None:
         epsilon_r_mesh += self.epsilon_r_mesh
+
+    def add_non_linear_effect_to_field(self, field: numpy.ndarray) -> None:
+        chi_2 = 1e10
+
+        field += self.idx * self.grid.dt**2 / (self.epsilon_r_mesh * Physics.epsilon_0 * Physics.mu_0) * chi_2 * field ** 2
 
 
 @dataclass()
@@ -143,13 +149,12 @@ class Scatterer(BaseComponent):
             y0=self.coordinate.x
         )
 
-        idx_scatterer = distance_mesh < self.radius
+        self.idx = distance_mesh < self.radius
 
-        self.epsilon_r_mesh[idx_scatterer] = self.epsilon_r
+        self.epsilon_r_mesh[self.idx] = self.epsilon_r
 
     def add_to_ax(self, ax: Axis) -> None:
-
-        ax.add_circle(
+        return ax.add_circle(
             position=(self.coordinate.x, self.coordinate.y),
             radius=self.radius,
             label='scatterer'
