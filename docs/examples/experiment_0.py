@@ -17,7 +17,7 @@ grid = Grid(
     n_y=200,
     size_x=4 * 8e-6,
     size_y=4 * 4e-6,
-    n_steps=2000
+    n_steps=200
 )
 
 experiment = Experiment(
@@ -30,7 +30,7 @@ experiment = Experiment(
 scatterer = experiment.add_scatterer(
     position=('center', 'center'),
     epsilon_r=2,
-    radius=4e-6
+    radius=1e-6
 )
 
 # %%
@@ -53,12 +53,18 @@ experiment.add_pml(
 
 # %%
 # We add a detector
-detector = experiment.add_detector(
+detector = experiment.add_point_detector(
     position=(25e-6, 'center'),
 )
 
 # %%
 # Plotting of the whole experiemnt setup
 experiment.plot().show()
+
+experiment.run_fdtd()
+
+animation = experiment.render_propagation(skip_frame=5)
+
+animation.save('./test.gif', writer='Pillow', fps=10)
 
 # -

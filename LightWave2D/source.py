@@ -149,7 +149,7 @@ class VerticalLineSource():
 
     def add_to_ax(self, ax: Axis) -> None:
         ax.add_line(
-            x=(self.p0.x, self.p1.x),
+            x=[self.p0.x, self.p1.x],
             y=[self.p0.y, self.p1.y],
             color='red',
             line_width=2,
