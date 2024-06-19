@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import numpy
 from dataclasses import dataclass
 from MPSPlots.render2D import SceneList, Axis

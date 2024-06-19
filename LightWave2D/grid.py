@@ -1,4 +1,8 @@
-import numpy as np
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from typing import Union, Optional
+import numpy
 from dataclasses import dataclass
 from LightWave2D.physics import Physics
 
@@ -35,13 +39,13 @@ class Grid:
         self.shape = (self.n_x, self.n_y)
         self.dx = self.size_x / self.n_x
         self.dy = self.size_y / self.n_y
-        self.dt = 1 / (Physics.c * np.sqrt(1 / self.dx**2 + 1 / self.dy**2))  # Time step size using Courant condition
+        self.dt = 1 / (Physics.c * numpy.sqrt(1 / self.dx**2 + 1 / self.dy**2))  # Time step size using Courant condition
 
-        self.time_stamp = np.arange(self.n_steps) * self.dt
-        self.x_stamp = np.arange(self.n_x) * self.dx
-        self.y_stamp = np.arange(self.n_y) * self.dy
+        self.time_stamp = numpy.arange(self.n_steps) * self.dt
+        self.x_stamp = numpy.arange(self.n_x) * self.dx
+        self.y_stamp = numpy.arange(self.n_y) * self.dy
 
-    def get_distance_grid(self, x0: float = 0, y0: float = 0) -> np.ndarray:
+    def get_distance_grid(self, x0: float = 0, y0: float = 0) -> numpy.ndarray:
         """
         Compute the distance grid from a given point (x0, y0).
 
@@ -50,13 +54,13 @@ class Grid:
             y0 (float): y-coordinate of the reference point (default is 0).
 
         Returns:
-            np.ndarray: A 2D array of distances from the reference point.
+            numpy.ndarray: A 2D array of distances from the reference point.
         """
-        x_mesh, y_mesh = np.meshgrid(self.x_stamp, self.y_stamp)
-        distance_mesh = np.sqrt((x_mesh - x0)**2 + (y_mesh - y0)**2)
+        x_mesh, y_mesh = numpy.meshgrid(self.x_stamp, self.y_stamp)
+        distance_mesh = numpy.sqrt((x_mesh - x0)**2 + (y_mesh - y0)**2)
         return distance_mesh
 
-    def get_coordinate(self, x: float | str = None, y: float | str = None) -> NameSpace:
+    def get_coordinate(self, x: Optional[Union[float | str]] = None, y: Optional[Union[float | str]] = None) -> NameSpace:
         """
         Get the coordinate and index for a given position in the grid.
 
@@ -70,23 +74,23 @@ class Grid:
         coordinate = NameSpace()
 
         if isinstance(x, str):
-            x = self.string_to_position_x(x)
+            x = self.parse_x_position(x)
         if isinstance(y, str):
-            y = self.string_to_position_y(y)
+            y = self.parse_y_position(y)
 
         if x is not None:
-            x = np.clip(x, self.x_stamp[0], self.x_stamp[-1])
+            x = numpy.clip(x, self.x_stamp[0], self.x_stamp[-1])
             coordinate.x = x
             coordinate.x_index = int(x / self.dx)
 
         if y is not None:
-            y = np.clip(y, self.y_stamp[0], self.y_stamp[-1])
+            y = numpy.clip(y, self.y_stamp[0], self.y_stamp[-1])
             coordinate.y = y
             coordinate.y_index = int(y / self.dy)
 
         return coordinate
 
-    def string_to_position_y(self, position_string: str) -> float:
+    def parse_y_position(self, value: Union[str, float]) -> float:
         """
         Convert a position string to a y-coordinate.
 
@@ -96,11 +100,26 @@ class Grid:
         Returns:
             float: Corresponding y-coordinate.
         """
-        positions = {'bottom': self.y_stamp[0], 'center': self.y_stamp[self.n_y // 2], 'top': self.y_stamp[-1]}
-        assert position_string.lower() in positions, f"Invalid position: {position_string}. Valid inputs are ['bottom', 'center', 'top']."
-        return positions[position_string.lower()]
+        if isinstance(value, str):
+            value = value.lower()
+            if '%' in value:
+                percentage = float(value.strip('%')) / 100.0
+                delta = self.y_stamp[-1] - self.y_stamp[0]
 
-    def string_to_position_x(self, position_string: str) -> float:
+                return self.y_stamp[0] + percentage * delta
+
+            assert value in ['bottom', 'center', 'top'], f"Invalid position: {value}. Valid inputs are ['bottom', 'center', 'top']."
+            match value:
+                case 'bottom':
+                    return self.y_stamp[0]
+                case 'center':
+                    return numpy.mean(self.y_stamp)
+                case 'top':
+                    return self.y_stamp[-1]
+
+        return value
+
+    def parse_x_position(self, value: Union[str, float]) -> float:
         """
         Convert a position string to an x-coordinate.
 
@@ -110,8 +129,23 @@ class Grid:
         Returns:
             float: Corresponding x-coordinate.
         """
-        positions = {'left': self.x_stamp[0], 'center': self.x_stamp[self.n_x // 2], 'right': self.x_stamp[-1]}
-        assert position_string.lower() in positions, f"Invalid position: {position_string}. Valid inputs are ['left', 'center', 'right']."
-        return positions[position_string.lower()]
+        if isinstance(value, str):
+            value = value.lower()
+            if '%' in value:
+                percentage = float(value.strip('%')) / 100.0
+                delta = self.x_stamp[-1] - self.x_stamp[0]
+
+                return self.x_stamp[0] + percentage * delta
+
+            assert value in ['right', 'center', 'left'], f"Invalid position: {value}. Valid inputs are ['right', 'center', 'left']."
+            match value:
+                case 'right':
+                    return self.x_stamp[0]
+                case 'center':
+                    return numpy.mean(self.x_stamp)
+                case 'left':
+                    return self.x_stamp[-1]
+
+        return value
 
 # -

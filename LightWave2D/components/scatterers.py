@@ -1,12 +1,22 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
+from typing import Tuple, Union, NoReturn
+from pydantic.dataclasses import dataclass
 import numpy
-from dataclasses import dataclass
 from LightWave2D.grid import Grid
 from MPSPlots.render2D import Axis
 from LightWave2D.components.base_class import BaseComponent
 
 
-@dataclass
+config_dict = dict(
+    kw_only=True,
+    extra='forbid',
+    slots=True
+)
+
+
+@dataclass(config=config_dict)
 class Waveguide(BaseComponent):
     """
     Represents a waveguide in a simulation grid.
@@ -19,12 +29,12 @@ class Waveguide(BaseComponent):
         epsilon_r (float): Relative permittivity inside the waveguide.
     """
     grid: Grid
-    width: int | str
-    height: int | str
-    position: tuple
+    width: Union[int | str]
+    height: Union[int | str]
+    position: Tuple[float | str, float | str]
     epsilon_r: float
 
-    def build_mesh(self) -> None:
+    def build_mesh(self) -> NoReturn:
         """
         Build the permittivity mesh for the waveguide.
         """
@@ -36,7 +46,7 @@ class Waveguide(BaseComponent):
 
         self.epsilon_r_mesh[x_start:x_end, y_start:y_end] = self.epsilon_r
 
-    def _interpret_width_height(self) -> tuple:
+    def _interpret_width_height(self) -> Tuple[float, float]:
         """
         Interpret and return the width and height of the waveguide in grid indices.
 
@@ -55,7 +65,7 @@ class Waveguide(BaseComponent):
 
         return int(width_index), int(height_index)
 
-    def _interpret_position_to_index(self) -> tuple:
+    def _interpret_position_to_index(self) -> Tuple[int, int]:
         """
         Interpret and return the indices for the positions x and y of the waveguide.
 
@@ -68,23 +78,23 @@ class Waveguide(BaseComponent):
         return x_index, y_index
 
 
-@dataclass
-class SquareScatterer(BaseComponent):
+@dataclass(config=config_dict)
+class Square(BaseComponent):
     """
     Represents a square scatterer in a simulation grid.
 
     Attributes:
         grid (Grid): The grid of the simulation mesh.
-        position (tuple): Starting position of the scatterer (center of the square).
+        position (Tuple[float | str, float | str]): Starting position of the scatterer (center of the square).
         epsilon_r (float): Relative permittivity inside the scatterer.
         side_length (float): Side length of the square scatterer.
     """
     grid: Grid
-    position: tuple
+    position: Tuple[float | str, float | str]
     epsilon_r: float
     side_length: float
 
-    def build_mesh(self) -> None:
+    def build_mesh(self) -> NoReturn:
         """
         Build the permittivity mesh for the square scatterer.
         """
@@ -105,7 +115,9 @@ class SquareScatterer(BaseComponent):
                    (self.grid.y_stamp[:, None] >= self.y_start * self.grid.dy) & \
                    (self.grid.y_stamp[:, None] < self.y_end * self.grid.dy)
 
-    def add_to_ax(self, ax: Axis) -> None:
+        self.idx = self.idx.T
+
+    def add_to_ax(self, ax: Axis) -> NoReturn:
         """
         Add the square scatterer to the provided axis as a polygon.
 
@@ -128,23 +140,23 @@ class SquareScatterer(BaseComponent):
         )
 
 
-@dataclass()
-class Scatterer(BaseComponent):
+@dataclass(config=config_dict)
+class Circle(BaseComponent):
     """
     Represents a scatterer in a simulation grid.
 
     Attributes:
         grid (Grid): The grid of the simulation mesh.
-        position (tuple): Starting position of the scatterer.
+        position (Tuple[float | str, float | str]): Starting position of the scatterer.
         epsilon_r (float): Relative permittivity inside the scatterer.
         radius (float): Radius of the scatterer.
     """
     grid: Grid
-    position: tuple
+    position: Tuple[float | str, float | str]
     epsilon_r: float
     radius: float
 
-    def build_mesh(self) -> None:
+    def build_mesh(self) -> NoReturn:
         """
         Build the permittivity mesh for the scatterer.
         """
@@ -159,7 +171,7 @@ class Scatterer(BaseComponent):
 
         self.epsilon_r_mesh[self.idx] = self.epsilon_r
 
-    def add_to_ax(self, ax: Axis) -> None:
+    def add_to_ax(self, ax: Axis) -> NoReturn:
         """
         Add the scatterer to the provided axis as a circle.
 
@@ -182,18 +194,18 @@ class Lens(BaseComponent):
 
     Attributes:
         grid (Grid): The grid of the simulation mesh.
-        position (tuple): Center position of the lens.
+        position (Tuple[float | str, float | str]): Center position of the lens.
         epsilon_r (float): Relative permittivity inside the lens.
         radius_x (float): Radius of the lens along the x-axis.
         radius_y (float): Radius of the lens along the y-axis.
     """
     grid: Grid
-    position: tuple
+    position: Tuple[float | str, float | str]
     epsilon_r: float
     radius_x: float
     radius_y: float
 
-    def build_mesh(self) -> None:
+    def build_mesh(self) -> NoReturn:
         """
         Build the permittivity mesh for the lens.
         """
@@ -208,7 +220,7 @@ class Lens(BaseComponent):
 
         self.epsilon_r_mesh[self.idx] = self.epsilon_r
 
-    def add_to_ax(self, ax: Axis) -> None:
+    def add_to_ax(self, ax: Axis) -> NoReturn:
         """
         Add the lens to the provided axis as an ellipse.
 
@@ -221,8 +233,6 @@ class Lens(BaseComponent):
             [self.coordinate.x + self.radius_x, self.coordinate.y + self.radius_y],
             [self.coordinate.x - self.radius_x, self.coordinate.y + self.radius_y]
         ])
-
-        print(coordinates)
 
         return ax.add_polygon(
             coordinates=coordinates,

@@ -6,7 +6,7 @@ from typing import Tuple, NoReturn
 import numpy
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
-from LightWave2D.components import Waveguide, Scatterer
+from LightWave2D.components import Waveguide, Circle, Square
 from LightWave2D.source import PointSource, VerticalLineSource, LineSource
 from LightWave2D.detector import PointDetector
 from dataclasses import dataclass
@@ -103,9 +103,14 @@ class Experiment:
         return self.pml
 
     @add_to_component
-    def add_scatterer(self, **kwargs) -> Scatterer:
+    def add_circle(self, **kwargs) -> Circle:
         """General method to add a component to the simulation."""
-        return Scatterer(grid=self.grid, **kwargs)
+        return Circle(grid=self.grid, **kwargs)
+
+    @add_to_component
+    def add_square(self, **kwargs) -> Square:
+        """General method to add a component to the simulation."""
+        return Square(grid=self.grid, **kwargs)
 
     @add_to_component
     def add_waveguide(self, **kwargs) -> Waveguide:

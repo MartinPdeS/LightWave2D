@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from typing import Tuple, Union
 from dataclasses import dataclass, field
 import numpy
 
@@ -85,37 +89,59 @@ class CircularDetector():
         )
 
 
-@dataclass()
-class PointDetector():
-    grid: Grid
-    """ The grid of the simulation mesh """
-    position: tuple
-    """ Position of the point detector """
+@dataclass
+class PointDetector:
+    """
+    Represents a point detector within a simulation grid.
 
+    Attributes:
+        grid (Grid): The simulation mesh grid.
+        position (Tuple[float | str, float | str]): The (x, y) coordinates of the point detector on the grid.
+        data (numpy.ndarray): The data collected by the detector over time.
+    """
+    grid: Grid
+    position: Union[Tuple[float | str, float | str]]
     data: numpy.ndarray = field(init=False)
-    """ Data over time """
 
     def __post_init__(self):
+        """
+        Initialize the PointDetector by converting the given position into
+        grid coordinates and initializing the data array.
+        """
         self.position = self.grid.get_coordinate(
             x=self.position[0],
             y=self.position[1]
         )
-
         self.data = numpy.zeros(self.grid.n_steps)
 
     def update_data(self, field: numpy.ndarray) -> None:
+        """
+        Update the detector data based on the provided field values.
+
+        Parameters:
+            field (numpy.ndarray): The field values to update the detector data.
+        """
         self.data = field[:, self.position.x_index, self.position.y_index]
 
     def plot_data(self) -> SceneList:
+        """
+        Plot the detector data over time.
+
+        Returns:
+            SceneList: A scene list containing the plot.
+        """
         scene = SceneList()
-
         ax = scene.append_ax()
-
         ax.add_line(x=self.grid.time_stamp, y=self.data)
-
         return scene
 
-    def add_to_ax(self, ax: Axis) -> None:
+    def add_to_ax(self, ax: 'Axis') -> None:
+        """
+        Add a scatter plot representing the detector's position to the provided axis.
+
+        Parameters:
+            ax (Axis): The axis to which the scatter plot will be added.
+        """
         ax.add_scatter(
             x=self.position.x,
             y=self.position.y,
@@ -123,4 +149,5 @@ class PointDetector():
             marker_size=20,
             label='detector'
         )
+
 

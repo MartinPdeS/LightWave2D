@@ -1,4 +1,4 @@
-from .scatterers import Waveguide, Scatterer, SquareScatterer, Lens  # noqa: F401
+from .scatterers import Waveguide, Circle, Square, Lens  # noqa: F401
 
 
 # -
