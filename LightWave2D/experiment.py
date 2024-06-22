@@ -2,22 +2,28 @@
 # -*- coding: utf-8 -*-
 
 
-from typing import Tuple, NoReturn
+from typing import Tuple, NoReturn, Optional, Union
 import numpy
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
-from LightWave2D.components import Waveguide, Circle, Square
-from LightWave2D.source import PointSource, VerticalLineSource, LineSource
+from LightWave2D.components import Waveguide, Circle, Square, Ellipse
+from LightWave2D.source import PointSource, LineSource
 from LightWave2D.detector import PointDetector
-from dataclasses import dataclass
 from LightWave2D.pml import PML
-import matplotlib.pyplot as plt
 from MPSPlots import colormaps
 from MPSPlots.render2D import SceneList
 import matplotlib.animation as animation
+from pydantic.dataclasses import dataclass
+
+config_dict = dict(
+    kw_only=True,
+    slots=True,
+    extra='forbid',
+    arbitrary_types_allowed=True
+)
 
 
-@dataclass
+@dataclass(config=config_dict)
 class Experiment:
     """Class representing an FDTD simulation experiment."""
 
@@ -51,9 +57,24 @@ class Experiment:
             raise ValueError("Axis must be 'x' or 'y'.")
         return gradient
 
-    def plot(self) -> SceneList:
-        """Create a plot of the FDTD simulation setup."""
+    def plot(self, colormap: Optional[Union[str, object]] = 'Blues') -> SceneList:
+        """
+        Generates a plot of the FDTD simulation setup using a specified colormap.
+
+        This function initializes a plotting scene and adds elements of the FDTD simulation
+        such as components, sources, detectors, and optionally the PML layers. It adjusts
+        the axis properties and attaches a colorbar based on the selected colormap.
+
+        Args:
+            colormap (Optional[Union[str, object]]): The colormap to use for the plot. If 'None' is passed, a default dark-themed colormap is used. Default is 'Blues'.
+
+        Returns:
+            SceneList: A SceneList object that contains the constructed plot.
+        """
+        # Initialize the scene with unit sizes and title
         scene = SceneList(unit_size=(6, 6), title='FDTD Simulation at time step')
+
+        # Create an axis with labels and aspect ratio
         ax = scene.append_ax(
             x_label=r'x position [$\mu$m]',
             y_label=r'y position [$\mu$m]',
@@ -61,19 +82,17 @@ class Experiment:
             show_legend=True
         )
 
+        # Add PML layers to the plot if present
         if self.pml:
             self.pml.add_to_ax(ax)
 
-        for component in self.components:
+        # Add components, sources, and detectors to the axis
+        for component in [*self.components, *self.sources, *self.detectors]:
             component.add_to_ax(ax)
 
-        for source in self.sources:
-            source.add_to_ax(ax)
+        # Attach a colorbar using the specified colormap
+        ax.add_colorbar(colormap=colormap)
 
-        for detector in self.detectors:
-            detector.add_to_ax(ax)
-
-        ax.add_colorbar(colormap='Blues')
         return scene
 
     def add_to_component(function):
@@ -108,6 +127,11 @@ class Experiment:
         return Circle(grid=self.grid, **kwargs)
 
     @add_to_component
+    def add_ellipse(self, **kwargs) -> Ellipse:
+        """General method to add a component to the simulation."""
+        return Ellipse(grid=self.grid, **kwargs)
+
+    @add_to_component
     def add_square(self, **kwargs) -> Square:
         """General method to add a component to the simulation."""
         return Square(grid=self.grid, **kwargs)
@@ -116,11 +140,6 @@ class Experiment:
     def add_waveguide(self, **kwargs) -> Waveguide:
         """General method to add a component to the simulation."""
         return Waveguide(grid=self.grid, **kwargs)
-
-    @add_to_source
-    def add_vertical_line_source(self, **kwargs) -> VerticalLineSource:
-        """General method to add a source to the simulation."""
-        return VerticalLineSource(grid=self.grid, **kwargs)
 
     @add_to_source
     def add_point_source(self, **kwargs) -> PointSource:
@@ -137,7 +156,7 @@ class Experiment:
         """General method to add a detector to the simulation."""
         return PointDetector(grid=self.grid, **kwargs)
 
-    def get_sigma(self) -> Tuple[float, float]:
+    def get_sigma(self) -> Tuple[numpy.ndarray, numpy.ndarray]:
         """
         Retrieve the sigma values for the PML.
 
@@ -162,7 +181,7 @@ class Experiment:
             component.add_to_mesh(epsilon_r_mesh)
         return epsilon_r_mesh * Physics.epsilon_0
 
-    def get_field_yee_gradient(self, field: numpy.ndarray) -> Tuple[float, float]:
+    def get_field_yee_gradient(self, field: numpy.ndarray) -> Tuple[numpy.ndarray, numpy.ndarray]:
         """
         Calculate the Yee grid gradient of the field.
 
@@ -184,16 +203,15 @@ class Experiment:
 
         sigma_x, sigma_y = self.get_sigma()
         epsilon = self.get_epsilon()
+        mu_factor = self.grid.dt / Physics.mu_0
+        eps_factor = self.grid.dt / epsilon
 
         for iteration, t in enumerate(self.grid.time_stamp):
-            mu_factor = self.grid.dt / Physics.mu_0
-            eps_factor = self.grid.dt / epsilon
 
             dEz_dx, dEz_dy = self.get_field_yee_gradient(Ez)
             Hx[:, :-1] -= mu_factor * dEz_dy * (1 - sigma_y[:, :-1] * mu_factor / 2)
             Hy[:-1, :] += mu_factor * dEz_dx * (1 - sigma_x[:-1, :] * mu_factor / 2)
 
-            dEz_dx, dEz_dy = self.get_field_yee_gradient(Ez)
             dHy_dx = (Hy[1:-1, 1:-1] - Hy[:-2, 1:-1]) / self.grid.dx
             dHx_dy = (Hx[1:-1, 1:-1] - Hx[1:-1, :-2]) / self.grid.dy
 
@@ -209,66 +227,139 @@ class Experiment:
 
             self.Ez_t[iteration] = Ez
 
-        self.update_detectors()
-
-    def update_detectors(self) -> NoReturn:
-        """Update detector data with the field values."""
         for detector in self.detectors:
             detector.update_data(field=self.Ez_t)
 
-    def render_propagation(self, skip_frame: int = 10, dark_colormap: bool = True) -> animation.FuncAnimation:
+    def plot_frame(self, frame_number: int, colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> SceneList:
         """
-        Render the propagation of the field as an animation.
+        Creates a plot of a specific frame from the FDTD simulation.
+
+        This method generates a visualization of the electric field distribution along with all
+        relevant simulation components, sources, and detectors for a given frame.
 
         Args:
-            skip_frame (int): Number of frames to skip between each rendered frame.
-            dark_colormap (bool): Use a dark colormap if True.
+            frame_number (int): The index of the frame to be visualized.
+            colormap (Optional[Union[str, object]]): The colormap used for the visualization.
+                Defaults to a blue-black-red colormap from Polytechnique collection.
 
         Returns:
-            animation.FuncAnimation: The animation of the field propagation.
+            SceneList: A SceneList object that contains the constructed plot.
         """
-        colormap = colormaps.poly_red_black_blue if dark_colormap else colormaps.blue_white_red
+        scene = SceneList(unit_size=(6, 6), title='FDTD Simulation at time step')
+        ax = scene.append_ax(
+            x_label=r'x position [$\mu$m]',
+            y_label=r'y position [$\mu$m]',
+            aspect_ratio='equal',
+            show_colorbar=True,
+            show_legend=True
+        )
+        ax.add_mesh(
+            x=self.grid.x_stamp,
+            y=self.grid.y_stamp,
+            scalar=self.Ez_t[frame_number].T,
+        )
 
-        scene = SceneList(unit_size=(8, 8))
+        for component in [*self.components, *self.sources, *self.detectors]:
+            component.add_to_ax(ax)
+
+        ax.add_colorbar(colormap=colormap, symmetric=True)
+
+        return scene
+
+    def save_frame_as_image(self, frame_number: int, filename: str, dpi: int = 200, colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
+        """
+        Saves a specific frame from the FDTD simulation as an image file at the specified resolution.
+
+        This method invokes the plot_frame function to generate a visual representation
+        of a specific frame and then saves it as an image file using the given colormap.
+
+        Args:
+            frame_number (int): The index of the frame to be saved.
+            filename (str): The file path where the image will be saved.
+            dpi (int): The resolution of the saved image in dots per inch.
+            colormap (Optional[Union[str, object]]): The colormap used for visualizing the data.
+                Defaults to a predefined blue-black-red colormap.
+
+        Returns:
+            None: This method does not return any value, but saves an image file.
+        """
+        scene = self.plot_frame(frame_number, colormap)
+        scene._render_()  # Assuming render prepares the visual for saving
+        scene.save_figure(filename, dpi=dpi)  # Corrected method name and parameters for saving
+
+    def render_propagation(self, skip_frame: int = 10, colormap: Optional[Union[str, object]] = colormaps.blue_black_red, unit_size: float = 8) -> animation.FuncAnimation:
+        """
+        Renders the propagation of a field as an animation using matplotlib.
+
+        This method sets up the scene, defines the initial conditions of the field,
+        and creates an animation showing the evolution of the field over time.
+
+        Args:
+            skip_frame (int): The number of time steps to skip between frames in the animation.
+            colormap (Optional[Union[str, object]]): The colormap used for visualizing the data. Defaults to a predefined blue-black-red colormap.
+            unit_size (float): The base unit size for scaling the plot elements.
+
+        Returns:
+            animation.FuncAnimation: The animation object that can be displayed or saved.
+        """
+        # Adjust the unit size proportionally to maintain aspect ratio
+        adjusted_unit_size = (unit_size, int(unit_size * self.grid.n_x / self.grid.n_y))
+
+        # Initialize the scene with specified unit sizes
+        scene = SceneList(unit_size=adjusted_unit_size)
+
+        # Setup the plot
         ax = scene.append_ax(
             title='FDTD Simulation at time step',
             x_label=r'x position [$\mu$m]',
-            y_label=r'x position [$\mu$m]',
+            y_label=r'y position [$\mu$m]',
             aspect_ratio='equal',
             show_grid=False
         )
+
+        # Add colorbar to the axis
         ax.add_colorbar(colormap=colormap)
 
+        # Initialize the field display
         initial_field = numpy.zeros(self.Ez_t[0].shape).T
-        artist_list = []
-
         field_artist = ax.add_mesh(
             x=self.grid.x_stamp,
             y=self.grid.y_stamp,
             scalar=initial_field,
             layer_position=-1,
         )
-        artist_list.append(field_artist)
 
+        # Store all artists for updating
+        artist_list = [field_artist]
+
+        # Add other components to the axis and their artists to the list
         for component in self.components:
-            component_artist = component.add_to_ax(ax)
-            artist_list.append(component_artist)
+            artist_list.append(component.add_to_ax(ax))
 
+        # Render the scene once to initialize
         scene._render_()
 
+        # Set color limits based on the maximum field amplitude
         max_amplitude = abs(self.Ez_t).max() / 2
         field_artist.mappable.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
 
         def update(frame) -> list:
+            """
+            Update function for the animation; called for each frame.
+            """
             field_t = self.Ez_t[frame].T
             field_artist.mappable.set_array(field_t)
             return [art.mappable for art in artist_list]
 
         def init_func():
+            """
+            Initialization function for the animation; called at the start.
+            """
             ax.mpl_ax.set_xticks([])
             ax.mpl_ax.set_yticks([])
             return field_artist.mappable,
 
+        # Create and return the animation object
         render = animation.FuncAnimation(
             fig=scene._mpl_figure,
             func=update,
@@ -277,36 +368,5 @@ class Experiment:
             blit=True,
             init_func=init_func
         )
+
         return render
-
-    def _plot_propagation(self, dark_colormap: bool = True) -> NoReturn:
-        """Plot the propagation of the field using matplotlib."""
-        colormap = colormaps.blue_black_red if dark_colormap else colormaps.blue_white_red
-
-        fig, ax = plt.subplots(1, 1)
-        ax.set_title('FDTD Simulation at time step')
-        ax.set_xlabel(r'x position [$\mu$m]')
-        ax.set_ylabel(r'y position [$\mu$m]')
-
-        initial_field = numpy.zeros(self.Ez_t[0].shape)
-        mappable = ax.pcolormesh(
-            self.grid.x_stamp,
-            self.grid.y_stamp,
-            initial_field.T,
-            shading='auto',
-            cmap=colormap,
-        )
-        ax.set_aspect('equal')
-
-        max_amplitude = abs(self.Ez_t).max() / 6
-        mappable.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
-
-        for iteration, t in enumerate(self.grid.time_stamp):
-            field_t = self.Ez_t[iteration].T
-
-            if iteration % 10 == 0:
-                ax.set_title(f"Time stamp: {t * 1e9: .3e} [ns]")
-                mappable.set_array(field_t)
-                fig.canvas.draw()
-                fig.canvas.flush_events()
-                plt.show(block=False)

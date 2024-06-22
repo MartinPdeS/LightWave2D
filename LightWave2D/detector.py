@@ -2,16 +2,22 @@
 # -*- coding: utf-8 -*-
 
 from typing import Tuple, Union
-from dataclasses import dataclass, field
+from dataclasses import field
 import numpy
-
 from LightWave2D.grid import Grid
 from MPSPlots.render2D import SceneList, Axis
-
 import cv2
+from pydantic.dataclasses import dataclass
+
+config_dict = dict(
+    kw_only=True,
+    slots=True,
+    extra='forbid',
+    arbitrary_types_allowed=True
+)
 
 
-@dataclass
+@dataclass(config=config_dict)
 class CircularDetector():
     grid: Grid
     """ The grid of the simulation mesh """
@@ -89,7 +95,7 @@ class CircularDetector():
         )
 
 
-@dataclass
+@dataclass(config=config_dict)
 class PointDetector:
     """
     Represents a point detector within a simulation grid.

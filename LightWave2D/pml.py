@@ -2,13 +2,19 @@
 # -*- coding: utf-8 -*-
 
 import numpy
-from dataclasses import dataclass
 from LightWave2D.grid import Grid
-
 from MPSPlots.render2D import SceneList, Axis
+from pydantic.dataclasses import dataclass
+
+config_dict = dict(
+    kw_only=True,
+    slots=True,
+    extra='forbid',
+    arbitrary_types_allowed=True
+)
 
 
-@dataclass()
+@dataclass(config=config_dict)
 class PML():
     grid: Grid
     """ The grid of the simulation mesh """

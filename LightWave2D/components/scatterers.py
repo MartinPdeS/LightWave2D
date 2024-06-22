@@ -12,7 +12,8 @@ from LightWave2D.components.base_class import BaseComponent
 config_dict = dict(
     kw_only=True,
     extra='forbid',
-    slots=True
+    slots=True,
+    arbitrary_types_allowed=True
 )
 
 
@@ -163,7 +164,7 @@ class Circle(BaseComponent):
         x0, y0 = self.position
         self.coordinate = self.grid.get_coordinate(x=x0, y=y0)
 
-        distance_mesh = self.grid.get_distance_grid(x0=self.coordinate.y, y0=self.coordinate.x)
+        distance_mesh = self.grid.get_distance_grid(x0=self.coordinate.x, y0=self.coordinate.y)
 
         self.idx = distance_mesh < self.radius
 
@@ -181,6 +182,56 @@ class Circle(BaseComponent):
         return ax.add_circle(
             position=(self.coordinate.x, self.coordinate.y),
             radius=self.radius,
+            label='scatterer',
+            facecolor='lightblue',
+            edgecolor='blue'
+        )
+
+
+@dataclass(config=config_dict)
+class Ellipse(BaseComponent):
+    """
+    Represents a scatterer in a simulation grid.
+
+    Attributes:
+        grid (Grid): The grid of the simulation mesh.
+        position (Tuple[float | str, float | str]): Starting position of the scatterer.
+        epsilon_r (float): Relative permittivity inside the scatterer.
+        width (float):
+        height (float):
+        angle (float):
+    """
+    grid: Grid
+    position: Tuple[float | str, float | str]
+    width: float
+    height: float
+    epsilon_r: float
+    angle: float = 0
+
+    def build_mesh(self) -> NoReturn:
+        """
+        Build the permittivity mesh for the scatterer.
+        """
+
+        from shapely.geometry import Point
+        from shapely.geometry.polygon import Polygon
+
+        point = Point(0.5, 0.5)
+        polygon = Polygon([(0, 0), (0, 1), (1, 1), (1, 0)])
+        print(polygon.contains(point))
+
+    def add_to_ax(self, ax: Axis) -> NoReturn:
+        """
+        Add the scatterer to the provided axis as a circle.
+
+        Args:
+            ax (Axis): The axis to which the scatterer will be added.
+        """
+        return ax.add_ellipse(
+            position=(self.coordinate.x, self.coordinate.y),
+            width=self.width,
+            height=self.height,
+            angle=self.angle,
             label='scatterer',
             facecolor='lightblue',
             edgecolor='blue'

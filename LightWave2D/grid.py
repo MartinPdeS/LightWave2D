@@ -3,8 +3,14 @@
 
 from typing import Union, Optional
 import numpy
-from dataclasses import dataclass
 from LightWave2D.physics import Physics
+from pydantic.dataclasses import dataclass
+
+config_dict = dict(
+    kw_only=True,
+    slots=True,
+    extra='forbid'
+)
 
 
 class NameSpace:
@@ -17,30 +23,30 @@ class NameSpace:
             setattr(self, k, v)
 
 
-@dataclass
+@dataclass(config=config_dict)
 class Grid:
     """
     Represents a 2D simulation grid with specified dimensions and time steps.
 
     Attributes:
-        n_x (int): Number of cells in the x-direction.
-        n_y (int): Number of cells in the y-direction.
+        resolution (float): Spatial resolution of the grid in meters per cell.
         size_x (float): Size of the grid in the x-direction in meters.
         size_y (float): Size of the grid in the y-direction in meters.
         n_steps (int): Number of time steps for the simulation (default is 200).
     """
-    n_x: int
-    n_y: int
+    resolution: float
     size_x: float
     size_y: float
     n_steps: int = 200
 
     def __post_init__(self):
-        self.shape = (self.n_x, self.n_y)
-        self.dx = self.size_x / self.n_x
-        self.dy = self.size_y / self.n_y
+        self.n_x = int(self.size_x / self.resolution)
+        self.n_y = int(self.size_y / self.resolution)
+        self.dx = self.size_x / self.n_x  # Should be approximately equal to the resolution
+        self.dy = self.size_y / self.n_y  # Should be approximately equal to the resolution
         self.dt = 1 / (Physics.c * numpy.sqrt(1 / self.dx**2 + 1 / self.dy**2))  # Time step size using Courant condition
 
+        self.shape = (self.n_x, self.n_y)
         self.time_stamp = numpy.arange(self.n_steps) * self.dt
         self.x_stamp = numpy.arange(self.n_x) * self.dx
         self.y_stamp = numpy.arange(self.n_y) * self.dy
@@ -60,7 +66,7 @@ class Grid:
         distance_mesh = numpy.sqrt((x_mesh - x0)**2 + (y_mesh - y0)**2)
         return distance_mesh
 
-    def get_coordinate(self, x: Optional[Union[float | str]] = None, y: Optional[Union[float | str]] = None) -> NameSpace:
+    def get_coordinate(self, x: Optional[Union[float, str]] = None, y: Optional[Union[float, str]] = None) -> NameSpace:
         """
         Get the coordinate and index for a given position in the grid.
 
@@ -140,12 +146,11 @@ class Grid:
             assert value in ['right', 'center', 'left'], f"Invalid position: {value}. Valid inputs are ['right', 'center', 'left']."
             match value:
                 case 'right':
-                    return self.x_stamp[0]
+                    return self.x_stamp[-1]
                 case 'center':
                     return numpy.mean(self.x_stamp)
                 case 'left':
-                    return self.x_stamp[-1]
+                    return self.x_stamp[0]
 
         return value
 
-# -

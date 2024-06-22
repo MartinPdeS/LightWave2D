@@ -13,11 +13,10 @@ from LightWave2D.experiment import Experiment
 # %%
 # We define here the grid on which to build the experiemnt
 grid = Grid(
-    n_x=400,
-    n_y=200,
+    resolution=0.1e-6,
     size_x=4 * 8e-6,
     size_y=4 * 4e-6,
-    n_steps=200
+    n_steps=500
 )
 
 experiment = Experiment(grid=grid)
@@ -33,11 +32,11 @@ scatterer = experiment.add_circle(
 
 # %%
 # We add a line source
-source = experiment.add_vertical_line_source(
+source = experiment.add_line_source(
     wavelength=1550e-9,
-    x_position=3e-6,
-    amplitude=100,
-    y_positions=(7e-6, 9e-6)
+    point_0=('10%', '100%'),
+    point_1=('10%', '0%'),
+    amplitude=10,
 )
 
 
@@ -55,7 +54,7 @@ experiment.plot().show()
 
 experiment.run_fdtd()
 
-animation = experiment.render_propagation(skip_frame=5)
+animation = experiment.render_propagation(skip_frame=5, unit_size=3)
 
 animation.save('./test.gif', writer='Pillow', fps=10)
 
