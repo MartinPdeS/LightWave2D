@@ -48,7 +48,7 @@ experiment.add_pml(order=1, width=70, sigma_max=5000)
 
 experiment.run_fdtd()
 
-# experiment.plot().show()
+experiment.plot().show()
 
 figure = experiment.plot_frame(
     frame_number=-1,

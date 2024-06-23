@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from typing import NoReturn
 import numpy
 from LightWave2D.grid import Grid
-from MPSPlots.render2D import SceneList, Axis
 from pydantic.dataclasses import dataclass
+from matplotlib.colors import ListedColormap
+import matplotlib.pyplot as plt
 
 config_dict = dict(
     kw_only=True,
@@ -43,20 +45,30 @@ class PML():
                 elif j >= self.grid.n_y - self.width:
                     self.sigma_y[i, j] = self.sigma_max * ((j - (self.grid.n_y - self.width - 1)) / self.width) ** self.order
 
-    def add_to_ax(self, ax: Axis) -> None:
-        ax.add_mesh(
-            x=self.grid.x_stamp,
-            y=self.grid.y_stamp,
-            scalar=self.sigma_y.T + self.sigma_x.T
+    def add_to_ax(self, ax: plt.axis) -> NoReturn:
+        cmap = numpy.zeros([256, 4])
+        cmap[:, 3] = numpy.linspace(0, 1, 256)
+        cmap = ListedColormap(cmap)
+
+        ax.pcolormesh(
+            self.grid.x_stamp,
+            self.grid.y_stamp,
+            self.sigma_y.T + self.sigma_x.T,
+            cmap=cmap,
+            label='PML'
         )
 
-    def plot(self) -> SceneList:
-        scene = SceneList()
+    def plot(self, unit_size: int = 4) -> NoReturn:
+        figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
+        figure, ax = plt.subplots(1, 1, figsize=figsize)
 
-        ax = scene.append_ax()
+        ax.set_title('FDTD Simulation at time step')
+        ax.set_xlabel(r'x position [$\mu$m]')
+        ax.set_xlabel(r'y position [$\mu$m]')
+        ax.set_aspect('equal')
 
         self.add_to_ax(ax)
 
-        return scene
+        plt.show()
 
 # -

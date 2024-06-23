@@ -1,38 +1,61 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from typing import NoReturn
+
 import numpy
-from MPSPlots.render2D import SceneList, Axis
 from LightWave2D.physics import Physics
+import matplotlib.pyplot as plt
+from matplotlib.patches import PathPatch
 
 
 class BaseComponent():
     def __post_init__(self):
+        self.build_object()
+
+    def build_object(self) -> NoReturn:
+        """
+        Build the permittivity mesh for the square scatterer.
+        """
         self.epsilon_r_mesh = numpy.ones(self.grid.shape)  # Background permittivity
 
-        self.build_mesh()
+        self.compute_path()
 
-    def add_to_ax(self, ax: Axis) -> None:
-        ax.add_mesh(
-            x=self.grid.x_stamp * 1e6,
-            y=self.grid.y_stamp * 1e6,
-            scalar=self.epsilon_r_mesh.T,
+        x_mesh, y_mesh = numpy.meshgrid(self.grid.x_stamp, self.grid.y_stamp)
+
+        coordinates = numpy.c_[x_mesh.flatten(), y_mesh.flatten()]
+
+        self.idx = self.path.contains_points(coordinates).astype(bool).reshape(self.epsilon_r_mesh.shape)
+
+        self.epsilon_r_mesh[self.idx.T] = self.epsilon_r
+
+    def add_to_ax(self, ax: plt.axis) -> NoReturn:
+        """
+        Add the scatterer to the provided axis as a circle.
+
+        Args:
+            ax (Axis): The axis to which the scatterer will be added.
+        """
+        patch = PathPatch(
+            self.path,
+            alpha=0.7,
+            color=self.facecolor,
+            label=str(self.__class__.__name__),
         )
 
-    def plot(self) -> SceneList:
-        scene = SceneList(
-            unit_size=(4, 4),
-            title='FDTD Simulation at time step'
-        )
+        return ax.add_patch(patch)
 
-        ax = scene.append_ax(
-            x_label=r'x position [$\mu$m]',
-            y_label=r'y position [$\mu$m]',
-            aspect_ratio='equal',
-        )
+    def plot(self) -> NoReturn:
+        figure, ax = plt.subplots(1, 1, figsize=(6, 6))
+        ax.set_title('FDTD Simulation')
+        ax.set_xlabel(r'x position [$\mu$m]')
+        ax.set_xlabel(r'y position [$\mu$m]')
+        ax.set_aspect('equal')
 
         self.add_to_ax(ax)
+        ax.autoscale_view()
 
-        ax.add_colorbar(colormap='Blues')
-
-        return scene
+        plt.show()
 
     def interpret_position_to_index(self) -> tuple:
         """

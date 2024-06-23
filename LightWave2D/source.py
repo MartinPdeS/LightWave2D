@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from typing import Tuple
+from typing import Tuple, NoReturn
 import numpy
-from MPSPlots.render2D import SceneList, Axis
 from LightWave2D.grid import Grid
 from LightWave2D.utils import bresenham_line
 from pydantic.dataclasses import dataclass
+from LightWave2D.components.base_class import BaseComponent
+from matplotlib.path import Path
+import shapely.geometry as geo
+import matplotlib.pyplot as plt
 
 config_dict = dict(
     kw_only=True,
@@ -17,7 +20,7 @@ config_dict = dict(
 
 
 @dataclass(config=config_dict)
-class PointSource():
+class PointSource(BaseComponent):
     grid: Grid
     """ The grid of the simulation mesh """
     wavelength: float
@@ -28,6 +31,8 @@ class PointSource():
     """ Not to be changed """
     amplitude: float = 1.0
     """ Amplitude of the electric field """
+    facecolor: str = 'red'
+    edgecolor: str = 'red'
 
     def __post_init__(self):
         self.frequency = self.speed_of_light / self.wavelength
@@ -38,13 +43,30 @@ class PointSource():
 
         self.p0 = self.grid.get_coordinate(x=x, y=y)
 
-    def add_source_to_field(self, field: numpy.ndarray, time) -> None:
-        rows, cols = self.slice_indexes
+        self.polygon = geo.Point(self.p0.x, self.p0.y)
+
+        self.path = Path(self.polygon.coords)
+
+    def add_to_ax(self, ax: plt.axis) -> NoReturn:
+        """
+        Add the scatterer to the provided axis as a circle.
+
+        Args:
+            ax (Axis): The axis to which the scatterer will be added.
+        """
+        ax.scatter(
+            self.p0.x,
+            self.p0.y,
+            color=self.facecolor
+        )
+
+    def add_source_to_field(self, field: numpy.ndarray, time: float) -> NoReturn:
+        rows, cols = self.position
         field[self.p0.x_index, self.p0.y_index] += self.amplitude * numpy.sin(self.omega * time)
 
 
 @dataclass(config=config_dict)
-class LineSource():
+class LineSource(BaseComponent):
     grid: Grid
     """ The grid of the simulation mesh """
     wavelength: float
@@ -57,15 +79,17 @@ class LineSource():
     """ Not to be changed """
     amplitude: float = 1.0
     """ Amplitude of the electric field """
+    facecolor: str = 'red'
+    edgecolor: str = 'red'
 
     def __post_init__(self):
         self.frequency = self.speed_of_light / self.wavelength
 
         self.omega = 2 * numpy.pi * self.frequency
 
-        self.build_line()
+        super().__post_init__()
 
-    def build_line(self) -> None:
+    def build_object(self) -> NoReturn:
 
         self.p0 = self.grid.get_coordinate(x=self.point_0[0], y=self.point_0[1])
         self.p1 = self.grid.get_coordinate(x=self.point_1[0], y=self.point_1[1])
@@ -81,36 +105,15 @@ class LineSource():
 
         self.slice_indexes = rows, cols
 
-    def add_source_to_field(self, field: numpy.ndarray, time) -> None:
+        p0 = geo.Point(self.p0.x, self.p0.y)
+        p1 = geo.Point(self.p1.x, self.p1.y)
+
+        self.polygon = geo.LineString((p0, p1))
+        self.path = Path(numpy.array(self.polygon.coords))
+
+    def add_source_to_field(self, field: numpy.ndarray, time: float) -> NoReturn:
         rows, cols = self.slice_indexes
         field[rows, cols] += self.amplitude * numpy.sin(self.omega * time)
 
-    def add_to_ax(self, ax: Axis) -> None:
-        ax.add_line(
-            x=[self.p0.x, self.p1.x],
-            y=[self.p0.y, self.p1.y],
-            color='red',
-            line_width=2,
-            label='source'
-        )
-
-    def plot(self) -> SceneList:
-        scene = SceneList(
-            unit_size=(4, 4),
-            title='FDTD Simulation at time step'
-        )
-
-        ax = scene.append_ax(
-            x_label=r'x position [$\mu$m]',
-            y_label=r'y position [$\mu$m]',
-            aspect_ratio='equal',
-            equal_limits=True
-        )
-
-        self.add_to_ax(ax)
-
-        ax.add_colorbar(colormap='Blues')
-
-        return scene
 
 # -
