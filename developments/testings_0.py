@@ -74,7 +74,7 @@ detector = experiment.add_point_detector(position=(25e-6, 'center'))
 
 # %%
 # Plotting of the whole experiemnt setup
-# experiment.plot()
+experiment.plot()
 
 experiment.run_fdtd()
 

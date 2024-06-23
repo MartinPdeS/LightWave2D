@@ -4,10 +4,9 @@ from LightWave2D.grid import Grid
 
 def test_grid():
     grid = Grid(
-        n_x=400,
-        n_y=200,
-        size_x=4 * 8e-6,
-        size_y=4 * 4e-6,
+        resolution=1e-6,
+        size_x=32e-6,
+        size_y=16e-6,
         n_steps=3000
     )
 
