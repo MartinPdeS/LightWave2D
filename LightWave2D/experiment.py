@@ -72,13 +72,7 @@ class Experiment:
         Returns:
             SceneList: A SceneList object that contains the constructed plot.
         """
-        figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
-        figure, ax = plt.subplots(1, 1, figsize=figsize)
-
-        ax.set_title('FDTD Simulation')
-        ax.set_xlabel(r'x position [$\mu$m]')
-        ax.set_xlabel(r'y position [$\mu$m]')
-        ax.set_aspect('equal')
+        figure, ax = self.get_figure_ax(unit_size=unit_size)
 
         # Add PML layers to the plot if present
         if self.pml:
@@ -242,13 +236,7 @@ class Experiment:
         Returns:
             SceneList: A SceneList object that contains the constructed plot.
         """
-        figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
-        figure, ax = plt.subplots(1, 1, figsize=figsize)
-
-        ax.set_title('FDTD Simulation')
-        ax.set_xlabel(r'x position [$\mu$m]')
-        ax.set_xlabel(r'y position [$\mu$m]')
-        ax.set_aspect('equal')
+        figure, ax = self.get_figure_ax(unit_size=unit_size)
 
         image = ax.pcolormesh(
             self.grid.x_stamp,
@@ -285,13 +273,7 @@ class Experiment:
         Returns:
             None: This method does not return any value, but saves an image file.
         """
-        figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
-        figure, ax = plt.subplots(1, 1, figsize=figsize)
-
-        ax.set_title('FDTD Simulation')
-        ax.set_xlabel(r'x position [$\mu$m]')
-        ax.set_xlabel(r'y position [$\mu$m]')
-        ax.set_aspect('equal')
+        figure, ax = self.get_figure_ax(unit_size=unit_size)
 
         image = ax.pcolormesh(
             self.grid.x_stamp,
@@ -311,6 +293,17 @@ class Experiment:
 
         plt.savefig(filename, dpi=dpi)
 
+    def get_figure_ax(self, unit_size: int = 4) -> Tuple:
+        figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
+        figure, ax = plt.subplots(1, 1, figsize=figsize)
+
+        ax.set_title('FDTD Simulation')
+        ax.set_xlabel(r'x position [$\mu$m]')
+        ax.set_ylabel(r'y position [$\mu$m]')
+        ax.set_aspect('equal')
+
+        return figure, ax
+
     def render_propagation(self, skip_frame: int = 10, unit_size: int = 4, colormap: Optional[Union[str, object]] = colormaps.blue_black_red) -> animation.FuncAnimation:
         """
         Renders the propagation of a field as an animation using matplotlib.
@@ -326,13 +319,7 @@ class Experiment:
         Returns:
             animation.FuncAnimation: The animation object that can be displayed or saved.
         """
-        figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
-        figure, ax = plt.subplots(1, 1, figsize=figsize)
-
-        ax.set_title('FDTD Simulation')
-        ax.set_xlabel(r'x position [$\mu$m]')
-        ax.set_xlabel(r'y position [$\mu$m]')
-        ax.set_aspect('equal')
+        figure, ax = self.get_figure_ax(unit_size=unit_size)
 
         # Initialize the field display
         initial_field = numpy.zeros(self.Ez_t[0].shape).T

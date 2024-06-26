@@ -57,12 +57,16 @@ experiment.run_fdtd()
 
 experiment.plot_frame(
     frame_number=-1,
-    colormap=colormaps.classic.red_black_blue
+    colormap=colormaps.polytechnique.red_black_blue
 )
 
 
-animation = experiment.render_propagation(skip_frame=5, unit_size=5)
+animation = experiment.render_propagation(
+    skip_frame=5,
+    unit_size=5,
+    colormap=colormaps.polytechnique.red_black_blue
+)
 
-animation.save('./test.gif', writer='Pillow', fps=10)
+animation.save('./tests.gif', writer='Pillow', fps=10)
 
 # -
