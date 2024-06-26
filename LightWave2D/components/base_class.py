@@ -23,11 +23,11 @@ class BaseComponent():
 
         x_mesh, y_mesh = numpy.meshgrid(self.grid.x_stamp, self.grid.y_stamp)
 
-        coordinates = numpy.c_[x_mesh.flatten(), y_mesh.flatten()]
+        coordinates = numpy.c_[x_mesh.T.flatten(), y_mesh.T.flatten()]
 
         self.idx = self.path.contains_points(coordinates).astype(bool).reshape(self.epsilon_r_mesh.shape)
 
-        self.epsilon_r_mesh[self.idx.T] = self.epsilon_r
+        self.epsilon_r_mesh[self.idx] = self.epsilon_r
 
     def add_to_ax(self, ax: plt.axis) -> NoReturn:
         """

@@ -16,7 +16,7 @@ from MPSPlots import colormaps
 grid = Grid(
     resolution=0.1e-6,
     size_x=40e-6,
-    size_y=40e-6,
+    size_y=30e-6,
     n_steps=1200
 )
 
@@ -26,7 +26,7 @@ experiment = Experiment(grid=grid)
 # %%
 # We add a circular scatterer
 scatterer = experiment.add_circle(
-    position=('30%', '50%'),
+    position=('30%', '20%'),
     radius=2e-6,
     epsilon_r=2,
 )
@@ -48,15 +48,13 @@ experiment.add_pml(order=1, width=70, sigma_max=5000)
 
 experiment.run_fdtd()
 
-experiment.plot().show()
+experiment.plot()
 
-figure = experiment.plot_frame(
+experiment.plot_frame(
     frame_number=-1,
     colormap=colormaps.polytechnique.red_black_blue
 )
 
-
-figure.show()
 
 experiment.save_frame_as_image(frame_number=-1, filename='test.png')
 

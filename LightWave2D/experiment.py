@@ -268,7 +268,7 @@ class Experiment:
 
         plt.show()
 
-    def save_frame_as_image(self, frame_number: int, filename: str, dpi: int = 200, colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
+    def save_frame_as_image(self, frame_number: int, filename: str, unit_size: int = 4, dpi: int = 200, colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
         """
         Saves a specific frame from the FDTD simulation as an image file at the specified resolution.
 
@@ -285,9 +285,31 @@ class Experiment:
         Returns:
             None: This method does not return any value, but saves an image file.
         """
-        scene = self.plot_frame(frame_number, colormap)
-        scene._render_()  # Assuming render prepares the visual for saving
-        scene.save_figure(filename, dpi=dpi)  # Corrected method name and parameters for saving
+        figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
+        figure, ax = plt.subplots(1, 1, figsize=figsize)
+
+        ax.set_title('FDTD Simulation')
+        ax.set_xlabel(r'x position [$\mu$m]')
+        ax.set_xlabel(r'y position [$\mu$m]')
+        ax.set_aspect('equal')
+
+        image = ax.pcolormesh(
+            self.grid.x_stamp,
+            self.grid.y_stamp,
+            self.Ez_t[frame_number].T,
+            cmap=colormap
+        )
+
+        for component in [*self.components, *self.sources, *self.detectors]:
+            component.add_to_ax(ax)
+
+        vmin, vmax = image.get_clim()
+
+        max_diff = max(abs(vmin), abs(vmax))
+
+        image.set_clim([-max_diff, max_diff])
+
+        plt.savefig(filename, dpi=dpi)
 
     def render_propagation(self, skip_frame: int = 10, unit_size: int = 4, colormap: Optional[Union[str, object]] = colormaps.blue_black_red) -> animation.FuncAnimation:
         """
