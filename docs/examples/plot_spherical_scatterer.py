@@ -16,7 +16,7 @@ from MPSPlots import colormaps
 grid = Grid(
     resolution=0.1e-6,
     size_x=32e-6,
-    size_y=40e-6,
+    size_y=20e-6,
     n_steps=300
 )
 
@@ -61,7 +61,7 @@ experiment.plot_frame(
 )
 
 
-animation = experiment.render_propagation(skip_frame=5, unit_size=3)
+animation = experiment.render_propagation(skip_frame=5, unit_size=5)
 
 animation.save('./test.gif', writer='Pillow', fps=10)
 
