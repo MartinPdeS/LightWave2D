@@ -2,59 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import numpy
-import matplotlib.pyplot as plt
-import time
-from MPSPlots.colormaps import blue_black_red
-from LightWave2D.grid import Grid
 
 
-def plot_slice(*fields, absolute: bool, slc=None):
-    n_ax = len(fields)
-    figure, axes = plt.subplots(1, n_ax, figsize=(5 * n_ax, 3))
-
-    axes = numpy.atleast_1d(axes)
-
-    for ax, field in zip(axes, fields):
-        if absolute:
-            field = abs(field)
-
-        if slc is not None:
-            field = field[slc]
-        image = ax.imshow(field)
-        plt.colorbar(mappable=image)
-        ax.axis('off')
-
-    plt.show()
-
-
-def plot_propgation(field: numpy.ndarray, n_step: int, grid: Grid):
-    plt.ion()
-    figure, ax = plt.subplots(1, 1)
-    ax.set_title('FDTD Simulation at time step')
-    ax.set_xlabel('x position (m)')
-    ax.set_ylabel('y position (m)')
-    plt.axis('off')
-
-    mappable = ax.imshow(
-        numpy.zeros(field[0].T.shape),
-        origin='lower',
-        cmap=blue_black_red
-    )
-
-    for t in range(grid.n_steps):
-        field_t = field[t].T
-        if t % n_step == 0:
-            mappable.set_data(field_t)
-            mappable.set_clim(vmin=-1, vmax=+1)
-            figure.canvas.draw()
-            figure.canvas.flush_events()
-            time.sleep(0.1)
-            ax.grid(False)
-
-            plt.show()
-
-
-def bresenham_line(x0, y0, x1, y1):
+def bresenham_line(x0: float, y0: float, x1: float, y1: float):
     """
     Bresenham's Line Algorithm
     Produces a list of tuples from start and end

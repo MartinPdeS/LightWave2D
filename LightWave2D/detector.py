@@ -30,7 +30,6 @@ class PointDetector(BaseComponent):
         position (Tuple[float | str, float | str]): The (x, y) coordinates of the point detector on the grid.
         data (numpy.ndarray): The data collected by the detector over time.
     """
-    grid: Grid
     position: Union[Tuple[float | str, float | str]]
     data: numpy.ndarray = field(init=False)
 

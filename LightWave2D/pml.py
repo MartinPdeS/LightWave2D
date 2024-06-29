@@ -58,7 +58,7 @@ class PML():
             label='PML'
         )
 
-    def plot(self, unit_size: int = 4) -> NoReturn:
+    def plot(self, unit_size: int = 6) -> NoReturn:
         figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
         figure, ax = plt.subplots(1, 1, figsize=figsize)
 

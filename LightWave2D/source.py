@@ -3,7 +3,6 @@
 
 from typing import Tuple, NoReturn
 import numpy as np
-from LightWave2D.grid import Grid
 from LightWave2D.utils import bresenham_line
 from pydantic.dataclasses import dataclass
 from LightWave2D.components.base_class import BaseComponent
@@ -26,14 +25,12 @@ class PointSource(BaseComponent):
     Represents a point source in a 2D light wave simulation.
 
     Attributes:
-        grid (Grid): The grid of the simulation mesh.
         wavelength (float): Wavelength of the source.
         position (tuple): Position (x, y) of the source.
         amplitude (float): Amplitude of the electric field, default is 1.0.
         facecolor (str): Color for the source's face, default is 'red'.
         edgecolor (str): Color for the source's edge, default is 'red'.
     """
-    grid: Grid
     wavelength: float
     position: Tuple[float | str, float | str]
     amplitude: float = 1.0
@@ -74,15 +71,11 @@ class LineSource(BaseComponent):
     Represents a line source in a 2D light wave simulation.
 
     Attributes:
-        grid (Grid): The grid of the simulation mesh.
         wavelength (float): Wavelength of the source.
         point_0 (Tuple[float, float]): Starting position (x, y) of the source.
         point_1 (Tuple[float, float]): Ending position (x, y) of the source.
         amplitude (float): Amplitude of the electric field, default is 1.0.
-        facecolor (str): Color for the source's face, default is 'red'.
-        edgecolor (str): Color for the source's edge, default is 'red'.
     """
-    grid: Grid
     wavelength: float
     point_0: Tuple[float | str, float | str]
     point_1: Tuple[float | str, float | str]

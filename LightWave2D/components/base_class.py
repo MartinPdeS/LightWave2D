@@ -11,6 +11,7 @@ import matplotlib as mpl
 import numpy as np
 from matplotlib.path import Path
 from matplotlib.collections import PatchCollection
+from LightWave2D.grid import Grid
 
 
 # Configuration dictionary for dataclasses
@@ -33,6 +34,7 @@ class BaseComponent():
         facecolor (str): Color of the scatterer face.
         edgecolor (str): Color of the scatterer edge.
     """
+    grid: Grid
     facecolor: str = 'lightblue'
     edgecolor: str = 'blue'
     alpha: float = 0.3
