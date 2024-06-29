@@ -23,11 +23,19 @@ experiment = Experiment(grid=grid)
 
 
 scatterer = experiment.add_ring_resonator(
-    position=('45%', '50%'),
-    epsilon_r=2,
+    position=('35%', '50%'),
+    epsilon_r=1.5,
     # period=3e-6,
-    inner_radius=5e-6,
-    outer_radius=8e-6
+    inner_radius=4e-6,
+    width=2e-6
+)
+
+scatterer = experiment.add_ring_resonator(
+    position=('60%', '50%'),
+    epsilon_r=1.5,
+    # period=3e-6,
+    inner_radius=4e-6,
+    width=2e-6
 )
 
 
@@ -80,16 +88,16 @@ scatterer = experiment.add_ring_resonator(
 # We add a line source
 source = experiment.add_point_source(
     wavelength=1550e-9,
-    position=('30%', '50%'),
+    position=('20%', '50%'),
     amplitude=100,
 )
 
-# # %%
-# # We add a line source
+# %%
+# We add a line source
 # source = experiment.add_line_source(
 #     wavelength=1550e-9,
-#     point_0=('10%', '100%'),
-#     point_1=('10%', '0%'),
+#     point_0=('10%', '40%'),
+#     point_1=('10%', '60%'),
 #     amplitude=10,
 # )
 

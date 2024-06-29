@@ -6,7 +6,8 @@ from typing import Tuple, NoReturn, Optional, Union
 import numpy
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
-from LightWave2D.components import Circle, Square, Ellipse, Triangle, Lense, Grating, RingResonator
+from LightWave2D.components.basic import Circle, Square, Ellipse, Triangle
+from LightWave2D.components.complex import Lense, Grating, RingResonator
 from LightWave2D.source import PointSource, LineSource
 from LightWave2D.detector import PointDetector
 from LightWave2D.pml import PML

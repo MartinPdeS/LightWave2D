@@ -1,4 +1,5 @@
-from .scatterers import Circle, Square, Ellipse, Triangle, Lense, Grating, RingResonator  # noqa: F401
+from .complex import Lense, Grating, RingResonator  # noqa: F401
 
+from .basic import Circle, Square, Ellipse, Triangle  # noqa: F401
 
 # -
