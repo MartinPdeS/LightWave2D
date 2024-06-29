@@ -107,8 +107,6 @@ Some examples
 
    experiment.run_fdtd()
 
-   experiment.plot_frame(frame_number=-1, scale_max=4)
-
    animation = experiment.render_propagation(skip_frame=5, colormap=polytechnique.red_black_blue)
 
    animation.save('./resonator.gif', writer='Pillow', fps=10)
