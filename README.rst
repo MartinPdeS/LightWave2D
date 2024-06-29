@@ -49,8 +49,6 @@ Some examples
 
    experiment.add_pml(order=1, width=70, sigma_max=5000)
 
-   experiment.plot()
-
    experiment.run_fdtd()
 
    animation = experiment.render_propagation(
@@ -102,8 +100,6 @@ Some examples
    )
 
    pml = experiment.add_pml(order=1, width=70, sigma_max=5000)
-
-   experiment.plot()
 
    experiment.run_fdtd()
 
