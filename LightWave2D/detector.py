@@ -20,7 +20,7 @@ config_dict = dict(
 )
 
 
-@dataclass(config=config_dict)
+@dataclass(kw_only=True, config=config_dict)
 class PointDetector(BaseComponent):
     """
     Represents a point detector within a simulation grid.
@@ -33,7 +33,6 @@ class PointDetector(BaseComponent):
     grid: Grid
     position: Union[Tuple[float | str, float | str]]
     data: numpy.ndarray = field(init=False)
-    facecolor: str = 'blue'
 
     def __post_init__(self):
         """
@@ -84,4 +83,4 @@ class PointDetector(BaseComponent):
             color=self.facecolor
         )
 
-
+# -

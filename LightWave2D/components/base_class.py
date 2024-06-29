@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from typing import NoReturn
-
+from pydantic.dataclasses import dataclass
 import numpy
 from LightWave2D.physics import Physics
 import matplotlib.pyplot as plt
@@ -13,7 +13,30 @@ from matplotlib.path import Path
 from matplotlib.collections import PatchCollection
 
 
+# Configuration dictionary for dataclasses
+config_dict = {
+    'kw_only': True,
+    'extra': 'forbid',
+    'slots': True,
+    'arbitrary_types_allowed': True
+}
+
+
+@dataclass(kw_only=True, config=config_dict)
 class BaseComponent():
+    """
+    Represents an elliptical scatterer in a simulation grid.
+
+    Attributes:
+        grid (Grid): The grid of the simulation mesh.
+        angle (float): Rotation angle of the ellipse.
+        facecolor (str): Color of the scatterer face.
+        edgecolor (str): Color of the scatterer edge.
+    """
+    facecolor: str = 'lightblue'
+    edgecolor: str = 'blue'
+    alpha: float = 0.3
+    rotation: float = 0
 
     def __post_init__(self):
         x0, y0 = self.position
@@ -41,7 +64,7 @@ class BaseComponent():
 
         self.epsilon_r_mesh[self.idx] = self.epsilon_r
 
-    def add_to_ax(self, ax: plt.axis) -> NoReturn:
+    def add_to_ax(self, ax: plt.axis) -> PatchCollection:
         """
         Add the scatterer to the provided axis as a circle.
 
@@ -53,7 +76,7 @@ class BaseComponent():
             *[Path(np.asarray(ring.coords)[:, :2]) for ring in self.polygon.interiors])
 
         patch = PathPatch(path, color=self.facecolor, edgecolor=self.edgecolor, alpha=0.4)
-        collection = PatchCollection([patch], color=self.facecolor, edgecolor=self.edgecolor, alpha=0.4)
+        collection = PatchCollection([patch], color=self.facecolor, edgecolor=self.edgecolor, alpha=self.alpha)
 
         ax.add_collection(collection, autolim=True)
         ax.autoscale_view()

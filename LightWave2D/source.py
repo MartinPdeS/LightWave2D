@@ -20,7 +20,7 @@ config_dict = {
 }
 
 
-@dataclass(config=config_dict)
+@dataclass(kw_only=True, config=config_dict)
 class PointSource(BaseComponent):
     """
     Represents a point source in a 2D light wave simulation.
@@ -68,7 +68,7 @@ class PointSource(BaseComponent):
         field[self.p0.x_index, self.p0.y_index] += self.amplitude * np.sin(self.omega * time)
 
 
-@dataclass(config=config_dict)
+@dataclass(kw_only=True, config=config_dict)
 class LineSource(BaseComponent):
     """
     Represents a line source in a 2D light wave simulation.

@@ -47,12 +47,12 @@ scatterer = experiment.add_ring_resonator(
 #     num_periods=5
 # )
 
-# scatterer = experiment.add_lense(
-#     position=('25%', '50%'),
-#     epsilon_r=2,
-#     width=5e-6,
-#     curvature=20e-6
-# )
+scatterer = experiment.add_lense(
+    position=('25%', '50%'),
+    epsilon_r=2,
+    width=5e-6,
+    curvature=20e-6
+)
 
 # # %%
 # # We add a circular scatterer
