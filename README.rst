@@ -53,23 +53,16 @@ Some examples
 
    experiment.run_fdtd()
 
-   experiment.plot_frame(
-       frame_number=-1,
-       scale_max=2,
-       colormap=colormaps.polytechnique.red_black_blue
-   )
-
-
    animation = experiment.render_propagation(
        skip_frame=5,
        unit_size=5,
        colormap=colormaps.polytechnique.red_black_blue
    )
 
-   animation.save('./tests.gif', writer='Pillow', fps=10)
+   animation.save('./spherical_scatterer.gif', writer='Pillow', fps=10)
 
 
-..  figure:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/sphere_scatterer.gif?raw=true
+..  figure:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/spherical_scatterer.gif?raw=true
    :alt: some image
    :class: with-shadow float-left
    :width: 800px
