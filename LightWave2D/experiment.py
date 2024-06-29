@@ -6,7 +6,7 @@ from typing import Tuple, NoReturn, Optional, Union
 import numpy
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
-from LightWave2D.components import Waveguide, Circle, Square, Ellipse
+from LightWave2D.components import Circle, Square, Ellipse, Triangle, Lense, Grating, RingResonator
 from LightWave2D.source import PointSource, LineSource
 from LightWave2D.detector import PointDetector
 from LightWave2D.pml import PML
@@ -58,7 +58,7 @@ class Experiment:
             raise ValueError("Axis must be 'x' or 'y'.")
         return gradient
 
-    def plot(self, unit_size: int = 4, colormap: Optional[Union[str, object]] = 'Blues') -> NoReturn:
+    def plot(self, unit_size: int = 6, colormap: Optional[Union[str, object]] = 'Blues') -> NoReturn:
         """
         Generates a plot of the FDTD simulation setup using a specified colormap.
 
@@ -128,9 +128,24 @@ class Experiment:
         return Square(grid=self.grid, **kwargs)
 
     @add_to_component
-    def add_waveguide(self, **kwargs) -> Waveguide:
+    def add_triangle(self, **kwargs) -> Square:
         """General method to add a component to the simulation."""
-        return Waveguide(grid=self.grid, **kwargs)
+        return Triangle(grid=self.grid, **kwargs)
+
+    @add_to_component
+    def add_lense(self, **kwargs) -> Square:
+        """General method to add a component to the simulation."""
+        return Lense(grid=self.grid, **kwargs)
+
+    @add_to_component
+    def add_grating(self, **kwargs) -> Square:
+        """General method to add a component to the simulation."""
+        return Grating(grid=self.grid, **kwargs)
+
+    @add_to_component
+    def add_ring_resonator(self, **kwargs) -> Square:
+        """General method to add a component to the simulation."""
+        return RingResonator(grid=self.grid, **kwargs)
 
     @add_to_source
     def add_point_source(self, **kwargs) -> PointSource:
@@ -221,7 +236,7 @@ class Experiment:
         for detector in self.detectors:
             detector.update_data(field=self.Ez_t)
 
-    def plot_frame(self, frame_number: int, unit_size: int = 4, colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> SceneList:
+    def plot_frame(self, frame_number: int, scale_max: float = 5, unit_size: int = 6, colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> SceneList:
         """
         Creates a plot of a specific frame from the FDTD simulation.
 
@@ -250,13 +265,13 @@ class Experiment:
 
         vmin, vmax = image.get_clim()
 
-        max_diff = max(abs(vmin), abs(vmax))
+        max_diff = max(abs(vmin), abs(vmax)) / scale_max
 
         image.set_clim([-max_diff, max_diff])
 
         plt.show()
 
-    def save_frame_as_image(self, frame_number: int, filename: str, unit_size: int = 4, dpi: int = 200, colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
+    def save_frame_as_image(self, frame_number: int, filename: str, scale_max: float = 5, unit_size: int = 6, dpi: int = 200, colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
         """
         Saves a specific frame from the FDTD simulation as an image file at the specified resolution.
 
@@ -287,13 +302,13 @@ class Experiment:
 
         vmin, vmax = image.get_clim()
 
-        max_diff = max(abs(vmin), abs(vmax))
+        max_diff = max(abs(vmin), abs(vmax)) / scale_max
 
         image.set_clim([-max_diff, max_diff])
 
         plt.savefig(filename, dpi=dpi)
 
-    def get_figure_ax(self, unit_size: int = 4) -> Tuple:
+    def get_figure_ax(self, unit_size: int = 6) -> Tuple:
         figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
         figure, ax = plt.subplots(1, 1, figsize=figsize)
 
@@ -304,7 +319,7 @@ class Experiment:
 
         return figure, ax
 
-    def render_propagation(self, skip_frame: int = 10, unit_size: int = 4, colormap: Optional[Union[str, object]] = colormaps.blue_black_red) -> animation.FuncAnimation:
+    def render_propagation(self, skip_frame: int = 10, scale_max: float = 5, unit_size: int = 6, colormap: Optional[Union[str, object]] = colormaps.blue_black_red) -> animation.FuncAnimation:
         """
         Renders the propagation of a field as an animation using matplotlib.
 
@@ -338,7 +353,7 @@ class Experiment:
             artist_list.append(component.add_to_ax(ax))
 
         # Set color limits based on the maximum field amplitude
-        max_amplitude = abs(self.Ez_t).max() / 2
+        max_amplitude = abs(self.Ez_t).max() / scale_max
         field_artist.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
 
         def update(frame) -> list:

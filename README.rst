@@ -6,6 +6,12 @@ LightWave2D
 |PyPi|
 |PyPi_download|
 
+
+..  figure:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/resonator.gif?raw=true
+   :alt: some image
+   :class: with-shadow float-left
+   :width: 800px
+
 ..  figure:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/sphere_scattering.gif?raw=true
    :alt: some image
    :class: with-shadow float-left

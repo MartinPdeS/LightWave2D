@@ -7,10 +7,18 @@ import numpy
 from LightWave2D.physics import Physics
 import matplotlib.pyplot as plt
 from matplotlib.patches import PathPatch
+import matplotlib as mpl
+import numpy as np
+from matplotlib.path import Path
+from matplotlib.collections import PatchCollection
 
 
 class BaseComponent():
+
     def __post_init__(self):
+        x0, y0 = self.position
+        self.coordinate = self.grid.get_coordinate(x=x0, y=y0)
+
         self.build_object()
 
     def build_object(self) -> NoReturn:
@@ -19,7 +27,11 @@ class BaseComponent():
         """
         self.epsilon_r_mesh = numpy.ones(self.grid.shape)  # Background permittivity
 
-        self.compute_path()
+        self.compute_polygon()
+
+        self.path = Path(self.polygon.exterior.coords)
+
+        self.path = self.path.transformed(mpl.transforms.Affine2D().rotate_around(self.coordinate.x, self.coordinate.y, self.rotation))
 
         x_mesh, y_mesh = numpy.meshgrid(self.grid.x_stamp, self.grid.y_stamp)
 
@@ -36,14 +48,16 @@ class BaseComponent():
         Args:
             ax (Axis): The axis to which the scatterer will be added.
         """
-        patch = PathPatch(
-            self.path,
-            alpha=0.7,
-            color=self.facecolor,
-            label=str(self.__class__.__name__),
-        )
+        path = Path.make_compound_path(
+            Path(np.asarray(self.polygon.exterior.coords)[:, :2]),
+            *[Path(np.asarray(ring.coords)[:, :2]) for ring in self.polygon.interiors])
 
-        return ax.add_patch(patch)
+        patch = PathPatch(path, color=self.facecolor, edgecolor=self.edgecolor, alpha=0.4)
+        collection = PatchCollection([patch], color=self.facecolor, edgecolor=self.edgecolor, alpha=0.4)
+
+        ax.add_collection(collection, autolim=True)
+        ax.autoscale_view()
+        return collection
 
     def plot(self) -> NoReturn:
         figure, ax = plt.subplots(1, 1, figsize=(6, 6))

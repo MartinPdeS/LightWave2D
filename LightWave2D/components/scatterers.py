@@ -3,84 +3,21 @@
 
 from typing import Tuple, Union, NoReturn
 from pydantic.dataclasses import dataclass
-import numpy
+import numpy as np
 from LightWave2D.grid import Grid
 from LightWave2D.components.base_class import BaseComponent
 from matplotlib.path import Path
 import shapely.geometry as geo
 from matplotlib import patches
+from shapely.affinity import scale
 
-
-config_dict = dict(
-    kw_only=True,
-    extra='forbid',
-    slots=True,
-    arbitrary_types_allowed=True
-)
-
-
-@dataclass(config=config_dict)
-class Waveguide(BaseComponent):
-    """
-    Represents a waveguide in a simulation grid.
-
-    Attributes:
-        grid (Grid): The grid of the simulation mesh.
-        width (int | str): Width of the waveguide in grid cells or 'full' for full width.
-        height (int | str): Height of the waveguide in grid cells or 'full' for full height.
-        position (tuple): Starting position of the waveguide.
-        epsilon_r (float): Relative permittivity inside the waveguide.
-    """
-    grid: Grid
-    width: Union[int | str]
-    height: Union[int | str]
-    position: Tuple[float | str, float | str]
-    epsilon_r: float
-    facecolor: str = 'lightblue'
-    edgecolor: str = 'blue'
-
-    def build_mesh(self) -> NoReturn:
-        """
-        Build the permittivity mesh for the waveguide.
-        """
-        width_index, height_index = self._interpret_width_height()
-        x_index, y_index = self._interpret_position_to_index()
-
-        x_start, x_end = x_index, x_index + width_index
-        y_start, y_end = y_index, y_index + height_index
-
-        self.epsilon_r_mesh[x_start:x_end, y_start:y_end] = self.epsilon_r
-
-    def _interpret_width_height(self) -> Tuple[float, float]:
-        """
-        Interpret and return the width and height of the waveguide in grid indices.
-
-        Returns:
-            tuple: The indices of the width and height.
-        """
-        if isinstance(self.width, str) and self.width.lower() == 'full':
-            width_index = self.grid.n_x
-        else:
-            width_index = self.grid.position_to_index(self.width, axis='x')
-
-        if isinstance(self.height, str) and self.height.lower() == 'full':
-            height_index = self.grid.n_y
-        else:
-            height_index = self.grid.position_to_index(self.height, axis='y')
-
-        return int(width_index), int(height_index)
-
-    def _interpret_position_to_index(self) -> Tuple[int, int]:
-        """
-        Interpret and return the indices for the positions x and y of the waveguide.
-
-        Returns:
-            tuple: The indices of the x and y positions.
-        """
-        x, y = self.position
-        x_index = self.grid.string_to_position_x(x) if isinstance(x, str) else self.grid.position_to_index(x, axis='x')
-        y_index = self.grid.string_to_position_y(y) if isinstance(y, str) else self.grid.position_to_index(y, axis='y')
-        return x_index, y_index
+# Configuration dictionary for dataclasses
+config_dict = {
+    'kw_only': True,
+    'extra': 'forbid',
+    'slots': True,
+    'arbitrary_types_allowed': True
+}
 
 
 @dataclass(config=config_dict)
@@ -90,96 +27,255 @@ class Square(BaseComponent):
 
     Attributes:
         grid (Grid): The grid of the simulation mesh.
-        position (Tuple[float | str, float | str]): Starting position of the scatterer (center of the square).
+        position (Tuple[Union[float, str], Union[float, str]]): Starting position of the scatterer (center of the square).
         epsilon_r (float): Relative permittivity inside the scatterer.
         side_length (float): Side length of the square scatterer.
+        facecolor (str): Color of the scatterer face.
+        edgecolor (str): Color of the scatterer edge.
     """
     grid: Grid
-    position: Tuple[float | str, float | str]
+    position: Tuple[Union[float, str], Union[float, str]]
     epsilon_r: float
     side_length: float
     facecolor: str = 'lightblue'
     edgecolor: str = 'blue'
+    rotation: float = 0
 
-    def compute_path(self) -> NoReturn:
-        x0, y0 = self.position
-        self.coordinate = self.grid.get_coordinate(x=x0, y=y0)
-
+    def compute_polygon(self) -> Path:
+        """
+        Compute the path of the square scatterer.
+        """
         half_side = self.side_length / 2
-        self.x_start = (self.coordinate.x - half_side)
-        self.x_end = (self.coordinate.x + half_side)
-        self.y_start = (self.coordinate.y - half_side)
-        self.y_end = (self.coordinate.y + half_side)
+        x_start, x_end = self.coordinate.x - half_side, self.coordinate.x + half_side
+        y_start, y_end = self.coordinate.y - half_side, self.coordinate.y + half_side
 
-        p0 = geo.Point(self.x_start, self.y_start)
-        p1 = geo.Point(self.x_start, self.y_end)
-        p2 = geo.Point(self.x_end, self.y_start)
-        p3 = geo.Point(self.x_end, self.y_end)
+        self.polygon = geo.Polygon([
+            (x_start, y_start),
+            (x_start, y_end),
+            (x_end, y_end),
+            (x_end, y_start)
+        ])
 
-        self.polygon = geo.Polygon([p0, p1, p3, p2])
+        # return Path(np.array(polygon.exterior.coords))
 
-        self.path = Path(numpy.array(self.polygon.exterior.coords))
+
+@dataclass(config=config_dict)
+class Grating(BaseComponent):
+    """
+    Represents a grating in a simulation grid.
+
+    Attributes:
+        grid (Grid): The grid of the simulation mesh.
+        position (Tuple[Union[float, str], Union[float, str]]): Starting position of the grating.
+        epsilon_r (float): Relative permittivity inside the grating.
+        period (float): Period of the grating.
+        duty_cycle (float): Duty cycle of the grating (fraction of period occupied by the grating material).
+        num_periods (int): Number of grating periods.
+        facecolor (str): Color of the grating face.
+        edgecolor (str): Color of the grating edge.
+    """
+    grid: Grid
+    position: Tuple[Union[float, str], Union[float, str]]
+    epsilon_r: float
+    period: float
+    duty_cycle: float
+    num_periods: int
+    facecolor: str = 'lightblue'
+    edgecolor: str = 'blue'
+    rotation: float = 0
+
+    def compute_polygon(self) -> NoReturn:
+        """
+        Compute the path of the grating.
+        """
+        bars = []
+        for i in range(self.num_periods):
+            x_start = self.coordinate.x + i * self.period
+            x_end = x_start + self.duty_cycle * self.period
+            bar = geo.box(x_start, self.coordinate.y - 0.5, x_end, self.coordinate.y + 0.5)
+            bars.append(bar)
+
+        self.polygon = geo.MultiPolygon(bars)
+        # return Path(np.array(grating_polygon.exterior.coords))
+
+
+@dataclass(config=config_dict)
+class RingResonator(BaseComponent):
+    """
+    Represents a ring resonator in a simulation grid.
+
+    Attributes:
+        grid (Grid): The grid of the simulation mesh.
+        position (Tuple[Union[float, str], Union[float, str]]): Starting position of the resonator (center of the ring).
+        epsilon_r (float): Relative permittivity inside the resonator.
+        inner_radius (float): Inner radius of the ring.
+        outer_radius (float): Outer radius of the ring.
+        facecolor (str): Color of the resonator face.
+        edgecolor (str): Color of the resonator edge.
+    """
+    grid: Grid
+    position: Tuple[Union[float, str], Union[float, str]]
+    epsilon_r: float
+    inner_radius: float
+    outer_radius: float
+    facecolor: str = 'lightblue'
+    edgecolor: str = 'blue'
+    rotation: float = 0
+
+    def compute_polygon(self) -> Path:
+        """
+        Compute the path of the ring resonator.
+        """
+        outer_circle = geo.Point(self.coordinate.x, self.coordinate.y).buffer(self.outer_radius)
+        inner_circle = geo.Point(self.coordinate.x, self.coordinate.y).buffer(self.inner_radius)
+        self.polygon = outer_circle.difference(inner_circle)
+
+        # return Path(np.array(self.polygon.exterior.coords))
 
 
 @dataclass(config=config_dict)
 class Circle(BaseComponent):
     """
-    Represents a scatterer in a simulation grid.
+    Represents a circular scatterer in a simulation grid.
 
     Attributes:
         grid (Grid): The grid of the simulation mesh.
-        position (Tuple[float | str, float | str]): Starting position of the scatterer.
+        position (Tuple[Union[float, str], Union[float, str]]): Starting position of the scatterer.
         epsilon_r (float): Relative permittivity inside the scatterer.
         radius (float): Radius of the scatterer.
+        facecolor (str): Color of the scatterer face.
     """
     grid: Grid
-    position: Tuple[float | str, float | str]
+    position: Tuple[Union[float, str], Union[float, str]]
     epsilon_r: float
     radius: float
     facecolor: str = 'lightblue'
+    rotation: float = 0
 
-    def compute_path(self) -> NoReturn:
-        x0, y0 = self.position
-        self.coordinate = self.grid.get_coordinate(x=x0, y=y0)
+    def compute_polygon(self) -> Path:
+        """
+        Compute the path of the circular scatterer.
+        """
         self.polygon = geo.Point(self.coordinate.x, self.coordinate.y).buffer(self.radius)
-        self.path = Path(numpy.array(self.polygon.exterior.coords))
+        # return Path(np.array(self.polygon.exterior.coords))
+
+
+@dataclass(config=config_dict)
+class Triangle(BaseComponent):
+    """
+    Represents a triangular scatterer in a simulation grid.
+
+    Attributes:
+        grid (Grid): The grid of the simulation mesh.
+        position (Tuple[Union[float, str], Union[float, str]]): Starting position of the scatterer (center of the triangle).
+        epsilon_r (float): Relative permittivity inside the scatterer.
+        side_length (float): Side length of the triangle.
+        facecolor (str): Color of the scatterer face.
+        edgecolor (str): Color of the scatterer edge.
+    """
+    grid: Grid
+    position: Tuple[Union[float, str], Union[float, str]]
+    epsilon_r: float
+    side_length: float
+    facecolor: str = 'lightblue'
+    edgecolor: str = 'blue'
+    rotation: float = 0
+
+    def compute_polygon(self) -> NoReturn:
+        """
+        Compute the path of the triangular scatterer.
+        """
+        height = (np.sqrt(3) / 2) * self.side_length
+
+        # Vertices of an equilateral triangle centered at (coordinate.x, coordinate.y)
+        p0 = (self.coordinate.x - self.side_length / 2, self.coordinate.y - height / 3)
+        p1 = (self.coordinate.x + self.side_length / 2, self.coordinate.y - height / 3)
+        p2 = (self.coordinate.x, self.coordinate.y + 2 * height / 3)
+
+        self.polygon = geo.Polygon([p0, p1, p2])
+
+        # return Path(np.array(self.polygon.exterior.coords))
+
+
+@dataclass(config=config_dict)
+class Lense(BaseComponent):
+    """
+    Represents a lens in a simulation grid.
+
+    Attributes:
+        grid (Grid): The grid of the simulation mesh.
+        position (Tuple[Union[float, str], Union[float, str]]): Starting position of the lens (center of the lens).
+        epsilon_r (float): Relative permittivity inside the lens.
+        radius (float): Radius of the lens.
+        curvature (float): Curvature of the lens (positive for convex, negative for concave).
+        facecolor (str): Color of the lens face.
+        edgecolor (str): Color of the lens edge.
+    """
+    grid: Grid
+    position: Tuple[Union[float, str], Union[float, str]]
+    epsilon_r: float
+    width: float
+    curvature: float
+    facecolor: str = 'lightblue'
+    edgecolor: str = 'blue'
+    rotation: float = 0
+
+    def compute_polygon(self) -> Path:
+        """
+        Compute the path of the lens.
+        """
+        # Create two arcs for the lens shape
+        x0 = self.coordinate.x + self.curvature - self.width / 2
+        x1 = self.coordinate.x - self.curvature + self.width / 2
+
+        arc3 = geo.Point(x0, self.coordinate.y).buffer(self.curvature, resolution=100)
+        arc4 = geo.Point(x1, self.coordinate.y).buffer(self.curvature, resolution=100)
+
+        self.polygon = arc3.intersection(arc4)
+
+        # return Path(self.polygon.exterior.coords)
 
 
 @dataclass(config=config_dict)
 class Ellipse(BaseComponent):
     """
-    Represents a scatterer in a simulation grid.
+    Represents an elliptical scatterer in a simulation grid.
 
     Attributes:
         grid (Grid): The grid of the simulation mesh.
-        position (Tuple[float | str, float | str]): Starting position of the scatterer.
+        position (Tuple[Union[float, str], Union[float, str]]): Starting position of the scatterer.
+        width (float): Width of the ellipse.
+        height (float): Height of the ellipse.
         epsilon_r (float): Relative permittivity inside the scatterer.
-        width (float):
-        height (float):
-        angle (float):
+        angle (float): Rotation angle of the ellipse.
+        facecolor (str): Color of the scatterer face.
+        edgecolor (str): Color of the scatterer edge.
+        resolution (int): Resolution of the ellipse.
     """
     grid: Grid
-    position: Tuple[float | str, float | str]
+    position: Tuple[Union[float, str], Union[float, str]]
     width: float
     height: float
     epsilon_r: float
     angle: float = 0
     facecolor: str = 'lightblue'
     edgecolor: str = 'blue'
+    resolution: int = 100
+    rotation: float = 0
 
-    def compute_path(self) -> NoReturn:
-        x0, y0 = self.position
-        self.coordinate = self.grid.get_coordinate(x=x0, y=y0)
-
-        polygon = patches.Ellipse(
+    def compute_polygon(self) -> Path:
+        """
+        Compute the path of the elliptical scatterer.
+        """
+        ellipse_patch = patches.Ellipse(
             (self.coordinate.x, self.coordinate.y),
-            width=self.width,
-            height=self.height,
+            width=self.resolution,
+            height=self.resolution * self.height / self.width,
             angle=self.angle
         )
 
-        vertices = polygon.get_verts()
-        self.polygon = geo.Polygon(vertices)
-        self.path = Path(numpy.array(self.polygon.exterior.coords))
+        vertices = ellipse_patch.get_verts()
+        polygon = geo.Polygon(vertices)
+        self.polygon = scale(polygon, xfact=self.width / self.resolution, yfact=self.width / self.resolution)
 
-# -
+        # return Path(np.array(self.polygon.exterior.coords))

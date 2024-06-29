@@ -1,4 +1,4 @@
-from .scatterers import Waveguide, Circle, Square, Ellipse  # noqa: F401
+from .scatterers import Circle, Square, Ellipse, Triangle, Lense, Grating, RingResonator  # noqa: F401
 
 
 # -

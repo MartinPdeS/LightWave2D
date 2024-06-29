@@ -8,7 +8,6 @@ from LightWave2D.grid import Grid
 from MPSPlots.render2D import SceneList
 import shapely.geometry as geo
 from matplotlib.path import Path
-import cv2
 from pydantic.dataclasses import dataclass
 from LightWave2D.components.base_class import BaseComponent
 import matplotlib.pyplot as plt
