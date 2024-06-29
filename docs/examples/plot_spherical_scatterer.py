@@ -45,9 +45,6 @@ source = experiment.add_line_source(
 # We add a perfectly matched layer to avoid reflection at the boundary of the mesh
 experiment.add_pml(order=1, width=70, sigma_max=5000)
 
-# %%
-# We add a detector
-detector = experiment.add_point_detector(position=(25e-6, 'center'))
 
 # %%
 # Plotting of the whole experiemnt setup
@@ -57,6 +54,7 @@ experiment.run_fdtd()
 
 experiment.plot_frame(
     frame_number=-1,
+    scale_max=2,
     colormap=colormaps.polytechnique.red_black_blue
 )
 
@@ -67,6 +65,6 @@ animation = experiment.render_propagation(
     colormap=colormaps.polytechnique.red_black_blue
 )
 
-animation.save('./tests.gif', writer='Pillow', fps=10)
+animation.save('./spherical_scatterer.gif', writer='Pillow', fps=10)
 
 # -

@@ -110,7 +110,7 @@ pml = experiment.add_pml(order=1, width=70, sigma_max=5000)
 
 # %%
 # We add a detector
-# detector = experiment.add_point_detector(position=(25e-6, 'center'))
+detector = experiment.add_point_detector(position=(25e-6, 'center'))
 
 # %%
 # Plotting of the whole experiemnt setup

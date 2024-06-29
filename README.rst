@@ -7,18 +7,124 @@ LightWave2D
 |PyPi_download|
 
 
+This is a package for 2D FDTD.
+
+----
+
+
+
+Some examples
+-------------
+
+
+# Spherical scatterer
+
+.. code:: python
+
+   from LightWave2D.grid import Grid
+   from LightWave2D.experiment import Experiment
+   from MPSPlots import colormaps
+
+   grid = Grid(
+       resolution=0.1e-6,
+       size_x=32e-6,
+       size_y=20e-6,
+       n_steps=300
+   )
+
+   experiment = Experiment(grid=grid)
+
+   scatterer = experiment.add_circle(
+       position=('30%', '50%'),
+       epsilon_r=2,
+       radius=3e-6
+   )
+
+   source = experiment.add_line_source(
+       wavelength=1550e-9,
+       point_0=('10%', '100%'),
+       point_1=('10%', '0%'),
+       amplitude=10,
+   )
+
+   experiment.add_pml(order=1, width=70, sigma_max=5000)
+
+   experiment.plot()
+
+   experiment.run_fdtd()
+
+   experiment.plot_frame(
+       frame_number=-1,
+       scale_max=2,
+       colormap=colormaps.polytechnique.red_black_blue
+   )
+
+
+   animation = experiment.render_propagation(
+       skip_frame=5,
+       unit_size=5,
+       colormap=colormaps.polytechnique.red_black_blue
+   )
+
+   animation.save('./tests.gif', writer='Pillow', fps=10)
+
+
+..  figure:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/sphere_scatterer.gif?raw=true
+   :alt: some image
+   :class: with-shadow float-left
+   :width: 800px
+
+
+
+# Ring resonator
+
+
+.. code:: python
+
+   from LightWave2D.grid import Grid
+   from LightWave2D.experiment import Experiment
+   from MPSPlots.colormaps import polytechnique
+
+   grid = Grid(
+       resolution=0.1e-6,
+       size_x=50e-6,
+       size_y=30e-6,
+       n_steps=800
+   )
+
+   experiment = Experiment(grid=grid)
+
+
+   scatterer = experiment.add_ring_resonator(
+       position=('35%', '50%'),
+       epsilon_r=1.5,
+       inner_radius=4e-6,
+       width=2e-6
+   )
+
+   source = experiment.add_point_source(
+       wavelength=1550e-9,
+       position=('25%', '50%'),
+       amplitude=100,
+   )
+
+   pml = experiment.add_pml(order=1, width=70, sigma_max=5000)
+
+   experiment.plot()
+
+   experiment.run_fdtd()
+
+   experiment.plot_frame(frame_number=-1, scale_max=4)
+
+   animation = experiment.render_propagation(skip_frame=5, colormap=polytechnique.red_black_blue)
+
+   animation.save('./resonator.gif', writer='Pillow', fps=10)
+
+
 ..  figure:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/resonator.gif?raw=true
    :alt: some image
    :class: with-shadow float-left
    :width: 800px
-
-..  figure:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/sphere_scattering.gif?raw=true
-   :alt: some image
-   :class: with-shadow float-left
-   :width: 800px
-
-
-This is a package for 2D FDTD.
 
 
 
