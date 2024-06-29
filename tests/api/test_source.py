@@ -23,7 +23,7 @@ def test_experiment_initialization():
 # Test adding scatterers
 @pytest.mark.parametrize("method, params", [
     ('add_square', {'position': ('25%', '20%'), 'epsilon_r': 2, 'side_length': 3e-6}),
-    ('add_ellipse', {'position': ('25%', '70%'), 'epsilon_r': 2, 'width': 5e-6, 'height': 10e-6, 'angle': 10})
+    ('add_ellipse', {'position': ('25%', '70%'), 'epsilon_r': 2, 'width': 5e-6, 'height': 10e-6, 'rotation': 10})
 ])
 def test_add_scatterers(method, params):
     grid = Grid(resolution=0.1e-6, size_x=30e-6, size_y=30e-6, n_steps=500)
