@@ -80,8 +80,8 @@ class BaseComponent():
             Path(np.asarray(self.polygon.exterior.coords)[:, :2]),
             *[Path(np.asarray(ring.coords)[:, :2]) for ring in self.polygon.interiors])
 
-        patch = PathPatch(path, color=self.facecolor, edgecolor=self.edgecolor, alpha=0.4)
-        collection = PatchCollection([patch], color=self.facecolor, edgecolor=self.edgecolor, alpha=self.alpha)
+        patch = PathPatch(path, facecolor=self.facecolor, edgecolor=self.edgecolor, alpha=0.4)
+        collection = PatchCollection([patch], facecolor=self.facecolor, edgecolor=self.edgecolor, alpha=self.alpha)
 
         ax.add_collection(collection, autolim=True)
         ax.autoscale_view()

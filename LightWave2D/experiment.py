@@ -91,6 +91,7 @@ class Experiment:
             component = function(self, **kwargs)
             self.components.append(component)
             return component
+        wrapper.__doc__ = function.__doc__
         return wrapper
 
     def add_to_source(function):
@@ -98,6 +99,7 @@ class Experiment:
             source = function(self, **kwargs)
             self.sources.append(source)
             return source
+        wrapper.__doc__ = function.__doc__
         return wrapper
 
     def add_to_detector(function):
@@ -105,6 +107,7 @@ class Experiment:
             detector = function(self, **kwargs)
             self.detectors.append(detector)
             return detector
+        wrapper.__doc__ = function.__doc__
         return wrapper
 
     def add_pml(self, **kwargs) -> PML:

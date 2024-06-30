@@ -64,6 +64,6 @@ experiment.plot_frame(frame_number=-1, scale_max=4)
 # Rendering animation of the field in time
 animation = experiment.render_propagation(skip_frame=5, colormap=polytechnique.red_black_blue)
 
-animation.save('./test.gif', writer='Pillow', fps=10)
+animation.save('./test.gif', fps=10)
 
 # -

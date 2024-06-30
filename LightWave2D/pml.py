@@ -55,7 +55,6 @@ class PML():
             self.grid.y_stamp,
             self.sigma_y.T + self.sigma_x.T,
             cmap=cmap,
-            label='PML'
         )
 
     def plot(self, unit_size: int = 6) -> NoReturn:
