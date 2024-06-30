@@ -29,8 +29,8 @@ Waveguide
   A waveguide in LightWave2D guides electromagnetic waves from one point to another with minimal loss. The waveguide's width and height can be specified in grid cells or set to 'full' to occupy the entire grid dimension.
 
 .. math::
-  &\epsilon_r(x, y) = 
-  \begin{cases} 
+  &\epsilon_r(x, y) =
+  \begin{cases}
   \epsilon_{r, \text{wg}} & \text{if } (x, y) \in \text{Waveguide} \\
   \epsilon_{r, \text{bg}} & \text{otherwise}
   \end{cases}
@@ -43,8 +43,8 @@ Square Scatterer
   The square scatterer is a simple component with a uniform relative permittivity. It is defined by its center position and side length.
 
 .. math::
-  &\epsilon_r(x, y) = 
-  \begin{cases} 
+  &\epsilon_r(x, y) =
+  \begin{cases}
   \epsilon_{r, \text{sq}} & \text{if } (x, y) \in \text{Square} \\
   \epsilon_{r, \text{bg}} & \text{otherwise}
   \end{cases}
@@ -57,8 +57,8 @@ Circle Scatterer
   A circular scatterer is another basic component defined by its center position and radius. It scatters incident waves uniformly.
 
 .. math::
-  &\epsilon_r(x, y) = 
-  \begin{cases} 
+  &\epsilon_r(x, y) =
+  \begin{cases}
   \epsilon_{r, \text{circle}} & \text{if } (x, y) \in \text{Circle} \\
   \epsilon_{r, \text{bg}} & \text{otherwise}
   \end{cases}
@@ -71,8 +71,8 @@ Ellipse Scatterer
   An elliptical scatterer is defined by its center position, width, height, and rotation angle. It provides an anisotropic scattering effect.
 
 .. math::
-  &\epsilon_r(x, y) = 
-  \begin{cases} 
+  &\epsilon_r(x, y) =
+  \begin{cases}
   \epsilon_{r, \text{ellipse}} & \text{if } (x, y) \in \text{Ellipse} \\
   \epsilon_{r, \text{bg}} & \text{otherwise}
   \end{cases}
@@ -85,8 +85,8 @@ Triangle Scatterer
   A triangular scatterer is defined by its center position and side length. It provides a unique scattering pattern due to its geometric shape.
 
 .. math::
-  &\epsilon_r(x, y) = 
-  \begin{cases} 
+  &\epsilon_r(x, y) =
+  \begin{cases}
   \epsilon_{r, \text{triangle}} & \text{if } (x, y) \in \text{Triangle} \\
   \epsilon_{r, \text{bg}} & \text{otherwise}
   \end{cases}
@@ -99,8 +99,8 @@ Lense
   A lens in LightWave2D focuses or defocuses waves based on its radius of curvature and width. It can be either convex or concave.
 
 .. math::
-  &\epsilon_r(x, y) = 
-  \begin{cases} 
+  &\epsilon_r(x, y) =
+  \begin{cases}
   \epsilon_{r, \text{lense}} & \text{if } (x, y) \in \text{Lense} \\
   \epsilon_{r, \text{bg}} & \text{otherwise}
   \end{cases}
@@ -113,8 +113,8 @@ Grating
   A grating is used to diffract light and study diffraction patterns. It is defined by its period, duty cycle, and number of periods.
 
 .. math::
-  &\epsilon_r(x, y) = 
-  \begin{cases} 
+  &\epsilon_r(x, y) =
+  \begin{cases}
   \epsilon_{r, \text{grating}} & \text{if } (x, y) \in \text{Grating} \\
   \epsilon_{r, \text{bg}} & \text{otherwise}
   \end{cases}
@@ -127,8 +127,8 @@ Ring Resonator
   A ring resonator is used to study resonant effects. It is defined by its inner and outer radius.
 
 .. math::
-  &\epsilon_r(x, y) = 
-  \begin{cases} 
+  &\epsilon_r(x, y) =
+  \begin{cases}
   \epsilon_{r, \text{ring}} & \text{if } (x, y) \in \text{Ring Resonator} \\
   \epsilon_{r, \text{bg}} & \text{otherwise}
   \end{cases}
@@ -141,8 +141,8 @@ Rectangular Waveguide
   A rectangular waveguide is used to guide electromagnetic waves with a defined width, height, and length.
 
 .. math::
-  &\epsilon_r(x, y) = 
-  \begin{cases} 
+  &\epsilon_r(x, y) =
+  \begin{cases}
   \epsilon_{r, \text{rect}} & \text{if } (x, y) \in \text{Rectangular Waveguide} \\
   \epsilon_{r, \text{bg}} & \text{otherwise}
   \end{cases}
@@ -155,8 +155,8 @@ Parabolic Reflector
   A parabolic reflector focuses incoming waves to a single point (the focus). It is defined by its focal length and width.
 
 .. math::
-  &\epsilon_r(x, y) = 
-  \begin{cases} 
+  &\epsilon_r(x, y) =
+  \begin{cases}
   \epsilon_{r, \text{parabolic}} & \text{if } (x, y) \in \text{Parabolic Reflector} \\
   \epsilon_{r, \text{bg}} & \text{otherwise}
   \end{cases}

@@ -11,7 +11,6 @@ from LightWave2D.source import PointSource, LineSource
 from LightWave2D.detector import PointDetector
 from LightWave2D.pml import PML
 from MPSPlots import colormaps
-from MPSPlots.render2D import SceneList
 import matplotlib.animation as animation
 from pydantic.dataclasses import dataclass
 import matplotlib.pyplot as plt
@@ -117,52 +116,73 @@ class Experiment:
 
     @add_to_component
     def add_circle(self, **kwargs) -> Circle:
-        """General method to add a component to the simulation."""
+        """
+        Method to add a Circle to the simulation.
+        """
         return Circle(grid=self.grid, **kwargs)
 
     @add_to_component
     def add_ellipse(self, **kwargs) -> Ellipse:
-        """General method to add a component to the simulation."""
+        """
+        Method to add a Ellipse to the simulation.
+        """
         return Ellipse(grid=self.grid, **kwargs)
 
     @add_to_component
     def add_square(self, **kwargs) -> Square:
-        """General method to add a component to the simulation."""
+        """
+        open()
+        Method to add a Square to the simulation.
+        """
         return Square(grid=self.grid, **kwargs)
 
     @add_to_component
     def add_triangle(self, **kwargs) -> Square:
-        """General method to add a component to the simulation."""
+        """
+        Method to add a Triangle to the simulation.
+        """
         return Triangle(grid=self.grid, **kwargs)
 
     @add_to_component
     def add_lense(self, **kwargs) -> Square:
-        """General method to add a component to the simulation."""
+        """
+        Method to add a Lense to the simulation.
+        """
         return Lense(grid=self.grid, **kwargs)
 
     @add_to_component
     def add_grating(self, **kwargs) -> Square:
-        """General method to add a component to the simulation."""
+        """
+        Method to add a Grating to the simulation.
+        """
         return Grating(grid=self.grid, **kwargs)
 
     @add_to_component
     def add_ring_resonator(self, **kwargs) -> Square:
-        """General method to add a component to the simulation."""
+        """
+        Method to add a RingResonator to the simulation.
+        """
         return RingResonator(grid=self.grid, **kwargs)
 
     @add_to_source
     def add_point_source(self, **kwargs) -> PointSource:
-        """General method to add a source to the simulation."""
+        """
+        Method to add a PointSource to the simulation.
+        """
         return PointSource(grid=self.grid, **kwargs)
 
     @add_to_source
     def add_line_source(self, **kwargs) -> LineSource:
-        """General method to add a source to the simulation."""
+        """
+        Method to add a LineSource to the simulation.
+        """
         return LineSource(grid=self.grid, **kwargs)
 
     @add_to_detector
     def add_point_detector(self, **kwargs) -> PointDetector:
-        """General method to add a detector to the simulation."""
+        """
+        Method to add a PointDetector to the simulation.
+        """
         return PointDetector(grid=self.grid, **kwargs)
 
     def get_sigma(self) -> Tuple[numpy.ndarray, numpy.ndarray]:
@@ -239,7 +259,12 @@ class Experiment:
         for detector in self.detectors:
             detector.update_data(field=self.Ez_t)
 
-    def plot_frame(self, frame_number: int, scale_max: float = 5, unit_size: int = 6, colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> SceneList:
+    def plot_frame(
+            self,
+            frame_number: int,
+            scale_max: float = 5,
+            unit_size: int = 6,
+            colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> NoReturn:
         """
         Creates a plot of a specific frame from the FDTD simulation.
 
@@ -274,7 +299,14 @@ class Experiment:
 
         plt.show()
 
-    def save_frame_as_image(self, frame_number: int, filename: str, scale_max: float = 5, unit_size: int = 6, dpi: int = 200, colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
+    def save_frame_as_image(
+            self,
+            frame_number: int,
+            filename: str,
+            scale_max: float = 5,
+            unit_size: int = 6,
+            dpi: int = 200,
+            colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> NoReturn:
         """
         Saves a specific frame from the FDTD simulation as an image file at the specified resolution.
 
@@ -322,7 +354,12 @@ class Experiment:
 
         return figure, ax
 
-    def render_propagation(self, skip_frame: int = 10, scale_max: float = 5, unit_size: int = 6, colormap: Optional[Union[str, object]] = colormaps.blue_black_red) -> animation.FuncAnimation:
+    def render_propagation(
+            self,
+            skip_frame: int = 10,
+            scale_max: float = 5,
+            unit_size: int = 6,
+            colormap: Optional[Union[str, object]] = colormaps.blue_black_red) -> animation.FuncAnimation:
         """
         Renders the propagation of a field as an animation using matplotlib.
 
