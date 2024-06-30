@@ -11,11 +11,20 @@ This is a package for 2D FDTD.
 
 ----
 
+Documentation
+**************
+All the latest available documentation is available `here <https://lightwave2d.readthedocs.io/en/latest/>`_ or you can click the following badge:
+
+|docs|
 
 
-Some examples
--------------
 
+Coding examples
+***************
+
+
+LightWave2D was developed with the aim of being an intuitive and easy to use tool.
+Below are two examples that illustrate this:
 
 # Spherical scatterer
 
@@ -60,11 +69,7 @@ Some examples
    animation.save('./spherical_scatterer.gif', writer='Pillow', fps=10)
 
 
-..  figure:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/spherical_scatterer.gif?raw=true
-   :alt: some image
-   :class: with-shadow float-left
-   :width: 800px
-
+|example_scatterer|
 
 
 # Ring resonator
@@ -108,11 +113,21 @@ Some examples
    animation.save('./resonator.gif', writer='Pillow', fps=10)
 
 
-..  figure:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/resonator.gif?raw=true
-   :alt: some image
-   :class: with-shadow float-left
-   :width: 800px
+|example_resonator|
 
+
+Testing
+*******
+
+To test localy (with cloning the GitHub repository) you'll need to install the dependencies and run the coverage command as
+
+.. code:: python
+
+   >>> git clone https://github.com/MartinPdeS/PyMieSim.git
+   >>> cd PyMieSim
+   >>> pip install -r requirements/requirements.txt
+   >>> coverage run --source=PyMieSim --module pytest --verbose tests
+   >>> coverage report --show-missing
 
 
 ----
@@ -120,11 +135,23 @@ Some examples
 Contact Information
 *******************
 
-As of 2023 the project is still under development if you want to collaborate it would be a pleasure. I encourage you to contact me.
+As of 2024 the project is still under development if you want to collaborate it would be a pleasure. I encourage you to contact me.
 
 LightWave2D was written by `Martin Poinsinet de Sivry-Houle <https://github.com/MartinPdS>`_  .
 
 Email:`martin.poinsinet-de-sivry@polymtl.ca <mailto:martin.poinsinet-de-sivry@polymtl.ca?subject=LightWave2D>`_ .
+
+
+
+.. |example_resonator| image:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/resonator.gif?raw=true
+   :alt: some image
+   :class: with-shadow float-left
+   :width: 800px
+
+.. |example_scatterer| image:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/spherical_scatterer.gif?raw=true
+   :alt: some image
+   :class: with-shadow float-left
+   :width: 800px
 
 .. |python| image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg
    :target: https://www.python.org/

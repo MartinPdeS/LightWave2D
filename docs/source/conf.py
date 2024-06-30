@@ -22,13 +22,10 @@ def setup(app):
 autodoc_mock_imports = [
     'numpy',
     'matplotlib',
-    'DataVisual',
-    'MPSPlots',
-    'scipy',
 ]
 
 project = 'LightWave2D'
-copyright = '2021, Martin Poinsinet de Sivry-Houle'
+copyright = '2024, Martin Poinsinet de Sivry-Houle'
 author = 'Martin Poinsinet de Sivry-Houle'
 today_fmt = '%B %d, %Y'
 
@@ -113,7 +110,7 @@ html_theme_options = {
     "logo": {
         "alt_text": "LightWave2D's logo",
         "text": "LightWave2D",
-        "link": "https://pymiesim.readthedocs.io/en/latest/",
+        "link": "https://lightwave2d.readthedocs.io/en/latest/",
     },
     "icon_links": [
         {
@@ -123,7 +120,7 @@ html_theme_options = {
         },
         {
             "name": "PyPI",
-            "url": "https://pypi.org/project/pymiesim/",
+            "url": "https://pypi.org/project/lightwave2d/",
             "icon": "fa-solid fa-box",
         },
     ],
@@ -151,7 +148,7 @@ latex_documents = [
 ]
 
 man_pages = [
-    (master_doc, 'pymiesim', 'LightWave2D Documentation',
+    (master_doc, 'lightwave2d', 'LightWave2D Documentation',
      [author], 1)
 ]
 
