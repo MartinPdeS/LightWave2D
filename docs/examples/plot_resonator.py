@@ -1,8 +1,9 @@
 """
-Experiment: scattering
-======================
+Experiment: ring resonator
+==========================
 
 """
+
 
 # %%
 # Importing the package

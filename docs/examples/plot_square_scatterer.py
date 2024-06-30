@@ -1,6 +1,6 @@
 """
-Experiment: scattering
-======================
+Experiment: square scatterer
+============================
 
 """
 
@@ -21,7 +21,6 @@ grid = Grid(
 
 experiment = Experiment(grid=grid)
 
-
 # %%
 # We add a circular scatterer
 scatterer = experiment.add_square(
@@ -39,7 +38,6 @@ source = experiment.add_line_source(
     amplitude=10,
 )
 
-
 # %%
 # We add a perfectly matched layer to avoid reflection at the boundary of the mesh
 experiment.add_pml(order=1, width=70, sigma_max=5000)
@@ -53,7 +51,6 @@ detector = experiment.add_point_detector(position=(25e-6, 'center'))
 experiment.plot()
 
 experiment.run_fdtd()
-
 
 # %%
 # Plotting the field measured at detector

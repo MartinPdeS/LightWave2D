@@ -1,6 +1,6 @@
 """
-Experiment: scattering
-======================
+Experiment: circular scatterer
+==============================
 
 """
 

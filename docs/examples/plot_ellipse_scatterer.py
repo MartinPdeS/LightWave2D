@@ -1,8 +1,9 @@
 """
-Experiment: scattering
-======================
+Experiment: elliptic scatterer
+==============================
 
 """
+
 
 # %%
 # Importing the package
