@@ -63,12 +63,16 @@ experiment.run_fdtd()
 
 experiment.plot()
 
+# %%
+# Plotting the last time frame of the computed fields
 experiment.plot_frame(
     frame_number=-1,
     colormap=colormaps.polytechnique.red_black_blue
 )
 
 
+# %%
+# Rendering animation of the field in time
 experiment.save_frame_as_image(frame_number=-1, filename='test.png')
 
 

@@ -52,6 +52,8 @@ experiment.plot()
 
 experiment.run_fdtd()
 
+# %%
+# Plotting the last time frame of the computed fields
 experiment.plot_frame(
     frame_number=-1,
     scale_max=2,
@@ -59,6 +61,8 @@ experiment.plot_frame(
 )
 
 
+# %%
+# Rendering animation of the field in time
 animation = experiment.render_propagation(
     skip_frame=5,
     unit_size=5,

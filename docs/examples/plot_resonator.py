@@ -43,15 +43,20 @@ source = experiment.add_point_source(
 pml = experiment.add_pml(order=1, width=70, sigma_max=5000)
 
 # %%
-# Plotting of the whole experiemnt setup
+# Plotting of the whole experiment setup
 experiment.plot()
 
 experiment.run_fdtd()
 
+# %%
+# Plotting the last time frame of the computed fields
 experiment.plot_frame(frame_number=-1, scale_max=4)
 
+
+# %%
+# Rendering animation of the field in time
 animation = experiment.render_propagation(skip_frame=5, colormap=polytechnique.red_black_blue)
 
-animation.save('./resonator.gif', writer='Pillow', fps=10)
+_ = animation.save('./resonator.gif', writer='Pillow', fps=10)
 
 # -

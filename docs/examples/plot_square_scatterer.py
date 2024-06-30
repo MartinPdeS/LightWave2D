@@ -54,8 +54,12 @@ experiment.plot()
 
 experiment.run_fdtd()
 
-experiment.save_frame_as_image(frame_number=-1, filename='tests.png')
+# %%
+# Plotting the last time frame of the computed fields
+experiment.plot_frame(frame_number=-1, scale_max=4)
 
+# %%
+# Rendering animation of the field in time
 animation = experiment.render_propagation(skip_frame=5, colormap=polytechnique.red_black_blue)
 
 animation.save('./test.gif', writer='Pillow', fps=10)
