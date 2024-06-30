@@ -66,6 +66,7 @@ sphinx_gallery_conf = {
     'remove_config_comments': True,
     'capture_repr': ('_repr_html_', '__repr__'),
     'nested_sections': True,
+    'matplotlib_animations': True
 }
 
 autodoc_default_options = {

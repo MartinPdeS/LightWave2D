@@ -5,7 +5,6 @@ from typing import Tuple, Union, NoReturn
 from dataclasses import field
 import numpy
 from LightWave2D.grid import Grid
-from MPSPlots.render2D import SceneList
 import shapely.geometry as geo
 from matplotlib.path import Path
 from pydantic.dataclasses import dataclass
@@ -123,17 +122,18 @@ class PointDetector(BaseDetector):
         """
         self.data = field[:, self.p0.x_index, self.p0.y_index]
 
-    def plot_data(self) -> SceneList:
+    def plot_data(self) -> NoReturn:
         """
         Plot the detector data over time.
 
         Returns:
             SceneList: A scene list containing the plot.
         """
-        scene = SceneList()
-        ax = scene.append_ax()
-        ax.add_line(x=self.grid.time_stamp, y=self.data)
-        return scene
+        figure, ax = plt.subplots(1, 1, figsize=(8, 4))
+        ax.plot(self.grid.time_stamp, self.data)
+        ax.set_ylabel('Amplitude')
+        ax.set_xlabel('Time [seconds]')
+        figure.show()
 
     def add_to_ax(self, ax: plt.axis) -> NoReturn:
         """

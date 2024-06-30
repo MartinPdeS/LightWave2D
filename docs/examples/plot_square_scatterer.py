@@ -54,6 +54,11 @@ experiment.plot()
 
 experiment.run_fdtd()
 
+
+# %%
+# Plotting the field measured at detector
+detector.plot_data()
+
 # %%
 # Plotting the last time frame of the computed fields
 experiment.plot_frame(frame_number=-1, scale_max=4)
