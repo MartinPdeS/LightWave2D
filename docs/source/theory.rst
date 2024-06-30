@@ -1,268 +1,162 @@
-:orphan:
+Theoretical Background
+=======================
 
-Theoretical background
-======================
-
-Lorenz-Mie Theory (LMT)
------------------------
+Finite-Difference Time-Domain Method (FDTD)
+-------------------------------------------
 
 .. note::
 
-  The Lorenz-Mie Theory or (LMT for short) is a framework that can be used to find
-  exact solution of the scattered field considering a plane wave incident to a
-  scatterer with a certain geometry.
-  The solution is usually written in the form of an infinite summation which, of
-  course, has to be truncated. PyMieSim is a library which does solve the
-  equations in order to retrieve plenty of important informations.
-  It is to be noted that in all the library, the angles :math:`\theta` and
-  :math:`\phi` are defined as in a spherical coordinate system as shown in the
-  following figure.
+  The Finite-Difference Time-Domain (FDTD) method is a numerical analysis technique used to model computational electrodynamics. It is particularly useful for solving Maxwell's equations for complex structures and media.
+  LightWave2D employs the FDTD method to simulate the interaction of electromagnetic waves with various components in a two-dimensional grid. This allows for the accurate analysis of wave propagation, scattering, and diffraction.
 
-  .. image:: https://github.com/MartinPdeS/PyMieSim/raw/master/docs/images/optical_setup.png
-    :width: 600
+  The FDTD method discretizes both the spatial and temporal domains. It uses central-difference approximations to Maxwell's curl equations. By stepping through time iteratively, it updates the electric and magnetic fields within the simulation grid.
 
+.. math::
+  &\frac{\partial \vec{E}}{\partial t} = \frac{1}{\epsilon} \nabla \times \vec{H} - \frac{\sigma}{\epsilon} \vec{E}
+
+  &\frac{\partial \vec{H}}{\partial t} = -\frac{1}{\mu} \nabla \times \vec{E}
+
+  Here, \vec{E} and \vec{H} represent the electric and magnetic fields, respectively. \epsilon and \mu are the permittivity and permeability of the medium, and \sigma is the electrical conductivity.
+
+Component Modeling
+------------------
+
+Waveguide
+---------
 
 .. note::
 
-  Here are few of the most important relations governing the PyMieSim library.
+  A waveguide in LightWave2D guides electromagnetic waves from one point to another with minimal loss. The waveguide's width and height can be specified in grid cells or set to 'full' to occupy the entire grid dimension.
 
-  .. math::
-     &S_1=\sum\limits_{n=1}^{n_{max}}\frac{2n+1}{n(n+1)}(a_n\pi_n+b_n\tau_n)
+.. math::
+  &\epsilon_r(x, y) = 
+  \begin{cases} 
+  \epsilon_{r, \text{wg}} & \text{if } (x, y) \in \text{Waveguide} \\
+  \epsilon_{r, \text{bg}} & \text{otherwise}
+  \end{cases}
 
-     &.
+Square Scatterer
+----------------
 
-     &S_2=\sum\limits_{n=1}^{n_{max}}\frac{2n+1}{n(n+1)}(a_n\tau_n+b_n\pi_n)
+.. note::
 
-     .&
+  The square scatterer is a simple component with a uniform relative permittivity. It is defined by its center position and side length.
 
-     &\text{Fields} = E_{\theta}(\phi,\theta) \vec{\theta} +   E_{\phi}(\phi,\theta) \vec{\phi}
+.. math::
+  &\epsilon_r(x, y) = 
+  \begin{cases} 
+  \epsilon_{r, \text{sq}} & \text{if } (x, y) \in \text{Square} \\
+  \epsilon_{r, \text{bg}} & \text{otherwise}
+  \end{cases}
 
-     .&
+Circle Scatterer
+----------------
 
-     &\text{SPF} = \sqrt{ E_{\parallel}(\phi,\theta)^2 + E_{\perp}(\phi,\theta)^2 }
+.. note::
 
-  **Stokes parameters:**
+  A circular scatterer is another basic component defined by its center position and radius. It scatters incident waves uniformly.
 
-   .. math::
+.. math::
+  &\epsilon_r(x, y) = 
+  \begin{cases} 
+  \epsilon_{r, \text{circle}} & \text{if } (x, y) \in \text{Circle} \\
+  \epsilon_{r, \text{bg}} & \text{otherwise}
+  \end{cases}
 
-     &I = \big| E_x \big|^2 + \big| E_y \big|^2
+Ellipse Scatterer
+-----------------
 
-     .&
+.. note::
 
-     &Q = \big| E_x \big|^2 - \big| E_y \big|^2
+  An elliptical scatterer is defined by its center position, width, height, and rotation angle. It provides an anisotropic scattering effect.
 
-     .&
+.. math::
+  &\epsilon_r(x, y) = 
+  \begin{cases} 
+  \epsilon_{r, \text{ellipse}} & \text{if } (x, y) \in \text{Ellipse} \\
+  \epsilon_{r, \text{bg}} & \text{otherwise}
+  \end{cases}
 
-     &U = 2 \mathcal{Re} \big\{ E_x E_y^* \big\}
+Triangle Scatterer
+------------------
 
-     .&
+.. note::
 
-     &V = 2 \mathcal{Im} \big\{ E_x E_y^* \big\}
+  A triangular scatterer is defined by its center position and side length. It provides a unique scattering pattern due to its geometric shape.
 
+.. math::
+  &\epsilon_r(x, y) = 
+  \begin{cases} 
+  \epsilon_{r, \text{triangle}} & \text{if } (x, y) \in \text{Triangle} \\
+  \epsilon_{r, \text{bg}} & \text{otherwise}
+  \end{cases}
 
-Scattering properties
+Lense
+-----
+
+.. note::
+
+  A lens in LightWave2D focuses or defocuses waves based on its radius of curvature and width. It can be either convex or concave.
+
+.. math::
+  &\epsilon_r(x, y) = 
+  \begin{cases} 
+  \epsilon_{r, \text{lense}} & \text{if } (x, y) \in \text{Lense} \\
+  \epsilon_{r, \text{bg}} & \text{otherwise}
+  \end{cases}
+
+Grating
+-------
+
+.. note::
+
+  A grating is used to diffract light and study diffraction patterns. It is defined by its period, duty cycle, and number of periods.
+
+.. math::
+  &\epsilon_r(x, y) = 
+  \begin{cases} 
+  \epsilon_{r, \text{grating}} & \text{if } (x, y) \in \text{Grating} \\
+  \epsilon_{r, \text{bg}} & \text{otherwise}
+  \end{cases}
+
+Ring Resonator
+--------------
+
+.. note::
+
+  A ring resonator is used to study resonant effects. It is defined by its inner and outer radius.
+
+.. math::
+  &\epsilon_r(x, y) = 
+  \begin{cases} 
+  \epsilon_{r, \text{ring}} & \text{if } (x, y) \in \text{Ring Resonator} \\
+  \epsilon_{r, \text{bg}} & \text{otherwise}
+  \end{cases}
+
+Rectangular Waveguide
 ---------------------
 
 .. note::
-  There are many properties of the scatterer that might be useful to know such as:
-  - scattering efficiency
-  - extinction efficiency
-  - absorption efficiency
-  - back-scattering efficiency
-  - ratio of front and back scattering
-  - optical pressure efficiency
-  - anisotropy factor g
 
-  Those parameters can be computed using PyMieSim according to those equations.
+  A rectangular waveguide is used to guide electromagnetic waves with a defined width, height, and length.
 
-  .. math::
-    &Q_{sca} = \frac{2}{x^2}\sum_{n=1}^{n_{max}}(2n+1)(|a_n|^2+|b_n|^2)
+.. math::
+  &\epsilon_r(x, y) = 
+  \begin{cases} 
+  \epsilon_{r, \text{rect}} & \text{if } (x, y) \in \text{Rectangular Waveguide} \\
+  \epsilon_{r, \text{bg}} & \text{otherwise}
+  \end{cases}
 
-    &Q_{ext} = \frac{2}{x^2} \sum_{n=1}^{n_{max}} (2n+1) \mathcal Re \{ a_n+b_n \}
-
-    &Q_{abs} = Q_{ext}-Q_{sca}
-
-    &Q_{back} = \frac{1}{x^2} \Big| \sum\limits_{n=1}^{n_{max}} (2n+1)(-1)^n (a_n - b_n) \Big|^2
-
-    &Q_{ratio} = \frac{Q_{back}}{Q_{sca}}
-
-    &Q_{pr} = Q_{ext} - g * Q_{sca}
-
-    &g = \frac{4}{Q_{sca} x^2}
-            \Big[ \sum\limits_{n=1}^{n_{max}} \frac{n(n+2)}{n+1} \text{Re} \left\{ a_n a_{n+1}^* + b_n b_{n+1}^*\right\} +
-            \sum\limits_{n=1}^{n_{max}} \frac{2n+1}{n(n+1)} \text{Re}\left\{ a_n b_n^* \right\} \Big]
-
-    &A_s = \pi r^2
-
-    &\sigma_{i} = Q_{i} A
-
-    &\mu_{sca} = \sigma_{sca} C
-
-    &\mu_{ext} = \sigma_{ext} C
-
-    &\mu_{abs} = \sigma_{abs} C
-
-  | With:
-  |   C: the scatterer concentration in the sample.
-
------
-
-
-An and Bn coefficients:
------------------------
-
-
-
-From the An and Bn coefficients, we can retrieve many useful properties of
-the scatterer and scattered far-fields. Those are complementary to the
-Cn and Dn coefficient (for near-field properties) which we do no compute
-with PyMieSim at the moment.
-Depending on the scatterer geometry, all those coefficient may vary. Here we
-have three example which are available with the PyMieSim library.
-
-.. note::
-  **Sphere**
-
-  .. math::
-
-      a_n = \frac{
-      \mu_{sp} \Psi_n(x) \Psi_n^\prime(M x) - \mu M \Psi_n^\prime(x) \Psi_n(M x)}
-      {\mu_{sp} \xi_n(x) \Psi_n^\prime(M x)- \mu M \xi_n^\prime (x) \Psi_n(M x)}
-
-  .. math::
-
-      b_n = \frac{
-       \mu M \Psi_n(x) \Psi_n^\prime(M x) - \mu_{sp} \Psi_n^\prime(x) \Psi_n(M x)}
-      {\mu M \xi_n(x) \Psi_n^\prime(M x) - \mu_{sp} \xi_n^\prime (x) \Psi_n(M x)}
-
-
-  |   With:
-  |     :math:`\psi_n = x \psi^{(1)}_n (x) = \sqrt{x \pi/2} J_{n+1/2} (x)`.
-  |     :math:`M = k_{sp}/k` is the relative complex refractive index.
-  |     :math:`x = \pi d / \lambda`.
-  |     :math:`\lambda` is the wavelength in the surrounding medium.
-  |     :ref:`References` [1] Eq(III.88-91).
-  |
-  |
-  |  **important**: It is to be noted that PyMieSim assume :math:`\mu_{sp} = \mu` at the moment.
-       It might change in a future update.
-
-
-----
-
-.. note::
-  **Cylinder**
-
-  .. math::
-
-      a_n = \frac{ M J_n(M x) J_n^\prime (m x) - m J_n^\prime (M x) J_n(m x) }
-      { m_t J_n(M x) H_n^\prime (m x) - m J_n^\prime (M x) H_n(m x) }
-
-  .. math::
-
-      b_n = \frac{ m J_n(m_t x) J_n^\prime (m x) - m_t J_n^\prime (m_t x) J_n(m x) }
-      { m J_n(m_t x) H_n^\prime (m x) - m_t J_n^\prime (m_t x) H_n(m x) }
-
-
-  |   With:
-  |     :math:`M` is the refractive index of the scatterer.
-  |     :math:`m` is the refractive index of the medium.
-  |     :math:`H_n` is the Hankel function of first kind of order n.
-  |     :ref:`References` [5] Eq(8.30-32).
-
-----
-
-.. note::
-  **Core/Shell sphere**
-
-
-  .. math::
-
-      a_n = \frac{
-      \psi_n \left[ \psi_n' (m_2 y) - A_n \chi_n' (m_s) \right] -
-      m_2 \psi_n'(y) \left[ \psi_n (m_2 y) - A_n \chi_n (m_2 y) \right]}
-      {\xi_n (y) \left[ \psi_n' (m_2 y) -A_n \chi_n' (m_2 y) \right] -
-      m_2 \xi_n' (y) \left[ \psi_n(m_2 y) - A_n \chi_n (m_2 y) \right]}
-
-  .. math::
-
-      b_n = \frac{
-        m_2 \psi_n(y) \left[ \psi_n' (m_2 y) - B_n \chi_n' (m_2 y) \right] -
-        \psi_n' (y) \left[ \psi_n (m_2 y) - B_n \chi_n (m_2 y) \right]}
-        {m_2 \xi_n(y) \left[ \psi_n' (m_2 y) - B_n \xi_n' (m_2 y) \right] -
-        \xi_n' \left[ \psi_n (m_2 y) -A_n \chi_n (m_2 y)  \right]
-
-        }
-
-  |   With:
-
-  .. math::
-    A_n = \frac{ m_2 \psi_n (m_2 x) \psi_n' (m_1 x) - m1 \psi_n'(m_2 x) \psi_n(m_1x)}
-      {m_2 \xi_n (m_2x) \psi_n' (m_1 x) - m_1 \xi_n' (m_2 x) \psi_n (m_1 x)}
-
-  .. math::
-    B_n = \frac{m_2 \psi_n (m_1 x) \psi_n' (m_2 x) - m_1 \psi_n (m_2 x) \psi_n' (m_1 x)}
-      {m_2 \chi_n' (m_2 x) \psi_n (m_1 x) - m_1 \psi_n' (m_1 x) \chi_n (m_2 x)}
-
-  |   and:
-
-  .. math:: x = \frac{2 \pi R_{core}}{\lambda}, \:
-            y = \frac{2 \pi R_{shell}}{\lambda}, \:
-            m_1 = \frac{n_{core}}{n_{medium}}, \:
-            m_2 = \frac{n_{shell}}{n_{medium}}.
-
-  .. math::
-    \chi_n (x) = -x\sqrt{\frac{\pi}{2x}} N_{n+1/2} (x) \leftarrow \text{Neumann}
-
-  |     :ref:`References` [8] Eq(4-5).
-
-
-
-Generalized Lorenz-Mie Theory (GLMT)
-------------------------------------
-
-.. note::
-  **Coming soon**
-
-
-
-
------
-
-Coupling mechanism
+Parabolic Reflector
 -------------------
 
 .. note::
 
-  There are two main coupling mechanisms, **coherent coupling** and non-coherent coupling.
-  For instance, photodiode collect light via a **non-coherent mechanism**. On the other part,
-  fiber optic LP mode collects light in a coherent way and as such they usually
-  collect a lot less light but they add additional information on the sample studied.
+  A parabolic reflector focuses incoming waves to a single point (the focus). It is defined by its focal length and width.
 
-
-  Mathematically they are defined as follows:
-
-  .. math::
-      C_{coh.} &= \Big| \iint_{\Omega}  \Phi_{det} \, . \, \Psi_{scat}^* \,  d \Omega \Big|^2
-
-      C_{Noncoh.} &=  \iint_{\Omega}  \Big| \Phi_{det} \Big|^2 \,.\, \Big| \Psi_{scat} \Big|^2 \,  d \Omega
-
-
-
-  It is to be noted that the **coherent coupling** definition is derived from the coupled mode theory
-  which remains true as long as the parallax approximation is also true.
-  Furthermore, this coupling is what we would call **centered coupling**. It means that the
-  scatterer is perfectly centered with the detector. Even though it doesn't affect
-  so much the **non-coherent coupling** coupling, it can largely affect **coherent coupling**.
-
-  To take into account the effect of transversal offset of the scatterer, we define
-  the footprint of the scatterer.
-
-
-  .. math::
-    \eta_{l,m}(\delta_x, \delta_y) = \Big| \mathcal{F}^{-1} \big\{ \Phi_{det} \, . \, \Psi_{scat} \big\}  \Big|^2
-
-  Thus, we can compute the **mean coupling** as the mean value of :math:`\eta_{l,m}`
-
-  .. math::
-    \widetilde{\eta}_{l,m} = \big< \eta_{l,m}(\delta_x, \delta_y) \big>
+.. math::
+  &\epsilon_r(x, y) = 
+  \begin{cases} 
+  \epsilon_{r, \text{parabolic}} & \text{if } (x, y) \in \text{Parabolic Reflector} \\
+  \epsilon_{r, \text{bg}} & \text{otherwise}
+  \end{cases}

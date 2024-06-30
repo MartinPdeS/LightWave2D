@@ -19,31 +19,5 @@ Source code structures
     :inherited-members:
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.. automodule:: LightWave2D.pml
+    :inherited-members:

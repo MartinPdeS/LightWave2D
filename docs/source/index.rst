@@ -1,4 +1,4 @@
-PyMieSim's documentation
+LightWave2D's documentation
 ============================
 
 **Date**: |today|, **Version**: |version|

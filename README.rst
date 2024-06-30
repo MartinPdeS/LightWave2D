@@ -115,6 +115,9 @@ Below are two examples that illustrate this:
 
 |example_resonator|
 
+Plenty of other examples are available online, I invite you to check the `examples <https://lightwave2d.readthedocs.io/en/master/gallery/index.html>`_
+section of the documentation.
+
 
 Testing
 *******
