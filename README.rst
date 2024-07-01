@@ -129,6 +129,60 @@ Below are two examples that illustrate this:
 
 |example_resonator|
 
+
+# Ring resonator
+
+
+.. code:: python
+
+   from LightWave2D.grid import Grid
+   from LightWave2D.experiment import Experiment
+   from MPSPlots import colormaps
+
+   grid = Grid(
+       resolution=0.1e-6,
+       size_x=60e-6,
+       size_y=30e-6,
+       n_steps=1200
+   )
+
+   experiment = Experiment(grid=grid)
+
+   scatterer = experiment.add_lense(
+       position=('35%', '50%'),
+       epsilon_r=2,
+       curvature=10e-6,
+       width=5e-6
+   )
+
+   source = experiment.add_point_source(
+       wavelength=1550e-9,
+       position=('10%', '50%'),
+       amplitude=10,
+   )
+
+
+   experiment.add_pml(order=1, width=50, sigma_max=5000)
+
+   experiment.run_fdtd()
+
+   experiment.plot_frame(
+       frame_number=-1,
+       scale_max=5,
+       colormap=colormaps.polytechnique.red_black_blue
+   )
+
+   animation = experiment.render_propagation(
+       skip_frame=5,
+       unit_size=5,
+       colormap=colormaps.polytechnique.red_black_blue
+   )
+
+   animation.save('./lense.gif', writer='Pillow', fps=10)
+
+
+|example_lense|
+
 Plenty of other examples are available online, I invite you to check the `examples <https://lightwave2d.readthedocs.io/en/master/gallery/index.html>`_
 section of the documentation.
 
@@ -161,6 +215,11 @@ Email:`martin.poinsinet-de-sivry@polymtl.ca <mailto:martin.poinsinet-de-sivry@po
 
 
 .. |example_resonator| image:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/resonator.gif?raw=true
+   :alt: some image
+   :class: with-shadow float-left
+   :width: 800px
+
+.. |example_lense| image:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/lense.gif?raw=true
    :alt: some image
    :class: with-shadow float-left
    :width: 800px

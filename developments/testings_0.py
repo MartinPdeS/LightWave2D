@@ -50,7 +50,7 @@ source = experiment.add_impulsion(
 
 experiment.run_fdtd()
 
-# experiment.plot()
+experiment.plot()
 
 # %%
 # Plotting the last time frame of the computed fields

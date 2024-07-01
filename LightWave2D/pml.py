@@ -62,8 +62,8 @@ class PML():
         figure, ax = plt.subplots(1, 1, figsize=figsize)
 
         ax.set_title('FDTD Simulation at time step')
+        ax.set_ylabel(r'y position [$\mu$m]')
         ax.set_xlabel(r'x position [$\mu$m]')
-        ax.set_xlabel(r'y position [$\mu$m]')
         ax.set_aspect('equal')
 
         self.add_to_ax(ax)

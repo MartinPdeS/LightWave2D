@@ -96,6 +96,7 @@ class PointDetector(BaseDetector):
         data (numpy.ndarray): The data collected by the detector over time.
     """
     position: Union[Tuple[float | str, float | str]]
+    coherent: bool = True
     data: numpy.ndarray = field(init=False)
 
     def __post_init__(self):
@@ -120,7 +121,10 @@ class PointDetector(BaseDetector):
         Parameters:
             field (numpy.ndarray): The field values to update the detector data.
         """
-        self.data = field[:, self.p0.x_index, self.p0.y_index]
+        if self.coherent:
+            self.data = field[:, self.p0.x_index, self.p0.y_index]
+        else:
+            self.data = abs(field[:, self.p0.x_index, self.p0.y_index])
 
     def plot_data(self) -> NoReturn:
         """

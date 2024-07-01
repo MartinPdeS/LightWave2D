@@ -13,6 +13,7 @@ from LightWave2D.pml import PML
 from MPSPlots import colormaps
 import matplotlib.animation as animation
 from pydantic.dataclasses import dataclass
+import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 
 config_dict = dict(
@@ -361,6 +362,12 @@ class Experiment:
         ax.set_xlabel(r'x position [$\mu$m]')
         ax.set_ylabel(r'y position [$\mu$m]')
         ax.set_aspect('equal')
+
+        ticks_x = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x / 1e-6))
+        ax.xaxis.set_major_formatter(ticks_x)
+
+        ticks_y = ticker.FuncFormatter(lambda y, pos: '{0:g}'.format(y / 1e-6))
+        ax.yaxis.set_major_formatter(ticks_y)
 
         return figure, ax
 

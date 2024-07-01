@@ -20,6 +20,8 @@ build
 *.whl
 .pdf
 perso/
+developments/*.gif
+developments/*.png
 
 docs/source/gallery
 
