@@ -7,7 +7,10 @@ LightWave2D
 |PyPi_download|
 
 
-This is a package for 2D FDTD.
+LightWave2D is a software designed for comprehensive 2D Finite-Difference Time-Domain (FDTD) simulations, featuring a user-friendly installation and operation process. The characterization of wave propagation, scattering, and diffraction within LightWave2D is determined by a set of specific components, as illustrated in the subsequent figure.
+
+LightWave2D integrates various components, including waveguides, scatterers (squares, circles, ellipses, triangles, lenses), gratings, and resonators. Additional parameters governing the simulation are contingent upon the attributes of the components and the simulation setup.
+
 
 ----
 
@@ -17,6 +20,17 @@ All the latest available documentation is available `here <https://lightwave2d.r
 
 |docs|
 
+
+----
+
+Installation
+************
+
+For common versions of Windows, Linux, and macOS, (on x86_64 architecture), the package can readily be installed using pip;
+
+.. code-block:: python
+
+   >>> pip install LightWave2D
 
 
 Coding examples
@@ -126,10 +140,10 @@ To test localy (with cloning the GitHub repository) you'll need to install the d
 
 .. code:: python
 
-   >>> git clone https://github.com/MartinPdeS/PyMieSim.git
-   >>> cd PyMieSim
+   >>> git clone https://github.com/MartinPdeS/LightWave2D.git
+   >>> cd LightWave2D
    >>> pip install -r requirements/requirements.txt
-   >>> coverage run --source=PyMieSim --module pytest --verbose tests
+   >>> coverage run --source=LightWave2D --module pytest --verbose tests
    >>> coverage report --show-missing
 
 

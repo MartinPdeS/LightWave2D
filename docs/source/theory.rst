@@ -16,6 +16,7 @@ Finite-Difference Time-Domain Method (FDTD)
 
   &\frac{\partial \vec{H}}{\partial t} = -\frac{1}{\mu} \nabla \times \vec{E}
 
+
   Here, \vec{E} and \vec{H} represent the electric and magnetic fields, respectively. \epsilon and \mu are the permittivity and permeability of the medium, and \sigma is the electrical conductivity.
 
 Component Modeling
@@ -147,16 +148,3 @@ Rectangular Waveguide
   \epsilon_{r, \text{bg}} & \text{otherwise}
   \end{cases}
 
-Parabolic Reflector
--------------------
-
-.. note::
-
-  A parabolic reflector focuses incoming waves to a single point (the focus). It is defined by its focal length and width.
-
-.. math::
-  &\epsilon_r(x, y) =
-  \begin{cases}
-  \epsilon_{r, \text{parabolic}} & \text{if } (x, y) \in \text{Parabolic Reflector} \\
-  \epsilon_{r, \text{bg}} & \text{otherwise}
-  \end{cases}
