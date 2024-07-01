@@ -26,23 +26,10 @@ experiment = Experiment(grid=grid)
 
 # %%
 # We add a circular scatterer
-scatterer = experiment.add_circle(
+scatterer = experiment.add_ellipse(
     position=('30%', '40%'),
-    radius=2e-6,
-    epsilon_r=2,
-)
-
-
-scatterer = experiment.add_circle(
-    position=('30%', '50%'),
-    radius=2e-6,
-    epsilon_r=2,
-)
-
-
-scatterer = experiment.add_circle(
-    position=('30%', '60%'),
-    radius=2e-6,
+    width=4e-6,
+    height=10e-6,
     epsilon_r=2,
 )
 

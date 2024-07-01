@@ -7,7 +7,7 @@ import numpy
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
 from LightWave2D.components import Circle, Square, Ellipse, Triangle, Lense, Grating, RingResonator
-from LightWave2D.source import PointSource, LineSource
+from LightWave2D.source import PointSource, LineSource, Impulsion
 from LightWave2D.detector import PointDetector
 from LightWave2D.pml import PML
 from MPSPlots import colormaps
@@ -172,6 +172,13 @@ class Experiment:
         return PointSource(grid=self.grid, **kwargs)
 
     @add_to_source
+    def add_impulsion(self, **kwargs) -> Impulsion:
+        """
+        Method to add a Impulsion to the simulation.
+        """
+        return Impulsion(grid=self.grid, **kwargs)
+
+    @add_to_source
     def add_line_source(self, **kwargs) -> LineSource:
         """
         Method to add a LineSource to the simulation.
@@ -205,9 +212,10 @@ class Experiment:
         Returns:
             numpy.ndarray: The epsilon mesh.
         """
-        epsilon_r_mesh = numpy.ones(self.grid.shape) * Physics.epsilon_0
+        epsilon_r_mesh = numpy.ones(self.grid.shape)
         for component in self.components:
             component.add_to_mesh(epsilon_r_mesh)
+
         return epsilon_r_mesh * Physics.epsilon_0
 
     def get_field_yee_gradient(self, field: numpy.ndarray) -> Tuple[numpy.ndarray, numpy.ndarray]:
@@ -231,6 +239,7 @@ class Experiment:
         Hy = numpy.zeros(self.grid.shape)
 
         sigma_x, sigma_y = self.get_sigma()
+
         epsilon = self.get_epsilon()
         mu_factor = self.grid.dt / Physics.mu_0
         eps_factor = self.grid.dt / epsilon
@@ -238,6 +247,7 @@ class Experiment:
         for iteration, t in enumerate(self.grid.time_stamp):
 
             dEz_dx, dEz_dy = self.get_field_yee_gradient(Ez)
+
             Hx[:, :-1] -= mu_factor * dEz_dy * (1 - sigma_y[:, :-1] * mu_factor / 2)
             Hy[:-1, :] += mu_factor * dEz_dx * (1 - sigma_x[:-1, :] * mu_factor / 2)
 

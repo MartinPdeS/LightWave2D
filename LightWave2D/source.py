@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy
-from typing import Tuple, NoReturn
+from typing import Tuple, NoReturn, List, Union
 from LightWave2D.utils import bresenham_line
 from pydantic.dataclasses import dataclass
 from matplotlib.path import Path
@@ -104,13 +104,14 @@ class PointSource(BaseSource):
         position (tuple): Position (x, y) of the source.
         amplitude (float): Amplitude of the electric field, default is 1.0.
     """
-    wavelength: float
+    wavelength: Union[float | List[float] | numpy.ndarray]
     position: Tuple[float | str, float | str]
     amplitude: float = 1.0
     facecolor: str = 'red'
     edgecolor: str = 'red'
 
     def __post_init__(self):
+        self.wavelength = numpy.atleast_1d(self.wavelength)
         self.frequency = Physics.c / self.wavelength
         self.omega = 2 * numpy.pi * self.frequency
         x, y = self.position
@@ -140,7 +141,57 @@ class PointSource(BaseSource):
             field (numpy.ndarray): The simulation field to which the source's effect will be added.
             time (float): The current simulation time.
         """
-        field[self.p0.x_index, self.p0.y_index] += self.amplitude * numpy.sin(self.omega * time)
+        field[self.p0.x_index, self.p0.y_index] = self.amplitude / len(self.omega) * numpy.sin(self.omega * time).sum()
+
+
+@dataclass(kw_only=True, config=config_dict)
+class Impulsion(BaseSource):
+    """
+    Represents a point source in a 2D light wave simulation.
+
+    Attributes:
+        wavelength (float): Wavelength of the source.
+        position (tuple): Position (x, y) of the source.
+        amplitude (float): Amplitude of the electric field, default is 1.0.
+    """
+    duration: float
+    position: Tuple[float | str, float | str]
+    delay: float = 0
+    amplitude: float = 1.0
+    facecolor: str = 'red'
+    edgecolor: str = 'red'
+
+    def __post_init__(self):
+        x, y = self.position
+        self.p0 = self.grid.get_coordinate(x=x, y=y)
+        self.polygon = geo.Point(self.p0.x, self.p0.y)
+        self.path = Path(self.polygon.coords)
+
+    def add_to_ax(self, ax: plt.Axes) -> NoReturn:
+        """
+        Add the point source to the provided axis as a scatter point.
+
+        Args:
+            ax (plt.Axes): The axis to which the point source will be added.
+        """
+        ax.scatter(
+            self.p0.x,
+            self.p0.y,
+            color=self.facecolor,
+            label='source'
+        )
+
+    def add_source_to_field(self, field: numpy.ndarray, time: float) -> NoReturn:
+        """
+        Add the source's effect to the simulation field.
+
+        Args:
+            field (numpy.ndarray): The simulation field to which the source's effect will be added.
+            time (float): The current simulation time.
+        """
+        source_field = numpy.exp(-((time - self.delay) / self.duration) ** 2)
+
+        field[self.p0.x_index, self.p0.y_index] = self.amplitude * source_field
 
 
 @dataclass(kw_only=True, config=config_dict)
@@ -208,4 +259,4 @@ class LineSource(BaseSource):
             time (float): The current simulation time.
         """
         rows, cols = self.slice_indexes
-        field[rows, cols] += self.amplitude * numpy.sin(self.omega * time)
+        field[rows, cols] = self.amplitude * numpy.sin(self.omega * time)
