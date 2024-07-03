@@ -275,6 +275,7 @@ class Experiment:
             frame_number: int,
             scale_max: float = 5,
             unit_size: int = 6,
+            show_intensity: bool = False,
             colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> NoReturn:
         """
         Creates a plot of a specific frame from the FDTD simulation.
@@ -292,10 +293,15 @@ class Experiment:
         """
         figure, ax = self.get_figure_ax(unit_size=unit_size)
 
+        if show_intensity:
+            data = abs(self.Ez_t[frame_number].T)
+        else:
+            data = self.Ez_t[frame_number].T
+
         image = ax.pcolormesh(
             self.grid.x_stamp,
             self.grid.y_stamp,
-            self.Ez_t[frame_number].T,
+            data,
             cmap=colormap
         )
 
@@ -317,6 +323,7 @@ class Experiment:
             scale_max: float = 5,
             unit_size: int = 6,
             dpi: int = 200,
+            show_intensity: bool = False,
             colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> NoReturn:
         """
         Saves a specific frame from the FDTD simulation as an image file at the specified resolution.
@@ -328,18 +335,22 @@ class Experiment:
             frame_number (int): The index of the frame to be saved.
             filename (str): The file path where the image will be saved.
             dpi (int): The resolution of the saved image in dots per inch.
-            colormap (Optional[Union[str, object]]): The colormap used for visualizing the data.
-                Defaults to a predefined blue-black-red colormap.
+            colormap (Optional[Union[str, object]]): The colormap used for visualizing the data. Defaults to a predefined blue-black-red colormap.
 
         Returns:
             None: This method does not return any value, but saves an image file.
         """
         figure, ax = self.get_figure_ax(unit_size=unit_size)
 
+        if show_intensity:
+            data = abs(self.Ez_t[frame_number].T)
+        else:
+            data = self.Ez_t[frame_number].T
+
         image = ax.pcolormesh(
             self.grid.x_stamp,
             self.grid.y_stamp,
-            self.Ez_t[frame_number].T,
+            data,
             cmap=colormap
         )
 

@@ -22,12 +22,12 @@ grid = Grid(
 
 experiment = Experiment(grid=grid)
 
-# scatterer = experiment.add_ellipse(
-#     position=('30%', '40%'),
-#     width=4e-6,
-#     height=10e-6,
-#     epsilon_r=1,
-# )
+scatterer = experiment.add_ellipse(
+    position=('30%', '40%'),
+    width=4e-6,
+    height=4e-6,
+    epsilon_r=1,
+)
 
 # source = experiment.add_point_source(
 #     wavelength=1550e-9,
@@ -46,7 +46,7 @@ source = experiment.add_impulsion(
 
 # %%
 # We add a perfectly matched layer to avoid reflection at the boundary of the mesh
-# experiment.add_pml(order=1, width=70, sigma_max=5000)
+experiment.add_pml(order=1, width='20%', sigma_max=5000)
 
 experiment.run_fdtd()
 

@@ -2,52 +2,73 @@
 # -*- coding: utf-8 -*-
 
 from typing import NoReturn
+import numpy as np
 import numpy
 from LightWave2D.grid import Grid
 from pydantic.dataclasses import dataclass
 from matplotlib.colors import ListedColormap
 import matplotlib.pyplot as plt
 
-config_dict = dict(
-    kw_only=True,
-    slots=True,
-    extra='forbid',
-    arbitrary_types_allowed=True
-)
+# Configuration dictionary for dataclasses
+config_dict = {
+    'kw_only': True,
+    'slots': True,
+    'extra': 'forbid',
+    'arbitrary_types_allowed': True
+}
 
 
 @dataclass(config=config_dict)
-class PML():
+class PML:
+    """
+    Represents a Perfectly Matched Layer (PML) for absorbing boundary conditions in FDTD simulations.
+
+    Attributes:
+        grid (Grid): The simulation grid.
+        width (int): Width of the PML region in grid cells.
+        sigma_max (float): Maximum value of the conductivity profile.
+        order (int): Polynomial order of the conductivity profile.
+    """
     grid: Grid
-    """ The grid of the simulation mesh """
-    width: int = 10
-    """ Width of the PML region """
+    width: str = 10
     sigma_max: float = 0.045
-    """ Adjust sigma_max for better absorption, based on wavelength and PML width """
     order: int = 3
-    """ Polynomial order of sigma profile """
 
     def __post_init__(self):
-        self.sigma_x = numpy.zeros((self.grid.n_x, self.grid.n_y))
-        self.sigma_y = numpy.zeros((self.grid.n_x, self.grid.n_y))
+        """
+        Initialize the PML regions with appropriate conductivity profiles.
+        """
+        self.sigma_x = np.zeros((self.grid.n_x, self.grid.n_y))
+        self.sigma_y = np.zeros((self.grid.n_x, self.grid.n_y))
 
-        for i in range(self.grid.n_x):
-            for j in range(self.grid.n_y):
-                # Left and right PML regions
-                if i < self.width:
-                    self.sigma_x[i, j] = self.sigma_max * ((self.width - i) / self.width) ** self.order
-                elif i >= self.grid.n_x - self.width:
-                    self.sigma_x[i, j] = self.sigma_max * ((i - (self.grid.n_x - self.width - 1)) / self.width) ** self.order
+        y_mesh, x_mesh = numpy.meshgrid(self.grid.y_stamp, self.grid.x_stamp)
 
-                # Top and bottom PML regions
-                if j < self.width:
-                    self.sigma_y[i, j] = self.sigma_max * ((self.width - j) / self.width) ** self.order
-                elif j >= self.grid.n_y - self.width:
-                    self.sigma_y[i, j] = self.sigma_max * ((j - (self.grid.n_y - self.width - 1)) / self.width) ** self.order
+        opposite_width = float(self.width.strip("%"))
+        opposite_width = f"{100 - opposite_width}%"
+        self.width_start = self.grid.get_coordinate(x=self.width, y=self.width)
+        self.width_stop = self.grid.get_coordinate(x=opposite_width, y=opposite_width)
+        self.width_stop_ = self.grid.get_coordinate(x="100%", y="100%")
 
-    def add_to_ax(self, ax: plt.axis) -> NoReturn:
-        cmap = numpy.zeros([256, 4])
-        cmap[:, 3] = numpy.linspace(0, 1, 256)
+        bottom_boundary = y_mesh < self.width_start.y
+        left_boundary = x_mesh < self.width_start.x
+
+        top_boundary = y_mesh > self.width_stop.y
+        right_boundary = x_mesh > self.width_stop.x
+
+        self.sigma_y[bottom_boundary] = self.sigma_max * ((self.width_start.y - y_mesh[bottom_boundary]) / self.width_start.y) ** self.order
+        self.sigma_y[top_boundary] = self.sigma_max * ((y_mesh[top_boundary] - self.width_stop.y) / self.width_start.y) ** self.order
+        self.sigma_x[left_boundary] = self.sigma_max * ((self.width_start.x - x_mesh[left_boundary]) / self.width_start.x) ** self.order
+        self.sigma_x[right_boundary] = self.sigma_max * ((x_mesh[right_boundary] - self.width_stop.x) / self.width_start.x) ** self.order
+
+    def add_to_ax(self, ax: plt.Axes) -> NoReturn:
+        """
+        Add the PML regions to a matplotlib axis.
+
+        Args:
+            ax (plt.Axes): The axis to which the PML regions will be added.
+        """
+        cmap = np.zeros([256, 4])
+        cmap[:, 3] = np.linspace(0, 1, 256)
         cmap = ListedColormap(cmap)
 
         ax.pcolormesh(
@@ -58,16 +79,19 @@ class PML():
         )
 
     def plot(self, unit_size: int = 6) -> NoReturn:
+        """
+        Plot the PML regions.
+
+        Args:
+            unit_size (int): Size of each unit in the plot.
+        """
         figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
         figure, ax = plt.subplots(1, 1, figsize=figsize)
 
-        ax.set_title('FDTD Simulation at time step')
+        ax.set_title('FDTD Simulation PML Regions')
         ax.set_ylabel(r'y position [$\mu$m]')
         ax.set_xlabel(r'x position [$\mu$m]')
         ax.set_aspect('equal')
 
         self.add_to_ax(ax)
-
         plt.show()
-
-# -
