@@ -28,17 +28,18 @@ experiment = Experiment(grid=grid)
 # Add a circular scatterer to the experiment
 scatterer = experiment.add_circle(
     position=('30%', '50%'),  # Center position of the scatterer
-    epsilon_r=2,              # Relative permittivity of the scatterer
-    radius=3e-6               # Radius of the circular scatterer in meters
+    epsilon_r=1.5,            # Relative permittivity of the scatterer
+    radius=3e-6,              # Radius of the circular scatterer in meters
+    sigma=1e6
 )
 
 # %%
 # Add a line source to the experiment
 source = experiment.add_line_source(
-    wavelength=1550e-9,       # Wavelength of the source in meters
-    position_0=('10%', '100%'),  # Starting position of the source
-    position_1=('10%', '0%'),    # Ending position of the source
-    amplitude=10              # Amplitude of the source
+    wavelength=1550e-9,         # Wavelength of the source in meters
+    position_0=('10%', '80%'),  # Starting position of the source
+    position_1=('10%', '20%'),  # Ending position of the source
+    amplitude=10                # Amplitude of the source
 )
 
 # %%
@@ -60,8 +61,9 @@ experiment.run_fdtd()
 # Plot the last time frame of the computed fields
 experiment.plot_frame(
     frame_number=-1,  # Plot the last frame
-    scale_max=2,      # Maximum scale for the field visualization
-    colormap=colormaps.polytechnique.red_black_blue  # Colormap for the plot
+    scale_max=1,      # Maximum scale for the field visualization
+    colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the plot
+    show_intensity=True
 )
 
 # %%
@@ -69,7 +71,9 @@ experiment.plot_frame(
 animation = experiment.render_propagation(
     skip_frame=5,                            # Number of frames to skip in the animation
     unit_size=5,                             # Size of each unit in the animation
-    colormap=colormaps.polytechnique.red_black_blue  # Colormap for the animation
+    colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
+    scale_max=1,
+    auto_adjust_clim=True
 )
 
 # Save the animation as a GIF file

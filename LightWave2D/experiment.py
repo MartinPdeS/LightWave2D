@@ -211,6 +211,11 @@ class Experiment:
             sigma_x, sigma_y = self.pml.sigma_x, self.pml.sigma_y
         else:
             sigma_x = sigma_y = numpy.zeros(self.grid.shape)
+
+        for component in self.components:
+            component.add_to_sigma_mesh(sigma_x)
+            component.add_to_sigma_mesh(sigma_y)
+
         return sigma_x, sigma_y
 
     def get_epsilon(self) -> numpy.ndarray:
@@ -222,7 +227,7 @@ class Experiment:
         """
         epsilon_r_mesh = numpy.ones(self.grid.shape)
         for component in self.components:
-            component.add_to_mesh(epsilon_r_mesh)
+            component.add_to_epsilon_r_mesh(epsilon_r_mesh)
 
         return epsilon_r_mesh * Physics.epsilon_0
 
@@ -264,10 +269,14 @@ class Experiment:
 
             Ez[1:-1, 1:-1] += eps_factor[1:-1, 1:-1] * (dHy_dx - dHx_dy)
 
+            # Apply absorption (losses) to the electric field Ez
+            absorption_factor = 1 - (sigma_x + sigma_y) * eps_factor / 2
+            absorption_factor = numpy.clip(absorption_factor, 0, 1)  # Absorption cliped to [0, 1] to ensure stability
+
+            Ez *= absorption_factor
+
             for component in self.components:
                 component.add_non_linear_effect_to_field(Ez)
-
-            Ez *= (1 - (sigma_x + sigma_y) * eps_factor / 2)
 
             for source in self.sources:
                 source.add_source_to_field(Ez, time=t)
@@ -342,6 +351,7 @@ class Experiment:
             frame_number (int): The index of the frame to be saved.
             filename (str): The file path where the image will be saved.
             dpi (int): The resolution of the saved image in dots per inch.
+            show_intensity (bool): If True, the intensity is shown instead of amplitude
             colormap (Optional[Union[str, object]]): The colormap used for visualizing the data. Defaults to a predefined blue-black-red colormap.
 
         Returns:
@@ -394,6 +404,7 @@ class Experiment:
             skip_frame: int = 10,
             scale_max: float = 5,
             unit_size: int = 6,
+            auto_adjust_clim: bool = False,
             colormap: Optional[Union[str, object]] = colormaps.blue_black_red) -> animation.FuncAnimation:
         """
         Renders the propagation of a field as an animation using matplotlib.
@@ -403,6 +414,7 @@ class Experiment:
 
         Args:
             skip_frame (int): The number of time steps to skip between frames in the animation.
+            auto_adjust_clim (bool): TODO
             colormap (Optional[Union[str, object]]): The colormap used for visualizing the data. Defaults to a predefined blue-black-red colormap.
             unit_size (float): The base unit size for scaling the plot elements.
 
@@ -437,6 +449,11 @@ class Experiment:
             """
             field_t = self.Ez_t[frame].T
             field_artist.set_array(field_t)
+
+            if auto_adjust_clim:
+                max_amplitude = abs(field_t).max() / scale_max
+                field_artist.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
+
             return [artist for artist in artist_list]
 
         def init_func():

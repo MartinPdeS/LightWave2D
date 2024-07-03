@@ -52,6 +52,8 @@ class Grid:
         self.x_stamp = numpy.arange(self.n_x) * self.dx
         self.y_stamp = numpy.arange(self.n_y) * self.dy
 
+        self.x_mesh, self.y_mesh = numpy.meshgrid(self.x_stamp, self.y_stamp)
+
         self.polygon = geo.Polygon([
             (self.x_stamp[0], self.y_stamp[0]),
             (self.x_stamp[0], self.y_stamp[-1]),

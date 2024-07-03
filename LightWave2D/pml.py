@@ -47,7 +47,6 @@ class PML:
         opposite_width = f"{100 - opposite_width}%"
         self.width_start = self.grid.get_coordinate(x=self.width, y=self.width)
         self.width_stop = self.grid.get_coordinate(x=opposite_width, y=opposite_width)
-        self.width_stop_ = self.grid.get_coordinate(x="100%", y="100%")
 
         bottom_boundary = y_mesh < self.width_start.y
         left_boundary = x_mesh < self.width_start.x

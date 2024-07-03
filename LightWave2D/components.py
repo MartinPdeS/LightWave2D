@@ -36,12 +36,14 @@ class BaseComponent():
         edgecolor (str): The color of the component's edge.
         alpha (float): Transparency level of the component.
         rotation (float): Rotation angle of the component.
+        sigma (float): Conductivity of the component.
     """
     grid: Grid
     facecolor: str = 'lightblue'
     edgecolor: str = 'blue'
     alpha: float = 0.3
     rotation: float = 0
+    sigma: float = 0
 
     def __post_init__(self):
         x0, y0 = self.position
@@ -63,13 +65,9 @@ class BaseComponent():
 
         self.path = Path(self.polygon.exterior.coords)
 
-        x_mesh, y_mesh = numpy.meshgrid(self.grid.x_stamp, self.grid.y_stamp)
-
-        coordinates = numpy.c_[x_mesh.T.flatten(), y_mesh.T.flatten()]
+        coordinates = numpy.c_[self.grid.x_mesh.T.flatten(), self.grid.y_mesh.T.flatten()]
 
         self.idx = self.path.contains_points(coordinates).astype(bool).reshape(self.epsilon_r_mesh.shape)
-
-        self.epsilon_r_mesh[self.idx] = self.epsilon_r
 
     def add_to_ax(self, ax: plt.axis) -> PatchCollection:
         """
@@ -107,14 +105,23 @@ class BaseComponent():
 
         plt.show()
 
-    def add_to_mesh(self, epsilon_r_mesh: numpy.ndarray) -> NoReturn:
+    def add_to_epsilon_r_mesh(self, epsilon_r_mesh: numpy.ndarray) -> NoReturn:
         """
         Add the component's permittivity to the provided mesh.
 
         Args:
             epsilon_r_mesh (np.ndarray): The permittivity mesh to be updated.
         """
-        epsilon_r_mesh += self.epsilon_r_mesh
+        epsilon_r_mesh[self.idx] = self.epsilon_r
+
+    def add_to_sigma_mesh(self, sigma_mesh: numpy.ndarray) -> NoReturn:
+        """
+        Add the component's sigma to the provided mesh.
+
+        Args:
+            sigma_mesh (np.ndarray): The permittivity mesh to be updated.
+        """
+        sigma_mesh[self.idx] = self.sigma
 
     def add_non_linear_effect_to_field(self, field: numpy.ndarray) -> NoReturn:
         """
@@ -123,7 +130,8 @@ class BaseComponent():
         Args:
             field (np.ndarray): The field to which non-linear effects will be added.
         """
-        chi_2 = 1e10
+        return
+        chi_2 = 0
 
         field += self.idx * self.grid.dt**2 / (self.epsilon_r_mesh * Physics.epsilon_0 * Physics.mu_0) * chi_2 * field ** 2
 
