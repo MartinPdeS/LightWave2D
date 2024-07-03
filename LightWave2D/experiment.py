@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 
-from typing import Tuple, NoReturn, Optional, Union
+from typing import Tuple, NoReturn, Optional, Union, List
 import numpy
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
 from LightWave2D.components import Circle, Square, Ellipse, Triangle, Lense, Grating, RingResonator, Waveguide
-from LightWave2D.source import PointSource, LineSource, Impulsion
+from LightWave2D.source import PointSource, LineSource, PointImpulsion
 from LightWave2D.detector import PointDetector
 from LightWave2D.pml import PML
 from MPSPlots import colormaps
@@ -180,11 +180,11 @@ class Experiment:
         return PointSource(grid=self.grid, **kwargs)
 
     @add_to_source
-    def add_impulsion(self, **kwargs) -> Impulsion:
+    def add_point_impulsion(self, **kwargs) -> PointImpulsion:
         """
         Method to add a Impulsion to the simulation.
         """
-        return Impulsion(grid=self.grid, **kwargs)
+        return PointImpulsion(grid=self.grid, **kwargs)
 
     @add_to_source
     def add_line_source(self, **kwargs) -> LineSource:
@@ -431,7 +431,7 @@ class Experiment:
         max_amplitude = abs(self.Ez_t).max() / scale_max
         field_artist.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
 
-        def update(frame) -> list:
+        def update(frame) -> List:
             """
             Update function for the animation; called for each frame.
             """

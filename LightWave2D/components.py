@@ -9,12 +9,11 @@ import matplotlib.pyplot as plt
 import shapely.geometry as geo
 from matplotlib.patches import PathPatch
 from matplotlib import patches
-import matplotlib as mpl
 import numpy as np
 from matplotlib.path import Path
 from matplotlib.collections import PatchCollection
 from LightWave2D.grid import Grid
-from shapely.affinity import scale
+from shapely.affinity import scale, rotate
 
 
 # Configuration dictionary for dataclasses
@@ -58,9 +57,11 @@ class BaseComponent():
 
         self.compute_polygon()
 
-        self.path = Path(self.polygon.exterior.coords)
+        self.polygon = rotate(self.polygon, angle=self.rotation)
 
-        self.path = self.path.transformed(mpl.transforms.Affine2D().rotate_around(self.coordinate.x, self.coordinate.y, self.rotation))
+        self.polygon = self.polygon.intersection(self.grid.polygon)
+
+        self.path = Path(self.polygon.exterior.coords)
 
         x_mesh, y_mesh = numpy.meshgrid(self.grid.x_stamp, self.grid.y_stamp)
 
@@ -130,32 +131,35 @@ class BaseComponent():
 @dataclass(config=config_dict)
 class Waveguide(BaseComponent):
     """
-    Represents a square scatterer in a simulation grid.
+    Represents a Waveguide scatterer in a simulation grid.
 
     Attributes:
         position (Tuple[Union[float, str], Union[float, str]]): The center position of the scatterer.
         epsilon_r (float): The relative permittivity inside the scatterer.
         side_length (float): The side length of the square scatterer.
     """
-    position: Tuple[Union[float, str], Union[float, str]]
-    width: Union[float, str]
-    length: Union[float, str]
+    position_0: Tuple[Union[float, str], Union[float, str]]
+    position_1: Tuple[Union[float, str], Union[float, str]]
+    width: float
     epsilon_r: float
+
+    def __post_init__(self):
+        x0, y0 = self.position_0
+        x1, y1 = self.position_1
+        self.coordinate_0 = self.grid.get_coordinate(x=x0, y=y0)
+        self.coordinate_1 = self.grid.get_coordinate(x=x1, y=y1)
+
+        self.build_object()
 
     def compute_polygon(self) -> Path:
         """
         Compute the polygon of the square scatterer.
         """
-        half_side = self.side_length / 2
-        x_start, x_end = self.coordinate.x - half_side, self.coordinate.x + half_side
-        y_start, y_end = self.coordinate.y - half_side, self.coordinate.y + half_side
+        line = geo.LineString(
+            [(self.coordinate_0.x, self.coordinate_0.y), (self.coordinate_1.x, self.coordinate_1.y)]
+        )
 
-        self.polygon = geo.Polygon([
-            (x_start, y_start),
-            (x_start, y_end),
-            (x_end, y_end),
-            (x_end, y_start)
-        ])
+        self.polygon = line.buffer(self.width)
 
 
 @dataclass(config=config_dict)
@@ -185,7 +189,7 @@ class Square(BaseComponent):
             (x_start, y_end),
             (x_end, y_end),
             (x_end, y_start)
-        ])
+        ]).convex_hull
 
 
 @dataclass(config=config_dict)

@@ -5,6 +5,7 @@ from typing import Union, Optional
 import numpy
 from LightWave2D.physics import Physics
 from pydantic.dataclasses import dataclass
+import shapely.geometry as geo
 
 config_dict = dict(
     kw_only=True,
@@ -50,6 +51,13 @@ class Grid:
         self.time_stamp = numpy.arange(self.n_steps) * self.dt
         self.x_stamp = numpy.arange(self.n_x) * self.dx
         self.y_stamp = numpy.arange(self.n_y) * self.dy
+
+        self.polygon = geo.Polygon([
+            (self.x_stamp[0], self.y_stamp[0]),
+            (self.x_stamp[0], self.y_stamp[-1]),
+            (self.x_stamp[-1], self.y_stamp[0]),
+            (self.x_stamp[-1], self.y_stamp[-1])
+        ]).convex_hull
 
     def get_distance_grid(self, x0: float = 0, y0: float = 0) -> numpy.ndarray:
         """

@@ -22,6 +22,8 @@ build
 perso/
 developments/*.gif
 developments/*.png
+docs/examples/*.png
+docs/examples/*.gif
 
 docs/source/gallery
 

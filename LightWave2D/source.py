@@ -145,7 +145,7 @@ class PointSource(BaseSource):
 
 
 @dataclass(kw_only=True, config=config_dict)
-class Impulsion(BaseSource):
+class PointImpulsion(BaseSource):
     """
     Represents a point source in a 2D light wave simulation.
 
@@ -206,8 +206,8 @@ class LineSource(BaseSource):
         amplitude (float): Amplitude of the electric field, default is 1.0.
     """
     wavelength: float
-    point_0: Tuple[float | str, float | str]
-    point_1: Tuple[float | str, float | str]
+    position_0: Tuple[float | str, float | str]
+    position_1: Tuple[float | str, float | str]
     amplitude: float = 1.0
 
     def __post_init__(self):
@@ -219,8 +219,8 @@ class LineSource(BaseSource):
         """
         Build the line source object and calculate the line's coordinates.
         """
-        self.p0 = self.grid.get_coordinate(x=self.point_0[0], y=self.point_0[1])
-        self.p1 = self.grid.get_coordinate(x=self.point_1[0], y=self.point_1[1])
+        self.p0 = self.grid.get_coordinate(x=self.position_0[0], y=self.position_0[1])
+        self.p1 = self.grid.get_coordinate(x=self.position_1[0], y=self.position_1[1])
 
         position = bresenham_line(
             x0=self.p0.x_index,
