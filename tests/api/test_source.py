@@ -48,7 +48,7 @@ def test_add_sources(method, params):
 def test_add_pml():
     grid = Grid(resolution=0.1e-6, size_x=30e-6, size_y=30e-6, n_steps=500)
     experiment = Experiment(grid=grid)
-    pml = experiment.add_pml(order=1, width=70, sigma_max=5000)
+    pml = experiment.add_pml(order=1, width='10%', sigma_max=5000)
     assert pml is not None  # Assuming pmls is a list of added elements
 
 

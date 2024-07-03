@@ -128,6 +128,37 @@ class BaseComponent():
 
 
 @dataclass(config=config_dict)
+class Waveguide(BaseComponent):
+    """
+    Represents a square scatterer in a simulation grid.
+
+    Attributes:
+        position (Tuple[Union[float, str], Union[float, str]]): The center position of the scatterer.
+        epsilon_r (float): The relative permittivity inside the scatterer.
+        side_length (float): The side length of the square scatterer.
+    """
+    position: Tuple[Union[float, str], Union[float, str]]
+    width: Union[float, str]
+    length: Union[float, str]
+    epsilon_r: float
+
+    def compute_polygon(self) -> Path:
+        """
+        Compute the polygon of the square scatterer.
+        """
+        half_side = self.side_length / 2
+        x_start, x_end = self.coordinate.x - half_side, self.coordinate.x + half_side
+        y_start, y_end = self.coordinate.y - half_side, self.coordinate.y + half_side
+
+        self.polygon = geo.Polygon([
+            (x_start, y_start),
+            (x_start, y_end),
+            (x_end, y_end),
+            (x_end, y_start)
+        ])
+
+
+@dataclass(config=config_dict)
 class Square(BaseComponent):
     """
     Represents a square scatterer in a simulation grid.

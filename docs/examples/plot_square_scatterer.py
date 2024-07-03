@@ -40,7 +40,7 @@ source = experiment.add_line_source(
 
 # %%
 # We add a perfectly matched layer to avoid reflection at the boundary of the mesh
-experiment.add_pml(order=1, width=70, sigma_max=5000)
+experiment.add_pml(order=1, width='10%', sigma_max=5000)
 
 # %%
 # We add a detector

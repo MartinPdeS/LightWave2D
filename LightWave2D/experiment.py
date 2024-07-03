@@ -6,7 +6,7 @@ from typing import Tuple, NoReturn, Optional, Union
 import numpy
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
-from LightWave2D.components import Circle, Square, Ellipse, Triangle, Lense, Grating, RingResonator
+from LightWave2D.components import Circle, Square, Ellipse, Triangle, Lense, Grating, RingResonator, Waveguide
 from LightWave2D.source import PointSource, LineSource, Impulsion
 from LightWave2D.detector import PointDetector
 from LightWave2D.pml import PML
@@ -164,6 +164,13 @@ class Experiment:
         Method to add a RingResonator to the simulation.
         """
         return RingResonator(grid=self.grid, **kwargs)
+
+    @add_to_component
+    def add_waveguide(self, **kwargs) -> Waveguide:
+        """
+        Method to add a Waveguide to the simulation.
+        """
+        return Waveguide(grid=self.grid, **kwargs)
 
     @add_to_source
     def add_point_source(self, **kwargs) -> PointSource:

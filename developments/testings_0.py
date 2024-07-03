@@ -29,6 +29,14 @@ scatterer = experiment.add_ellipse(
     epsilon_r=1,
 )
 
+
+scatterer = experiment.add_waveguide(
+    position=('30%', '40%'),
+    width=4e-6,
+    length=4e-6,
+    epsilon_r=1,
+)
+
 # source = experiment.add_point_source(
 #     wavelength=1550e-9,
 #     position=('50%', '50%'),

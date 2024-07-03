@@ -41,7 +41,7 @@ source = experiment.add_point_source(
 
 # %%
 # We add a perfectly matched layer to avoid reflection at the boundary of the mesh
-pml = experiment.add_pml(order=1, width=70, sigma_max=5000)
+pml = experiment.add_pml(order=1, width='10%', sigma_max=5000)
 
 # %%
 # Plotting of the whole experiment setup
