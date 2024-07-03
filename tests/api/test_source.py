@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
 
@@ -35,7 +35,7 @@ def test_add_scatterers(method, params):
 # Test adding sources
 @pytest.mark.parametrize("method, params", [
     ('add_point_source', {'wavelength': 1550e-9, 'position': ('30%', '70%'), 'amplitude': 10}),
-    ('add_line_source', {'wavelength': 1550e-9, 'point_0': ('10%', '100%'), 'point_1': ('10%', '0%'), 'amplitude': 10})
+    ('add_line_source', {'wavelength': 1550e-9, 'position_0': ('10%', '100%'), 'position_1': ('10%', '0%'), 'amplitude': 10})
 ])
 def test_add_sources(method, params):
     grid = Grid(resolution=0.1e-6, size_x=30e-6, size_y=30e-6, n_steps=500)

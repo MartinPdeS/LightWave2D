@@ -36,8 +36,8 @@ scatterer = experiment.add_circle(
 # Add a line source to the experiment
 source = experiment.add_line_source(
     wavelength=1550e-9,       # Wavelength of the source in meters
-    point_0=('10%', '100%'),  # Starting position of the source
-    point_1=('10%', '0%'),    # Ending position of the source
+    position_0=('10%', '100%'),  # Starting position of the source
+    position_1=('10%', '0%'),    # Ending position of the source
     amplitude=10              # Amplitude of the source
 )
 
