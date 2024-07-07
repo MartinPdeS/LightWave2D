@@ -6,8 +6,8 @@ from typing import Tuple, NoReturn, Optional, Union, List
 import numpy
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
-from LightWave2D.components import Circle, Square, Ellipse, Triangle, Lense, Grating, RingResonator, Waveguide
-from LightWave2D.source import PointSource, LineSource, PointImpulsion
+from LightWave2D import components
+from LightWave2D import source
 from LightWave2D.detector import PointDetector
 from LightWave2D.pml import PML
 from MPSPlots import colormaps
@@ -116,82 +116,89 @@ class Experiment:
         return self.pml
 
     @add_to_component
-    def add_circle(self, **kwargs) -> Circle:
+    def add_circle(self, **kwargs) -> components.Circle:
         """
-        Method to add a Circle to the simulation.
+        Method to add a components.Circle to the simulation.
         """
-        return Circle(grid=self.grid, **kwargs)
+        return components.Circle(grid=self.grid, **kwargs)
 
     @add_to_component
-    def add_ellipse(self, **kwargs) -> Ellipse:
+    def add_ellipse(self, **kwargs) -> components.Ellipse:
         """
-        Method to add a Ellipse to the simulation.
+        Method to add a components.Ellipse to the simulation.
         """
-        return Ellipse(grid=self.grid, **kwargs)
+        return components.Ellipse(grid=self.grid, **kwargs)
 
     @add_to_component
-    def add_square(self, **kwargs) -> Square:
+    def add_square(self, **kwargs) -> components.Square:
         """
         open()
-        Method to add a Square to the simulation.
+        Method to add a components.Square to the simulation.
         """
-        return Square(grid=self.grid, **kwargs)
+        return components.Square(grid=self.grid, **kwargs)
 
     @add_to_component
-    def add_triangle(self, **kwargs) -> Square:
+    def add_triangle(self, **kwargs) -> components.Triangle:
         """
-        Method to add a Triangle to the simulation.
+        Method to add a components.Triangle to the simulation.
         """
-        return Triangle(grid=self.grid, **kwargs)
+        return components.Triangle(grid=self.grid, **kwargs)
 
     @add_to_component
-    def add_lense(self, **kwargs) -> Square:
+    def add_lense(self, **kwargs) -> components.Lense:
         """
-        Method to add a Lense to the simulation.
+        Method to add a components.Lense to the simulation.
         """
-        return Lense(grid=self.grid, **kwargs)
+        return components.Lense(grid=self.grid, **kwargs)
 
     @add_to_component
-    def add_grating(self, **kwargs) -> Square:
+    def add_grating(self, **kwargs) -> components.Grating:
         """
-        Method to add a Grating to the simulation.
+        Method to add a components.Grating to the simulation.
         """
-        return Grating(grid=self.grid, **kwargs)
+        return components.Grating(grid=self.grid, **kwargs)
 
     @add_to_component
-    def add_ring_resonator(self, **kwargs) -> Square:
+    def add_ring_resonator(self, **kwargs) -> components.RingResonator:
         """
-        Method to add a RingResonator to the simulation.
+        Method to add a components.RingResonator to the simulation.
         """
-        return RingResonator(grid=self.grid, **kwargs)
+        return components.RingResonator(grid=self.grid, **kwargs)
 
     @add_to_component
-    def add_waveguide(self, **kwargs) -> Waveguide:
+    def add_waveguide(self, **kwargs) -> components.Waveguide:
         """
-        Method to add a Waveguide to the simulation.
+        Method to add a components.Waveguide to the simulation.
         """
-        return Waveguide(grid=self.grid, **kwargs)
+        return components.Waveguide(grid=self.grid, **kwargs)
 
     @add_to_source
-    def add_point_source(self, **kwargs) -> PointSource:
+    def add_point_source(self, **kwargs) -> source.PointSource:
         """
-        Method to add a PointSource to the simulation.
+        Method to add a source.PointSource to the simulation.
         """
-        return PointSource(grid=self.grid, **kwargs)
+        return source.PointSource(grid=self.grid, **kwargs)
 
     @add_to_source
-    def add_point_impulsion(self, **kwargs) -> PointImpulsion:
+    def add_point_impulsion(self, **kwargs) -> source.PointImpulsion:
         """
-        Method to add a Impulsion to the simulation.
+        Method to add a source.Impulsion to the simulation.
         """
-        return PointImpulsion(grid=self.grid, **kwargs)
+        return source.PointImpulsion(grid=self.grid, **kwargs)
 
     @add_to_source
-    def add_line_source(self, **kwargs) -> LineSource:
+    def add_line_source(self, **kwargs) -> source.LineSource:
         """
-        Method to add a LineSource to the simulation.
+        Method to add a source.LineSource to the simulation.
         """
-        return LineSource(grid=self.grid, **kwargs)
+        return source.LineSource(grid=self.grid, **kwargs)
+
+    @add_to_source
+    def add_line_impulsion(self, **kwargs) -> source.LineImpulsion:
+        """
+        Method to add a source.LineSource to the simulation.
+        """
+        return source.LineImpulsion(grid=self.grid, **kwargs)
 
     @add_to_detector
     def add_point_detector(self, **kwargs) -> PointDetector:
@@ -276,10 +283,10 @@ class Experiment:
             Ez *= absorption_factor
 
             for component in self.components:
-                component.add_non_linear_effect_to_field(Ez)
+                Ez = component.add_non_linear_effect_to_field(Ez)
 
-            for source in self.sources:
-                source.add_source_to_field(Ez, time=t)
+            for element in self.sources:
+                element.add_source_to_field(Ez, time=t)
 
             self.Ez_t[iteration] = Ez
 

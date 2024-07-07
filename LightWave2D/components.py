@@ -4,12 +4,10 @@
 from typing import NoReturn, Union, Tuple
 from pydantic.dataclasses import dataclass
 import numpy
-from LightWave2D.physics import Physics
 import matplotlib.pyplot as plt
 import shapely.geometry as geo
 from matplotlib.patches import PathPatch
 from matplotlib import patches
-import numpy as np
 from matplotlib.path import Path
 from matplotlib.collections import PatchCollection
 from LightWave2D.grid import Grid
@@ -80,8 +78,8 @@ class BaseComponent():
             PatchCollection: The collection of patches added to the axis.
         """
         path = Path.make_compound_path(
-            Path(np.asarray(self.polygon.exterior.coords)[:, :2]),
-            *[Path(np.asarray(ring.coords)[:, :2]) for ring in self.polygon.interiors])
+            Path(numpy.asarray(self.polygon.exterior.coords)[:, :2]),
+            *[Path(numpy.asarray(ring.coords)[:, :2]) for ring in self.polygon.interiors])
 
         patch = PathPatch(path, facecolor=self.facecolor, edgecolor=self.edgecolor, alpha=0.4)
         collection = PatchCollection([patch], facecolor=self.facecolor, edgecolor=self.edgecolor, alpha=self.alpha)
@@ -110,7 +108,7 @@ class BaseComponent():
         Add the component's permittivity to the provided mesh.
 
         Args:
-            epsilon_r_mesh (np.ndarray): The permittivity mesh to be updated.
+            epsilon_r_mesh (numpy.ndarray): The permittivity mesh to be updated.
         """
         epsilon_r_mesh[self.idx] = self.epsilon_r
 
@@ -119,7 +117,7 @@ class BaseComponent():
         Add the component's sigma to the provided mesh.
 
         Args:
-            sigma_mesh (np.ndarray): The permittivity mesh to be updated.
+            sigma_mesh (numpy.ndarray): The permittivity mesh to be updated.
         """
         sigma_mesh[self.idx] = self.sigma
 
@@ -128,12 +126,13 @@ class BaseComponent():
         Add non-linear effects to the field.
 
         Args:
-            field (np.ndarray): The field to which non-linear effects will be added.
+            field (numpy.ndarray): The field to which non-linear effects will be added.
         """
-        return
-        chi_2 = 0
-
-        field += self.idx * self.grid.dt**2 / (self.epsilon_r_mesh * Physics.epsilon_0 * Physics.mu_0) * chi_2 * field ** 2
+        return field
+        chi_3 = 1e-8  # Third-order non-linear susceptibility (example value)
+        intensity = numpy.abs(field) ** 2
+        nonlinear_term = chi_3 * intensity * field
+        return field + self.grid.dt * nonlinear_term
 
 
 @dataclass(config=config_dict)
@@ -239,7 +238,7 @@ class Triangle(BaseComponent):
         """
         Compute the polygon of the triangular scatterer.
         """
-        height = (np.sqrt(3) / 2) * self.side_length
+        height = (numpy.sqrt(3) / 2) * self.side_length
 
         # Vertices of an equilateral triangle centered at (coordinate.x, coordinate.y)
         p0 = (self.coordinate.x - self.side_length / 2, self.coordinate.y - height / 3)
