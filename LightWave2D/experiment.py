@@ -253,43 +253,79 @@ class Experiment:
         return d_dx, d_dy
 
     def run_fdtd(self) -> NoReturn:
-        """Run the FDTD simulation."""
+        r"""
+        Run the FDTD simulation.
+
+        This method updates the electric field (Ez) and magnetic fields (Hx, Hy) over time
+        according to Maxwell's equations using the Finite-Difference Time-Domain (FDTD) method.
+        It also incorporates absorption, sources, and non-linear effects.
+
+        Maxwell's equations in 2D (assuming non-magnetic media):
+
+        \[
+        \frac{\partial H_x}{\partial t} = -\frac{1}{\mu} \frac{\partial E_z}{\partial y}
+        \]
+
+        \[
+        \frac{\partial H_y}{\partial t} = \frac{1}{\mu} \frac{\partial E_z}{\partial x}
+        \]
+
+        \[
+        \frac{\partial E_z}{\partial t} = \frac{1}{\epsilon} \left( \frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y} \right) - \sigma E_z
+        \]
+
+        Attributes:
+            Ez (numpy.ndarray): Electric field in the z-direction.
+            Hx (numpy.ndarray): Magnetic field in the x-direction.
+            Hy (numpy.ndarray): Magnetic field in the y-direction.
+            sigma_x, sigma_y (numpy.ndarray): Conductivity in x and y directions, respectively.
+            epsilon (numpy.ndarray): Permittivity of the grid.
+            mu_factor (float): Precomputed factor for magnetic field update.
+            eps_factor (numpy.ndarray): Precomputed factor for electric field update.
+        """
         Ez = numpy.zeros(self.grid.shape)
         Hx = numpy.zeros(self.grid.shape)
         Hy = numpy.zeros(self.grid.shape)
 
         sigma_x, sigma_y = self.get_sigma()
-
         epsilon = self.get_epsilon()
         mu_factor = self.grid.dt / Physics.mu_0
         eps_factor = self.grid.dt / epsilon
 
         for iteration, t in enumerate(self.grid.time_stamp):
 
+            # Compute the Yee gradients of the electric field Ez
             dEz_dx, dEz_dy = self.get_field_yee_gradient(Ez)
 
+            # Update the magnetic fields Hx and Hy using Maxwell's equations
             Hx[:, :-1] -= mu_factor * dEz_dy * (1 - sigma_y[:, :-1] * mu_factor / 2)
             Hy[:-1, :] += mu_factor * dEz_dx * (1 - sigma_x[:-1, :] * mu_factor / 2)
 
+            # Compute the Yee gradients of the magnetic fields Hx and Hy
             dHy_dx = (Hy[1:-1, 1:-1] - Hy[:-2, 1:-1]) / self.grid.dx
             dHx_dy = (Hx[1:-1, 1:-1] - Hx[1:-1, :-2]) / self.grid.dy
 
+            # Update the electric field Ez using Maxwell's equations
             Ez[1:-1, 1:-1] += eps_factor[1:-1, 1:-1] * (dHy_dx - dHx_dy)
 
             # Apply absorption (losses) to the electric field Ez
+            # The absorption factor is based on the conductivity sigma
             absorption_factor = 1 - (sigma_x + sigma_y) * eps_factor / 2
-            absorption_factor = numpy.clip(absorption_factor, 0, 1)  # Absorption cliped to [0, 1] to ensure stability
-
+            absorption_factor = numpy.clip(absorption_factor, 0, 1)  # Clipped to [0, 1] to ensure stability
             Ez *= absorption_factor
 
+            # Apply non-linear effects to the electric field Ez
             for component in self.components:
                 Ez = component.add_non_linear_effect_to_field(Ez)
 
+            # Add source contributions to the electric field Ez
             for element in self.sources:
                 element.add_source_to_field(Ez, time=t)
 
+            # Store the field for this time step
             self.Ez_t[iteration] = Ez
 
+        # Update the data for all detectors
         for detector in self.detectors:
             detector.update_data(field=self.Ez_t)
 
@@ -393,7 +429,7 @@ class Experiment:
         figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
         figure, ax = plt.subplots(1, 1, figsize=figsize)
 
-        ax.set_title('FDTD Simulation')
+        # ax.set_title('FDTD Simulation')
         ax.set_xlabel(r'x position [$\mu$m]')
         ax.set_ylabel(r'y position [$\mu$m]')
         ax.set_aspect('equal')
@@ -412,6 +448,7 @@ class Experiment:
             scale_max: float = 5,
             unit_size: int = 6,
             auto_adjust_clim: bool = False,
+            fps: int = 10,
             colormap: Optional[Union[str, object]] = colormaps.blue_black_red) -> animation.FuncAnimation:
         """
         Renders the propagation of a field as an animation using matplotlib.
@@ -423,6 +460,7 @@ class Experiment:
             skip_frame (int): The number of time steps to skip between frames in the animation.
             auto_adjust_clim (bool): TODO
             colormap (Optional[Union[str, object]]): The colormap used for visualizing the data. Defaults to a predefined blue-black-red colormap.
+            fps (int, optional): The frames per second for the animation. Defaults to 10.
             unit_size (float): The base unit size for scaling the plot elements.
 
         Returns:
@@ -437,6 +475,15 @@ class Experiment:
             self.grid.y_stamp,
             initial_field,
             cmap=colormap
+        )
+
+        title = ax.text(
+            x=0.85,
+            y=.9,
+            s="",
+            transform=ax.transAxes,
+            ha="center",
+            color='white'
         )
 
         # Store all artists for updating
@@ -454,6 +501,8 @@ class Experiment:
             """
             Update function for the animation; called for each frame.
             """
+            time = self.grid.time_stamp[frame]
+
             field_t = self.Ez_t[frame].T
             field_artist.set_array(field_t)
 
@@ -461,24 +510,66 @@ class Experiment:
                 max_amplitude = abs(field_t).max() / scale_max
                 field_artist.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
 
-            return [artist for artist in artist_list]
+            title.set_text(f'time: {time:.1e}')
+
+            return *artist_list, title,
 
         def init_func():
             """
             Initialization function for the animation; called at the start.
             """
+            time = 0
+            title.set_text(f'time: {time:.1e}')
             ax.set_xticks([])
             ax.set_yticks([])
-            return field_artist,
+            return field_artist, title,
 
         # Create and return the animation object
         render = animation.FuncAnimation(
             fig=figure,
             func=update,
             frames=numpy.arange(0, self.grid.n_steps, skip_frame),
-            interval=0.2,
+            interval=1000 / fps,
             blit=True,
             init_func=init_func
         )
 
         return render
+
+    def save_propagation(self, filename: str, writer: str = 'Pillow', fps: int = 10, **kwargs) -> animation.FuncAnimation:
+        """
+        Save the FDTD simulation animation to a file.
+
+        This method generates an animation of the electric field propagation and saves it to the specified file using the given writer.
+
+        Args:
+            filename (str): The name of the file to save the animation.
+            writer (str, optional): The writer to use for saving the animation. Defaults to 'Pillow'.
+            fps (int, optional): The frames per second for the animation. Defaults to 10.
+            **kwargs: Additional keyword arguments passed to the render_propagation method.
+
+        Returns:
+            animation.FuncAnimation: The generated animation object.
+        """
+        animation = self.render_propagation(**kwargs)
+        animation.save(filename, writer=writer, fps=fps)
+        return animation
+
+    def show_propagation(self, **kwargs) -> animation.FuncAnimation:
+        """
+        Display the FDTD simulation animation.
+
+        This method generates and displays an animation of the electric field propagation.
+
+        Args:
+            **kwargs: Additional keyword arguments passed to the render_propagation method.
+
+        Returns:
+            animation.FuncAnimation: The generated animation object.
+        """
+        animation = self.render_propagation(**kwargs)
+        plt.show()
+        return animation
+
+
+# -
