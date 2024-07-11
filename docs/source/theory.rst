@@ -15,7 +15,7 @@ Finite-Difference Time-Domain Method (FDTD)
     &\frac{\partial \vec{E}}{\partial t} = \frac{1}{\epsilon} \nabla \times \vec{H} - \frac{\sigma}{\epsilon} \vec{E}
     &\frac{\partial \vec{H}}{\partial t} = -\frac{1}{\mu} \nabla \times \vec{E}
 
-    Here, E and H represent the electric and magnetic fields, respectively. \epsilon and \mu are the permittivity and permeability of the medium, and \sigma is the electrical conductivity.
+    Here, E and H represent the electric and magnetic fields, respectively. :math:`\epsilon` and :math:`\mu` are the permittivity and permeability of the medium, and :math:`\sigma` is the electrical conductivity.
 
 Component Modeling
 ------------------
