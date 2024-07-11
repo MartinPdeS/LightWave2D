@@ -166,7 +166,7 @@ class Waveguide(BaseComponent):
             [(self.coordinate_0.x, self.coordinate_0.y), (self.coordinate_1.x, self.coordinate_1.y)]
         )
 
-        self.polygon = line.buffer(self.width)
+        self.polygon = line.buffer(self.width / 2)
 
 
 @dataclass(config=config_dict)

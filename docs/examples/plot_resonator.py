@@ -26,18 +26,30 @@ experiment = Experiment(grid=grid)
 
 # %%
 # Add a ring resonator scatterer to the experiment
-scatterer = experiment.add_ring_resonator(
-    position=('35%', '50%'),  # Center position of the ring resonator
-    epsilon_r=1.5,            # Relative permittivity of the ring resonator
+ring_resonator = experiment.add_ring_resonator(
+    position=('50%', '49%'),  # Center position of the ring resonator
+    epsilon_r=2.,            # Relative permittivity of the ring resonator
     inner_radius=4e-6,        # Inner radius of the ring resonator in meters
+    width=2e-6                # Width of the ring resonator in meters
+)
+
+
+# %%
+# Add a waveguide to the experiment
+ring_resonator = experiment.add_waveguide(
+    # position=('35%', '50%'),  # Center position of the ring resonator
+    position_0=('0%', '25%'),  # Center position of the ring resonator
+    position_1=('100%', '25%'),  # Center position of the ring resonator
+    epsilon_r=2.,            # Relative permittivity of the ring resonator
     width=2e-6                # Width of the ring resonator in meters
 )
 
 # %%
 # Add a point source to the experiment
-source = experiment.add_point_source(
-    wavelength=1550e-9,       # Wavelength of the source in meters
-    position=('25%', '50%'),  # Position of the source
+source = experiment.add_line_source(
+    wavelength=2110e-9,       # Wavelength of the source in meters
+    position_0=('10%', '23%'),  # Center position of the ring resonator
+    position_1=('10%', '27%'),  # Center position of the ring resonator
     amplitude=100             # Amplitude of the source
 )
 
