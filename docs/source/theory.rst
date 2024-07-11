@@ -7,7 +7,7 @@ Finite-Difference Time-Domain Method (FDTD)
 .. note::
 
     The Finite-Difference Time-Domain (FDTD) method is a numerical analysis technique used to model computational electrodynamics. It is particularly useful for solving Maxwell's equations for complex structures and media.
-  LightWave2D employs the FDTD method to simulate the interaction of electromagnetic waves with various components in a two-dimensional grid. This allows for the accurate analysis of wave propagation, scattering, and diffraction.
+    LightWave2D employs the FDTD method to simulate the interaction of electromagnetic waves with various components in a two-dimensional grid. This allows for the accurate analysis of wave propagation, scattering, and diffraction.
 
     The FDTD method discretizes both the spatial and temporal domains. It uses central-difference approximations to Maxwell's curl equations. By stepping through time iteratively, it updates the electric and magnetic fields within the simulation grid.
 
