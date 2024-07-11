@@ -13,9 +13,7 @@ Finite-Difference Time-Domain Method (FDTD)
 
 .. math::
   &\frac{\partial \vec{E}}{\partial t} = \frac{1}{\epsilon} \nabla \times \vec{H} - \frac{\sigma}{\epsilon} \vec{E}
-
   &\frac{\partial \vec{H}}{\partial t} = -\frac{1}{\mu} \nabla \times \vec{E}
-
 
   Here, \vec{E} and \vec{H} represent the electric and magnetic fields, respectively. \epsilon and \mu are the permittivity and permeability of the medium, and \sigma is the electrical conductivity.
 
@@ -30,11 +28,11 @@ Waveguide
   A waveguide in LightWave2D guides electromagnetic waves from one point to another with minimal loss. The waveguide's width and height can be specified in grid cells or set to 'full' to occupy the entire grid dimension.
 
 .. math::
-  &\epsilon_r(x, y) =
-  \begin{cases}
-  \epsilon_{r, \text{wg}} & \text{if } (x, y) \in \text{Waveguide} \\
-  \epsilon_{r, \text{bg}} & \text{otherwise}
-  \end{cases}
+    &\epsilon_r(x, y) =
+    \begin{cases}
+        \epsilon_{r, \text{wg}} & \text{if } (x, y) \in \text{Waveguide} \\
+        \epsilon_{r, \text{bg}} & \text{otherwise}
+    \end{cases}
 
 Square Scatterer
 ----------------
