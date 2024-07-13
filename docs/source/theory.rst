@@ -12,10 +12,12 @@ Finite-Difference Time-Domain Method (FDTD)
     The FDTD method discretizes both the spatial and temporal domains. It uses central-difference approximations to Maxwell's curl equations. By stepping through time iteratively, it updates the electric and magnetic fields within the simulation grid.
 
 .. math::
-    &\frac{\partial \vec{E}}{\partial t} = \frac{1}{\epsilon} \nabla \times \vec{H} - \frac{\sigma}{\epsilon} \vec{E}
+    &\frac{\partial \vec{E}}{\partial t} = \frac{1}{\epsilon} \nabla \times \vec{H} - \frac{\sigma}{\epsilon} \vec{E} \\
     &\frac{\partial \vec{H}}{\partial t} = -\frac{1}{\mu} \nabla \times \vec{E}
 
-    Here, E and H represent the electric and magnetic fields, respectively. :math:`\epsilon` and :math:`\mu` are the permittivity and permeability of the medium, and :math:`\sigma` is the electrical conductivity.
+
+
+T- Here, E and H represent the electric and magnetic fields, respectively. :math:`\epsilon` and :math:`\mu` are the permittivity and permeability of the medium, and :math:`\sigma` is the electrical conductivity.
 
 Component Modeling
 ------------------
