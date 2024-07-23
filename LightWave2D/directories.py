@@ -21,8 +21,6 @@ doc_path = project_path.joinpath('docs')
 
 doc_css_path = doc_path.joinpath('source/_static/default.css')
 
-version_path = root_path.joinpath('VERSION')
-
 
 if __name__ == '__main__':
     for path_name in __all__:

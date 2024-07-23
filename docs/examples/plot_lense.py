@@ -13,8 +13,8 @@ from LightWave2D.experiment import Experiment
 from MPSPlots import colormaps
 
 import LightWave2D
-
 print(LightWave2D.__version__)
+print(dir(LightWave2D))
 dsa
 
 # %%
