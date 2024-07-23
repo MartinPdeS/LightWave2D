@@ -63,7 +63,7 @@ def test_experiment_run_and_render():
     grid = Grid(resolution=0.1e-6, size_x=30e-6, size_y=30e-6, n_steps=500)
     experiment = Experiment(grid=grid)
     experiment.run_fdtd()
-    # _ = experiment.render_propagation(skip_frame=5)
-    # animation.save('./tests.gif', writer='Pillow', fps=10)
+    animation = experiment.render_propagation(skip_frame=5)
+    animation.save('./tests.gif', writer='Pillow', fps=10)
 
 # -
