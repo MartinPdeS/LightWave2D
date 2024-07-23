@@ -31,7 +31,10 @@ jobs:
 
 
     publish_coverage:
-        if: "contains(github.event.head_commit.message, '[publish]')"
+        # if: "contains(github.event.head_commit.message, '[publish]')"
+        on:
+            tags:
+              - '*'
         needs: [ManyLinux_x86_64]
         runs-on: ubuntu-latest
         steps:
@@ -43,7 +46,7 @@ jobs:
                 gistID: ec3ae9cb78858c919205d85b8bf67e6b
 
     publish_documentation:
-        if: "contains(github.event.head_commit.message, '[publish]')"
+        # if: "contains(github.event.head_commit.message, '[publish]')"
         needs: [ManyLinux_x86_64]
         runs-on: ubuntu-latest
         steps:
@@ -54,7 +57,7 @@ jobs:
                 python-version: "3.11" #no documentation for python 3.7 (pickle5 not present˘)
 
     publish_wheel:
-        if: "contains(github.event.head_commit.message, '[publish]')"
+        # if: "contains(github.event.head_commit.message, '[publish]')"
         needs: [ManyLinux_x86_64, macos_x86_64, Windows_x86_64, publish_documentation, publish_coverage]
         runs-on: ubuntu-latest
         steps:
