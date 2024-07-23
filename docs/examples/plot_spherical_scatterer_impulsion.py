@@ -15,10 +15,10 @@ from MPSPlots import colormaps
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.1e-6,  # Grid resolution in meters
+    resolution=0.05e-6,  # Grid resolution in meters
     size_x=52e-6,       # Grid size in the x direction in meters
     size_y=40e-6,       # Grid size in the y direction in meters
-    n_steps=100         # Number of time steps for the simulation
+    n_steps=800         # Number of time steps for the simulation
 )
 
 # Initialize the experiment with the defined grid
@@ -36,7 +36,7 @@ scatterer = experiment.add_circle(
 # %%
 # Add a line source to the experiment
 source = experiment.add_line_impulsion(
-    duration=3e-15,         # Wavelength of the source in meters
+    duration=1e-15,         # Wavelength of the source in meters
     position_0=('30%', '60%'),  # Starting position of the source
     position_1=('30%', '40%'),  # Ending position of the source
     amplitude=1,                # Amplitude of the source
@@ -69,4 +69,4 @@ animation = experiment.show_propagation(
 )
 
 # Save the animation as a GIF file
-animation.save('./circular_scatterer_propagation.gif', writer='Pillow', fps=10)
+animation.save('./circular_scatterer_propagation.gif', writer='Pillow', fps=30)

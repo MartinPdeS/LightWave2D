@@ -15,10 +15,10 @@ from MPSPlots import colormaps
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.1e-6,  # Grid resolution in meters
+    resolution=0.03e-6,  # Grid resolution in meters
     size_x=32e-6,       # Grid size in the x direction in meters
     size_y=20e-6,       # Grid size in the y direction in meters
-    n_steps=100         # Number of time steps for the simulation
+    n_steps=400         # Number of time steps for the simulation
 )
 
 # Initialize the experiment with the defined grid
@@ -68,7 +68,7 @@ experiment.plot_frame(
 
 # %%
 # Render an animation of the field propagation over time
-animation = experiment.render_propagation(
+animation = experiment.show_propagation(
     skip_frame=5,                            # Number of frames to skip in the animation
     unit_size=5,                             # Size of each unit in the animation
     colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
