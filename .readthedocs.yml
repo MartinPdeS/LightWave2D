@@ -38,7 +38,7 @@ build:
 
 python:
   install:
-    - method: pip
+    - method: build
       path: .
       extra_requirements:
         - documentation

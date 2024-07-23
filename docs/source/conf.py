@@ -3,14 +3,10 @@
 
 import sys
 from MPSPlots.styles import use_mpsplots_style
-from packaging.version import parse
 import LightWave2D
 
-from LightWave2D.directories import (
-    project_path,
-    doc_css_path,
-    # version_path,
-)
+from LightWave2D.directories import project_path, doc_css_path
+
 
 sys.path.insert(0, project_path)
 sys.path.insert(0, project_path.joinpath('LightWave2D'))
