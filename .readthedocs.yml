@@ -27,7 +27,7 @@ build:
     - libxcb-xfixes0
     - xdotool
 
-  tools: 
+  tools:
     python: "3.11"
   jobs:
     pre_install:
@@ -38,7 +38,7 @@ build:
 
 python:
   install:
-    - method: build
+    - method: pip
       path: .
       extra_requirements:
         - documentation
