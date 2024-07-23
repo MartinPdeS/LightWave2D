@@ -1,5 +1,5 @@
 [build-system]
-requires = ["scikit-build-core>=0.3.3", "pybind11"]
+requires = ["scikit-build-core>=0.3.3", "pybind11", "setuptools>=64", "setuptools_scm[toml]>=8.0"]
 build-backend = "scikit_build_core.build"
 
 [tool.scikit-build]
@@ -39,13 +39,19 @@ classifiers = [
     'Intended Audience :: Science/Research',
 ]
 dependencies = [
-  'PyOptik',
-  'shapely',
-  'numpy>=1.12.0',
-  'pydantic==2.6.3',
-  'opencv-python==4.8.0.74',
-  'ffmpeg'
+    "setuptools_scm[toml]>=8.0",
+    'PyOptik',
+    'shapely',
+    'numpy>=1.12.0',
+    'pydantic==2.6.3',
+    'opencv-python==4.8.0.74',
+    'ffmpeg'
 ]
+
+[tool.setuptools_scm]
+write_to = "LightWave2D/_version.py"
+version_scheme = "post-release"
+local_scheme = "node-and-date"
 
 [tool.setuptools.packages.find]
 where = ["LightWave2D"]
