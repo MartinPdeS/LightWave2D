@@ -1,7 +1,0 @@
-graft LightWave2D
-
-prune extern
-prune docs
-prune libraries
-prune Makefile
-prune tests

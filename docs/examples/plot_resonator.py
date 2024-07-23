@@ -40,7 +40,7 @@ ring_resonator = experiment.add_waveguide(
     # position=('35%', '50%'),  # Center position of the ring resonator
     position_0=('0%', '25%'),  # Center position of the ring resonator
     position_1=('100%', '25%'),  # Center position of the ring resonator
-    epsilon_r=2.,            # Relative permittivity of the ring resonator
+    epsilon_r=2,            # Relative permittivity of the ring resonator
     width=2e-6                # Width of the ring resonator in meters
 )
 

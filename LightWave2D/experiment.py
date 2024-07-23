@@ -16,6 +16,9 @@ from pydantic.dataclasses import dataclass
 import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 
+
+from LightWave2D.binary import fdtd_simulation
+
 config_dict = dict(
     kw_only=True,
     slots=True,
@@ -238,22 +241,58 @@ class Experiment:
 
         return epsilon_r_mesh * Physics.epsilon_0
 
-    def get_field_yee_gradient(self, field: numpy.ndarray) -> Tuple[numpy.ndarray, numpy.ndarray]:
-        """
-        Calculate the Yee grid gradient of the field.
-
-        Args:
-            field (numpy.ndarray): The field to calculate the gradient for.
-
-        Returns:
-            tuple: Gradients along x and y directions.
-        """
-        d_dx = (field[1:, :] - field[:-1, :]) / self.grid.dx
-        d_dy = (field[:, 1:] - field[:, :-1]) / self.grid.dy
-        return d_dx, d_dy
-
     def run_fdtd(self) -> NoReturn:
         r"""
+        Run the FDTD simulation.
+
+        This method updates the electric field (Ez) and magnetic fields (Hx, Hy) over time
+        according to Maxwell's equations using the Finite-Difference Time-Domain (FDTD) method.
+        It also incorporates absorption, sources, and non-linear effects.
+
+        Maxwell's equations in 2D (assuming non-magnetic media):
+
+        .. math::
+            \frac{\partial H_x}{\partial t} = -\frac{1}{\mu} \frac{\partial E_z}{\partial y} \\[10pt]
+            \frac{\partial H_y}{\partial t} = \frac{1}{\mu} \frac{\partial E_z}{\partial x} \\[10pt]
+            \frac{\partial E_z}{\partial t} = \frac{1}{\epsilon} \left( \frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y} \right) - \sigma E_z
+
+        Attributes:
+            Ez (numpy.ndarray): Electric field in the z-direction.
+            Hx (numpy.ndarray): Magnetic field in the x-direction.
+            Hy (numpy.ndarray): Magnetic field in the y-direction.
+            sigma_x, sigma_y (numpy.ndarray): Conductivity in x and y directions, respectively.
+            epsilon (numpy.ndarray): Permittivity of the grid.
+            mu_factor (float): Precomputed factor for magnetic field update.
+            eps_factor (numpy.ndarray): Precomputed factor for electric field update.
+        """
+        self.Ez_t = numpy.zeros((self.grid.n_steps, *self.grid.shape))
+
+        sigma_x, sigma_y = self.get_sigma()
+        epsilon = self.get_epsilon()
+
+        fdtd_simulation.run_fdtd(
+            Ez=self.Ez_t,
+            time_stamp=self.grid.time_stamp,
+            sigma_x=sigma_x,
+            sigma_y=sigma_y,
+            epsilon=epsilon,
+            dt=self.grid.dt,
+            mu_0=Physics.mu_0,
+            n_steps=self.grid.n_steps,
+            dx=self.grid.dx,
+            dy=self.grid.dy,
+            nx=self.grid.n_x,
+            ny=self.grid.n_y,
+            sources=[s.binding for s in self.sources]
+        )
+
+        # # Update the data for all detectors
+        # for detector in self.detectors:
+        #     detector.update_data(field=self.Ez_t)
+
+    def _run_fdtd(self) -> NoReturn:
+        r"""
+        Legacy
         Run the FDTD simulation.
 
         This method updates the electric field (Ez) and magnetic fields (Hx, Hy) over time
@@ -285,10 +324,11 @@ class Experiment:
         mu_factor = self.grid.dt / Physics.mu_0
         eps_factor = self.grid.dt / epsilon
 
-        for iteration, t in enumerate(self.grid.time_stamp):
+        for iteration, t in enumerate(self.grid.time_stamp): 
 
             # Compute the Yee gradients of the electric field Ez
-            dEz_dx, dEz_dy = self.get_field_yee_gradient(Ez)
+            dEz_dx = (Ez[1:, :] - Ez[:-1, :]) / self.grid.dx
+            dEz_dy = (Ez[:, 1:] - Ez[:, :-1]) / self.grid.dy
 
             # Update the magnetic fields Hx and Hy using Maxwell's equations
             Hx[:, :-1] -= mu_factor * dEz_dy * (1 - sigma_y[:, :-1] * mu_factor / 2)
@@ -365,6 +405,8 @@ class Experiment:
         max_diff = max(abs(vmin), abs(vmax)) / scale_max
 
         image.set_clim([-max_diff, max_diff])
+
+        plt.colorbar(image)
 
         plt.show()
 

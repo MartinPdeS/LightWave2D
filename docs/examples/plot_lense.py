@@ -66,7 +66,7 @@ experiment.plot_frame(
 
 # %%
 # Render an animation of the field propagation over time
-animation = experiment.render_propagation(
+animation = experiment.show_propagation(
     skip_frame=5,                            # Number of frames to skip in the animation
     unit_size=5,                             # Size of each unit in the animation
     colormap=colormaps.polytechnique.red_black_blue  # Colormap for the animation

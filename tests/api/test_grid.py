@@ -1,6 +1,7 @@
 import numpy as np
 from LightWave2D.grid import Grid
 
+
 def test_grid_initialization():
     grid = Grid(
         resolution=1e-6,
