@@ -48,8 +48,3 @@ sphinx:
   configuration: docs/source/conf.py
   fail_on_warning: false
 
-hooks:
-  pre_build:
-    - git fetch --tags
-
-
