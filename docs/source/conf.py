@@ -6,7 +6,10 @@ from MPSPlots.styles import use_mpsplots_style
 import LightWave2D
 
 from LightWave2D.directories import project_path, doc_css_path
+import subprocess
 
+# Fetch all tags
+subprocess.run(["git", "fetch", "--tags"], check=True)
 
 sys.path.insert(0, project_path)
 sys.path.insert(0, project_path.joinpath('LightWave2D'))
