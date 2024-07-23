@@ -15,7 +15,7 @@ sdist.exclude = [
     "docs",
     ".git*",
     "developments",
-]
+] 
 
 [project]
 name = "LightWave2D"
