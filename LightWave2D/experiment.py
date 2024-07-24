@@ -16,7 +16,6 @@ from pydantic.dataclasses import dataclass
 import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 
-
 from LightWave2D.binary import fdtd_simulation
 
 config_dict = dict(
@@ -324,7 +323,7 @@ class Experiment:
         mu_factor = self.grid.dt / Physics.mu_0
         eps_factor = self.grid.dt / epsilon
 
-        for iteration, t in enumerate(self.grid.time_stamp): 
+        for iteration, t in enumerate(self.grid.time_stamp):
 
             # Compute the Yee gradients of the electric field Ez
             dEz_dx = (Ez[1:, :] - Ez[:-1, :]) / self.grid.dx
