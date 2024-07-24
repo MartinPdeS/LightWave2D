@@ -15,7 +15,7 @@ from MPSPlots import colormaps
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.05e-6,  # Grid resolution in meters
+    resolution=0.2e-6,  # Grid resolution in meters
     size_x=52e-6,       # Grid size in the x direction in meters
     size_y=40e-6,       # Grid size in the y direction in meters
     n_steps=800         # Number of time steps for the simulation
