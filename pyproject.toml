@@ -45,8 +45,8 @@ dependencies = [
     'PyOptik',
     'shapely',
     'numpy>=1.12.0',
-    'pydantic==2.6.3',
     'opencv-python==4.10.0.84',
+    'pydantic==2.8.2',
     'ffmpeg'
 ]
 
