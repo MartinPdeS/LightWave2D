@@ -17,13 +17,16 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_compile_options(-fPIC)
 
 #FIND_PACKAGE------------------------
+find_package(OpenMP REQUIRED)
 find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
 find_package(pybind11 CONFIG REQUIRED)
 
 # Platform-specific settings for static linking
-if (WIN32)
-    message("Windows OS detected")
-    set(STATIC_LINK_OPTIONS "-static" "-static-libgcc" "-static-libstdc++")
+if (WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    message("MinGW detected on Windows")
+    set(STATIC_LINK_OPTIONS "-static")
+    add_compile_options(-fopenmp)
+    add_link_options(-static -fopenmp -Wl,--whole-archive -lgomp -Wl,--no-whole-archive)
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
     message("AppleClang compiler detected")
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -41,7 +44,16 @@ target_link_options(SourceInterface PUBLIC ${STATIC_LINK_OPTIONS})
 
 pybind11_add_module(fdtd_simulation MODULE LightWave2D/cpp/fdtd_simulation.cpp)
 target_link_options(fdtd_simulation PUBLIC ${STATIC_LINK_OPTIONS})
+target_link_libraries(fdtd_simulation PRIVATE OpenMP::OpenMP_CXX)
 
+# Special handling for Experiment module
+if (WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_link_options(-static -fopenmp -Wl,--whole-archive -lgomp -Wl,--no-whole-archive)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_link_libraries(fdtd_simulation PRIVATE OpenMP::OpenMP_CXX)
+else()
+    target_link_libraries(fdtd_simulation PRIVATE "-Xpreprocessor -fopenmp")
+endif()
 
 # Ensure position independent code
 set_target_properties(SourceInterface fdtd_simulation PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
