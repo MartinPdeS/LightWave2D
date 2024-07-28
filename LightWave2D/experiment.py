@@ -275,6 +275,8 @@ class Experiment:
             sigma_x=sigma_x,
             sigma_y=sigma_y,
             epsilon=epsilon,
+            gamma=epsilon * 0,
+            n2=epsilon * 0,
             dt=self.grid.dt,
             mu_0=Physics.mu_0,
             n_steps=self.grid.n_steps,

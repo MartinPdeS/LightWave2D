@@ -35,12 +35,12 @@ std::tuple<py::array_t<double>, py::array_t<double>> compute_yee_gradients(const
 
 
     // Compute the gradients
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (ssize_t i = 0; i < config.nx - 1; ++i)
         for (ssize_t j = 0; j < config.ny; ++j)
             dEz_dx_r(i, j) = (Ez_r(i + 1, j) - Ez_r(i, j)) / config.dx;
 
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (ssize_t i = 1; i < config.nx; ++i)
         for (ssize_t j = 0; j < config.ny - 1; ++j)
             dEz_dy_r(i, j) = (Ez_r(i, j + 1) - Ez_r(i, j)) / config.dy;
@@ -72,13 +72,13 @@ void update_magnetic_fields(const Config& config, const MeshSet& mesh_set, Field
         Hy_rw = field_set.get_Hy_rw();
 
     // Update Hx
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (ssize_t i = 0; i < config.nx; ++i)
         for (ssize_t j = 0; j < config.ny - 1; ++j)
             Hx_rw(i, j) -= (config.dt / mesh_set.mu) * dEz_dy_r(i, j) * (1 - sigma_y_r(i, j) * (config.dt / mesh_set.mu) / 2);
 
     // Update Hy
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (ssize_t i = 0; i < config.nx - 1; ++i)
         for (ssize_t j = 0; j < config.ny; ++j)
             Hy_rw(i, j) += (config.dt / mesh_set.mu) * dEz_dx_r(i, j) * (1 - sigma_x_r(i, j) * (config.dt / mesh_set.mu) / 2);
@@ -108,17 +108,67 @@ std::tuple<py::array_t<double>, py::array_t<double>> compute_magnetic_field_grad
         Hy_r = field_set.get_Hy_rw();
 
     // Compute the gradients
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (ssize_t i = 1; i < config.nx - 1; ++i)
         for (ssize_t j = 1; j < config.ny - 1; ++j)
             dHy_dx_rw(i, j) = (Hy_r(i, j) - Hy_r(i - 1, j)) / config.dx;
 
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (ssize_t i = 1; i < config.nx - 1; ++i)
         for (ssize_t j = 1; j < config.ny - 1; ++j)
             dHx_dy_rw(i, j) = (Hx_r(i, j) - Hx_r(i, j - 1)) / config.dy;
 
     return std::make_tuple(dHy_dx, dHx_dy);
+}
+
+/**
+ * @brief Apply Kerr nonlinearity to the electric field Ez.
+ *
+ * @param config Configuration containing simulation parameters.
+ * @param field_set FieldSet object containing the field data.
+ * @param mesh_set MeshSet object containing mesh data.
+ */
+void apply_kerr_effect(const Config &config, FieldSet& field_set, MeshSet& mesh_set)
+{
+    // Get mutable references to the z electric field
+    py_ref_rw<double, 2> Ez_rw = field_set.get_Ez_rw();
+
+    // Get read-only references to the permittivity
+    py_ref_r<double, 2> epsilon_r = mesh_set.get_epsilon_r();
+    py_ref_r<double, 2> n2_r = mesh_set.get_n2_r();
+
+    // Apply Kerr effect
+    #pragma omp parallel for collapse(2)
+    for (ssize_t i = 1; i < config.nx - 1; ++i) {
+        for (ssize_t j = 1; j < config.ny - 1; ++j) {
+            double intensity = Ez_rw(i, j) * Ez_rw(i, j);
+            double nonlinear_epsilon = epsilon_r(i, j) + n2_r(i, j) * intensity;
+            Ez_rw(i, j) *= (config.dt / nonlinear_epsilon);
+        }
+    }
+}
+
+/**
+ * @brief Apply Second-Harmonic Generation (SHG) to the electric field Ez.
+ *
+ * @param config Configuration containing simulation parameters.
+ * @param field_set FieldSet object containing the field data.
+ * @param mesh_set MeshSet object containing mesh data.
+ */
+void apply_second_harmonic_generation(const Config &config, FieldSet& field_set, MeshSet& mesh_set)
+{
+    // Get mutable references to the z electric field
+    py_ref_rw<double, 2> Ez_rw = field_set.get_Ez_rw();
+    py_ref_r<double, 2> gamma_r = mesh_set.get_gamma_r();
+
+    // Apply Second-Harmonic Generation (SHG)
+    #pragma omp parallel for collapse(2)
+    for (ssize_t i = 0; i < config.nx; ++i) {
+        for (ssize_t j = 0; j < config.ny; ++j) {
+            double intensity = Ez_rw(i, j) * Ez_rw(i, j);
+            Ez_rw(i, j) += gamma_r(i, j) * intensity * config.dt;
+        }
+    }
 }
 
 /**
@@ -143,7 +193,7 @@ void update_electric_field(const Config &config, FieldSet& field_set, MeshSet& m
         epsilon_r = mesh_set.get_epsilon_r();
 
     // Update Ez
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (ssize_t i = 1; i < config.nx - 1; ++i)
         for (ssize_t j = 1; j < config.ny - 1; ++j)
             Ez_rw(i, j) += (config.dt / epsilon_r(i, j)) * (dHy_dx_r(i, j) - dHx_dy_r(i, j));
@@ -166,7 +216,7 @@ void apply_absorption(const Config &config, FieldSet &field_set, MeshSet &mesh_s
         epsilon_r = mesh_set.get_epsilon_r();
 
     // Apply absorption
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (ssize_t i = 0; i < config.nx; ++i)
         for (ssize_t j = 0; j < config.ny; ++j) {
             double epsilon_factor = config.dt / epsilon_r(i, j);
@@ -217,6 +267,8 @@ void run_fdtd(
     const py::array_t<double>& sigma_x,
     const py::array_t<double>& sigma_y,
     const py::array_t<double>& epsilon,
+    const py::array_t<double>& gamma,
+    const py::array_t<double>& n2,
     const double dt,
     const double mu_0,
     const size_t n_steps,
@@ -231,7 +283,7 @@ void run_fdtd(
     py_ref_rw<double, 3> Ez_time_r = Ez_time.mutable_unchecked<3>();
 
     // // Initialize MeshSet and FieldSet
-    MeshSet mesh_set(epsilon, mu_0, sigma_x, sigma_y);
+    MeshSet mesh_set(epsilon, n2, gamma, mu_0, sigma_x, sigma_y);
     Config config(dx, dy, dt, nx, ny, time_stamp);
     FieldSet field_set(config);
 
@@ -244,13 +296,18 @@ void run_fdtd(
         // Update the electric field Ez using Maxwell's equations
         update_electric_field(config, field_set, mesh_set);
 
+        // Apply Kerr effect to the electric field Ez
+        // apply_kerr_effect(config, field_set, mesh_set);
+
+        // Apply Third-Harmonic Generation (THG) to the electric field Ez
+        apply_second_harmonic_generation(config, field_set, mesh_set);
+
         // Apply absorption to the electric field Ez
         apply_absorption(config, field_set, mesh_set);
 
         // Add source contributions to the electric field Ez
-        for (auto& source : sources) {
+        for (auto& source : sources)
             source->add_to_field(config, field_set);
-        }
 
         // Update the field data for the current time step
         update_field(config, Ez_time_r, field_set);
@@ -268,6 +325,8 @@ PYBIND11_MODULE(fdtd_simulation, module) {
         py::arg("sigma_x"),
         py::arg("sigma_y"),
         py::arg("epsilon"),
+        py::arg("gamma"),
+        py::arg("n2"),
         py::arg("dt"),
         py::arg("mu_0"),
         py::arg("n_steps"),
