@@ -24,6 +24,7 @@ grid = Grid(
 # Initialize the experiment with the defined grid
 experiment = Experiment(grid=grid)
 
+
 # %%
 # Add a lens scatterer to the experiment
 scatterer = experiment.add_lense(
