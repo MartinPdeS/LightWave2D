@@ -31,19 +31,6 @@ jobs:
         steps:
           - uses: MartinPdeS/MPSActions/build_package_for_Windows@master
 
-
-    publish_coverage:
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-        needs: [ManyLinux_x86_64]
-        runs-on: ubuntu-latest
-        steps:
-          - uses: MartinPdeS/MPSActions/publish_coverage@master
-            with:
-                package-name: LightWave2D
-                python-version: "3.11"
-                auth: ${{ secrets.GIST_TOKEN }}
-                gistID: ec3ae9cb78858c919205d85b8bf67e6b
-
     publish_documentation:
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
         needs: [ManyLinux_x86_64]
@@ -57,7 +44,7 @@ jobs:
 
     publish_wheel:
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-        needs: [ManyLinux_x86_64, macos_x86_64, Windows_x86_64, publish_documentation, publish_coverage]
+        needs: [ManyLinux_x86_64, macos_x86_64, Windows_x86_64, publish_documentation]
         runs-on: ubuntu-latest
         steps:
           - uses: MartinPdeS/MPSActions/publish_pypi@master

@@ -3,6 +3,7 @@ LightWave2D
 
 |python|
 |docs|
+|coverage|
 |PyPi|
 |PyPi_download|
 
@@ -235,6 +236,10 @@ Email:`martin.poinsinet-de-sivry@polymtl.ca <mailto:martin.poinsinet-de-sivry@po
 .. |docs| image:: https://readthedocs.org/projects/lightwave2d/badge/?version=latest
    :target: https://lightwave2d.readthedocs.io/en/latest/
    :alt: Documentation Status
+
+.. |coverage| image:: https://raw.githubusercontent.com/MartinPdeS/LightWave2D/python-coverage-comment-action-data/badge.svg
+   :alt: Unittest coverage
+   :target: https://htmlpreview.github.io/?https://github.com/MartinPdeS/LightWave2D/blob/python-coverage-comment-action-data/htmlcov/index.html
 
 .. |PyPi| image:: https://badge.fury.io/py/LightWave2D.svg
    :target: https://pypi.org/project/LightWave2D/
