@@ -72,8 +72,6 @@ class Experiment:
         Args:
             colormap (Optional[Union[str, object]]): The colormap to use for the plot. If 'None' is passed, a default dark-themed colormap is used. Default is 'Blues'.
 
-        Returns:
-            SceneList: A SceneList object that contains the constructed plot.
         """
         with plt.style.context(mps):
             figure, ax = self.get_figure_ax(unit_size=unit_size)
@@ -383,8 +381,6 @@ class Experiment:
             colormap (Optional[Union[str, object]]): The colormap used for the visualization.
                 Defaults to a blue-black-red colormap from Polytechnique collection.
 
-        Returns:
-            SceneList: A SceneList object that contains the constructed plot.
         """
         with plt.style.context(mps):
             figure, ax = self.get_figure_ax(unit_size=unit_size)
