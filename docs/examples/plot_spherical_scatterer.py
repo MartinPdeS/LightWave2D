@@ -18,7 +18,7 @@ grid = Grid(
     resolution=0.03e-6,  # Grid resolution in meters
     size_x=32e-6,       # Grid size in the x direction in meters
     size_y=20e-6,       # Grid size in the y direction in meters
-    n_steps=400         # Number of time steps for the simulation
+    n_steps=600         # Number of time steps for the simulation
 )
 
 # Initialize the experiment with the defined grid
@@ -29,8 +29,8 @@ experiment = Experiment(grid=grid)
 scatterer = experiment.add_circle(
     position=('30%', '50%'),  # Center position of the scatterer
     epsilon_r=1.5,            # Relative permittivity of the scatterer
-    radius=3e-6,              # Radius of the circular scatterer in meters
-    sigma=1e6
+    radius=0.5e-6,              # Radius of the circular scatterer in meters
+    sigma=0e6
 )
 
 # %%
@@ -77,4 +77,4 @@ animation = experiment.show_propagation(
 )
 
 # Save the animation as a GIF file
-animation.save('./circular_scatterer_propagation.gif', writer='Pillow', fps=10)
+animation.save('./circular_scatterer_propagation_1_4.gif', writer='Pillow', fps=40)

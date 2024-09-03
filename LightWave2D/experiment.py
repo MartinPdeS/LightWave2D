@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from typing import Tuple, NoReturn, Optional, Union, List
+from typing import Tuple, Optional, Union, List
 import numpy
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
@@ -15,6 +15,7 @@ import matplotlib.animation as animation
 from pydantic.dataclasses import dataclass
 import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
+from MPSPlots.styles import mps
 
 from LightWave2D.binary import fdtd_simulation
 
@@ -60,7 +61,7 @@ class Experiment:
             raise ValueError("Axis must be 'x' or 'y'.")
         return gradient
 
-    def plot(self, unit_size: int = 6, colormap: Optional[Union[str, object]] = 'Blues') -> NoReturn:
+    def plot(self, unit_size: int = 6, colormap: Optional[Union[str, object]] = 'Blues') -> None:
         """
         Generates a plot of the FDTD simulation setup using a specified colormap.
 
@@ -74,19 +75,20 @@ class Experiment:
         Returns:
             SceneList: A SceneList object that contains the constructed plot.
         """
-        figure, ax = self.get_figure_ax(unit_size=unit_size)
+        with plt.style.context(mps):
+            figure, ax = self.get_figure_ax(unit_size=unit_size)
 
-        # Add PML layers to the plot if present
-        if self.pml:
-            self.pml.add_to_ax(ax)
+            # Add PML layers to the plot if present
+            if self.pml:
+                self.pml.add_to_ax(ax)
 
-        for component in [*self.components, *self.sources, *self.detectors]:
-            component.add_to_ax(ax)
+            for component in [*self.components, *self.sources, *self.detectors]:
+                component.add_to_ax(ax)
 
-        ax.legend()
-        ax.autoscale_view()
+            ax.legend()
+            ax.autoscale_view()
 
-        plt.show()
+            plt.show()
 
     def add_to_component(function):
         def wrapper(self, **kwargs):
@@ -240,7 +242,7 @@ class Experiment:
 
         return epsilon_r_mesh * Physics.epsilon_0
 
-    def run_fdtd(self) -> NoReturn:
+    def run_fdtd(self) -> None:
         r"""
         Run the FDTD simulation.
 
@@ -291,7 +293,7 @@ class Experiment:
         # for detector in self.detectors:
         #     detector.update_data(field=self.Ez_t)
 
-    def _run_fdtd(self) -> NoReturn:
+    def _run_fdtd(self) -> None:
         r"""
         Legacy
         Run the FDTD simulation.
@@ -369,7 +371,7 @@ class Experiment:
             scale_max: float = 5,
             unit_size: int = 6,
             show_intensity: bool = False,
-            colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> NoReturn:
+            colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
         """
         Creates a plot of a specific frame from the FDTD simulation.
 
@@ -384,32 +386,33 @@ class Experiment:
         Returns:
             SceneList: A SceneList object that contains the constructed plot.
         """
-        figure, ax = self.get_figure_ax(unit_size=unit_size)
+        with plt.style.context(mps):
+            figure, ax = self.get_figure_ax(unit_size=unit_size)
 
-        if show_intensity:
-            data = abs(self.Ez_t[frame_number].T)
-        else:
-            data = self.Ez_t[frame_number].T
+            if show_intensity:
+                data = abs(self.Ez_t[frame_number].T)
+            else:
+                data = self.Ez_t[frame_number].T
 
-        image = ax.pcolormesh(
-            self.grid.x_stamp,
-            self.grid.y_stamp,
-            data,
-            cmap=colormap
-        )
+            image = ax.pcolormesh(
+                self.grid.x_stamp,
+                self.grid.y_stamp,
+                data,
+                cmap=colormap
+            )
 
-        for component in [*self.components, *self.sources, *self.detectors]:
-            component.add_to_ax(ax)
+            for component in [*self.components, *self.sources, *self.detectors]:
+                component.add_to_ax(ax)
 
-        vmin, vmax = image.get_clim()
+            vmin, vmax = image.get_clim()
 
-        max_diff = max(abs(vmin), abs(vmax)) / scale_max
+            max_diff = max(abs(vmin), abs(vmax)) / scale_max
 
-        image.set_clim([-max_diff, max_diff])
+            image.set_clim([-max_diff, max_diff])
 
-        plt.colorbar(image)
+            plt.colorbar(image)
 
-        plt.show()
+            plt.show()
 
     def save_frame_as_image(
             self,
@@ -419,7 +422,7 @@ class Experiment:
             unit_size: int = 6,
             dpi: int = 200,
             show_intensity: bool = False,
-            colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> NoReturn:
+            colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
         """
         Saves a specific frame from the FDTD simulation as an image file at the specified resolution.
 
@@ -436,30 +439,31 @@ class Experiment:
         Returns:
             None: This method does not return any value, but saves an image file.
         """
-        figure, ax = self.get_figure_ax(unit_size=unit_size)
+        with plt.style.context(mps):
+            figure, ax = self.get_figure_ax(unit_size=unit_size)
 
-        if show_intensity:
-            data = abs(self.Ez_t[frame_number].T)
-        else:
-            data = self.Ez_t[frame_number].T
+            if show_intensity:
+                data = abs(self.Ez_t[frame_number].T)
+            else:
+                data = self.Ez_t[frame_number].T
 
-        image = ax.pcolormesh(
-            self.grid.x_stamp,
-            self.grid.y_stamp,
-            data,
-            cmap=colormap
-        )
+            image = ax.pcolormesh(
+                self.grid.x_stamp,
+                self.grid.y_stamp,
+                data,
+                cmap=colormap
+            )
 
-        for component in [*self.components, *self.sources, *self.detectors]:
-            component.add_to_ax(ax)
+            for component in [*self.components, *self.sources, *self.detectors]:
+                component.add_to_ax(ax)
 
-        vmin, vmax = image.get_clim()
+            vmin, vmax = image.get_clim()
 
-        max_diff = max(abs(vmin), abs(vmax)) / scale_max
+            max_diff = max(abs(vmin), abs(vmax)) / scale_max
 
-        image.set_clim([-max_diff, max_diff])
+            image.set_clim([-max_diff, max_diff])
 
-        plt.savefig(filename, dpi=dpi)
+            plt.savefig(filename, dpi=dpi)
 
     def get_figure_ax(self, unit_size: int = 6) -> Tuple:
         figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
@@ -502,36 +506,37 @@ class Experiment:
         Returns:
             animation.FuncAnimation: The animation object that can be displayed or saved.
         """
-        figure, ax = self.get_figure_ax(unit_size=unit_size)
+        with plt.style.context(mps):
+            figure, ax = self.get_figure_ax(unit_size=unit_size)
 
-        # Initialize the field display
-        initial_field = numpy.zeros(self.Ez_t[0].shape).T
-        field_artist = ax.pcolormesh(
-            self.grid.x_stamp,
-            self.grid.y_stamp,
-            initial_field,
-            cmap=colormap
-        )
+            # Initialize the field display
+            initial_field = numpy.zeros(self.Ez_t[0].shape).T
+            field_artist = ax.pcolormesh(
+                self.grid.x_stamp,
+                self.grid.y_stamp,
+                initial_field,
+                cmap=colormap
+            )
 
-        title = ax.text(
-            x=0.85,
-            y=.9,
-            s="",
-            transform=ax.transAxes,
-            ha="center",
-            color='white'
-        )
+            title = ax.text(
+                x=0.85,
+                y=.9,
+                s="",
+                transform=ax.transAxes,
+                ha="center",
+                color='white'
+            )
 
-        # Store all artists for updating
-        artist_list = [field_artist]
+            # Store all artists for updating
+            artist_list = [field_artist]
 
-        # Add other components to the axis and their artists to the list
-        for component in self.components:
-            artist_list.append(component.add_to_ax(ax))
+            # Add other components to the axis and their artists to the list
+            for component in self.components:
+                artist_list.append(component.add_to_ax(ax))
 
-        # Set color limits based on the maximum field amplitude
-        max_amplitude = abs(self.Ez_t).max() / scale_max
-        field_artist.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
+            # Set color limits based on the maximum field amplitude
+            max_amplitude = abs(self.Ez_t).max() / scale_max
+            field_artist.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
 
         def update(frame) -> List:
             """
