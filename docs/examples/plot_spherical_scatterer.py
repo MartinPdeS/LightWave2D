@@ -18,7 +18,7 @@ grid = Grid(
     resolution=0.03e-6,  # Grid resolution in meters
     size_x=32e-6,       # Grid size in the x direction in meters
     size_y=20e-6,       # Grid size in the y direction in meters
-    n_steps=600         # Number of time steps for the simulation
+    n_steps=200         # Number of time steps for the simulation
 )
 
 # Initialize the experiment with the defined grid
