@@ -1,6 +1,5 @@
-# .github/workflows/coverage.yml
+# .github/workflows/deploy_documentation.yml
 name: Documenation
-description: "Build and publish the documentation for github page"
 
 on:
   pull_request:
