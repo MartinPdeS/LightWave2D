@@ -1,0 +1,58 @@
+
+:orphan:
+
+.. _sphx_glr_sg_execution_times:
+
+
+Computation times
+=================
+**02:06.792** total execution time for 8 files **from all galleries**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_gallery_plot_spherical_scatterer.py` (``../examples/plot_spherical_scatterer.py``)
+     - 00:52.420
+     - 0.0
+   * - :ref:`sphx_glr_gallery_plot_spherical_scatterer_impulsion.py` (``../examples/plot_spherical_scatterer_impulsion.py``)
+     - 00:34.032
+     - 0.0
+   * - :ref:`sphx_glr_gallery_plot_source_detector.py` (``../examples/plot_source_detector.py``)
+     - 00:09.084
+     - 0.0
+   * - :ref:`sphx_glr_gallery_plot_lense.py` (``../examples/plot_lense.py``)
+     - 00:08.694
+     - 0.0
+   * - :ref:`sphx_glr_gallery_plot_resonator.py` (``../examples/plot_resonator.py``)
+     - 00:08.076
+     - 0.0
+   * - :ref:`sphx_glr_gallery_plot_ellipse_scatterer.py` (``../examples/plot_ellipse_scatterer.py``)
+     - 00:07.522
+     - 0.0
+   * - :ref:`sphx_glr_gallery_plot_square_scatterer.py` (``../examples/plot_square_scatterer.py``)
+     - 00:04.591
+     - 0.0
+   * - :ref:`sphx_glr_gallery_plot_waveguide.py` (``../examples/plot_waveguide.py``)
+     - 00:02.373
+     - 0.0
