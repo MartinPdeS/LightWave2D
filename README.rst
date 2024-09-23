@@ -233,7 +233,7 @@ Email:`martin.poinsinet-de-sivry@polymtl.ca <mailto:martin.poinsinet-de-sivry@po
 .. |python| image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg
    :target: https://www.python.org/
 
-.. |docs| image:: https://readthedocs.org/projects/lightwave2d/badge/?version=latest
+.. |docs| image:: https://github.com/martinpdes/LightWave2D/actions/workflows/deploy_documentation.yml/badge.svg
    :target: https://lightwave2d.readthedocs.io/en/latest/code.html
    :alt: Documentation Status
 
