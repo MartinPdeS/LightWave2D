@@ -1,0 +1,42 @@
+# .github/workflows/coverage.yml
+name: Documenation
+description: "Build and publish the documentation for github page"
+
+on:
+  pull_request:
+    branches: "master"
+  push:
+    branches: "master"
+
+
+jobs:
+  coverage:
+    name: Run test and generate coverage data
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: MartinPdeS/MPSActions/install_package_on_manylinux@master
+        with:
+            python-version: "3.10"
+            package-name: LightWave2D
+
+      - uses: actions/checkout@v4
+        with:
+            sparse-checkout: |
+              docs
+              requirements
+
+      - name: "Build: documentation"
+        shell: bash
+        run: |
+            make -C docs html
+
+      - name: "Upload: GitHub Pages"
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+            target_branch: gh-pages
+            build_dir: docs/build/html
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

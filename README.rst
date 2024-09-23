@@ -234,7 +234,7 @@ Email:`martin.poinsinet-de-sivry@polymtl.ca <mailto:martin.poinsinet-de-sivry@po
    :target: https://www.python.org/
 
 .. |docs| image:: https://readthedocs.org/projects/lightwave2d/badge/?version=latest
-   :target: https://lightwave2d.readthedocs.io/en/latest/
+   :target: https://lightwave2d.readthedocs.io/en/latest/code.html
    :alt: Documentation Status
 
 .. |coverage| image:: https://raw.githubusercontent.com/MartinPdeS/LightWave2D/python-coverage-comment-action-data/badge.svg
