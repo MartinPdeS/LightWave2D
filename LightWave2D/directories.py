@@ -10,7 +10,6 @@ __all__ = [
     'project_path',
     'doc_path',
     'doc_css_path',
-    'version_path',
 ]
 
 root_path = Path(LightWave2D.__path__[0])
@@ -27,5 +26,3 @@ if __name__ == '__main__':
         path = locals()[path_name]
         print(path)
         assert path.exists(), f"Path {path_name} do not exists"
-
-# -

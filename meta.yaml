@@ -1,0 +1,68 @@
+package:
+  name: lightwave2d
+  version: {{ GIT_DESCRIBE_TAG }}
+
+source:
+  git_url: https://github.com/MartinPdeS/PyMieSim.git
+
+build:
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+channels:
+  - conda-forge
+  - martinpdes
+
+requirements:
+  host:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}
+    - python {{ PY_VER }}*
+    - scikit-build-core ~=0.3
+    - pybind11 ~=2.13
+    - python-build ~=1.2
+    - setuptools_scm[toml] ~=8.0
+  run:
+    - python {{PY_VER}}*
+    - martinpdes::pyoptik
+    - martinpdes::mpsplots
+    - numpy ~=1.26
+    - pydantic ~=2.9.2
+    - pint-pandas ~=0.6
+    - tabulate ~=0.9
+
+about:
+  home: https://github.com/MartinPdeS/LightWave2D
+  license: MIT
+  summary: A package for finite-difference time domain computation for light propagation.
+  description: LightWave2D is a Python package that runs 2D simulation of light propagation using FDTD.
+  dev_url: https://github.com/MartinPdeS/LightWave2D
+  doc_url: https://lightwave2d.readthedocs.io
+  license_file: LICENSE
+  keywords:
+    - optics
+    - scattering
+    - FDTD
+    - light
+    - physics
+    - computational optics
+    - simulation
+
+test:
+  imports:
+    - LightWave2D
+  requires:
+    - python {{PY_VER}}*
+    - pytest >=0.6
+    - pytest-cov >=2.0
+    - pytest-json-report ==1.5.0
+    - coverag ==7.6.1
+  commands:
+    - pytest --ignore=tests/gui
+  source_files:
+    - tests
+
+extra:
+  recipe-maintainers:
+    - MartinPdeS

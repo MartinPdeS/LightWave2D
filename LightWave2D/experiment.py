@@ -287,10 +287,6 @@ class Experiment:
             sources=[s.binding for s in self.sources]
         )
 
-        # # Update the data for all detectors
-        # for detector in self.detectors:
-        #     detector.update_data(field=self.Ez_t)
-
     def _run_fdtd(self) -> None:
         r"""
         Legacy
@@ -481,7 +477,7 @@ class Experiment:
     def render_propagation(
             self,
             skip_frame: int = 10,
-            scale_max: float = 5,
+            scale_max: float = 1,
             unit_size: int = 6,
             auto_adjust_clim: bool = False,
             fps: int = 10,

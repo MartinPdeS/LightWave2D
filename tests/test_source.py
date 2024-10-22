@@ -66,4 +66,6 @@ def test_experiment_run_and_render():
     animation = experiment.render_propagation(skip_frame=5)
     animation.save('./tests.gif', writer='Pillow', fps=10)
 
-# -
+
+if __name__ == "__main__":
+    pytest.main(["-W error", __file__])

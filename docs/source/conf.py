@@ -6,10 +6,6 @@ from MPSPlots.styles import use_mpsplots_style
 import LightWave2D
 
 from LightWave2D.directories import project_path, doc_css_path
-import subprocess
-
-# Fetch all tags
-subprocess.run(["git", "fetch", "--tags"], check=True)
 
 sys.path.insert(0, project_path)
 sys.path.insert(0, project_path.joinpath('LightWave2D'))
@@ -33,38 +29,43 @@ version = LightWave2D.__version__
 
 extensions = [
     'sphinx.ext.mathjax',
-    'numpydoc',
     'pyvista.ext.plot_directive',
     'sphinx_gallery.gen_gallery',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.autosectionlabel',
+    'sphinx.ext.intersphinx',
 ]
+
+# Napoleon settings for docstrings
+napoleon_google_docstring = False
+napoleon_numpy_docstring = True
 
 
 def reset_mpl(gallery_conf, fname):
     use_mpsplots_style()
 
 
-try:
-    import pyvista
-    if sys.platform in ["linux", "linux2"]:
-        pyvista.start_xvfb()  # Works only on linux system!
-except ImportError:
-    print('Could not load pyvista library for 3D rendering')
+examples_files = [
+    'utils', 'sellmeier', 'tabulated'
+]
 
 sphinx_gallery_conf = {
-    "examples_dirs": '../examples',
-    "gallery_dirs": "gallery",
-    "backreferences_dir": "api",
-    'image_scrapers': ('matplotlib', 'pyvista'),
+    "examples_dirs": ['../examples/' + f for f in examples_files],
+    "gallery_dirs": ['gallery/' + f for f in examples_files],
+    'image_scrapers': ('matplotlib'),
     'ignore_pattern': '/__',
+    'filename_pattern': r'.*\.py',
     'plot_gallery': True,
-    'reset_modules': reset_mpl,
     'thumbnail_size': [600, 600],
     'download_all_examples': False,
+    'reset_modules': reset_mpl,
     'line_numbers': False,
     'remove_config_comments': True,
+    'within_subsection_order': FileNameSortKey,
     'capture_repr': ('_repr_html_', '__repr__'),
     'nested_sections': True,
-    'matplotlib_animations': True
 }
 
 autodoc_default_options = {
@@ -74,23 +75,21 @@ autodoc_default_options = {
     'show-inheritance': True,
 }
 
+autosectionlabel_prefix_document = True
 numpydoc_show_class_members = False
+add_module_names = False
 
 source_suffix = '.rst'
-
 master_doc = 'index'
-
 language = 'en'
-
 highlight_language = 'python3'
-
 html_theme = "pydata_sphinx_theme"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 exclude_trees = []
-default_role = "autolink"
+# default_role = "autolink"
 pygments_style = "sphinx"
 
 # -- Sphinx-gallery configuration --------------------------------------------
@@ -116,6 +115,11 @@ html_theme_options = {
             "name": "PyPI",
             "url": "https://pypi.org/project/lightwave2d/",
             "icon": "fa-solid fa-box",
+        },
+        {
+            "name": "Anaconda",
+            "url": "https://anaconda.org/MartinPdeS/lightwave2d",
+            "icon": "fa-brands fa-python",
         },
     ],
     "navbar_align": "left",
@@ -158,10 +162,3 @@ html_static_path = ['_static']
 templates_path = ['_templates']
 html_css_files = ['default.css']
 epub_exclude_files = ['search.html']
-
-
-# -- MyST --------------------------------------------------------------------
-myst_enable_extensions = [
-    # Enable fieldlist to allow for Field Lists like in rST (e.g., :orphan:)
-    "fieldlist",
-]

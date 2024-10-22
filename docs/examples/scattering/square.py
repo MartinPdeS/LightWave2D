@@ -18,7 +18,7 @@ grid = Grid(
     resolution=0.1e-6,  # Grid resolution in meters
     size_x=4 * 8e-6,    # Grid size in the x direction in meters
     size_y=4 * 4e-6,    # Grid size in the y direction in meters
-    n_steps=100         # Number of time steps for the simulation
+    n_steps=500         # Number of time steps for the simulation
 )
 
 # Initialize the experiment with the defined grid
@@ -70,7 +70,7 @@ detector.plot_data()
 # Plot the last time frame of the computed fields
 experiment.plot_frame(
     frame_number=-1,  # Plot the last frame
-    scale_max=4       # Maximum scale for the field visualization
+    scale_max=2       # Maximum scale for the field visualization
 )
 
 # %%

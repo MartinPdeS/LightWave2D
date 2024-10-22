@@ -1,19 +1,33 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import numpy
+import numpy as np
 
 
-def bresenham_line(x0: float, y0: float, x1: float, y1: float):
+def bresenham_line(x0: float, y0: float, x1: float, y1: float) -> np.ndarray:
     """
-    Bresenham's Line Algorithm
-    Produces a list of tuples from start and end
+    Generates the points of a line using Bresenham's Line Algorithm.
 
-    :param x0: x-coordinate of the start point
-    :param y0: y-coordinate of the start point
-    :param x1: x-coordinate of the end point
-    :param y1: y-coordinate of the end point
-    :return: Numpy array of points (x, y) along the line
+    This function computes the coordinates of points that form a straight line between
+    a start point (x0, y0) and an end point (x1, y1) using Bresenham's algorithm. It is
+    optimized for integer values but works with floats by rounding to the nearest integer.
+
+    Parameters
+    ----------
+    x0 : float
+        The x-coordinate of the start point.
+    y0 : float
+        The y-coordinate of the start point.
+    x1 : float
+        The x-coordinate of the end point.
+    y1 : float
+        The y-coordinate of the end point.
+
+    Returns
+    -------
+    np.ndarray
+        A 2D NumPy array where the first row contains the x-coordinates and the
+        second row contains the y-coordinates of the points along the line.
     """
     points = []
     dx = abs(x1 - x0)
@@ -41,5 +55,5 @@ def bresenham_line(x0: float, y0: float, x1: float, y1: float):
                 err += dy
             y += sy
 
-    points.append((x, y))  # Make sure the end point is included
-    return numpy.array(points).T
+    points.append((x, y))  # Ensure the end point is included
+    return np.array(points).T
