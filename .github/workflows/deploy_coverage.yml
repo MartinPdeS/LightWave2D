@@ -9,6 +9,7 @@ on:
   pull_request:
     branches: [ "master" ]
 
+
 jobs:
   coverage:
     name: Run test and generate coverage data
@@ -24,12 +25,10 @@ jobs:
         with:
             python-version: "3.10"
 
-
       - name: "Install: Dependencies for headless server"
         shell: bash
         run: |
             sudo apt-get update
-            # sudo apt-get install libgl1-mesa-glx xvfb
             sudo apt-get install xvfb
 
       - name: "Checkout requirements and files for testing"

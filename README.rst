@@ -15,8 +15,8 @@ LightWave2D
      - |PyPi|
      - |PyPi_download|
    * - Anaconda
-     -
-     -
+     - |anaconda|
+     - |anaconda_download|
 
 
 
@@ -262,3 +262,11 @@ Email:`martin.poinsinet-de-sivry@polymtl.ca <mailto:martin.poinsinet-de-sivry@po
 .. |ci/cd| image:: https://github.com/martinpdes/lightwave2d/actions/workflows/deploy_coverage.yml/badge.svg
     :alt: Unittest Status
     :target: https://martinpdes.github.io/LightWave2D/actions
+
+.. |anaconda| image:: https://anaconda.org/martinpdes/lightwave2d/badges/version.svg
+   :alt: Anaconda version
+   :target: https://anaconda.org/martinpdes/lightwave2d
+
+.. |anaconda_download| image:: https://anaconda.org/martinpdes/lightwave2d/badges/downloads.svg
+   :alt: Anaconda downloads
+   :target: https://anaconda.org/martinpdes/lightwave2d
