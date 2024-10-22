@@ -1,6 +1,6 @@
 """
-Experiment: Circular Scatterer
-==============================
+Circular Scatterer
+==================
 
 This example demonstrates the setup and execution of a circular scatterer experiment using LightWave2D.
 We will define the simulation grid, add a lens scatterer, a point source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
@@ -50,12 +50,15 @@ experiment.add_pml(
     sigma_max=5000    # Maximum conductivity for the PML
 )
 
+
 # %%
-# Plot the entire experiment setup
+# Plot the experiment layout
 experiment.plot()
+
 
 # Run the FDTD simulation
 experiment.run_fdtd()
+
 
 # %%
 # Plot the last time frame of the computed fields
@@ -65,6 +68,7 @@ experiment.plot_frame(
     colormap=colormaps.polytechnique.red_black_blue  # Colormap for the plot
 )
 
+
 # %%
 # Render an animation of the field propagation over time
 animation = experiment.show_propagation(
@@ -72,6 +76,7 @@ animation = experiment.show_propagation(
     unit_size=5,                             # Size of each unit in the animation
     colormap=colormaps.polytechnique.red_black_blue  # Colormap for the animation
 )
+
 
 # Save the animation as a GIF file
 animation.save('./lens_propagation.gif', writer='Pillow', fps=10)

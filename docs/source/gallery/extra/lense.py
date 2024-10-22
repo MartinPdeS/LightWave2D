@@ -1,9 +1,9 @@
 """
-Experiment: Source-Detector
-===========================
+Circular Scatterer
+==================
 
-This example demonstrates the setup and execution of a source-detector experiment using LightWave2D.
-We will define the simulation grid, add a lens scatterer, a point source, and a point detector, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
+This example demonstrates the setup and execution of a circular scatterer experiment using LightWave2D.
+We will define the simulation grid, add a lens scatterer, a point source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
 """
 
 # %%
@@ -18,11 +18,12 @@ grid = Grid(
     resolution=0.1e-6,  # Grid resolution in meters
     size_x=60e-6,       # Grid size in the x direction in meters
     size_y=30e-6,       # Grid size in the y direction in meters
-    n_steps=100         # Number of time steps for the simulation
+    n_steps=100        # Number of time steps for the simulation
 )
 
 # Initialize the experiment with the defined grid
 experiment = Experiment(grid=grid)
+
 
 # %%
 # Add a lens scatterer to the experiment
@@ -36,15 +37,9 @@ scatterer = experiment.add_lense(
 # %%
 # Add a point source to the experiment
 source = experiment.add_point_source(
-    wavelength=[1310e-9],  # Wavelengths of the source in meters
-    position=('10%', '50%'),        # Position of the source
-    amplitude=10e10                    # Amplitude of the source
-)
-
-# %%
-# Add a point detector to the experiment
-detector = experiment.add_point_detector(
-    position=('60%', '50%')  # Position of the detector
+    wavelength=1550e-9,       # Wavelength of the source in meters
+    position=('10%', '50%'),  # Position of the source
+    amplitude=10              # Amplitude of the source
 )
 
 # %%
@@ -55,32 +50,33 @@ experiment.add_pml(
     sigma_max=5000    # Maximum conductivity for the PML
 )
 
+
 # %%
-# Plot the entire experiment setup
+# Plot the experiment layout
 experiment.plot()
+
 
 # Run the FDTD simulation
 experiment.run_fdtd()
 
-# Plot the field measured at the detector
-detector.plot_data()
 
 # %%
 # Plot the last time frame of the computed fields
 experiment.plot_frame(
     frame_number=-1,  # Plot the last frame
-    scale_max=3,      # Maximum scale for the field visualization
+    scale_max=5,      # Maximum scale for the field visualization
     colormap=colormaps.polytechnique.red_black_blue  # Colormap for the plot
 )
 
+
 # %%
 # Render an animation of the field propagation over time
-animation = experiment.render_propagation(
+animation = experiment.show_propagation(
     skip_frame=5,                            # Number of frames to skip in the animation
     unit_size=5,                             # Size of each unit in the animation
-    colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
-    scale_max=3
+    colormap=colormaps.polytechnique.red_black_blue  # Colormap for the animation
 )
+
 
 # Save the animation as a GIF file
 animation.save('./lens_propagation.gif', writer='Pillow', fps=10)

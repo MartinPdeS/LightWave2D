@@ -1,6 +1,6 @@
 """
-Experiment: Waveguide
-=====================
+Waveguide
+=========
 
 This example demonstrates the setup and execution of a waveguide experiment using LightWave2D.
 We will define the simulation grid, add a waveguide and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
@@ -54,8 +54,13 @@ experiment.add_pml(
 experiment.run_fdtd()
 
 # %%
-# Plot the resulting electric field distribution
+# Plot the experiment layout
 experiment.plot()
+
+
+# %%
+# Plot the resulting electric field distribution at a certain time
+experiment.plot_frame(frame_number=-1)
 
 # %%
 # Render an animation of the wave propagation

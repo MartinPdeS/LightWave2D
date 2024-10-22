@@ -1,11 +1,23 @@
 LightWave2D
 ===========
 
-|python|
-|docs|
-|coverage|
-|PyPi|
-|PyPi_download|
+.. list-table::
+   :widths: 10 25 25
+   :header-rows: 0
+
+   * - Meta
+     - |python|
+     - |docs|
+   * - Testing
+     - |ci/cd|
+     - |coverage|
+   * - PyPi
+     - |PyPi|
+     - |PyPi_download|
+   * - Anaconda
+     -
+     -
+
 
 
 LightWave2D is a software designed for comprehensive 2D Finite-Difference Time-Domain (FDTD) simulations, featuring a user-friendly installation and operation process. The characterization of wave propagation, scattering, and diffraction within LightWave2D is determined by a set of specific components, as illustrated in the subsequent figure.
@@ -246,3 +258,7 @@ Email:`martin.poinsinet-de-sivry@polymtl.ca <mailto:martin.poinsinet-de-sivry@po
 
 .. |PyPi_download| image:: https://img.shields.io/pypi/dm/lightwave2d.svg
    :target: https://pypistats.org/packages/lightwave2d
+
+.. |ci/cd| image:: https://github.com/martinpdes/lightwave2d/actions/workflows/deploy_coverage.yml/badge.svg
+    :alt: Unittest Status
+    :target: https://martinpdes.github.io/LightWave2D/actions

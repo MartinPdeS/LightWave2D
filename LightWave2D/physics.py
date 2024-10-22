@@ -13,5 +13,3 @@ class Physics():
     """ Permittivity of free space """
     mu_0: float = 4 * numpy.pi * 1e-7
     """ Permeability of free space """
-
-# -

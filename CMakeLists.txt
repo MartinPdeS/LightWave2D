@@ -38,13 +38,29 @@ message(STATUS "Python version to be compiled against: ${PYTHON_VERSION}")
 message(STATUS "Binary will be installed in location: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 message(STATUS "Custom flags passed to linker: ${STATIC_LINK_OPTIONS}")
 
-# Create the pybind11 modules
-pybind11_add_module(SourceInterface MODULE LightWave2D/cpp/source.cpp)
-target_link_options(SourceInterface PUBLIC ${STATIC_LINK_OPTIONS})
 
-pybind11_add_module(fdtd_simulation MODULE LightWave2D/cpp/fdtd_simulation.cpp)
-target_link_options(fdtd_simulation PUBLIC ${STATIC_LINK_OPTIONS})
-target_link_libraries(fdtd_simulation PRIVATE OpenMP::OpenMP_CXX)
+# Function to add pybind11 modules with an optional library to link
+function(add_lightwave2d_module name source optional_lib)
+    # Add the pybind11 module
+    pybind11_add_module(${name} MODULE "${LIGHTWAVE2D_CXX_DIR}/${source}")
+
+    # Set target properties
+    set_target_properties(${name} PROPERTIES OUTPUT_NAME ${name})
+    set_target_properties(${name} PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+
+    # Link options
+    target_link_options(${name} PUBLIC ${STATIC_LINK_OPTIONS})
+
+    # Check if an optional library is provided and link it
+    if(NOT "${optional_lib}" STREQUAL "")
+        target_link_libraries(${name} PRIVATE ${optional_lib})
+    endif()
+endfunction()
+
+
+add_lightwave2d_module(SourceInterface "source.cpp" "")
+add_lightwave2d_module(fdtd_simulation "fdtd_simulation.cpp" OpenMP::OpenMP_CXX)
+
 
 # Special handling for Experiment module
 if (WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -55,11 +71,6 @@ else()
     target_link_libraries(fdtd_simulation PRIVATE "-Xpreprocessor -fopenmp")
 endif()
 
-# Ensure position independent code
-set_target_properties(SourceInterface fdtd_simulation PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
-
-# Install the modules to the specified directory
-install(TARGETS SourceInterface fdtd_simulation DESTINATION "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 
 # Print the installation directory
 message(STATUS "Modules will be installed to: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")

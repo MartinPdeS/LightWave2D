@@ -1,6 +1,6 @@
 """
-Experiment: Ring Resonator
-==========================
+Ring Resonator
+==============
 
 This example demonstrates the setup and execution of a ring resonator experiment using LightWave2D.
 We will define the simulation grid, add a ring resonator scatterer, a point source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
@@ -62,8 +62,9 @@ pml = experiment.add_pml(
 )
 
 # %%
-# Plot the entire experiment setup
+# Plot the experiment layout
 experiment.plot()
+
 
 # Run the FDTD simulation
 experiment.run_fdtd()

@@ -1,6 +1,6 @@
 """
-Experiment: Circular Scatterer
-==============================
+Circular Scatterer
+==================
 
 This example demonstrates the setup and execution of a circular scatterer experiment using LightWave2D.
 We will define the simulation grid, add a circular scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.

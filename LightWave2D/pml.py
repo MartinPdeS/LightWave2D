@@ -3,7 +3,6 @@
 
 from typing import NoReturn
 import numpy as np
-import numpy
 from LightWave2D.grid import Grid
 from pydantic.dataclasses import dataclass
 from matplotlib.colors import ListedColormap
@@ -23,14 +22,19 @@ class PML:
     """
     Represents a Perfectly Matched Layer (PML) for absorbing boundary conditions in FDTD simulations.
 
-    Attributes:
-        grid (Grid): The simulation grid.
-        width (int): Width of the PML region in grid cells.
-        sigma_max (float): Maximum value of the conductivity profile.
-        order (int): Polynomial order of the conductivity profile.
+    Parameters
+    ----------
+    grid : Grid
+        The simulation grid.
+    width : str
+        Width of the PML region in grid cells, expressed as a percentage (e.g., "10%").
+    sigma_max : float
+        Maximum value of the conductivity profile.
+    order : int
+        Polynomial order of the conductivity profile.
     """
     grid: Grid
-    width: str = 10
+    width: str = "10"
     sigma_max: float = 0.045
     order: int = 3
 
@@ -41,7 +45,7 @@ class PML:
         self.sigma_x = np.zeros((self.grid.n_x, self.grid.n_y))
         self.sigma_y = np.zeros((self.grid.n_x, self.grid.n_y))
 
-        y_mesh, x_mesh = numpy.meshgrid(self.grid.y_stamp, self.grid.x_stamp)
+        y_mesh, x_mesh = np.meshgrid(self.grid.y_stamp, self.grid.x_stamp)
 
         opposite_width = float(self.width.strip("%"))
         opposite_width = f"{100 - opposite_width}%"
@@ -63,8 +67,10 @@ class PML:
         """
         Add the PML regions to a matplotlib axis.
 
-        Args:
-            ax (plt.Axes): The axis to which the PML regions will be added.
+        Parameters
+        ----------
+        ax : plt.Axes
+            The axis to which the PML regions will be added.
         """
         cmap = np.zeros([256, 4])
         cmap[:, 3] = np.linspace(0, 1, 256)
@@ -81,8 +87,10 @@ class PML:
         """
         Plot the PML regions.
 
-        Args:
-            unit_size (int): Size of each unit in the plot.
+        Parameters
+        ----------
+        unit_size : int, optional
+            Size of each unit in the plot (default is 6).
         """
         figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
         figure, ax = plt.subplots(1, 1, figsize=figsize)

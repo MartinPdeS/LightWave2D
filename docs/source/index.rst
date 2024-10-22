@@ -8,9 +8,10 @@ LightWave2D's documentation
     :start-line: 0
 
 .. toctree::
+    :maxdepth: 2
     :hidden:
 
-    theory
-    code
-    gallery/index
-    references
+    theory.rst
+    code.rst
+    gallery/index.rst
+    references.rst

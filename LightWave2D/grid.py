@@ -163,4 +163,3 @@ class Grid:
                     return self.x_stamp[0]
 
         return value
-

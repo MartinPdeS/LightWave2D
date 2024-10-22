@@ -1,6 +1,6 @@
 """
-Experiment: Elliptic Scatterer
-==============================
+Elliptic Scatterer
+==================
 
 This example demonstrates the setup and execution of an elliptic scatterer experiment using LightWave2D.
 We will define the simulation grid, add an elliptic scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.

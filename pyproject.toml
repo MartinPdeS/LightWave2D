@@ -31,23 +31,32 @@ authors = [{ name = "Martin Poinsinet de Sivry-Houle", email = "martin.poinsinet
 classifiers = [
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
     'Programming Language :: Python :: Implementation :: CPython',
     'Development Status :: 3 - Alpha',
-    'Topic :: Scientific/Engineering :: Physics',
-    'License :: OSI Approved :: MIT License',
     'Intended Audience :: Science/Research',
+    'Intended Audience :: Developers',
+    'Topic :: Scientific/Engineering :: Physics',
+    'Topic :: Scientific/Engineering :: Mathematics',
+    'Topic :: Scientific/Engineering :: Visualization',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: OS Independent',
+    'Framework :: Jupyter',
+    'Framework :: Sphinx'
 ]
+
 dependencies = [
-    "setuptools_scm[toml]>=8.0",
+    "setuptools_scm[toml] ~=8.0",
     "MPSPlots",
     'PyOptik',
-    'shapely',
-    'numpy>=1.12.0',
-    'opencv-python==4.10.0.84',
-    'pydantic==2.9.2',
-    'ffmpeg'
+    'shapely ~=2.0',
+    'numpy ~=1.26',
+    'opencv-python ~=4.10',
+    "pydantic ~=2.9.2",
+    'ffmpeg ~= 1.4'
 ]
 
 [tool.setuptools_scm]
@@ -63,20 +72,20 @@ testing = [
     "pytest>=0.6",
     "pytest-cov>=2.0",
     "pytest-json-report==1.5.0",
-    "mypy>=0.910",
-    "flake8>=3.9",
-    "tox>=3.24",
-    "coverage==7.6.1"
+    "coverage==7.6.4"
 ]
 
 documentation = [
     "numpydoc==1.8.0",
     "sphinx>=5.1.1",
-    "sphinx-gallery==0.17.1",
     "sphinx-rtd-theme==3.0.1",
+    "sphinx-gallery==0.18.0",
     "pydata-sphinx-theme==0.15.4",
 ]
 
+dev = [
+    "flake8 ==7.1.1",
+]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -90,7 +99,8 @@ addopts = [
     '-rA',
     '-rw',
     '--cov=LightWave2D',
-    '--cov-report=html'
+    '--cov-report=html',
+    "--cov-report=term"
 ]
 
 [tool.cibuildwheel]
