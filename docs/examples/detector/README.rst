@@ -1,6 +1,6 @@
-.. _examples_gallery:
+.. _detector_index:
 
-Examples
-========
+Detector Examples
+-----------------
+This section showcases examples focused on detectors, guiding you through the process of setting up and analyzing detector components within LightWave2D. These tutorials will help you understand how to place detectors, gather data, and interpret results.
 
-A gallery of examples and that showcase how LightWave2D can be used. Some examples demonstrate the use of the API in general and some demonstrate specific applications in tutorial form.

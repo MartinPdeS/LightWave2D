@@ -26,7 +26,7 @@ class BaseSource:
     """
     Base class for sources in a 2D light wave simulation.
 
-    Attributes
+    Parameters
     ----------
     grid : Grid
         The grid of the simulation mesh.
@@ -60,7 +60,7 @@ class MultiWavelenth:
     """
     Class for managing multiple wavelengths in a simulation.
 
-    Attributes
+    Parameters
     ----------
     wavelength : Union[float, List[float], np.ndarray]
         Wavelength(s) of the source.
@@ -122,7 +122,7 @@ class Impulsion:
     """
     Represents an impulsion source in the simulation.
 
-    Attributes
+    Parameters
     ----------
     amplitude : float
         Amplitude of the impulsion.
@@ -171,7 +171,7 @@ class Line:
     """
     Represents a line source in the simulation.
 
-    Attributes
+    Parameters
     ----------
     position_0 : Tuple[Union[float, str], Union[float, str]]
         Starting position of the line.
@@ -224,7 +224,7 @@ class Point:
     """
     Represents a point source in the simulation.
 
-    Attributes
+    Parameters
     ----------
     position : Tuple[Union[float, str], Union[float, str]]
         Position (x, y) of the point in the simulation grid.
@@ -264,7 +264,7 @@ class PointSource(MultiWavelenth, BaseSource, Point):
     """
     Represents a point source in a 2D light wave simulation.
 
-    Attributes
+    Parameters
     ----------
     wavelength : Union[float, List[float], np.ndarray]
         Wavelength of the source.
@@ -289,7 +289,7 @@ class LineSource(MultiWavelenth, BaseSource, Line):
     """
     Represents a line source in a 2D light wave simulation.
 
-    Attributes
+    Parameters
     ----------
     amplitude : float
         Amplitude of the electric field.
@@ -315,7 +315,7 @@ class PointImpulsion(Impulsion, Point, BaseSource):
     """
     Represents a point impulsion source in a 2D light wave simulation.
 
-    Attributes
+    Parameters
     ----------
     amplitude : float
         Amplitude of the electric field.
@@ -341,7 +341,7 @@ class LineImpulsion(Impulsion, Line, BaseSource):
     """
     Represents a line impulsion source in a 2D light wave simulation.
 
-    Attributes
+    Parameters
     ----------
     duration : float
         Duration of the impulsion.

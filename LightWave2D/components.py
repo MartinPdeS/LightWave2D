@@ -27,7 +27,7 @@ class BaseComponent:
     """
     Represents a generic component in a simulation grid.
 
-    Attributes
+    Parameters
     ----------
     grid : Grid
         The simulation grid.
@@ -150,7 +150,7 @@ class Waveguide(BaseComponent):
     """
     Represents a waveguide scatterer in a simulation grid.
 
-    Attributes
+    Parameters
     ----------
     position_0 : Tuple[Union[float, str], Union[float, str]]
         The starting position of the waveguide.
@@ -191,7 +191,7 @@ class Square(BaseComponent):
     """
     Represents a square scatterer in a simulation grid.
 
-    Attributes
+    Parameters
     ----------
     position : Tuple[Union[float, str], Union[float, str]]
         The center position of the scatterer.
@@ -225,7 +225,7 @@ class Circle(BaseComponent):
     """
     Represents a circular scatterer in a simulation grid.
 
-    Attributes
+    Parameters
     ----------
     position : Tuple[Union[float, str], Union[float, str]]
         The center position of the scatterer.
@@ -250,7 +250,7 @@ class Triangle(BaseComponent):
     """
     Represents a triangular scatterer in a simulation grid.
 
-    Attributes
+    Parameters
     ----------
     position : Tuple[Union[float, str], Union[float, str]]
         The center position of the scatterer.
@@ -282,7 +282,7 @@ class Ellipse(BaseComponent):
     """
     Represents an elliptical scatterer in a simulation grid.
 
-    Attributes
+    Parameters
     ----------
     position : Tuple[Union[float, str], Union[float, str]]
         The center position of the scatterer.
@@ -322,7 +322,7 @@ class Grating(BaseComponent):
     """
     Represents a grating in a simulation grid.
 
-    Attributes
+    Parameters
     ----------
     position : Tuple[Union[float, str], Union[float, str]]
         The starting position of the grating.
@@ -360,7 +360,7 @@ class RingResonator(BaseComponent):
     """
     Represents a ring resonator in a simulation grid.
 
-    Attributes
+    Parameters
     ----------
     position : Tuple[Union[float, str], Union[float, str]]
         The center position of the ring resonator.
@@ -391,7 +391,7 @@ class Lense(BaseComponent):
     """
     Represents a lens in a simulation grid.
 
-    Attributes
+    Parameters
     ----------
     position : Tuple[Union[float, str], Union[float, str]]
         The center position of the lens.

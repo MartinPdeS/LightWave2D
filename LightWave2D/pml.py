@@ -22,7 +22,7 @@ class PML:
     """
     Represents a Perfectly Matched Layer (PML) for absorbing boundary conditions in FDTD simulations.
 
-    Attributes
+    Parameters
     ----------
     grid : Grid
         The simulation grid.
