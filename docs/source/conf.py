@@ -63,7 +63,6 @@ sphinx_gallery_conf = {
     'reset_modules': reset_mpl,
     'line_numbers': False,
     'remove_config_comments': True,
-    'within_subsection_order': FileNameSortKey,
     'capture_repr': ('_repr_html_', '__repr__'),
     'nested_sections': True,
 }
