@@ -14,23 +14,6 @@ Explore additional examples that demonstrate various extra features and function
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the setup and execution of a waveguide experiment using LightWave2D. ...">
-
-.. only:: html
-
-  .. image:: /gallery/extra/images/thumb/sphx_glr_waveguide_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_gallery_extra_waveguide.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Waveguide</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the setup and execution of a circular scatterer experiment using Ligh...">
 
 .. only:: html
@@ -65,15 +48,32 @@ Explore additional examples that demonstrate various extra features and function
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the setup and execution of a waveguide experiment using LightWave2D. ...">
+
+.. only:: html
+
+  .. image:: /gallery/extra/images/thumb/sphx_glr_waveguide_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_extra_waveguide.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Waveguide</div>
+    </div>
+
+
+.. raw:: html
+
     </div>
 
 
 .. toctree::
    :hidden:
 
-   /gallery/extra/waveguide
    /gallery/extra/lense
    /gallery/extra/resonator
+   /gallery/extra/waveguide
 
 
 
