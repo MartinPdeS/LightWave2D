@@ -71,7 +71,7 @@ jobs:
           json_file="version_switcher.json"
           rm $json_file
           docs_path="docs"
-          base_url="https://martinpdes.github.io/FlowCyPy"
+          base_url="https://martinpdes.github.io/LightWave2D"
 
           # Start the JSON array
           echo "[" > $json_file
