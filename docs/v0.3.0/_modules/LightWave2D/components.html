@@ -1,0 +1,1028 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LightWave2D.components &#8212; LightWave2D  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.11.10/x64/lib/python3.11/site-packages/docs/source/_static/default.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/default.css?v=265c6c44" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/LightWave2D/components';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/MartinPdeS/LightWave2D/documentation_page/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.3.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../_static/thumbnail.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/thumbnail.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="../../_static/thumbnail.png" class="logo__image only-dark" alt=""/>`);</script>
+  
+  
+    <p class="title logo__title">LightWave2D</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../theory.html">
+    Theoretical Background
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../code.html">
+    Source code structures
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../gallery/index.html">
+    Coding Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Anaconda</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../theory.html">
+    Theoretical Background
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../code.html">
+    Source code structures
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../gallery/index.html">
+    Coding Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Anaconda</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">LightWave2D....</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for LightWave2D.components</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">pydantic.dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="k">as</span> <span class="nn">geo</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">PathPatch</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">patches</span>
+<span class="kn">from</span> <span class="nn">matplotlib.path</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">PatchCollection</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.grid</span> <span class="kn">import</span> <span class="n">Grid</span>
+<span class="kn">from</span> <span class="nn">shapely.affinity</span> <span class="kn">import</span> <span class="n">scale</span><span class="p">,</span> <span class="n">rotate</span>
+
+<span class="c1"># Configuration dictionary for dataclasses</span>
+<span class="n">config_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;kw_only&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;extra&#39;</span><span class="p">:</span> <span class="s1">&#39;forbid&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;slots&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;arbitrary_types_allowed&#39;</span><span class="p">:</span> <span class="kc">True</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="BaseComponent">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">BaseComponent</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a generic component in a simulation grid.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    grid : Grid</span>
+<span class="sd">        The simulation grid.</span>
+<span class="sd">    facecolor : str</span>
+<span class="sd">        The color of the component&#39;s face (default is &#39;lightblue&#39;).</span>
+<span class="sd">    edgecolor : str</span>
+<span class="sd">        The color of the component&#39;s edge (default is &#39;blue&#39;).</span>
+<span class="sd">    alpha : float</span>
+<span class="sd">        Transparency level of the component (default is 0.3).</span>
+<span class="sd">    rotation : float</span>
+<span class="sd">        Rotation angle of the component (default is 0 degrees).</span>
+<span class="sd">    sigma : float</span>
+<span class="sd">        Conductivity of the component (default is 0).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span>
+    <span class="n">facecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;lightblue&#39;</span>
+    <span class="n">edgecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>
+    <span class="n">rotation</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the component by building its object and computing the coordinates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_object</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BaseComponent.build_object">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent.build_object">[docs]</a>
+    <span class="k">def</span> <span class="nf">build_object</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build the permittivity mesh for the component.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon_r_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Background permittivity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compute_polygon</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polygon</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">polygon</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_mesh</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_mesh</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">contains_points</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsilon_r_mesh</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BaseComponent.add_to_ax">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent.add_to_ax">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_to_ax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PatchCollection</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the component to the provided axis.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ax : plt.Axes</span>
+<span class="sd">            The axis to which the component will be added.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        PatchCollection</span>
+<span class="sd">            The collection of patches added to the axis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">make_compound_path</span><span class="p">(</span>
+            <span class="n">Path</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span><span class="p">)[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]),</span>
+            <span class="o">*</span><span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ring</span><span class="o">.</span><span class="n">coords</span><span class="p">)[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">ring</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">interiors</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="n">patch</span> <span class="o">=</span> <span class="n">PathPatch</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">facecolor</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">edgecolor</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+        <span class="n">collection</span> <span class="o">=</span> <span class="n">PatchCollection</span><span class="p">([</span><span class="n">patch</span><span class="p">],</span> <span class="n">facecolor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">facecolor</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">edgecolor</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_collection</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">autolim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">autoscale_view</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">collection</span></div>
+
+
+<div class="viewcode-block" id="BaseComponent.plot">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent.plot">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot the component.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;FDTD Simulation&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;x position [$\mu$m]&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;y position [$\mu$m]&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">autoscale_view</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="BaseComponent.add_to_epsilon_r_mesh">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent.add_to_epsilon_r_mesh">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_to_epsilon_r_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsilon_r_mesh</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the component&#39;s permittivity to the provided mesh.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epsilon_r_mesh : np.ndarray</span>
+<span class="sd">            The permittivity mesh to be updated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">epsilon_r_mesh</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon_r</span></div>
+
+
+<div class="viewcode-block" id="BaseComponent.add_to_sigma_mesh">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent.add_to_sigma_mesh">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_to_sigma_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma_mesh</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the component&#39;s sigma to the provided mesh.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        sigma_mesh : np.ndarray</span>
+<span class="sd">            The permittivity mesh to be updated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sigma_mesh</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span></div>
+
+
+<div class="viewcode-block" id="BaseComponent.add_non_linear_effect_to_field">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent.add_non_linear_effect_to_field">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_non_linear_effect_to_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add non-linear effects to the field.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        field : np.ndarray</span>
+<span class="sd">            The field to which non-linear effects will be added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">chi_3</span> <span class="o">=</span> <span class="mf">1e-8</span>  <span class="c1"># Third-order non-linear susceptibility (example value)</span>
+        <span class="n">intensity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">field</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">nonlinear_term</span> <span class="o">=</span> <span class="n">chi_3</span> <span class="o">*</span> <span class="n">intensity</span> <span class="o">*</span> <span class="n">field</span>
+        <span class="k">return</span> <span class="n">field</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dt</span> <span class="o">*</span> <span class="n">nonlinear_term</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Waveguide">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Waveguide">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Waveguide</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a waveguide scatterer in a simulation grid.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position_0 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        The starting position of the waveguide.</span>
+<span class="sd">    position_1 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        The ending position of the waveguide.</span>
+<span class="sd">    width : float</span>
+<span class="sd">        The width of the waveguide.</span>
+<span class="sd">    epsilon_r : float</span>
+<span class="sd">        The relative permittivity inside the waveguide.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position_0</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">position_1</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the waveguide by computing its coordinates and building its object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position_0</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position_1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_object</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Waveguide.compute_polygon">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Waveguide.compute_polygon">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the polygon of the waveguide.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">LineString</span><span class="p">(</span>
+            <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_0</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_0</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_1</span><span class="o">.</span><span class="n">y</span><span class="p">)]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Square">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Square">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Square</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a square scatterer in a simulation grid.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        The center position of the scatterer.</span>
+<span class="sd">    epsilon_r : float</span>
+<span class="sd">        The relative permittivity inside the scatterer.</span>
+<span class="sd">    side_length : float</span>
+<span class="sd">        The side length of the square scatterer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">side_length</span><span class="p">:</span> <span class="nb">float</span>
+
+<div class="viewcode-block" id="Square.compute_polygon">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Square.compute_polygon">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the polygon of the square scatterer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">half_side</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">side_length</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">x_start</span><span class="p">,</span> <span class="n">x_end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">half_side</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">half_side</span>
+        <span class="n">y_start</span><span class="p">,</span> <span class="n">y_end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">half_side</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">half_side</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Polygon</span><span class="p">([</span>
+            <span class="p">(</span><span class="n">x_start</span><span class="p">,</span> <span class="n">y_start</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x_start</span><span class="p">,</span> <span class="n">y_end</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x_end</span><span class="p">,</span> <span class="n">y_end</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x_end</span><span class="p">,</span> <span class="n">y_start</span><span class="p">)</span>
+        <span class="p">])</span><span class="o">.</span><span class="n">convex_hull</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Circle">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Circle">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a circular scatterer in a simulation grid.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        The center position of the scatterer.</span>
+<span class="sd">    epsilon_r : float</span>
+<span class="sd">        The relative permittivity inside the scatterer.</span>
+<span class="sd">    radius : float</span>
+<span class="sd">        The radius of the scatterer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span>
+
+<div class="viewcode-block" id="Circle.compute_polygon">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Circle.compute_polygon">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the polygon of the circular scatterer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Triangle">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Triangle">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Triangle</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a triangular scatterer in a simulation grid.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        The center position of the scatterer.</span>
+<span class="sd">    epsilon_r : float</span>
+<span class="sd">        The relative permittivity inside the scatterer.</span>
+<span class="sd">    side_length : float</span>
+<span class="sd">        The side length of the triangular scatterer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">side_length</span><span class="p">:</span> <span class="nb">float</span>
+
+<div class="viewcode-block" id="Triangle.compute_polygon">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Triangle.compute_polygon">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the polygon of the triangular scatterer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">side_length</span>
+
+        <span class="c1"># Vertices of an equilateral triangle centered at (coordinate.x, coordinate.y)</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">side_length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">side_length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Polygon</span><span class="p">([</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">])</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Ellipse">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Ellipse">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Ellipse</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents an elliptical scatterer in a simulation grid.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        The center position of the scatterer.</span>
+<span class="sd">    width : float</span>
+<span class="sd">        The width of the ellipse.</span>
+<span class="sd">    height : float</span>
+<span class="sd">        The height of the ellipse.</span>
+<span class="sd">    epsilon_r : float</span>
+<span class="sd">        The relative permittivity inside the scatterer.</span>
+<span class="sd">    resolution : float, optional</span>
+<span class="sd">        The resolution of the ellipse (default is 100).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">resolution</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">100</span>
+
+<div class="viewcode-block" id="Ellipse.compute_polygon">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Ellipse.compute_polygon">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the polygon of the elliptical scatterer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ellipse_patch</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">resolution</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">resolution</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">vertices</span> <span class="o">=</span> <span class="n">ellipse_patch</span><span class="o">.</span><span class="n">get_verts</span><span class="p">()</span>
+        <span class="n">polygon</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">scale</span><span class="p">(</span><span class="n">polygon</span><span class="p">,</span> <span class="n">xfact</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolution</span><span class="p">,</span> <span class="n">yfact</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolution</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Grating">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Grating">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Grating</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a grating in a simulation grid.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        The starting position of the grating.</span>
+<span class="sd">    epsilon_r : float</span>
+<span class="sd">        The relative permittivity inside the grating.</span>
+<span class="sd">    period : float</span>
+<span class="sd">        The period of the grating.</span>
+<span class="sd">    duty_cycle : float</span>
+<span class="sd">        The duty cycle of the grating.</span>
+<span class="sd">    num_periods : int</span>
+<span class="sd">        The number of periods in the grating.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">period</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">duty_cycle</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">num_periods</span><span class="p">:</span> <span class="nb">int</span>
+
+<div class="viewcode-block" id="Grating.compute_polygon">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Grating.compute_polygon">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the polygon of the grating.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bars</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_periods</span><span class="p">):</span>
+            <span class="n">x_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">period</span>
+            <span class="n">x_end</span> <span class="o">=</span> <span class="n">x_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">duty_cycle</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">period</span>
+            <span class="n">bar</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="n">x_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">x_end</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
+            <span class="n">bars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">MultiPolygon</span><span class="p">(</span><span class="n">bars</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="RingResonator">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.RingResonator">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">RingResonator</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a ring resonator in a simulation grid.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        The center position of the ring resonator.</span>
+<span class="sd">    epsilon_r : float</span>
+<span class="sd">        The relative permittivity inside the resonator.</span>
+<span class="sd">    inner_radius : float</span>
+<span class="sd">        The inner radius of the ring.</span>
+<span class="sd">    width : float</span>
+<span class="sd">        The width of the ring.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">inner_radius</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span>
+
+<div class="viewcode-block" id="RingResonator.compute_polygon">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.RingResonator.compute_polygon">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the polygon of the ring resonator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">inner_circle</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_radius</span><span class="p">)</span>
+        <span class="n">outer_circle</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_radius</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">outer_circle</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">inner_circle</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Lense">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Lense">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Lense</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a lens in a simulation grid.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        The center position of the lens.</span>
+<span class="sd">    epsilon_r : float</span>
+<span class="sd">        The relative permittivity inside the lens.</span>
+<span class="sd">    width : float</span>
+<span class="sd">        The width of the lens.</span>
+<span class="sd">    curvature : float</span>
+<span class="sd">        The curvature of the lens (positive for convex, negative for concave).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">curvature</span><span class="p">:</span> <span class="nb">float</span>
+
+<div class="viewcode-block" id="Lense.compute_polygon">
+<a class="viewcode-back" href="../../code.html#LightWave2D.components.Lense.compute_polygon">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the polygon of the lens.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Create two arcs for the lens shape</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">curvature</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">curvature</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="n">arc3</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curvature</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+        <span class="n">arc4</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curvature</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">arc3</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">arc4</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Martin Poinsinet de Sivry-Houle.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

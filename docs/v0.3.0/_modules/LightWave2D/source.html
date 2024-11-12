@@ -1,0 +1,962 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LightWave2D.source &#8212; LightWave2D  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.11.10/x64/lib/python3.11/site-packages/docs/source/_static/default.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/default.css?v=265c6c44" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/LightWave2D/source';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/MartinPdeS/LightWave2D/documentation_page/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.3.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../_static/thumbnail.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/thumbnail.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="../../_static/thumbnail.png" class="logo__image only-dark" alt=""/>`);</script>
+  
+  
+    <p class="title logo__title">LightWave2D</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../theory.html">
+    Theoretical Background
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../code.html">
+    Source code structures
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../gallery/index.html">
+    Coding Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Anaconda</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../theory.html">
+    Theoretical Background
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../code.html">
+    Source code structures
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../gallery/index.html">
+    Coding Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Anaconda</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">LightWave2D.source</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for LightWave2D.source</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.utils</span> <span class="kn">import</span> <span class="n">bresenham_line</span>
+<span class="kn">from</span> <span class="nn">pydantic.dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">matplotlib.path</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="k">as</span> <span class="nn">geo</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.physics</span> <span class="kn">import</span> <span class="n">Physics</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.grid</span> <span class="kn">import</span> <span class="n">Grid</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.binary</span> <span class="kn">import</span> <span class="n">SourceInterface</span>
+
+<span class="c1"># Configuration dictionary for dataclasses</span>
+<span class="n">config_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;kw_only&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;extra&#39;</span><span class="p">:</span> <span class="s1">&#39;forbid&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;slots&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;arbitrary_types_allowed&#39;</span><span class="p">:</span> <span class="kc">True</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="BaseSource">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.BaseSource">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">BaseSource</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for sources in a 2D light wave simulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    grid : Grid</span>
+<span class="sd">        The grid of the simulation mesh.</span>
+<span class="sd">    facecolor : str, optional</span>
+<span class="sd">        Color of the source face (default is &#39;red&#39;).</span>
+<span class="sd">    edgecolor : str, optional</span>
+<span class="sd">        Color of the source edge (default is &#39;red&#39;).</span>
+<span class="sd">    alpha : float, optional</span>
+<span class="sd">        Transparency level of the source (default is 0.3).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span>
+    <span class="n">facecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+    <span class="n">edgecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>
+
+<div class="viewcode-block" id="BaseSource.plot">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.BaseSource.plot">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot the source on a 2D grid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;FDTD Simulation&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;x position [$\mu$m]&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;y position [$\mu$m]&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MultiWavelenth">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.MultiWavelenth">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">MultiWavelenth</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for managing multiple wavelengths in a simulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    wavelength : Union[float, List[float], np.ndarray]</span>
+<span class="sd">        Wavelength(s) of the source.</span>
+<span class="sd">    amplitude : Union[float, List[float], np.ndarray]</span>
+<span class="sd">        Amplitude(s) of the source.</span>
+<span class="sd">    delay : Optional[Union[float, List[float], np.ndarray]], optional</span>
+<span class="sd">        Delay(s) for each wavelength (default is None).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wavelength</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
+    <span class="n">amplitude</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
+    <span class="n">delay</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="MultiWavelenth.init_base_parameters">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.MultiWavelenth.init_base_parameters">[docs]</a>
+    <span class="k">def</span> <span class="nf">init_base_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the base parameters for the wavelengths.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Size of wavelength and amplitude and (option) delay must be the same.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">Physics</span><span class="o">.</span><span class="n">c</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MultiWavelenth.build_object">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.MultiWavelenth.build_object">[docs]</a>
+    <span class="k">def</span> <span class="nf">build_object</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build the multi-wavelength source object and calculate its coordinates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binding</span> <span class="o">=</span> <span class="n">SourceInterface</span><span class="o">.</span><span class="n">MultiWavelength</span><span class="p">(</span>
+            <span class="n">omega</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">omega</span><span class="p">,</span>
+            <span class="n">amplitude</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="p">,</span>
+            <span class="n">delay</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+            <span class="n">indexes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slc</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MultiWavelenth.add_source_to_field">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.MultiWavelenth.add_source_to_field">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_source_to_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the multi-wavelength source&#39;s effect to the simulation field.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        field : np.ndarray</span>
+<span class="sd">            The simulation field to which the source&#39;s effect will be added.</span>
+<span class="sd">        time : float</span>
+<span class="sd">            The current simulation time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slc</span>
+        <span class="n">field</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">*</span> <span class="n">time</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Impulsion">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.Impulsion">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Impulsion</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents an impulsion source in the simulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    amplitude : float</span>
+<span class="sd">        Amplitude of the impulsion.</span>
+<span class="sd">    duration : float</span>
+<span class="sd">        Duration of the impulsion.</span>
+<span class="sd">    delay : float</span>
+<span class="sd">        Delay before the impulsion starts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">amplitude</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">delay</span><span class="p">:</span> <span class="nb">float</span>
+
+<div class="viewcode-block" id="Impulsion.init_base_parameters">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.Impulsion.init_base_parameters">[docs]</a>
+    <span class="k">def</span> <span class="nf">init_base_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize base parameters (if needed).&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Impulsion.build_object">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.Impulsion.build_object">[docs]</a>
+    <span class="k">def</span> <span class="nf">build_object</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build the impulsion source object and calculate its coordinates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binding</span> <span class="o">=</span> <span class="n">SourceInterface</span><span class="o">.</span><span class="n">Impulsion</span><span class="p">(</span>
+            <span class="n">amplitude</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="p">,</span>
+            <span class="n">duration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span>
+            <span class="n">delay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">,</span>
+            <span class="n">indexes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slc</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Impulsion.add_source_to_field">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.Impulsion.add_source_to_field">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_source_to_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the line impulsion source&#39;s effect to the simulation field.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        field : np.ndarray</span>
+<span class="sd">            The simulation field to which the source&#39;s effect will be added.</span>
+<span class="sd">        time : float</span>
+<span class="sd">            The current simulation time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice_indexes</span>
+        <span class="n">source_field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">field</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span> <span class="o">*</span> <span class="n">source_field</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Line">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.Line">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Line</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a line source in the simulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position_0 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        Starting position of the line.</span>
+<span class="sd">    position_1 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        Ending position of the line.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position_0</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">position_1</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+
+<div class="viewcode-block" id="Line.build_geometry">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.Line.build_geometry">[docs]</a>
+    <span class="k">def</span> <span class="nf">build_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build the geometry for the line source and calculate its coordinates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">position_0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">position_0</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">position_1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">position_1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">bresenham_line</span><span class="p">(</span>
+            <span class="n">x0</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x_index</span><span class="p">,</span>
+            <span class="n">y0</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y_index</span><span class="p">,</span>
+            <span class="n">x1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">x_index</span><span class="p">,</span>
+            <span class="n">y1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">y_index</span>
+        <span class="p">)</span>
+
+        <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">position</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slice_indexes</span> <span class="o">=</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">])</span>
+
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">LineString</span><span class="p">((</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Line.add_to_ax">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.Line.add_to_ax">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_to_ax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the line source to the provided axis.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ax : plt.Axes</span>
+<span class="sd">            The axis to which the line source will be added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">facecolor</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;source&#39;</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Point">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.Point">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a point source in the simulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        Position (x, y) of the point in the simulation grid.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+
+<div class="viewcode-block" id="Point.build_geometry">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.Point.build_geometry">[docs]</a>
+    <span class="k">def</span> <span class="nf">build_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build the geometry for the point source and calculate its coordinates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">indexes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y_index</span><span class="p">]])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y_index</span><span class="p">]])</span></div>
+
+
+<div class="viewcode-block" id="Point.add_to_ax">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.Point.add_to_ax">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_to_ax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the point source to the provided axis as a scatter point.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ax : plt.Axes</span>
+<span class="sd">            The axis to which the point source will be added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">facecolor</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;source&#39;</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="PointSource">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.PointSource">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">PointSource</span><span class="p">(</span><span class="n">MultiWavelenth</span><span class="p">,</span> <span class="n">BaseSource</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a point source in a 2D light wave simulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    wavelength : Union[float, List[float], np.ndarray]</span>
+<span class="sd">        Wavelength of the source.</span>
+<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        Position (x, y) of the source.</span>
+<span class="sd">    amplitude : float</span>
+<span class="sd">        Amplitude of the electric field.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Post-initialization to set up the base parameters, geometry, and object for the point source.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_base_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_geometry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_object</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="LineSource">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.LineSource">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">LineSource</span><span class="p">(</span><span class="n">MultiWavelenth</span><span class="p">,</span> <span class="n">BaseSource</span><span class="p">,</span> <span class="n">Line</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a line source in a 2D light wave simulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    amplitude : float</span>
+<span class="sd">        Amplitude of the electric field.</span>
+<span class="sd">    wavelength : float</span>
+<span class="sd">        Wavelength of the source.</span>
+<span class="sd">    position_0 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        Starting position (x, y) of the source.</span>
+<span class="sd">    position_1 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        Ending position (x, y) of the source.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Post-initialization to set up the base parameters, geometry, and object for the line source.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_base_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_geometry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_object</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="PointImpulsion">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.PointImpulsion">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">PointImpulsion</span><span class="p">(</span><span class="n">Impulsion</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">BaseSource</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a point impulsion source in a 2D light wave simulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    amplitude : float</span>
+<span class="sd">        Amplitude of the electric field.</span>
+<span class="sd">    duration : float</span>
+<span class="sd">        Duration of the impulsion.</span>
+<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        Position (x, y) of the source.</span>
+<span class="sd">    delay : float</span>
+<span class="sd">        Delay before the impulsion starts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Post-initialization to set up the base parameters, geometry, and object for the point impulsion.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_base_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_geometry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_object</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="LineImpulsion">
+<a class="viewcode-back" href="../../code.html#LightWave2D.source.LineImpulsion">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">LineImpulsion</span><span class="p">(</span><span class="n">Impulsion</span><span class="p">,</span> <span class="n">Line</span><span class="p">,</span> <span class="n">BaseSource</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a line impulsion source in a 2D light wave simulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    duration : float</span>
+<span class="sd">        Duration of the impulsion.</span>
+<span class="sd">    amplitude : float</span>
+<span class="sd">        Amplitude of the electric field.</span>
+<span class="sd">    position_0 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        Starting position (x, y) of the source.</span>
+<span class="sd">    position_1 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">        Ending position (x, y) of the source.</span>
+<span class="sd">    delay : float</span>
+<span class="sd">        Delay before the impulsion starts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Post-initialization to set up the base parameters, geometry, and object for the line impulsion.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_base_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_geometry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_object</span><span class="p">()</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Martin Poinsinet de Sivry-Houle.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

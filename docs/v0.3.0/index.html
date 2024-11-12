@@ -1,0 +1,753 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LightWave2D’s documentation &#8212; LightWave2D  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.11.10/x64/lib/python3.11/site-packages/docs/source/_static/default.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="_static/default.css?v=265c6c44" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/MartinPdeS/LightWave2D/documentation_page/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.3.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="_static/thumbnail.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Theoretical Background" href="theory.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/thumbnail.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="_static/thumbnail.png" class="logo__image only-dark" alt=""/>`);</script>
+  
+  
+    <p class="title logo__title">LightWave2D</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="theory.html">
+    Theoretical Background
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="code.html">
+    Source code structures
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="gallery/index.html">
+    Coding Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Anaconda</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="theory.html">
+    Theoretical Background
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="code.html">
+    Source code structures
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="gallery/index.html">
+    Coding Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Anaconda</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="lightwave2d-s-documentation">
+<h1>LightWave2D’s documentation<a class="headerlink" href="#lightwave2d-s-documentation" title="Link to this heading">#</a></h1>
+<p><strong>Date</strong>: Nov 12, 2024, <strong>Version</strong>: 0.3.0.post24</p>
+</section>
+<section id="lightwave2d">
+<h1>LightWave2D<a class="headerlink" href="#lightwave2d" title="Link to this heading">#</a></h1>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 16.7%" />
+<col style="width: 41.7%" />
+<col style="width: 41.7%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Meta</p></td>
+<td><p><a class="reference external" href="https://www.python.org/"><img alt="python" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg" /></a></p></td>
+<td><p><a class="reference external" href="https://lightwave2d.readthedocs.io/en/latest/code.html"><img alt="Documentation Status" src="https://github.com/martinpdes/LightWave2D/actions/workflows/deploy_documentation.yml/badge.svg" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Testing</p></td>
+<td><p><a class="reference external" href="https://martinpdes.github.io/LightWave2D/actions"><img alt="Unittest Status" src="https://github.com/martinpdes/lightwave2d/actions/workflows/deploy_coverage.yml/badge.svg" /></a></p></td>
+<td><p><a class="reference external" href="https://htmlpreview.github.io/?https://github.com/MartinPdeS/LightWave2D/blob/python-coverage-comment-action-data/htmlcov/index.html"><img alt="Unittest coverage" src="https://raw.githubusercontent.com/MartinPdeS/LightWave2D/python-coverage-comment-action-data/badge.svg" /></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>PyPi</p></td>
+<td><p><a class="reference external" href="https://pypi.org/project/LightWave2D/"><img alt="PyPi" src="https://badge.fury.io/py/LightWave2D.svg" /></a></p></td>
+<td><p><a class="reference external" href="https://pypistats.org/packages/lightwave2d"><img alt="PyPi_download" src="https://img.shields.io/pypi/dm/lightwave2d.svg" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Anaconda</p></td>
+<td><p><a class="reference external" href="https://anaconda.org/martinpdes/lightwave2d"><img alt="Anaconda version" src="https://anaconda.org/martinpdes/lightwave2d/badges/version.svg" /></a></p></td>
+<td><p><a class="reference external" href="https://anaconda.org/martinpdes/lightwave2d"><img alt="Anaconda downloads" src="https://anaconda.org/martinpdes/lightwave2d/badges/downloads.svg" /></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>LightWave2D is a software designed for comprehensive 2D Finite-Difference Time-Domain (FDTD) simulations, featuring a user-friendly installation and operation process. The characterization of wave propagation, scattering, and diffraction within LightWave2D is determined by a set of specific components, as illustrated in the subsequent figure.</p>
+<p>LightWave2D integrates various components, including waveguides, scatterers  (squares, circles, ellipses, triangles, lenses), gratings, and resonators. Additional parameters governing the simulation are contingent upon the attributes of the components and the simulation setup.</p>
+<hr class="docutils" />
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
+<p>All the latest available documentation is available <a class="reference external" href="https://lightwave2d.readthedocs.io/en/latest/">here</a> or you can click the following badge:</p>
+<p><a class="reference external" href="https://lightwave2d.readthedocs.io/en/latest/code.html"><img alt="Documentation Status" src="https://github.com/martinpdes/LightWave2D/actions/workflows/deploy_documentation.yml/badge.svg" /></a></p>
+</section>
+<hr class="docutils" />
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>For common versions of Windows, Linux, and macOS, (on x86_64 architecture), the package can readily be installed using pip;</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="n">install</span> <span class="n">LightWave2D</span>
+</pre></div>
+</div>
+</section>
+<section id="coding-examples">
+<h2>Coding examples<a class="headerlink" href="#coding-examples" title="Link to this heading">#</a></h2>
+<p>LightWave2D was developed with the aim of being an intuitive and easy to use tool.
+Below are two examples that illustrate this:</p>
+<p># Spherical scatterer</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">LightWave2D.grid</span> <span class="kn">import</span> <span class="n">Grid</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
+<span class="kn">from</span> <span class="nn">MPSPlots</span> <span class="kn">import</span> <span class="n">colormaps</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1e-6</span><span class="p">,</span>
+    <span class="n">size_x</span><span class="o">=</span><span class="mf">32e-6</span><span class="p">,</span>
+    <span class="n">size_y</span><span class="o">=</span><span class="mf">20e-6</span><span class="p">,</span>
+    <span class="n">n_steps</span><span class="o">=</span><span class="mi">300</span>
+<span class="p">)</span>
+
+<span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
+
+<span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_circle</span><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;30%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>
+    <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mf">3e-6</span>
+<span class="p">)</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span><span class="p">(</span>
+    <span class="n">wavelength</span><span class="o">=</span><span class="mf">1550e-9</span><span class="p">,</span>
+    <span class="n">point_0</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;100%&#39;</span><span class="p">),</span>
+    <span class="n">point_1</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;0%&#39;</span><span class="p">),</span>
+    <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+
+<span class="n">experiment</span><span class="o">.</span><span class="n">run_fdtd</span><span class="p">()</span>
+
+<span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
+    <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">unit_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="o">=</span><span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span>
+<span class="p">)</span>
+
+<span class="n">animation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./spherical_scatterer.gif&#39;</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s1">&#39;Pillow&#39;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="with-shadow float-left reference internal" href="https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/spherical_scatterer.gif?raw=true"><img alt="some image" class="with-shadow float-left" src="https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/spherical_scatterer.gif?raw=true" style="width: 800px;" /></a></p>
+<p># Ring resonator</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">LightWave2D.grid</span> <span class="kn">import</span> <span class="n">Grid</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
+<span class="kn">from</span> <span class="nn">MPSPlots.colormaps</span> <span class="kn">import</span> <span class="n">polytechnique</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1e-6</span><span class="p">,</span>
+    <span class="n">size_x</span><span class="o">=</span><span class="mf">50e-6</span><span class="p">,</span>
+    <span class="n">size_y</span><span class="o">=</span><span class="mf">30e-6</span><span class="p">,</span>
+    <span class="n">n_steps</span><span class="o">=</span><span class="mi">800</span>
+<span class="p">)</span>
+
+<span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
+
+
+<span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_ring_resonator</span><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;35%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>
+    <span class="n">epsilon_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">inner_radius</span><span class="o">=</span><span class="mf">4e-6</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">2e-6</span>
+<span class="p">)</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_point_source</span><span class="p">(</span>
+    <span class="n">wavelength</span><span class="o">=</span><span class="mf">1550e-9</span><span class="p">,</span>
+    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;25%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>
+    <span class="n">amplitude</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">pml</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+
+<span class="n">experiment</span><span class="o">.</span><span class="n">run_fdtd</span><span class="p">()</span>
+
+<span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span><span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span><span class="p">)</span>
+
+<span class="n">animation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./resonator.gif&#39;</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s1">&#39;Pillow&#39;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="with-shadow float-left reference internal" href="https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/resonator.gif?raw=true"><img alt="some image" class="with-shadow float-left" src="https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/resonator.gif?raw=true" style="width: 800px;" /></a></p>
+<p># Ring resonator</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">LightWave2D.grid</span> <span class="kn">import</span> <span class="n">Grid</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
+<span class="kn">from</span> <span class="nn">MPSPlots</span> <span class="kn">import</span> <span class="n">colormaps</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1e-6</span><span class="p">,</span>
+    <span class="n">size_x</span><span class="o">=</span><span class="mf">60e-6</span><span class="p">,</span>
+    <span class="n">size_y</span><span class="o">=</span><span class="mf">30e-6</span><span class="p">,</span>
+    <span class="n">n_steps</span><span class="o">=</span><span class="mi">1200</span>
+<span class="p">)</span>
+
+<span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
+
+<span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_lense</span><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;35%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>
+    <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">curvature</span><span class="o">=</span><span class="mf">10e-6</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">5e-6</span>
+<span class="p">)</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_point_source</span><span class="p">(</span>
+    <span class="n">wavelength</span><span class="o">=</span><span class="mf">1550e-9</span><span class="p">,</span>
+    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>
+    <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+
+<span class="n">experiment</span><span class="o">.</span><span class="n">run_fdtd</span><span class="p">()</span>
+
+<span class="n">experiment</span><span class="o">.</span><span class="n">plot_frame</span><span class="p">(</span>
+    <span class="n">frame_number</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">scale_max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="o">=</span><span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span>
+<span class="p">)</span>
+
+<span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
+    <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">unit_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="o">=</span><span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span>
+<span class="p">)</span>
+
+<span class="n">animation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./lense.gif&#39;</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s1">&#39;Pillow&#39;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="with-shadow float-left reference internal" href="https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/lense.gif?raw=true"><img alt="some image" class="with-shadow float-left" src="https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/lense.gif?raw=true" style="width: 800px;" /></a></p>
+<p>Plenty of other examples are available online, I invite you to check the <a class="reference external" href="https://lightwave2d.readthedocs.io/en/master/gallery/index.html">examples</a>
+section of the documentation.</p>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading">#</a></h2>
+<p>To test localy (with cloning the GitHub repository) you’ll need to install the dependencies and run the coverage command as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">MartinPdeS</span><span class="o">/</span><span class="n">LightWave2D</span><span class="o">.</span><span class="n">git</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cd</span> <span class="n">LightWave2D</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">/</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coverage</span> <span class="n">run</span> <span class="o">--</span><span class="n">source</span><span class="o">=</span><span class="n">LightWave2D</span> <span class="o">--</span><span class="n">module</span> <span class="n">pytest</span> <span class="o">--</span><span class="n">verbose</span> <span class="n">tests</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coverage</span> <span class="n">report</span> <span class="o">--</span><span class="n">show</span><span class="o">-</span><span class="n">missing</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="contact-information">
+<h2>Contact Information<a class="headerlink" href="#contact-information" title="Link to this heading">#</a></h2>
+<p>As of 2024 the project is still under development if you want to collaborate it would be a pleasure. I encourage you to contact me.</p>
+<p>LightWave2D was written by <a class="reference external" href="https://github.com/MartinPdS">Martin Poinsinet de Sivry-Houle</a>  .</p>
+<p>Email:<a class="reference external" href="mailto:martin&#46;poinsinet-de-sivry&#37;&#52;&#48;polymtl&#46;ca?subject=LightWave2D">martin<span>&#46;</span>poinsinet-de-sivry<span>&#64;</span>polymtl<span>&#46;</span>ca</a> .</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">LightWave2D’s documentation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lightwave2d">LightWave2D</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coding-examples">Coding examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contact-information">Contact Information</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/index.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Martin Poinsinet de Sivry-Houle.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
