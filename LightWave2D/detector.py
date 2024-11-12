@@ -24,7 +24,7 @@ config_dict = dict(
 @dataclass(kw_only=True, config=config_dict)
 class BaseDetector:
     """
-    Base class representing a scatterer (detector) in a simulation grid.
+    Base class representing a scatterer (detector) in a simulation  grid.
 
     Attributes
     ----------
