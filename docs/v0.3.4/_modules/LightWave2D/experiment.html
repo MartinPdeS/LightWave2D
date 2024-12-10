@@ -1,0 +1,1308 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LightWave2D.experiment &#8212; LightWave2D  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/docs/source/_static/default.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/default.css?v=265c6c44" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/LightWave2D/experiment';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/MartinPdeS/LightWave2D/documentation_page/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.3.4';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../_static/thumbnail.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/thumbnail.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="../../_static/thumbnail.png" class="logo__image only-dark" alt=""/>`);</script>
+  
+  
+    <p class="title logo__title">LightWave2D</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../theory.html">
+    Theoretical Background
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../code.html">
+    Source code structures
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../gallery/index.html">
+    Coding Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Anaconda</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../theory.html">
+    Theoretical Background
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../code.html">
+    Source code structures
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../gallery/index.html">
+    Coding Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Anaconda</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">LightWave2D....</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for LightWave2D.experiment</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.physics</span> <span class="kn">import</span> <span class="n">Physics</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.grid</span> <span class="kn">import</span> <span class="n">Grid</span>
+<span class="kn">from</span> <span class="nn">LightWave2D</span> <span class="kn">import</span> <span class="n">components</span>
+<span class="kn">from</span> <span class="nn">LightWave2D</span> <span class="kn">import</span> <span class="n">source</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.detector</span> <span class="kn">import</span> <span class="n">PointDetector</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.pml</span> <span class="kn">import</span> <span class="n">PML</span>
+<span class="kn">from</span> <span class="nn">MPSPlots</span> <span class="kn">import</span> <span class="n">colormaps</span>
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
+<span class="kn">from</span> <span class="nn">pydantic.dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">ticker</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">MPSPlots.styles</span> <span class="kn">import</span> <span class="n">mps</span>
+<span class="kn">from</span> <span class="nn">LightWave2D.helper</span> <span class="kn">import</span> <span class="n">_plot_helper</span>
+
+<span class="kn">from</span> <span class="nn">LightWave2D.binary</span> <span class="kn">import</span> <span class="n">fdtd_simulation</span>
+
+<span class="n">config_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">extra</span><span class="o">=</span><span class="s1">&#39;forbid&#39;</span><span class="p">,</span>
+    <span class="n">arbitrary_types_allowed</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="Experiment">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Experiment</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class representing an FDTD simulation experiment.&quot;&quot;&quot;</span>
+
+    <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The grid of the simulation mesh.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">components</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detectors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">Physics</span><span class="o">.</span><span class="n">epsilon_0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pml</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Experiment.get_gradient">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.get_gradient">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_gradient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the gradient of the field along the specified axis.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        field : numpy.ndarray)</span>
+<span class="sd">            The field to compute the gradient for.</span>
+<span class="sd">        axis : str</span>
+<span class="sd">            The axis along which to compute the gradient (&#39;x&#39; or &#39;y&#39;).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The computed gradient.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+            <span class="n">gradient</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dx</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="n">gradient</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dy</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Axis must be &#39;x&#39; or &#39;y&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gradient</span></div>
+
+
+    <span class="nd">@_plot_helper</span>
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="n">unit_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;Blues&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates a plot of the FDTD simulation setup using a specified colormap.</span>
+
+<span class="sd">        This function initializes a plotting scene and adds elements of the FDTD simulation</span>
+<span class="sd">        such as components, sources, detectors, and optionally the PML layers. It adjusts</span>
+<span class="sd">        the axis properties and attaches a colorbar based on the selected colormap.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        colormap : Optional[Union[str, object]])</span>
+<span class="sd">            The colormap to use for the plot. If &#39;None&#39; is passed, a default dark-themed colormap is used. Default is &#39;Blues&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Add PML layers to the plot if present</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pml</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pml</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">]:</span>
+            <span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">autoscale_view</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Experiment.add_to_component">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_to_component">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_to_component</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">component</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">component</span>
+        <span class="n">wrapper</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="vm">__doc__</span>
+        <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_to_source">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_to_source">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_to_source</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">source</span>
+        <span class="n">wrapper</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="vm">__doc__</span>
+        <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_to_detector">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_to_detector">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_to_detector</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">detector</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">detector</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">detector</span>
+        <span class="n">wrapper</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="vm">__doc__</span>
+        <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_pml">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_pml">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_pml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PML</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a Perfectly Matched Layer (PML) to the simulation.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pml</span> <span class="o">=</span> <span class="n">PML</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pml</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_circle">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_circle">[docs]</a>
+    <span class="nd">@add_to_component</span>
+    <span class="k">def</span> <span class="nf">add_circle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">components</span><span class="o">.</span><span class="n">Circle</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a components.Circle to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">components</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_ellipse">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_ellipse">[docs]</a>
+    <span class="nd">@add_to_component</span>
+    <span class="k">def</span> <span class="nf">add_ellipse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">components</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a components.Ellipse to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">components</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_square">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_square">[docs]</a>
+    <span class="nd">@add_to_component</span>
+    <span class="k">def</span> <span class="nf">add_square</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">components</span><span class="o">.</span><span class="n">Square</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        open()</span>
+<span class="sd">        Method to add a components.Square to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">components</span><span class="o">.</span><span class="n">Square</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_triangle">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_triangle">[docs]</a>
+    <span class="nd">@add_to_component</span>
+    <span class="k">def</span> <span class="nf">add_triangle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">components</span><span class="o">.</span><span class="n">Triangle</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a components.Triangle to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">components</span><span class="o">.</span><span class="n">Triangle</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_lense">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_lense">[docs]</a>
+    <span class="nd">@add_to_component</span>
+    <span class="k">def</span> <span class="nf">add_lense</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">components</span><span class="o">.</span><span class="n">Lense</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a components.Lense to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">components</span><span class="o">.</span><span class="n">Lense</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_grating">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_grating">[docs]</a>
+    <span class="nd">@add_to_component</span>
+    <span class="k">def</span> <span class="nf">add_grating</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">components</span><span class="o">.</span><span class="n">Grating</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a components.Grating to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">components</span><span class="o">.</span><span class="n">Grating</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_ring_resonator">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_ring_resonator">[docs]</a>
+    <span class="nd">@add_to_component</span>
+    <span class="k">def</span> <span class="nf">add_ring_resonator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">components</span><span class="o">.</span><span class="n">RingResonator</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a components.RingResonator to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">components</span><span class="o">.</span><span class="n">RingResonator</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_waveguide">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_waveguide">[docs]</a>
+    <span class="nd">@add_to_component</span>
+    <span class="k">def</span> <span class="nf">add_waveguide</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">components</span><span class="o">.</span><span class="n">Waveguide</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a components.Waveguide to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">components</span><span class="o">.</span><span class="n">Waveguide</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_point_source">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_point_source">[docs]</a>
+    <span class="nd">@add_to_source</span>
+    <span class="k">def</span> <span class="nf">add_point_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">PointSource</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a source.PointSource to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">PointSource</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_point_impulsion">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_point_impulsion">[docs]</a>
+    <span class="nd">@add_to_source</span>
+    <span class="k">def</span> <span class="nf">add_point_impulsion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">PointImpulsion</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a source.Impulsion to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">PointImpulsion</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_line_source">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_line_source">[docs]</a>
+    <span class="nd">@add_to_source</span>
+    <span class="k">def</span> <span class="nf">add_line_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">LineSource</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a source.LineSource to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">LineSource</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_line_impulsion">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_line_impulsion">[docs]</a>
+    <span class="nd">@add_to_source</span>
+    <span class="k">def</span> <span class="nf">add_line_impulsion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">LineImpulsion</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a source.LineSource to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">LineImpulsion</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.add_point_detector">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_point_detector">[docs]</a>
+    <span class="nd">@add_to_detector</span>
+    <span class="k">def</span> <span class="nf">add_point_detector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PointDetector</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add a PointDetector to the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">PointDetector</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experiment.get_sigma">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.get_sigma">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_sigma</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the sigma values for the PML.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Sigma values for x and y directions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pml</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sigma_x</span><span class="p">,</span> <span class="n">sigma_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pml</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pml</span><span class="o">.</span><span class="n">sigma_y</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sigma_x</span> <span class="o">=</span> <span class="n">sigma_y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
+            <span class="n">component</span><span class="o">.</span><span class="n">add_to_sigma_mesh</span><span class="p">(</span><span class="n">sigma_x</span><span class="p">)</span>
+            <span class="n">component</span><span class="o">.</span><span class="n">add_to_sigma_mesh</span><span class="p">(</span><span class="n">sigma_y</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">sigma_x</span><span class="p">,</span> <span class="n">sigma_y</span></div>
+
+
+<div class="viewcode-block" id="Experiment.get_epsilon">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.get_epsilon">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_epsilon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct the epsilon mesh with contributions from all components.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The epsilon mesh.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">epsilon_r_mesh</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
+            <span class="n">component</span><span class="o">.</span><span class="n">add_to_epsilon_r_mesh</span><span class="p">(</span><span class="n">epsilon_r_mesh</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">epsilon_r_mesh</span> <span class="o">*</span> <span class="n">Physics</span><span class="o">.</span><span class="n">epsilon_0</span></div>
+
+
+<div class="viewcode-block" id="Experiment.run_fdtd">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.run_fdtd">[docs]</a>
+    <span class="k">def</span> <span class="nf">run_fdtd</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run the Finite-Difference Time-Domain (FDTD) simulation.</span>
+
+<span class="sd">        This method updates the electric field (Ez) and magnetic fields (Hx, Hy) over time</span>
+<span class="sd">        based on Maxwell&#39;s equations using the FDTD method. It incorporates the effects</span>
+<span class="sd">        of absorption, sources, and non-linear interactions.</span>
+
+<span class="sd">        Maxwell&#39;s equations in 2D for non-magnetic media:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            \frac{\partial H_x}{\partial t} = -\frac{1}{\mu} \frac{\partial E_z}{\partial y} \\[10pt]</span>
+<span class="sd">            \frac{\partial H_y}{\partial t} = \frac{1}{\mu} \frac{\partial E_z}{\partial x} \\[10pt]</span>
+<span class="sd">            \frac{\partial E_z}{\partial t} = \frac{1}{\epsilon} \left( \frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y} \right) - \sigma E_z</span>
+
+<span class="sd">        Attributes</span>
+<span class="sd">        ----------</span>
+<span class="sd">        Ez : numpy.ndarray</span>
+<span class="sd">            The electric field in the z-direction.</span>
+<span class="sd">        Hx : numpy.ndarray</span>
+<span class="sd">            The magnetic field in the x-direction.</span>
+<span class="sd">        Hy : numpy.ndarray</span>
+<span class="sd">            The magnetic field in the y-direction.</span>
+<span class="sd">        sigma_x : numpy.ndarray</span>
+<span class="sd">            Conductivity in the x direction.</span>
+<span class="sd">        sigma_y : numpy.ndarray</span>
+<span class="sd">            Conductivity in the y direction.</span>
+<span class="sd">        epsilon : numpy.ndarray</span>
+<span class="sd">            Permittivity of the grid.</span>
+<span class="sd">        mu_factor : float</span>
+<span class="sd">            Precomputed factor for the magnetic field update.</span>
+<span class="sd">        eps_factor : numpy.ndarray</span>
+<span class="sd">            Precomputed factor for the electric field update.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            This method does not return any value; it updates the simulation fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+        <span class="n">sigma_x</span><span class="p">,</span> <span class="n">sigma_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sigma</span><span class="p">()</span>
+        <span class="n">epsilon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_epsilon</span><span class="p">()</span>
+
+        <span class="n">fdtd_simulation</span><span class="o">.</span><span class="n">run_fdtd</span><span class="p">(</span>
+            <span class="n">Ez</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">,</span>
+            <span class="n">time_stamp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_stamp</span><span class="p">,</span>
+            <span class="n">sigma_x</span><span class="o">=</span><span class="n">sigma_x</span><span class="p">,</span>
+            <span class="n">sigma_y</span><span class="o">=</span><span class="n">sigma_y</span><span class="p">,</span>
+            <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span>
+            <span class="n">gamma</span><span class="o">=</span><span class="n">epsilon</span> <span class="o">*</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">n2</span><span class="o">=</span><span class="n">epsilon</span> <span class="o">*</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">dt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dt</span><span class="p">,</span>
+            <span class="n">mu_0</span><span class="o">=</span><span class="n">Physics</span><span class="o">.</span><span class="n">mu_0</span><span class="p">,</span>
+            <span class="n">n_steps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span>
+            <span class="n">dx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dx</span><span class="p">,</span>
+            <span class="n">dy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dy</span><span class="p">,</span>
+            <span class="n">nx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_x</span><span class="p">,</span>
+            <span class="n">ny</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_y</span><span class="p">,</span>
+            <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">binding</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">]</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_run_fdtd</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Legacy function to run the FDTD simulation.</span>
+
+<span class="sd">        This method updates the electric field (Ez) and magnetic fields (Hx, Hy) over time</span>
+<span class="sd">        based on Maxwell&#39;s equations using the FDTD method. It also includes the effects</span>
+<span class="sd">        of absorption, sources, and non-linear interactions.</span>
+
+<span class="sd">        Maxwell&#39;s equations in 2D for non-magnetic media:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            \frac{\partial H_x}{\partial t} = -\frac{1}{\mu} \frac{\partial E_z}{\partial y} \\[10pt]</span>
+<span class="sd">            \frac{\partial H_y}{\partial t} = \frac{1}{\mu} \frac{\partial E_z}{\partial x} \\[10pt]</span>
+<span class="sd">            \frac{\partial E_z}{\partial t} = \frac{1}{\epsilon} \left( \frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y} \right) - \sigma E_z</span>
+
+<span class="sd">        Attributes</span>
+<span class="sd">        ----------</span>
+<span class="sd">        Ez : numpy.ndarray</span>
+<span class="sd">            The electric field in the z-direction.</span>
+<span class="sd">        Hx : numpy.ndarray</span>
+<span class="sd">            The magnetic field in the x-direction.</span>
+<span class="sd">        Hy : numpy.ndarray</span>
+<span class="sd">            The magnetic field in the y-direction.</span>
+<span class="sd">        sigma_x : numpy.ndarray</span>
+<span class="sd">            Conductivity in the x direction.</span>
+<span class="sd">        sigma_y : numpy.ndarray</span>
+<span class="sd">            Conductivity in the y direction.</span>
+<span class="sd">        epsilon : numpy.ndarray</span>
+<span class="sd">            Permittivity of the grid.</span>
+<span class="sd">        mu_factor : float</span>
+<span class="sd">            Precomputed factor for the magnetic field update.</span>
+<span class="sd">        eps_factor : numpy.ndarray</span>
+<span class="sd">            Precomputed factor for the electric field update.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            This method does not return any value; it updates the simulation fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Ez</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">Hx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">Hy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="n">sigma_x</span><span class="p">,</span> <span class="n">sigma_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sigma</span><span class="p">()</span>
+        <span class="n">epsilon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_epsilon</span><span class="p">()</span>
+        <span class="n">mu_factor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="n">Physics</span><span class="o">.</span><span class="n">mu_0</span>
+        <span class="n">eps_factor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="n">epsilon</span>
+
+        <span class="k">for</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_stamp</span><span class="p">):</span>
+            <span class="n">dEz_dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">Ez</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">Ez</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dx</span>
+            <span class="n">dEz_dy</span> <span class="o">=</span> <span class="p">(</span><span class="n">Ez</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">Ez</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dy</span>
+
+            <span class="n">Hx</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">mu_factor</span> <span class="o">*</span> <span class="n">dEz_dy</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">sigma_y</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">mu_factor</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">Hy</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="n">mu_factor</span> <span class="o">*</span> <span class="n">dEz_dx</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">sigma_x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">mu_factor</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">dHy_dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">Hy</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Hy</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dx</span>
+            <span class="n">dHx_dy</span> <span class="o">=</span> <span class="p">(</span><span class="n">Hx</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Hx</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dy</span>
+
+            <span class="n">Ez</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">eps_factor</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">dHy_dx</span> <span class="o">-</span> <span class="n">dHx_dy</span><span class="p">)</span>
+
+            <span class="n">absorption_factor</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">sigma_x</span> <span class="o">+</span> <span class="n">sigma_y</span><span class="p">)</span> <span class="o">*</span> <span class="n">eps_factor</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">absorption_factor</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">absorption_factor</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">Ez</span> <span class="o">*=</span> <span class="n">absorption_factor</span>
+
+            <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
+                <span class="n">Ez</span> <span class="o">=</span> <span class="n">component</span><span class="o">.</span><span class="n">add_non_linear_effect_to_field</span><span class="p">(</span><span class="n">Ez</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">:</span>
+                <span class="n">element</span><span class="o">.</span><span class="n">add_source_to_field</span><span class="p">(</span><span class="n">Ez</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">iteration</span><span class="p">]</span> <span class="o">=</span> <span class="n">Ez</span>
+
+        <span class="k">for</span> <span class="n">detector</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">:</span>
+            <span class="n">detector</span><span class="o">.</span><span class="n">update_data</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">)</span>
+
+    <span class="nd">@_plot_helper</span>
+    <span class="k">def</span> <span class="nf">plot_frame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span>
+            <span class="n">frame_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">scale_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="n">unit_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="n">show_intensity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">blue_black_red</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot a specific frame from the FDTD simulation.</span>
+
+<span class="sd">        This method visualizes the electric field distribution for a specified frame, including</span>
+<span class="sd">        the components, sources, and detectors present in the simulation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        frame_number : int</span>
+<span class="sd">            The index of the frame to be visualized.</span>
+<span class="sd">        scale_max : float, optional</span>
+<span class="sd">            The maximum scale factor for the color limits of the field. Default is 5.</span>
+<span class="sd">        unit_size : int, optional</span>
+<span class="sd">            The base unit size for the plot. Default is 6.</span>
+<span class="sd">        show_intensity : bool, optional</span>
+<span class="sd">            If True, displays the intensity instead of the amplitude. Default is False.</span>
+<span class="sd">        colormap : Optional[Union[str, object]], optional</span>
+<span class="sd">            The colormap used for visualization. Default is a blue-black-red colormap from the Polytechnique collection.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            This method does not return any value; it displays the plot.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">show_intensity</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">frame_number</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">frame_number</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="n">image</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="p">,</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span>
+        <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">]:</span>
+            <span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+        <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_clim</span><span class="p">()</span>
+        <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">vmin</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">vmax</span><span class="p">))</span> <span class="o">/</span> <span class="n">scale_max</span>
+        <span class="n">image</span><span class="o">.</span><span class="n">set_clim</span><span class="p">([</span><span class="o">-</span><span class="n">max_diff</span><span class="p">,</span> <span class="n">max_diff</span><span class="p">])</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+    <span class="nd">@_plot_helper</span>
+    <span class="k">def</span> <span class="nf">save_frame_as_image</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span>
+            <span class="n">frame_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">scale_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="n">show_intensity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">blue_black_red</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save a specific frame from the FDTD simulation as an image.</span>
+
+<span class="sd">        This method plots a specific frame of the simulation using the specified colormap</span>
+<span class="sd">        and saves it as an image file with the given resolution.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        frame_number : int</span>
+<span class="sd">            The index of the frame to be saved.</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The file path where the image will be saved.</span>
+<span class="sd">        scale_max : float, optional</span>
+<span class="sd">            The maximum scale factor for the color limits of the image. Default is 5.</span>
+<span class="sd">        figsize : tuple, optional</span>
+<span class="sd">            The base unit size for the plot. Default is 6.</span>
+<span class="sd">        dpi : int, optional</span>
+<span class="sd">            The resolution of the saved image in dots per inch. Default is 200.</span>
+<span class="sd">        show_intensity : bool, optional</span>
+<span class="sd">            If True, displays intensity instead of amplitude. Default is False.</span>
+<span class="sd">        colormap : Optional[Union[str, object]], optional</span>
+<span class="sd">            The colormap used for visualizing the data. Default is a predefined blue-black-red colormap.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            This method does not return any value, but saves an image file at the specified path.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">show_intensity</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">frame_number</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">frame_number</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="n">image</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="p">,</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span>
+        <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">]:</span>
+            <span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+        <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_clim</span><span class="p">()</span>
+        <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">vmin</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">vmax</span><span class="p">))</span> <span class="o">/</span> <span class="n">scale_max</span>
+        <span class="n">image</span><span class="o">.</span><span class="n">set_clim</span><span class="p">([</span><span class="o">-</span><span class="n">max_diff</span><span class="p">,</span> <span class="n">max_diff</span><span class="p">])</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Experiment.get_figure_ax">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.get_figure_ax">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_figure_ax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a matplotlib figure and axis for plotting.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        unit_size : int, optional</span>
+<span class="sd">            The base unit size for scaling the plot. Default is 6.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Tuple</span>
+<span class="sd">            A tuple containing the matplotlib figure and axis objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">figsize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">unit_size</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">unit_size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">size_y</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">size_x</span><span class="p">)</span>
+        <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;x position [$\mu$m]&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;y position [$\mu$m]&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+
+        <span class="n">ticks_x</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{0:g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">1e-6</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticks_x</span><span class="p">)</span>
+
+        <span class="n">ticks_y</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{0:g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="mf">1e-6</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticks_y</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span></div>
+
+
+<div class="viewcode-block" id="Experiment.render_propagation">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.render_propagation">[docs]</a>
+    <span class="k">def</span> <span class="nf">render_propagation</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">skip_frame</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">scale_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">unit_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="n">auto_adjust_clim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colormaps</span><span class="o">.</span><span class="n">blue_black_red</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Render an animation of the field propagation.</span>
+
+<span class="sd">        This method sets up the scene, initializes the field display, and creates</span>
+<span class="sd">        an animation showing the evolution of the field over time.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        skip_frame : int, optional</span>
+<span class="sd">            The number of time steps to skip between frames in the animation. Default is 10.</span>
+<span class="sd">        scale_max : float, optional</span>
+<span class="sd">            The maximum scale factor for the color limits of the field amplitude. Default is 1.</span>
+<span class="sd">        unit_size : int, optional</span>
+<span class="sd">            The base unit size for scaling the plot elements. Default is 6.</span>
+<span class="sd">        auto_adjust_clim : bool, optional</span>
+<span class="sd">            If True, automatically adjusts color limits based on field amplitude for each frame. Default is False.</span>
+<span class="sd">        fps : int, optional</span>
+<span class="sd">            The frames per second for the animation. Default is 10.</span>
+<span class="sd">        colormap : Optional[Union[str, object]], optional</span>
+<span class="sd">            The colormap used for visualizing the data. Default is a predefined blue-black-red colormap.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        animation.FuncAnimation</span>
+<span class="sd">            The animation object that can be displayed or saved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="n">mps</span><span class="p">):</span>
+            <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_figure_ax</span><span class="p">(</span><span class="n">unit_size</span><span class="o">=</span><span class="n">unit_size</span><span class="p">)</span>
+
+            <span class="c1"># Initialize the field display</span>
+            <span class="n">initial_field</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">field_artist</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="p">,</span>
+                <span class="n">initial_field</span><span class="p">,</span>
+                <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span>
+            <span class="p">)</span>
+
+            <span class="n">title</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="mf">.9</span><span class="p">,</span>
+                <span class="n">s</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Store all artists for updating</span>
+            <span class="n">artist_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">field_artist</span><span class="p">]</span>
+
+            <span class="c1"># Add other components to the axis and their artists to the list</span>
+            <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
+                <span class="n">artist_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">))</span>
+
+            <span class="n">max_amplitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">scale_max</span>
+            <span class="n">field_artist</span><span class="o">.</span><span class="n">set_clim</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">max_amplitude</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Update function for the animation; called for each frame.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            frame : int</span>
+<span class="sd">                The current frame number.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            List</span>
+<span class="sd">                A list of updated artists for the animation.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_stamp</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span>
+            <span class="n">field_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">field_artist</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">field_t</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">auto_adjust_clim</span><span class="p">:</span>
+                <span class="n">max_amplitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">field_t</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">scale_max</span>
+                <span class="n">field_artist</span><span class="o">.</span><span class="n">set_clim</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">max_amplitude</span><span class="p">)</span>
+
+            <span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;time: </span><span class="si">{</span><span class="n">time</span><span class="si">:</span><span class="s1">.1e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="o">*</span><span class="n">artist_list</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span>
+
+        <span class="k">def</span> <span class="nf">init_func</span><span class="p">():</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Initialization function for the animation; called at the start.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            Tuple</span>
+<span class="sd">                A tuple containing the initial field artist and title.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;time: </span><span class="si">{</span><span class="n">time</span><span class="si">:</span><span class="s1">.1e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+            <span class="k">return</span> <span class="n">field_artist</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span>
+
+        <span class="n">render</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span>
+            <span class="n">fig</span><span class="o">=</span><span class="n">figure</span><span class="p">,</span>
+            <span class="n">func</span><span class="o">=</span><span class="n">update</span><span class="p">,</span>
+            <span class="n">frames</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span> <span class="n">skip_frame</span><span class="p">),</span>
+            <span class="n">interval</span><span class="o">=</span><span class="mi">1000</span> <span class="o">/</span> <span class="n">fps</span><span class="p">,</span>
+            <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">init_func</span><span class="o">=</span><span class="n">init_func</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span></div>
+
+
+<div class="viewcode-block" id="Experiment.save_propagation">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.save_propagation">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_propagation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Pillow&#39;</span><span class="p">,</span> <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the field propagation animation to a file.</span>
+
+<span class="sd">        This method generates an animation of the electric field propagation and saves it to</span>
+<span class="sd">        the specified file using the given writer and frame rate.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The name of the file to save the animation.</span>
+<span class="sd">        writer : str, optional</span>
+<span class="sd">            The writer used for saving the animation. Default is &#39;Pillow&#39;.</span>
+<span class="sd">        fps : int, optional</span>
+<span class="sd">            The frames per second for the animation. Default is 10.</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Additional keyword arguments passed to the render_propagation method.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        animation.FuncAnimation</span>
+<span class="sd">            The generated animation object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">animation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="n">writer</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">animation</span></div>
+
+
+<div class="viewcode-block" id="Experiment.show_propagation">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.show_propagation">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_propagation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Display the field propagation animation.</span>
+
+<span class="sd">        This method generates and displays an animation of the electric field propagation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Additional keyword arguments passed to the render_propagation method.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        animation.FuncAnimation</span>
+<span class="sd">            The generated animation object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">animation</span></div>
+</div>
+
+
+<span class="c1"># -</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Martin Poinsinet de Sivry-Houle.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
