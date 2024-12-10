@@ -1,4 +1,4 @@
-name: Deploy to Conda
+name: Deploy Conda Packages
 
 on:
   push:
@@ -8,27 +8,14 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+    contents: write
+
 jobs:
-  conda_deployment:
-    name: OS [${{ matrix.os }}]  Python [${{ matrix.python-version }}]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        python-version: ["3.11", "3.12"]
+  ManyLinux_x86_64:
+    uses: MartinPdeS/MPSActions/.github/workflows/publish_compiled_package_to_anaconda.yml@master
+    with:
+      python-versions: '["3.11", "3.12"]'
+    secrets:
+      ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
 
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Conda environment creation and activation
-        uses: conda-incubator/setup-miniconda@v3
-        with:
-          channels: conda-forge, martinpdes
-          python-version: ${{ matrix.python-version }}
-
-      - name: Conda environment creation and activation
-        run: |
-          conda install anaconda-client conda-build
-          conda config --add channels conda-forge
-          conda config --add channels martinpdes
-          conda build . --token ${{ secrets.ANACONDA_API_TOKEN }} --user martinpdes
