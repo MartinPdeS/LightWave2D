@@ -1,6 +1,6 @@
 package:
   name: lightwave2d
-  version: {{ GIT_DESCRIBE_TAG }}
+  version: "{{ GIT_DESCRIBE_TAG }}"
 
 source:
   git_url: https://github.com/MartinPdeS/LightWave2D.git
@@ -56,10 +56,10 @@ test:
     - python {{PY_VER}}*
     - pytest >=0.6
     - pytest-cov >=2.0
-    - pytest-json-report ==1.5.0
-    - coverage ==7.6.1
+    - pytest-json-report ~=1.5.0
+    - coverage ~=7.6.1
   commands:
-    - pytest --ignore=tests/gui
+    - pytest
   source_files:
     - tests
 
