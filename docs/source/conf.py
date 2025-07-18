@@ -35,7 +35,6 @@ author = 'Martin Poinsinet de Sivry-Houle'
 
 extensions = [
     'sphinx.ext.mathjax',
-    'pyvista.ext.plot_directive',
     'sphinx_gallery.gen_gallery',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
