@@ -27,6 +27,7 @@ requirements:
     - python {{PY_VER}}*
     - martinpdes::pyoptik
     - martinpdes::mpsplots
+    - shapely ~=2.0
     - numpy ==2.2.6
     - pydantic ~=2.9.2
     - pint-pandas ~=0.6
