@@ -5,13 +5,8 @@ from LightWave2D.grid import Grid
 
 @pytest.fixture
 def default_grid():
-    """Fixture to provide a default Grid instance."""
-    return Grid(
-        resolution=1e-6,
-        size_x=32e-6,
-        size_y=16e-6,
-        n_steps=3000
-    )
+    """Backward compatibility fixture kept for tests using it directly."""
+    return Grid(resolution=1e-6, size_x=32e-6, size_y=16e-6, n_steps=3000)
 
 
 # List of dictionaries for grid initialization parameters
@@ -71,6 +66,40 @@ def test_get_distance_grid(default_grid):
     assert np.isclose(distance_grid[-1, -1], expected_distance), (
         f"Expected distance at the opposite corner to be approximately {expected_distance}, got {distance_grid[-1, -1]}"
     )
+
+
+def test_parse_percentage_positions(default_grid):
+    grid = default_grid
+
+    x = grid.parse_x_position("50%")
+    y = grid.parse_y_position("25%")
+
+    assert x == pytest.approx(0.5 * (grid.x_stamp[-1] - grid.x_stamp[0]))
+    assert y == pytest.approx(0.25 * (grid.y_stamp[-1] - grid.y_stamp[0]))
+
+
+@pytest.mark.parametrize("key,val", [
+    ("left", 0),
+    ("center", lambda g: pytest.approx(np.mean(g.x_stamp))),
+    ("right", lambda g: pytest.approx(g.x_stamp[-1]))
+])
+def test_parse_x_strings(default_grid, key, val):
+    grid = default_grid
+    expected = val(grid) if callable(val) else val
+    assert grid.parse_x_position(key) == expected
+
+
+@pytest.mark.parametrize("key,val", [
+    ("bottom", 0),
+    ("center", lambda g: pytest.approx(np.mean(g.y_stamp))),
+    ("top", lambda g: pytest.approx(g.y_stamp[-1]))
+])
+def test_parse_y_strings(default_grid, key, val):
+    grid = default_grid
+    expected = val(grid) if callable(val) else val
+    assert grid.parse_y_position(key) == expected
+
+
 
 
 if __name__ == "__main__":
