@@ -24,6 +24,15 @@ LightWave2D is a software designed for comprehensive 2D Finite-Difference Time-D
 
 LightWave2D integrates various components, including waveguides, scatterers  (squares, circles, ellipses, triangles, lenses), gratings, and resonators. Additional parameters governing the simulation are contingent upon the attributes of the components and the simulation setup.
 
+Key Features
+************
+
+- Intuitive API for configuring simulations.
+- Support for waveguides, scatterers, gratings, and resonators.
+- Built-in tools for rendering field animations.
+- Extensive gallery of examples in the documentation.
+
+
 
 ----
 
@@ -44,6 +53,17 @@ For common versions of Windows, Linux, and macOS, (on x86_64 architecture), the 
 .. code-block:: python
 
    >>> pip install LightWave2D
+
+Building Documentation Locally
+****************************
+
+To generate the HTML documentation on your machine, install the optional dependencies and run:
+
+.. code-block:: bash
+
+   pip install .[documentation]
+   cd docs && make html
+   firefox build/html/index.html
 
 
 Coding examples
@@ -203,7 +223,7 @@ section of the documentation.
 Testing
 *******
 
-To test localy (with cloning the GitHub repository) you'll need to install the dependencies and run the coverage command as
+To test locally (with cloning the GitHub repository) you'll need to install the dependencies and run the coverage command as
 
 .. code:: python
 
@@ -212,6 +232,11 @@ To test localy (with cloning the GitHub repository) you'll need to install the d
    >>> pip install -r requirements/requirements.txt
    >>> coverage run --source=LightWave2D --module pytest --verbose tests
    >>> coverage report --show-missing
+
+Contributing
+************
+
+Contributions are welcome! Feel free to open an issue or submit a pull request on GitHub.
 
 
 ----
