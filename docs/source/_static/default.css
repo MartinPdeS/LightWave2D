@@ -1,7 +1,6 @@
 /* Additional styling for the PyData Sphinx theme. */
 
-/* Use hyperlink color for grid-item-cards.
-TODO find a way to only apply this to grid-item-cards that link somewhere */
+/* Apply hyperlink color to grid item cards */
 .sd-card-title {
     color: var(--pst-color-link);
 }
