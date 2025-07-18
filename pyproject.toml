@@ -22,9 +22,7 @@ name = "LightWave2D"
 dynamic = ["version"]
 description="A package for finite-difference time domain computation for light propagation"
 keywords = ["FDTD", "Light", "propagation", "physics"]
-documentation = 'https://lightwave2d.readthedocs.io/'
-url = 'https://github.com/MartinPdeS/LightWave2D'
-platforms = ['unix', 'linux', 'osx']
+urls = {"Documentation" = "https://martinpdes.github.io/LightWave2D/", "Repository" = "https://github.com/MartinPdeS/LightWave2D"}
 readme = "README.rst"
 requires-python = ">=3.10"
 authors = [{ name = "Martin Poinsinet de Sivry-Houle", email = "martin.poinsinet.de.sivry@gmail.com" }]
