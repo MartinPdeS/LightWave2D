@@ -9,6 +9,8 @@ This section showcases examples focused on detectors, guiding you through the pr
 
 
 
+
+
 .. raw:: html
 
     <div class="sphx-glr-thumbnails">

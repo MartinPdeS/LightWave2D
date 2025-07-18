@@ -36,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-    <link rel="stylesheet" type="text/css" href="_static/default.css?v=265c6c44" />
+    <link rel="stylesheet" type="text/css" href="_static/default.css?v=1e1c20c4" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -459,6 +459,15 @@
 </div>
 <p>LightWave2D is a software designed for comprehensive 2D Finite-Difference Time-Domain (FDTD) simulations, featuring a user-friendly installation and operation process. The characterization of wave propagation, scattering, and diffraction within LightWave2D is determined by a set of specific components, as illustrated in the subsequent figure.</p>
 <p>LightWave2D integrates various components, including waveguides, scatterers  (squares, circles, ellipses, triangles, lenses), gratings, and resonators. Additional parameters governing the simulation are contingent upon the attributes of the components and the simulation setup.</p>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Intuitive API for configuring simulations.</p></li>
+<li><p>Support for waveguides, scatterers, gratings, and resonators.</p></li>
+<li><p>Built-in tools for rendering field animations.</p></li>
+<li><p>Extensive gallery of examples in the documentation.</p></li>
+</ul>
+</section>
 <hr class="docutils" />
 <section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
@@ -470,6 +479,15 @@
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
 <p>For common versions of Windows, Linux, and macOS, (on x86_64 architecture), the package can readily be installed using pip;</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="n">install</span> <span class="n">LightWave2D</span>
+</pre></div>
+</div>
+</section>
+<section id="building-documentation-locally">
+<h2>Building Documentation Locally<a class="headerlink" href="#building-documentation-locally" title="Link to this heading">#</a></h2>
+<p>To generate the HTML documentation on your machine, install the optional dependencies and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>.<span class="o">[</span>documentation<span class="o">]</span>
+<span class="nb">cd</span><span class="w"> </span>docs<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>html
+firefox<span class="w"> </span>build/html/index.html
 </pre></div>
 </div>
 </section>
@@ -609,7 +627,7 @@ section of the documentation.</p>
 </section>
 <section id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Link to this heading">#</a></h2>
-<p>To test localy (with cloning the GitHub repository) you’ll need to install the dependencies and run the coverage command as</p>
+<p>To test locally (with cloning the GitHub repository) you’ll need to install the dependencies and run the coverage command as</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">MartinPdeS</span><span class="o">/</span><span class="n">LightWave2D</span><span class="o">.</span><span class="n">git</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cd</span> <span class="n">LightWave2D</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">/</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
@@ -617,6 +635,10 @@ section of the documentation.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">coverage</span> <span class="n">report</span> <span class="o">--</span><span class="n">show</span><span class="o">-</span><span class="n">missing</span>
 </pre></div>
 </div>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">#</a></h2>
+<p>Contributions are welcome! Feel free to open an issue or submit a pull request on GitHub.</p>
 </section>
 <hr class="docutils" />
 <section id="contact-information">
@@ -652,10 +674,13 @@ section of the documentation.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-documentation-locally">Building Documentation Locally</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coding-examples">Coding examples</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">Contributing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contact-information">Contact Information</a></li>
 </ul>
   </nav></div>
