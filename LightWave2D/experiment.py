@@ -176,32 +176,32 @@ class Experiment(interface_simulator.FDTDSimulator):
         return components.Waveguide(grid=self.grid, **kwargs)
 
     @add_to_source
-    def add_point_source(self, **kwargs) -> source.PointSource:
+    def add_point_source(self, **kwargs) -> source.PointWaveSource:
         """
         Method to add a source.PointSource to the simulation.
         """
-        return source.PointSource(grid=self.grid, **kwargs)
+        return source.PointWaveSource(grid=self.grid, **kwargs)
 
     @add_to_source
-    def add_point_impulsion(self, **kwargs) -> source.PointImpulsion:
+    def add_point_impulsion(self, **kwargs) -> source.PointPulseSource:
         """
         Method to add a source.Impulsion to the simulation.
         """
-        return source.PointImpulsion(grid=self.grid, **kwargs)
+        return source.PointPulseSource(grid=self.grid, **kwargs)
 
     @add_to_source
-    def add_line_source(self, **kwargs) -> source.LineSource:
+    def add_line_source(self, **kwargs) -> source.LineWaveSource:
         """
         Method to add a source.LineSource to the simulation.
         """
-        return source.LineSource(grid=self.grid, **kwargs)
+        return source.LineWaveSource(grid=self.grid, **kwargs)
 
     @add_to_source
-    def add_line_impulsion(self, **kwargs) -> source.LineImpulsion:
+    def add_line_impulsion(self, **kwargs) -> source.LinePulseSource:
         """
         Method to add a source.LineSource to the simulation.
         """
-        return source.LineImpulsion(grid=self.grid, **kwargs)
+        return source.LinePulseSource(grid=self.grid, **kwargs)
 
     @add_to_detector
     def add_point_detector(self, **kwargs) -> PointDetector:
@@ -306,7 +306,7 @@ class Experiment(interface_simulator.FDTDSimulator):
         )
 
         self._cpp_set_sources(
-            sources=[s.binding for s in self.sources]
+            sources=[s for s in self.sources]
         )
 
         self._cpp_run(Ez_time=self.Ez_t)

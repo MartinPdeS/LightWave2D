@@ -27,9 +27,6 @@ void MultiWavelength::add_to_field(const Config& config, FieldSet &field_set) {
     }
 }
 
-
-
-
 Impulsion::Impulsion(const double amplitude, const double duration, const double delay, const pybind11::array_t<ssize_t>& indexes)
 : amplitude(amplitude), duration(duration), delay(delay), indexes(indexes)
 {
