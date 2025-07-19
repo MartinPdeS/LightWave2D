@@ -7,6 +7,7 @@ from LightWave2D.grid import Grid
 from pydantic.dataclasses import dataclass
 from matplotlib.colors import ListedColormap
 import matplotlib.pyplot as plt
+from LightWave2D import units
 
 # Configuration dictionary for dataclasses
 config_dict = {
@@ -58,12 +59,12 @@ class PML:
         top_boundary = y_mesh > self.width_stop.y
         right_boundary = x_mesh > self.width_stop.x
 
-        self.sigma_y[bottom_boundary] = self.sigma_max * ((self.width_start.y - y_mesh[bottom_boundary]) / self.width_start.y) ** self.order
-        self.sigma_y[top_boundary] = self.sigma_max * ((y_mesh[top_boundary] - self.width_stop.y) / self.width_start.y) ** self.order
-        self.sigma_x[left_boundary] = self.sigma_max * ((self.width_start.x - x_mesh[left_boundary]) / self.width_start.x) ** self.order
-        self.sigma_x[right_boundary] = self.sigma_max * ((x_mesh[right_boundary] - self.width_stop.x) / self.width_start.x) ** self.order
+        self.sigma_y[bottom_boundary] = self.sigma_max * ((self.width_start.y.to('meter').magnitude - y_mesh[bottom_boundary].to('meter').magnitude) / self.width_start.y.to('meter').magnitude) ** self.order
+        self.sigma_y[top_boundary] = self.sigma_max * ((y_mesh[top_boundary].to('meter').magnitude - self.width_stop.y.to('meter').magnitude) / self.width_start.y.to('meter').magnitude) ** self.order
+        self.sigma_x[left_boundary] = self.sigma_max * ((self.width_start.x.to('meter').magnitude - x_mesh[left_boundary].to('meter').magnitude) / self.width_start.x.to('meter').magnitude) ** self.order
+        self.sigma_x[right_boundary] = self.sigma_max * ((x_mesh[right_boundary].to('meter').magnitude - self.width_stop.x.to('meter').magnitude) / self.width_start.x.to('meter').magnitude) ** self.order
 
-    def add_to_ax(self, ax: plt.Axes) -> NoReturn:
+    def add_to_ax(self, ax: plt.Axes, distance_units: units.Quantity = units.meter) -> NoReturn:
         """
         Add the PML regions to a matplotlib axis.
 
@@ -77,8 +78,8 @@ class PML:
         cmap = ListedColormap(cmap)
 
         ax.pcolormesh(
-            self.grid.x_stamp,
-            self.grid.y_stamp,
+            self.grid.x_stamp.to(distance_units).magnitude,
+            self.grid.y_stamp.to(distance_units).magnitude,
             self.sigma_y.T + self.sigma_x.T,
             cmap=cmap,
         )

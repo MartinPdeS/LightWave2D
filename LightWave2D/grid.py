@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from typing import Union, Optional, Any
+from typing import Union, Optional
 import numpy
 from LightWave2D.physics import Physics
 from pydantic.dataclasses import dataclass
 import shapely.geometry as geo
-from LightWave2D.units import to_meters, Quantity
+from LightWave2D.units import Quantity
+from LightWave2D import units
 
 config_dict = dict(
     kw_only=True,
@@ -37,15 +38,15 @@ class Grid:
         size_y (float): Size of the grid in the y-direction in meters.
         n_steps (int): Number of time steps for the simulation (default is 200).
     """
-    resolution: Any
-    size_x: Any
-    size_y: Any
+    resolution: units.Quantity
+    size_x: units.Quantity
+    size_y: units.Quantity
     n_steps: int = 200
 
     def __post_init__(self):
-        self.resolution = to_meters(self.resolution)
-        self.size_x = to_meters(self.size_x)
-        self.size_y = to_meters(self.size_y)
+        self.resolution = self.resolution
+        self.size_x = self.size_x
+        self.size_y = self.size_y
 
         self.n_x = int(self.size_x / self.resolution)
         self.n_y = int(self.size_y / self.resolution)
@@ -54,17 +55,17 @@ class Grid:
         self.dt = 1 / (Physics.c * numpy.sqrt(1 / self.dx**2 + 1 / self.dy**2))  # Time step size using Courant condition
 
         self.shape = (self.n_x, self.n_y)
-        self.time_stamp = numpy.arange(self.n_steps) * self.dt
-        self.x_stamp = numpy.arange(self.n_x) * self.dx
-        self.y_stamp = numpy.arange(self.n_y) * self.dy
+        self.time_stamp = numpy.arange(self.n_steps) * self.dt.to('second')
+        self.x_stamp = numpy.linspace(0, self.size_x, self.n_x)
+        self.y_stamp = numpy.linspace(0, self.size_y, self.n_y)
 
         self.x_mesh, self.y_mesh = numpy.meshgrid(self.x_stamp, self.y_stamp)
 
         self.polygon = geo.Polygon([
-            (self.x_stamp[0], self.y_stamp[0]),
-            (self.x_stamp[0], self.y_stamp[-1]),
-            (self.x_stamp[-1], self.y_stamp[0]),
-            (self.x_stamp[-1], self.y_stamp[-1])
+            (self.x_stamp[0].to('meter').magnitude, self.y_stamp[0].to('meter').magnitude),
+            (self.x_stamp[0].to('meter').magnitude, self.y_stamp[-1].to('meter').magnitude),
+            (self.x_stamp[-1].to('meter').magnitude, self.y_stamp[0].to('meter').magnitude),
+            (self.x_stamp[-1].to('meter').magnitude, self.y_stamp[-1].to('meter').magnitude)
         ]).convex_hull
 
     def get_distance_grid(self, x0: float = 0, y0: float = 0) -> numpy.ndarray:
@@ -99,10 +100,6 @@ class Grid:
             x = self.parse_x_position(x)
         if isinstance(y, str):
             y = self.parse_y_position(y)
-        if isinstance(x, Quantity):
-            x = to_meters(x)
-        if isinstance(y, Quantity):
-            y = to_meters(y)
 
         if x is not None:
             x = numpy.clip(x, self.x_stamp[0], self.x_stamp[-1])
@@ -126,8 +123,6 @@ class Grid:
         Returns:
             float: Corresponding y-coordinate.
         """
-        if isinstance(value, Quantity):
-            return to_meters(value)
         if isinstance(value, str):
             value = value.lower()
             if '%' in value:
@@ -157,8 +152,6 @@ class Grid:
         Returns:
             float: Corresponding x-coordinate.
         """
-        if isinstance(value, Quantity):
-            return to_meters(value)
         if isinstance(value, str):
             value = value.lower()
             if '%' in value:

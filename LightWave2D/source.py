@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-from typing import Tuple, NoReturn, List, Union, Optional, Any
+from typing import Tuple, NoReturn, Union, Optional, Any
 from LightWave2D.utils import bresenham_line
 from pydantic.dataclasses import dataclass
 from matplotlib.path import Path
@@ -10,8 +10,8 @@ import shapely.geometry as geo
 import matplotlib.pyplot as plt
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
-from LightWave2D.binary import SourceInterface
-from LightWave2D.units import to_meters
+from LightWave2D.binary import interface_source
+from LightWave2D import units
 
 # Configuration dictionary for dataclasses
 config_dict = {
@@ -70,7 +70,7 @@ class MultiWavelenth:
     delay : Optional[Union[float, List[float], np.ndarray]], optional
         Delay(s) for each wavelength (default is None).
     """
-    wavelength: Any
+    wavelength: units.Quantity
     amplitude: Any
     delay: Optional[Any] = None
 
@@ -78,9 +78,7 @@ class MultiWavelenth:
         """
         Initialize the base parameters for the wavelengths.
         """
-        self.wavelength = np.atleast_1d(self.wavelength)
-        # Convert wavelength values to meters to ensure consistent units
-        self.wavelength = np.asarray([to_meters(w) for w in self.wavelength])
+        self.wavelength = np.atleast_1d(self.wavelength).to('meter')
         self.amplitude = np.atleast_1d(self.amplitude)
 
         if self.wavelength.size != self.amplitude.size:
@@ -98,8 +96,9 @@ class MultiWavelenth:
         """
         Build the multi-wavelength source object and calculate its coordinates.
         """
-        self.binding = SourceInterface.MultiWavelength(
-            omega=self.omega,
+        print(self.omega.to('hertz').magnitude)
+        self.binding = interface_source.MultiWavelength(
+            omega=self.omega.to('hertz').magnitude,
             amplitude=self.amplitude,
             delay=np.zeros(self.amplitude.shape),
             indexes=self._slc
@@ -146,10 +145,10 @@ class Impulsion:
         """
         Build the impulsion source object and calculate its coordinates.
         """
-        self.binding = SourceInterface.Impulsion(
+        self.binding = interface_source.Impulsion(
             amplitude=self.amplitude,
-            duration=self.duration,
-            delay=self.delay,
+            duration=self.duration.to('second').magnitude,
+            delay=self.delay.to('second').magnitude,
             indexes=self._slc
         )
 
@@ -201,11 +200,11 @@ class Line:
         self.slice_indexes = rows, cols
         self._slc = np.atleast_2d(np.c_[rows, cols])
 
-        p0 = geo.Point(self.p0.x, self.p0.y)
-        p1 = geo.Point(self.p1.x, self.p1.y)
+        p0 = geo.Point(self.p0.x.to('meter').magnitude, self.p0.y.to('meter').magnitude)
+        p1 = geo.Point(self.p1.x.to('meter').magnitude, self.p1.y.to('meter').magnitude)
         self.polygon = geo.LineString((p0, p1))
 
-    def add_to_ax(self, ax: plt.Axes) -> NoReturn:
+    def add_to_ax(self, ax: plt.Axes, distance_units: units.Quantity = units.meter) -> NoReturn:
         """
         Add the line source to the provided axis.
 
@@ -240,7 +239,7 @@ class Point:
         """
         x, y = self.position
         self.p0 = self.grid.get_coordinate(x=x, y=y)
-        self.polygon = geo.Point(self.p0.x, self.p0.y)
+        self.polygon = geo.Point(self.p0.x.to('meter').magnitude, self.p0.y.to('meter').magnitude)
         self.path = Path(self.polygon.coords)
         self.indexes = np.asarray([[self.p0.x_index, self.p0.y_index]])
         self._slc = np.atleast_2d([[self.p0.x_index, self.p0.y_index]])

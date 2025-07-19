@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 from MPSPlots.styles import mps
 from LightWave2D.helper import _plot_helper
 
-from LightWave2D.binary import fdtd_simulation
+from LightWave2D.binary import interface_simulator
 
 config_dict = dict(
     kw_only=True,
@@ -290,105 +290,30 @@ class Experiment:
         sigma_x, sigma_y = self.get_sigma()
         epsilon = self.get_epsilon()
 
-        fdtd_simulation.run_fdtd(
+        interface_simulator.run_fdtd(
             Ez=self.Ez_t,
-            time_stamp=self.grid.time_stamp,
+            time_stamp=self.grid.time_stamp.to('second').magnitude,
             sigma_x=sigma_x,
             sigma_y=sigma_y,
             epsilon=epsilon,
             gamma=epsilon * 0,
-            n2=epsilon * 0,
-            dt=self.grid.dt,
-            mu_0=Physics.mu_0,
+            n2=(epsilon * 0).to('farad/meter').magnitude,
+            dt=self.grid.dt.to('second').magnitude,
+            mu_0=Physics.mu_0.to('henry/meter').magnitude,
             n_steps=self.grid.n_steps,
-            dx=self.grid.dx,
-            dy=self.grid.dy,
+            dx=self.grid.dx.to('meter').magnitude,
+            dy=self.grid.dy.to('meter').magnitude,
             nx=self.grid.n_x,
             ny=self.grid.n_y,
             sources=[s.binding for s in self.sources]
         )
-
-    def _run_fdtd(self) -> None:
-        r"""
-        Legacy function to run the FDTD simulation.
-
-        This method updates the electric field (Ez) and magnetic fields (Hx, Hy) over time
-        based on Maxwell's equations using the FDTD method. It also includes the effects
-        of absorption, sources, and non-linear interactions.
-
-        Maxwell's equations in 2D for non-magnetic media:
-
-        .. math::
-            \frac{\partial H_x}{\partial t} = -\frac{1}{\mu} \frac{\partial E_z}{\partial y} \\[10pt]
-            \frac{\partial H_y}{\partial t} = \frac{1}{\mu} \frac{\partial E_z}{\partial x} \\[10pt]
-            \frac{\partial E_z}{\partial t} = \frac{1}{\epsilon} \left( \frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y} \right) - \sigma E_z
-
-        Attributes
-        ----------
-        Ez : numpy.ndarray
-            The electric field in the z-direction.
-        Hx : numpy.ndarray
-            The magnetic field in the x-direction.
-        Hy : numpy.ndarray
-            The magnetic field in the y-direction.
-        sigma_x : numpy.ndarray
-            Conductivity in the x direction.
-        sigma_y : numpy.ndarray
-            Conductivity in the y direction.
-        epsilon : numpy.ndarray
-            Permittivity of the grid.
-        mu_factor : float
-            Precomputed factor for the magnetic field update.
-        eps_factor : numpy.ndarray
-            Precomputed factor for the electric field update.
-
-        Returns
-        -------
-        None
-            This method does not return any value; it updates the simulation fields.
-        """
-        Ez = numpy.zeros(self.grid.shape)
-        Hx = numpy.zeros(self.grid.shape)
-        Hy = numpy.zeros(self.grid.shape)
-
-        sigma_x, sigma_y = self.get_sigma()
-        epsilon = self.get_epsilon()
-        mu_factor = self.grid.dt / Physics.mu_0
-        eps_factor = self.grid.dt / epsilon
-
-        for iteration, t in enumerate(self.grid.time_stamp):
-            dEz_dx = (Ez[1:, :] - Ez[:-1, :]) / self.grid.dx
-            dEz_dy = (Ez[:, 1:] - Ez[:, :-1]) / self.grid.dy
-
-            Hx[:, :-1] -= mu_factor * dEz_dy * (1 - sigma_y[:, :-1] * mu_factor / 2)
-            Hy[:-1, :] += mu_factor * dEz_dx * (1 - sigma_x[:-1, :] * mu_factor / 2)
-
-            dHy_dx = (Hy[1:-1, 1:-1] - Hy[:-2, 1:-1]) / self.grid.dx
-            dHx_dy = (Hx[1:-1, 1:-1] - Hx[1:-1, :-2]) / self.grid.dy
-
-            Ez[1:-1, 1:-1] += eps_factor[1:-1, 1:-1] * (dHy_dx - dHx_dy)
-
-            absorption_factor = 1 - (sigma_x + sigma_y) * eps_factor / 2
-            absorption_factor = numpy.clip(absorption_factor, 0, 1)
-            Ez *= absorption_factor
-
-            for component in self.components:
-                Ez = component.add_non_linear_effect_to_field(Ez)
-
-            for element in self.sources:
-                element.add_source_to_field(Ez, time=t)
-
-            self.Ez_t[iteration] = Ez
-
-        for detector in self.detectors:
-            detector.update_data(field=self.Ez_t)
 
     @_plot_helper
     def plot_frame(
             self,
             ax: plt.Axes,
             frame_number: int,
-            scale_max: float = 5,
+            scale_max: float = 2,
             unit_size: int = 6,
             show_intensity: bool = False,
             colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
@@ -422,8 +347,8 @@ class Experiment:
             data = self.Ez_t[frame_number].T
 
         image = ax.pcolormesh(
-            self.grid.x_stamp,
-            self.grid.y_stamp,
+            self.grid.x_stamp.to('meter').magnitude,
+            self.grid.y_stamp.to('meter').magnitude,
             data,
             cmap=colormap
         )

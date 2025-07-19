@@ -6,9 +6,9 @@ import LightWave2D.units as units
 
 # Test the grid initialization
 def test_grid_initialization(grid):
-    assert grid.resolution == 1e-6
-    assert grid.size_x == pytest.approx(10e-6)
-    assert grid.size_y == pytest.approx(5e-6)
+    assert grid.resolution == 1 * units.micrometer
+    assert grid.size_x == 10 * units.micrometer
+    assert grid.size_y == 5 * units.micrometer
     assert grid.n_steps == 20
 
 
@@ -24,7 +24,7 @@ def test_experiment_initialization(experiment, grid):
         {
             'position': ('25%', '20%'),
             'epsilon_r': 2,
-            'side_length': units.to_meters(3 * units.micrometer)
+            'side_length': 3 * units.micrometer
         }
     ),
     (
@@ -32,8 +32,8 @@ def test_experiment_initialization(experiment, grid):
         {
             'position': ('25%', '70%'),
             'epsilon_r': 2,
-            'width': units.to_meters(5 * units.micrometer),
-            'height': units.to_meters(10 * units.micrometer),
+            'width': 5 * units.micrometer,
+            'height': 10 * units.micrometer,
             'rotation': 10
         }
     )
@@ -48,7 +48,7 @@ def test_add_scatterers(experiment, method, params):
     (
         'add_point_source',
         {
-            'wavelength': units.to_meters(1550 * units.nanometer),
+            'wavelength': 1550 * units.nanometer,
             'position': ('30%', '70%'),
             'amplitude': 10
         }
@@ -56,7 +56,7 @@ def test_add_scatterers(experiment, method, params):
     (
         'add_line_source',
         {
-            'wavelength': units.to_meters(1550 * units.nanometer),
+            'wavelength': 1550 * units.nanometer,
             'position_0': ('10%', '100%'),
             'position_1': ('10%', '0%'),
             'amplitude': 10
@@ -76,7 +76,7 @@ def test_add_pml(experiment):
 
 # Test adding a detector
 def test_add_detector(experiment):
-    detector = experiment.add_point_detector(position=(units.to_meters(5 * units.micrometer), 'center'))
+    detector = experiment.add_point_detector(position=(5 * units.micrometer, 5 * units.micrometer))
     assert detector in experiment.detectors  # Assuming detectors is a list of added elements
 
 

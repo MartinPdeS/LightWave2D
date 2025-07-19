@@ -1,90 +1,54 @@
-"""Utility helpers for handling units with :mod:`pint`.
-
-This module exposes Pint's :class:`~pint.Unit` objects so that units can
-be used directly in expressions::
-
-    from LightWave2D.units import nanometer
-    diameter = 50 * nanometer
-
-It also provides small helpers that generate quantities when called with a
-value so that the previous ``units.meters(1)`` style still works.
-"""
-
-from __future__ import annotations
+from typing import Optional
 
 import pint
-
-
 ureg = pint.UnitRegistry()
-Quantity = ureg.Quantity
 
-# expose common units as constants
-meter = ureg.meter
-micrometer = ureg.micrometer
-nanometer = ureg.nanometer
-millimeter = ureg.millimeter
-centimeter = ureg.centimeter
-second = ureg.second
-femtosecond = ureg.femtosecond
+pint.set_application_registry(ureg)
+
+# Define a list of base units to scale
+BASE_UNITS = [
+    'farad', 'henry', 'meter', 'second'
+]
+
+# Define prefixes for scaling units
+SCALES = ['nano', 'micro', 'milli', '', 'kilo', 'mega', 'giga', 'tera']
 
 
-def to_meters(value) -> float:
-    """Return ``value`` converted to meters.
+def initialize_registry(ureg: Optional[object] = None):
+    """
+    Initialize and set up a unit registry. This function also leaks
+    the units into the global namespace for easy access throughout
+    the module.
 
     Parameters
     ----------
-    value:
-        Either a numeric type, a string with units or a :class:`pint.Quantity`.
-
-    Returns
-    -------
-    float
-        ``value`` expressed in meters.
+    ureg: Optional[pint.UnitRegistry]
+        A UnitRegistry object to use. If None, the default PintType.ureg will be used.
     """
-    if isinstance(value, pint.Quantity):
-        return value.to(ureg.meter).magnitude
-    if isinstance(value, str):
-        return ureg.Quantity(value).to(ureg.meter).magnitude
-    return float(value)
+
+    # Leak scaled units into the global namespace
+    for unit in BASE_UNITS:
+        for scale in SCALES:
+            scaled_unit_name = scale + unit
+            globals()[scaled_unit_name] = getattr(ureg, scaled_unit_name)
+
+    # Leak commonly used specific units into the global namespace
+    common_units = {
+        'farad': ureg.farad,
+        'henry': ureg.henry,
+        'coulomb': ureg.coulomb,
+        'power': ureg.watt.dimensionality,
+        'RIU': ureg.refractive_index_unit,
+        'refractive_index_unit': ureg.refractive_index_unit,
+        'distance': ureg.meter.dimensionality,
+        'time': ureg.second.dimensionality,
+        'Quantity': ureg.Quantity
+    }
+
+    # Leak the common units into the global namespace
+    globals().update(common_units)
+
+    globals()['ureg'] = ureg
 
 
-def meters(value: float | int) -> Quantity:
-    """Create a quantity expressed in meters."""
-
-    return value * meter
-
-
-def micrometers(value: float | int) -> Quantity:
-    """Create a quantity expressed in micrometers."""
-
-    return value * micrometer
-
-
-def nanometers(value: float | int) -> Quantity:
-    """Create a quantity expressed in nanometers."""
-
-    return value * nanometer
-
-
-def millimeters(value: float | int) -> Quantity:
-    """Create a quantity expressed in millimeters."""
-
-    return value * millimeter
-
-
-def centimeters(value: float | int) -> Quantity:
-    """Create a quantity expressed in centimeters."""
-
-    return value * centimeter
-
-
-def seconds(value: float | int) -> Quantity:
-    """Create a quantity expressed in seconds."""
-
-    return value * second
-
-
-def femtoseconds(value: float | int) -> Quantity:
-    """Create a quantity expressed in femtoseconds."""
-
-    return value * femtosecond
+initialize_registry(ureg)

@@ -12,6 +12,7 @@ from matplotlib.collections import PatchCollection
 from matplotlib.patches import PathPatch
 import matplotlib.pyplot as plt
 import matplotlib
+from LightWave2D import units
 
 config_dict = dict(
     kw_only=True,
@@ -121,7 +122,7 @@ class PointDetector(BaseDetector):
     data : numpy.ndarray
         The data collected by the detector over time.
     """
-    position: Tuple[Any, Any]
+    position: Tuple[units.Quantity, units.Quantity]
     coherent: bool = True
     data: np.ndarray = field(init=False)
 
@@ -132,7 +133,7 @@ class PointDetector(BaseDetector):
         """
         x, y = self.position
         self.p0 = self.grid.get_coordinate(x=x, y=y)
-        self.polygon = geo.Point(self.p0.x, self.p0.y)
+        self.polygon = geo.Point(self.p0.x.to('meter').magnitude, self.p0.y.to('meter').magnitude)
         self.path = Path(self.polygon.coords)
         self.data = np.zeros(self.grid.n_steps)
 

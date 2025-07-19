@@ -12,6 +12,7 @@ from matplotlib.path import Path
 from matplotlib.collections import PatchCollection
 from LightWave2D.grid import Grid
 from shapely.affinity import scale, rotate
+from LightWave2D import units
 
 # Configuration dictionary for dataclasses
 config_dict = {
@@ -66,7 +67,7 @@ class BaseComponent:
         self.polygon = rotate(self.polygon, angle=self.rotation)
         self.polygon = self.polygon.intersection(self.grid.polygon)
         self.path = Path(self.polygon.exterior.coords)
-        coordinates = np.c_[self.grid.x_mesh.T.flatten(), self.grid.y_mesh.T.flatten()]
+        coordinates = np.c_[self.grid.x_mesh.T.flatten().to('meter').magnitude, self.grid.y_mesh.T.flatten().to('meter').magnitude]
         self.idx = self.path.contains_points(coordinates).astype(bool).reshape(self.epsilon_r_mesh.shape)
 
     def add_to_ax(self, ax: plt.Axes) -> PatchCollection:
@@ -200,9 +201,9 @@ class Square(BaseComponent):
     side_length : float
         The side length of the square scatterer.
     """
-    position: Tuple[Union[float, str], Union[float, str]]
+    position: Tuple[Union[units.Quantity, str], Union[units.Quantity, str]]
     epsilon_r: float
-    side_length: float
+    side_length: units.Quantity
 
     def compute_polygon(self) -> Path:
         """
@@ -213,10 +214,10 @@ class Square(BaseComponent):
         y_start, y_end = self.coordinate.y - half_side, self.coordinate.y + half_side
 
         self.polygon = geo.Polygon([
-            (x_start, y_start),
-            (x_start, y_end),
-            (x_end, y_end),
-            (x_end, y_start)
+            (x_start.to('meter').magnitude, y_start.to('meter').magnitude),
+            (x_start.to('meter').magnitude, y_end.to('meter').magnitude),
+            (x_end.to('meter').magnitude, y_end.to('meter').magnitude),
+            (x_end.to('meter').magnitude, y_start.to('meter').magnitude)
         ]).convex_hull
 
 
@@ -236,13 +237,13 @@ class Circle(BaseComponent):
     """
     position: Tuple[Union[float, str], Union[float, str]]
     epsilon_r: float
-    radius: float
+    radius: units.Quantity
 
     def compute_polygon(self) -> NoReturn:
         """
         Compute the polygon of the circular scatterer.
         """
-        self.polygon = geo.Point(self.coordinate.x, self.coordinate.y).buffer(self.radius)
+        self.polygon = geo.Point(self.coordinate.x.to('meter').magnitude, self.coordinate.y.to('meter').magnitude).buffer(self.radius.to('meter').magnitude)
 
 
 @dataclass(config=config_dict)
@@ -296,25 +297,26 @@ class Ellipse(BaseComponent):
         The resolution of the ellipse (default is 100).
     """
     position: Tuple[Union[float, str], Union[float, str]]
-    width: float
-    height: float
+    width: units.Quantity
+    height: units.Quantity
     epsilon_r: float
-    resolution: float = 100
+    resolution_factor: int = 10e6
 
     def compute_polygon(self) -> NoReturn:
         """
         Compute the polygon of the elliptical scatterer.
         """
         ellipse_patch = patches.Ellipse(
-            (self.coordinate.x, self.coordinate.y),
-            width=self.resolution,
-            height=self.resolution * self.height / self.width,
+            (self.coordinate.x.to('meter').magnitude, self.coordinate.y.to('meter').magnitude),
+            width=self.width.to('meter').magnitude * self.resolution_factor,
+            height=self.height.to('meter').magnitude * self.resolution_factor,
         )
 
         vertices = ellipse_patch.get_verts()
-        polygon = geo.Polygon(vertices)
 
-        self.polygon = scale(polygon, xfact=self.width / self.resolution, yfact=self.width / self.resolution)
+        self.polygon = geo.Polygon(vertices)
+
+        self.polygon = scale(self.polygon, xfact=1 / self.resolution_factor, yfact=1 / self.resolution_factor)
 
 
 @dataclass(config=config_dict)

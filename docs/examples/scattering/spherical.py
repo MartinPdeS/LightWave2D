@@ -19,7 +19,7 @@ grid = Grid(
     resolution=0.03 * units.micrometer,
     size_x=32 * units.micrometer,
     size_y=20 * units.micrometer,
-    n_steps=200
+    n_steps=400
 )
 
 # Initialize the experiment with the defined grid
@@ -30,7 +30,7 @@ experiment = Experiment(grid=grid)
 scatterer = experiment.add_circle(
     position=('30%', '50%'),  # Center position of the scatterer
     epsilon_r=1.5,            # Relative permittivity of the scatterer
-    radius=0.5 * units.micrometer,
+    radius=3 * units.micrometer,
     sigma=0e6
 )
 
