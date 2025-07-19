@@ -10,9 +10,17 @@ import matplotlib.pyplot as plt
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
 from LightWave2D.binary import interface_source
+from pydantic.dataclasses import dataclass
 from LightWave2D import units
 
 
+# Configuration dictionary for dataclasses
+config_dict = {
+    'kw_only': True,
+    'extra': 'forbid',
+    'slots': True,
+    'arbitrary_types_allowed': True
+}
 
 class BaseSource():
     """
@@ -144,45 +152,40 @@ class Point:
             label='source'
         )
 
-
+@dataclass(config=config_dict)
 class PointWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSource, Point):
     """
     Represents a point source in a 2D light wave simulation.
+
+    Parameters
+    ----------
+    grid : Grid
+        The grid of the simulation mesh.
+    wavelength : Union[float, list, np.ndarray]
+        Wavelength of the source.
+    position : Tuple[Union[float, str], Union[float, str]]
+        Position (x, y) of the source.
+    amplitude : float
+        Amplitude of the electric field.
+    edgecolor : str, optional
+        Color of the source edge (default is 'red').
+    facecolor : str, optional
+        Color of the source face (default is 'red').
+    alpha : float, optional
+        Transparency level of the source (default is 0.3).
     """
-    def __init__(self,
-        grid: Grid,
-        wavelength: Union[float, list, np.ndarray],
-        position: Tuple[Union[float, str], Union[float, str]],
-        amplitude: float,
-        edgecolor: str = 'red',
-        facecolor: str = 'red',
-        alpha: float = 0.3):
-        """
-        Initialize the point source with wavelength, position, and amplitude.
-        Parameters
-        ----------
-        grid : Grid
-            The grid of the simulation mesh.
-        wavelength : Union[float, list, np.ndarray]
-            Wavelength of the source.
-        position : Tuple[Union[float, str], Union[float, str]]
-            Position (x, y) of the source.
-        amplitude : float
-            Amplitude of the electric field.
-        edgecolor : str, optional
-            Color of the source edge (default is 'red').
-        facecolor : str, optional
-            Color of the source face (default is 'red').
-        alpha : float, optional
-            Transparency level of the source (default is 0.3).
-        """
-        self.grid = grid
-        self.wavelength = np.atleast_1d(wavelength)
-        self.position = position
-        self.amplitude = np.atleast_1d(amplitude)
-        self.edgecolor = edgecolor
-        self.facecolor = facecolor
-        self.alpha = alpha
+    grid: Grid
+    wavelength: Union[float, list, np.ndarray]
+    position: Tuple[units.Quantity | str, units.Quantity | str]
+    amplitude: float
+    edgecolor: str = 'red'
+    facecolor: str = 'red'
+    alpha: float = 0.3
+
+    def __init__(self):
+        self.wavelength = np.atleast_1d(self.wavelength)
+        self.amplitude = np.atleast_1d(self.amplitude)
+
         self._slc = None
 
         if self.wavelength.size != self.amplitude.size:
@@ -200,51 +203,45 @@ class PointWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSou
             indexes=self._slc
         )
 
-
+@dataclass(config=config_dict)
 class LineWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSource, Line):
     """
     Represents a line source in a 2D light wave simulation.
-    """
-    def __init__(self,
-        grid: Grid,
-        amplitude: float, wavelength: units.Quantity,
-        position_0: Tuple[Union[float, str], Union[float, str]],
-        position_1: Tuple[Union[float, str], Union[float, str]],
-        edgecolor: str = 'red',
-        facecolor: str = 'red',
-        alpha: float = 0.3):
-        """
-        Initialize the line source with amplitude, wavelength, positions, and optional delay.
 
-        Parameters
-        ----------
-        grid : Grid
-            The grid of the simulation mesh.
-        amplitude : float
-            Amplitude of the electric field.
-        wavelength : units.Quantity
-            Wavelength of the source.
-        position_0 : Tuple[Union[float, str], Union[float, str]]
-            Starting position (x, y) of the source.
-        position_1 : Tuple[Union[float, str], Union[float, str]]
-            Ending position (x, y) of the source.
-        delay : Optional[units.Quantity], optional
-            Delay before the source starts (default is None).
-        edgecolor : str, optional
-            Color of the source edge (default is 'red').
-        facecolor : str, optional
-            Color of the source face (default is 'red').
-        alpha : float, optional
-            Transparency level of the source (default is 0.3).
-        """
-        self.grid = grid
-        self.amplitude = np.atleast_1d(amplitude)
-        self.wavelength = np.atleast_1d(wavelength)
-        self.position_0 = position_0
-        self.position_1 = position_1
-        self.edgecolor = edgecolor
-        self.facecolor = facecolor
-        self.alpha = alpha
+    Parameters
+    ----------
+    grid : Grid
+        The grid of the simulation mesh.
+    amplitude : float
+        Amplitude of the electric field.
+    wavelength : units.Quantity
+        Wavelength of the source.
+    position_0 : Tuple[Union[float, str], Union[float, str]]
+        Starting position (x, y) of the source.
+    position_1 : Tuple[Union[float, str], Union[float, str]]
+        Ending position (x, y) of the source.
+    delay : Optional[units.Quantity], optional
+        Delay before the source starts (default is None).
+    edgecolor : str, optional
+        Color of the source edge (default is 'red').
+    facecolor : str, optional
+        Color of the source face (default is 'red').
+    alpha : float, optional
+        Transparency level of the source (default is 0.3).
+    """
+    grid: Grid
+    amplitude: float
+    wavelength: units.Quantity
+    position_0: Tuple[units.Quantity | str, units.Quantity | str]
+    position_1: Tuple[units.Quantity | str, units.Quantity | str]
+    edgecolor: str = 'red'
+    facecolor: str = 'red'
+    alpha: float = 0.3
+
+    def __post_init__(self):
+        self.wavelength = np.atleast_1d(self.wavelength)
+        self.amplitude = np.atleast_1d(self.amplitude)
+
         self._slc = None
 
         if self.wavelength.size != self.amplitude.size:
@@ -263,50 +260,40 @@ class LineWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSour
         )
 
 
+@dataclass(config=config_dict)
 class PointPulseSource(Impulsion, Point, BaseSource):
     """
     Represents a point impulsion source in a 2D light wave simulation.
+
+    Parameters
+    ----------
+    grid : Grid
+        The grid of the simulation mesh.
+    amplitude : float
+        Amplitude of the electric field.
+    duration : units.Quantity
+        Duration of the impulsion.
+    position : Tuple[Union[float, str], Union[float, str]]
+        Position (x, y) of the source.
+    delay : units.Quantity, optional
+        Delay before the impulsion starts (default is 0 seconds).
+    edgecolor : str, optional
+        Color of the source edge (default is 'red').
+    facecolor : str, optional
+        Color of the source face (default is 'red').
+    alpha : float, optional
+        Transparency level of the source (default is 0.3).
     """
+    grid: Grid
+    amplitude: float
+    duration: units.Quantity
+    position: Tuple[units.Quantity | str, units.Quantity | str]
+    delay: units.Quantity = 0 * units.second
+    edgecolor: str = 'red'
+    facecolor: str = 'red'
+    alpha: float = 0.3
 
-    def __init__(self,
-        grid: Grid,
-        amplitude: float,
-        duration: units.Quantity,
-        position: Tuple[Union[float, str], Union[float, str]],
-        delay: units.Quantity = 0 * units.second,
-        edgecolor: str = 'red',
-        facecolor: str = 'red',
-        alpha: float = 0.3):
-        """
-        Initialize the point impulsion with amplitude, duration, position, and optional delay.
-
-        Parameters
-        ----------
-        grid : Grid
-            The grid of the simulation mesh.
-        amplitude : float
-            Amplitude of the electric field.
-        duration : units.Quantity
-            Duration of the impulsion.
-        position : Tuple[Union[float, str], Union[float, str]]
-            Position (x, y) of the source.
-        delay : units.Quantity, optional
-            Delay before the impulsion starts (default is 0 seconds).
-        edgecolor : str, optional
-            Color of the source edge (default is 'red').
-        facecolor : str, optional
-            Color of the source face (default is 'red').
-        alpha : float, optional
-            Transparency level of the source (default is 0.3).
-        """
-        self.grid = grid
-        self.amplitude = amplitude
-        self.duration = duration
-        self.position = position
-        self.delay = delay
-        self.edgecolor = edgecolor
-        self.facecolor = facecolor
-        self.alpha = alpha
+    def __post_init__(self):
         self._slc = None
 
         self.build_geometry()
@@ -318,14 +305,16 @@ class PointPulseSource(Impulsion, Point, BaseSource):
             indexes=self._slc
         )
 
-
+@dataclass(config=config_dict)
 class LinePulseSource(interface_source.Impulsion, Impulsion, Line, BaseSource):
     """
     Represents a line pulse source in a 2D light wave simulation.
 
     Parameters
     ----------
-    duration : float
+    grid : Grid
+        The grid of the simulation mesh.
+    duration : units.Quantity
         Duration of the impulsion.
     amplitude : float
         Amplitude of the electric field.
@@ -333,53 +322,26 @@ class LinePulseSource(interface_source.Impulsion, Impulsion, Line, BaseSource):
         Starting position (x, y) of the source.
     position_1 : Tuple[Union[float, str], Union[float, str]]
         Ending position (x, y) of the source.
-    delay : units.Quantity
-        Delay before the impulsion starts.
+    delay : units.Quantity, optional
+        Delay before the impulsion starts (default is 0 seconds).
+    edgecolor : str, optional
+        Color of the source edge (default is 'red').
+    facecolor : str, optional
+        Color of the source face (default is 'red').
+    alpha : float, optional
+        Transparency level of the source (default is 0.3).
     """
+    grid: Grid
+    duration: units.Quantity
+    amplitude: float
+    position_0: Tuple[units.Quantity | str, units.Quantity | str]
+    position_1: Tuple[units.Quantity | str, units.Quantity | str]
+    delay: units.Quantity = 0 * units.second
+    edgecolor: str = 'red'
+    facecolor: str = 'red'
+    alpha: float = 0.3
 
-    def __init__(self,
-        grid: Grid,
-        duration: units.Quantity,
-        amplitude: float,
-        position_0: Tuple[Union[float, str], Union[float, str]],
-        position_1: Tuple[Union[float, str], Union[float, str]],
-        delay: units.Quantity = 0 * units.second,
-        edgecolor: str = 'red',
-        facecolor: str = 'red',
-        alpha: float = 0.3):
-        """
-        Initialize the line impulsion with duration, amplitude, positions, and optional delay.
-
-        Parameters
-        ----------
-        grid : Grid
-            The grid of the simulation mesh.
-        duration : units.Quantity
-            Duration of the impulsion.
-        amplitude : float
-            Amplitude of the electric field.
-        position_0 : Tuple[Union[float, str], Union[float, str]]
-            Starting position (x, y) of the source.
-        position_1 : Tuple[Union[float, str], Union[float, str]]
-            Ending position (x, y) of the source.
-        delay : units.Quantity, optional
-            Delay before the impulsion starts (default is 0 seconds).
-        edgecolor : str, optional
-            Color of the source edge (default is 'red').
-        facecolor : str, optional
-            Color of the source face (default is 'red').
-        alpha : float, optional
-            Transparency level of the source (default is 0.3).
-        """
-        self.grid = grid
-        self.duration = duration
-        self.amplitude = amplitude
-        self.position_0 = position_0
-        self.position_1 = position_1
-        self.delay = delay
-        self.edgecolor = edgecolor
-        self.facecolor = facecolor
-        self.alpha = alpha
+    def __post_init__(self):
         self._slc = None
 
         self.build_geometry()
