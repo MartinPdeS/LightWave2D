@@ -103,3 +103,4 @@ PYBIND11_MODULE(SourceInterface, module) {
         )
         .def("add_to_field", &Impulsion::add_to_field);
 }
+

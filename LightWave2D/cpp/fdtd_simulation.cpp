@@ -21,7 +21,7 @@ namespace py = pybind11;
  * @param field_set FieldSet object containing the field data.
  * @return A tuple of arrays (dEz_dx, dEz_dy) representing the gradients.
  */
-std::tuple<py::array_t<double>, py::array_t<double>> compute_yee_gradients(const Config &config, FieldSet& field_set)
+std::tuple<py::array_t<double>, py::array_t<double>> compute_yee_gradients(const Config &config, const FieldSet& field_set)
 {
     // Initialize gradient arrays
     py::array_t<double> dEz_dx({config.nx - 1, config.ny});
@@ -31,7 +31,7 @@ std::tuple<py::array_t<double>, py::array_t<double>> compute_yee_gradients(const
     py_ref_rw<double, 2>
         dEz_dx_r = dEz_dx.mutable_unchecked<2>(),
         dEz_dy_r = dEz_dy.mutable_unchecked<2>(),
-        Ez_r = field_set.get_Ez_rw();
+        Ez_r = field_set.get_Ez_r();
 
 
     // Compute the gradients
@@ -71,17 +71,21 @@ void update_magnetic_fields(const Config& config, const MeshSet& mesh_set, Field
         Hx_rw = field_set.get_Hx_rw(),
         Hy_rw = field_set.get_Hy_rw();
 
+
+    const double dt_over_mu = config.dt / mesh_set.mu;
+    const double half_dt_over_mu = dt_over_mu / 2.0;
+
     // Update Hx
     #pragma omp parallel for collapse(2)
     for (ssize_t i = 0; i < config.nx; ++i)
         for (ssize_t j = 0; j < config.ny - 1; ++j)
-            Hx_rw(i, j) -= (config.dt / mesh_set.mu) * dEz_dy_r(i, j) * (1 - sigma_y_r(i, j) * (config.dt / mesh_set.mu) / 2);
+            Hx_rw(i, j) -= dt_over_mu * dEz_dy_r(i, j) * (1 - sigma_y_r(i, j) * half_dt_over_mu);
 
     // Update Hy
     #pragma omp parallel for collapse(2)
     for (ssize_t i = 0; i < config.nx - 1; ++i)
         for (ssize_t j = 0; j < config.ny; ++j)
-            Hy_rw(i, j) += (config.dt / mesh_set.mu) * dEz_dx_r(i, j) * (1 - sigma_x_r(i, j) * (config.dt / mesh_set.mu) / 2);
+            Hy_rw(i, j) += dt_over_mu * dEz_dx_r(i, j) * (1 - sigma_x_r(i, j) * half_dt_over_mu);
 }
 
 /**
@@ -91,7 +95,7 @@ void update_magnetic_fields(const Config& config, const MeshSet& mesh_set, Field
  * @param field_set FieldSet object containing the field data.
  * @return A tuple of arrays (dHy_dx, dHx_dy) representing the gradients.
  */
-std::tuple<py::array_t<double>, py::array_t<double>> compute_magnetic_field_gradients(const Config &config, FieldSet& field_set)
+std::tuple<py::array_t<double>, py::array_t<double>> compute_magnetic_field_gradients(const Config &config, const FieldSet& field_set)
 {
     // Initialize gradient arrays
     py::array_t<double> dHy_dx({config.nx - 1, config.ny - 1});
@@ -104,8 +108,8 @@ std::tuple<py::array_t<double>, py::array_t<double>> compute_magnetic_field_grad
 
     // Get read-only references to the magnetic fields
     py_ref_r<double, 2>
-        Hx_r = field_set.get_Hx_rw(),
-        Hy_r = field_set.get_Hy_rw();
+        Hx_r = field_set.get_Hx_r(),
+        Hy_r = field_set.get_Hy_r();
 
     // Compute the gradients
     #pragma omp parallel for collapse(2)

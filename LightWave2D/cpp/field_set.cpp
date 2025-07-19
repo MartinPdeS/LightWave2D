@@ -43,15 +43,15 @@ public:
     }
 
 
-    py_ref_r<double, 2> get_Ez_r() {
+    py_ref_r<double, 2> get_Ez_r() const {
         return Ez.unchecked<2>();
     }
 
-    py_ref_r<double, 2> get_Hx_r() {
+    py_ref_r<double, 2> get_Hx_r() const {
         return Hx.unchecked<2>();
     }
 
-    py_ref_r<double, 2> get_Hy_r() {
+    py_ref_r<double, 2> get_Hy_r() const {
         return Hy.unchecked<2>();
     }
 
@@ -68,3 +68,4 @@ public:
     }
 
 };
+
