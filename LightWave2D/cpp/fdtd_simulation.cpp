@@ -27,11 +27,11 @@ std::tuple<py::array_t<double>, py::array_t<double>> compute_yee_gradients(const
     py::array_t<double> dEz_dx({config.nx - 1, config.ny});
     py::array_t<double> dEz_dy({config.nx, config.ny - 1});
 
-    // Get mutable references to the gradient arrays
+    // Get references to the gradient arrays and the electric field
     py_ref_rw<double, 2>
         dEz_dx_r = dEz_dx.mutable_unchecked<2>(),
-        dEz_dy_r = dEz_dy.mutable_unchecked<2>(),
-        Ez_r = field_set.get_Ez_rw();
+        dEz_dy_r = dEz_dy.mutable_unchecked<2>();
+    py_ref_r<double, 2> Ez_r = field_set.get_Ez_r();
 
 
     // Compute the gradients
