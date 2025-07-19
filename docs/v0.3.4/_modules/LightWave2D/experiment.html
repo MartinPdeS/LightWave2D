@@ -470,7 +470,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">mps</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.helper</span><span class="w"> </span><span class="kn">import</span> <span class="n">_plot_helper</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.binary</span><span class="w"> </span><span class="kn">import</span> <span class="n">fdtd_simulation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.binary</span><span class="w"> </span><span class="kn">import</span> <span class="n">interface_simulator</span>
 
 <span class="n">config_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
     <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -483,7 +483,7 @@
 <div class="viewcode-block" id="Experiment">
 <a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment">[docs]</a>
 <span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Experiment</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Experiment</span><span class="p">(</span><span class="n">interface_simulator</span><span class="o">.</span><span class="n">FDTDSimulator</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class representing an FDTD simulation experiment.&quot;&quot;&quot;</span>
 
     <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span>
@@ -496,6 +496,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">Physics</span><span class="o">.</span><span class="n">epsilon_0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pml</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Experiment.get_gradient">
 <a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.get_gradient">[docs]</a>
@@ -525,18 +527,13 @@
 
 
     <span class="nd">@_plot_helper</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="n">unit_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;Blues&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generates a plot of the FDTD simulation setup using a specified colormap.</span>
 
 <span class="sd">        This function initializes a plotting scene and adds elements of the FDTD simulation</span>
 <span class="sd">        such as components, sources, detectors, and optionally the PML layers. It adjusts</span>
 <span class="sd">        the axis properties and attaches a colorbar based on the selected colormap.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        colormap : Optional[Union[str, object]])</span>
-<span class="sd">            The colormap to use for the plot. If &#39;None&#39; is passed, a default dark-themed colormap is used. Default is &#39;Blues&#39;.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Add PML layers to the plot if present</span>
@@ -760,9 +757,9 @@
         <span class="k">return</span> <span class="n">epsilon_r_mesh</span> <span class="o">*</span> <span class="n">Physics</span><span class="o">.</span><span class="n">epsilon_0</span></div>
 
 
-<div class="viewcode-block" id="Experiment.run_fdtd">
-<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.run_fdtd">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run_fdtd</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Experiment.run">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run the Finite-Difference Time-Domain (FDTD) simulation.</span>
 
@@ -806,107 +803,40 @@
         <span class="n">sigma_x</span><span class="p">,</span> <span class="n">sigma_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sigma</span><span class="p">()</span>
         <span class="n">epsilon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_epsilon</span><span class="p">()</span>
 
-        <span class="n">fdtd_simulation</span><span class="o">.</span><span class="n">run_fdtd</span><span class="p">(</span>
-            <span class="n">Ez</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">,</span>
-            <span class="n">time_stamp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_stamp</span><span class="p">,</span>
-            <span class="n">sigma_x</span><span class="o">=</span><span class="n">sigma_x</span><span class="p">,</span>
-            <span class="n">sigma_y</span><span class="o">=</span><span class="n">sigma_y</span><span class="p">,</span>
-            <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span>
-            <span class="n">gamma</span><span class="o">=</span><span class="n">epsilon</span> <span class="o">*</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="n">n2</span><span class="o">=</span><span class="n">epsilon</span> <span class="o">*</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="n">dt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dt</span><span class="p">,</span>
-            <span class="n">mu_0</span><span class="o">=</span><span class="n">Physics</span><span class="o">.</span><span class="n">mu_0</span><span class="p">,</span>
-            <span class="n">n_steps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span>
-            <span class="n">dx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dx</span><span class="p">,</span>
-            <span class="n">dy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dy</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp_set_config</span><span class="p">(</span>
+            <span class="n">dt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="n">dx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dx</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="n">dy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dy</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
             <span class="n">nx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_x</span><span class="p">,</span>
             <span class="n">ny</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_y</span><span class="p">,</span>
+            <span class="n">time_stamp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp_set_geometry_mesh</span><span class="p">(</span>
+            <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;farad/meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="n">n2</span><span class="o">=</span><span class="p">(</span><span class="n">epsilon</span> <span class="o">*</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;farad/meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>  <span class="c1"># Non-linear refractive index, if any</span>
+            <span class="n">gamma</span><span class="o">=</span><span class="p">(</span><span class="n">epsilon</span> <span class="o">*</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;farad/meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>  <span class="c1"># Non-linear absorption, if any</span>
+            <span class="n">sigma_x</span><span class="o">=</span><span class="n">sigma_x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;siemens/meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="n">sigma_y</span><span class="o">=</span><span class="n">sigma_y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;siemens/meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="n">mu_0</span><span class="o">=</span><span class="n">Physics</span><span class="o">.</span><span class="n">mu_0</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;henry/meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp_set_sources</span><span class="p">(</span>
             <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">binding</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">]</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
 
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_run_fdtd</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Legacy function to run the FDTD simulation.</span>
-
-<span class="sd">        This method updates the electric field (Ez) and magnetic fields (Hx, Hy) over time</span>
-<span class="sd">        based on Maxwell&#39;s equations using the FDTD method. It also includes the effects</span>
-<span class="sd">        of absorption, sources, and non-linear interactions.</span>
-
-<span class="sd">        Maxwell&#39;s equations in 2D for non-magnetic media:</span>
-
-<span class="sd">        .. math::</span>
-<span class="sd">            \frac{\partial H_x}{\partial t} = -\frac{1}{\mu} \frac{\partial E_z}{\partial y} \\[10pt]</span>
-<span class="sd">            \frac{\partial H_y}{\partial t} = \frac{1}{\mu} \frac{\partial E_z}{\partial x} \\[10pt]</span>
-<span class="sd">            \frac{\partial E_z}{\partial t} = \frac{1}{\epsilon} \left( \frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y} \right) - \sigma E_z</span>
-
-<span class="sd">        Attributes</span>
-<span class="sd">        ----------</span>
-<span class="sd">        Ez : numpy.ndarray</span>
-<span class="sd">            The electric field in the z-direction.</span>
-<span class="sd">        Hx : numpy.ndarray</span>
-<span class="sd">            The magnetic field in the x-direction.</span>
-<span class="sd">        Hy : numpy.ndarray</span>
-<span class="sd">            The magnetic field in the y-direction.</span>
-<span class="sd">        sigma_x : numpy.ndarray</span>
-<span class="sd">            Conductivity in the x direction.</span>
-<span class="sd">        sigma_y : numpy.ndarray</span>
-<span class="sd">            Conductivity in the y direction.</span>
-<span class="sd">        epsilon : numpy.ndarray</span>
-<span class="sd">            Permittivity of the grid.</span>
-<span class="sd">        mu_factor : float</span>
-<span class="sd">            Precomputed factor for the magnetic field update.</span>
-<span class="sd">        eps_factor : numpy.ndarray</span>
-<span class="sd">            Precomputed factor for the electric field update.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        None</span>
-<span class="sd">            This method does not return any value; it updates the simulation fields.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">Ez</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-        <span class="n">Hx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-        <span class="n">Hy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-
-        <span class="n">sigma_x</span><span class="p">,</span> <span class="n">sigma_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sigma</span><span class="p">()</span>
-        <span class="n">epsilon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_epsilon</span><span class="p">()</span>
-        <span class="n">mu_factor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="n">Physics</span><span class="o">.</span><span class="n">mu_0</span>
-        <span class="n">eps_factor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="n">epsilon</span>
-
-        <span class="k">for</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_stamp</span><span class="p">):</span>
-            <span class="n">dEz_dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">Ez</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">Ez</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dx</span>
-            <span class="n">dEz_dy</span> <span class="o">=</span> <span class="p">(</span><span class="n">Ez</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">Ez</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dy</span>
-
-            <span class="n">Hx</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">mu_factor</span> <span class="o">*</span> <span class="n">dEz_dy</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">sigma_y</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">mu_factor</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-            <span class="n">Hy</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="n">mu_factor</span> <span class="o">*</span> <span class="n">dEz_dx</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">sigma_x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">mu_factor</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-
-            <span class="n">dHy_dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">Hy</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Hy</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dx</span>
-            <span class="n">dHx_dy</span> <span class="o">=</span> <span class="p">(</span><span class="n">Hx</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Hx</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dy</span>
-
-            <span class="n">Ez</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">eps_factor</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">dHy_dx</span> <span class="o">-</span> <span class="n">dHx_dy</span><span class="p">)</span>
-
-            <span class="n">absorption_factor</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">sigma_x</span> <span class="o">+</span> <span class="n">sigma_y</span><span class="p">)</span> <span class="o">*</span> <span class="n">eps_factor</span> <span class="o">/</span> <span class="mi">2</span>
-            <span class="n">absorption_factor</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">absorption_factor</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="n">Ez</span> <span class="o">*=</span> <span class="n">absorption_factor</span>
-
-            <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
-                <span class="n">Ez</span> <span class="o">=</span> <span class="n">component</span><span class="o">.</span><span class="n">add_non_linear_effect_to_field</span><span class="p">(</span><span class="n">Ez</span><span class="p">)</span>
-
-            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">:</span>
-                <span class="n">element</span><span class="o">.</span><span class="n">add_source_to_field</span><span class="p">(</span><span class="n">Ez</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">iteration</span><span class="p">]</span> <span class="o">=</span> <span class="n">Ez</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp_run</span><span class="p">(</span><span class="n">Ez_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">detector</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">:</span>
-            <span class="n">detector</span><span class="o">.</span><span class="n">update_data</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">)</span>
+            <span class="n">detector</span><span class="o">.</span><span class="n">update_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">)</span></div>
+
 
     <span class="nd">@_plot_helper</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">plot_frame</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span>
             <span class="n">frame_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-            <span class="n">scale_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-            <span class="n">unit_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="n">enhance_contrast</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
             <span class="n">show_intensity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">blue_black_red</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -919,10 +849,8 @@
 <span class="sd">        ----------</span>
 <span class="sd">        frame_number : int</span>
 <span class="sd">            The index of the frame to be visualized.</span>
-<span class="sd">        scale_max : float, optional</span>
+<span class="sd">        enhance_contrast : float, optional</span>
 <span class="sd">            The maximum scale factor for the color limits of the field. Default is 5.</span>
-<span class="sd">        unit_size : int, optional</span>
-<span class="sd">            The base unit size for the plot. Default is 6.</span>
 <span class="sd">        show_intensity : bool, optional</span>
 <span class="sd">            If True, displays the intensity instead of the amplitude. Default is False.</span>
 <span class="sd">        colormap : Optional[Union[str, object]], optional</span>
@@ -939,8 +867,8 @@
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">frame_number</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
 
         <span class="n">image</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
             <span class="n">data</span><span class="p">,</span>
             <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span>
         <span class="p">)</span>
@@ -949,7 +877,7 @@
             <span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
 
         <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_clim</span><span class="p">()</span>
-        <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">vmin</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">vmax</span><span class="p">))</span> <span class="o">/</span> <span class="n">scale_max</span>
+        <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">vmin</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">vmax</span><span class="p">))</span> <span class="o">/</span> <span class="n">enhance_contrast</span>
         <span class="n">image</span><span class="o">.</span><span class="n">set_clim</span><span class="p">([</span><span class="o">-</span><span class="n">max_diff</span><span class="p">,</span> <span class="n">max_diff</span><span class="p">])</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
@@ -960,7 +888,7 @@
             <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span>
             <span class="n">frame_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
             <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-            <span class="n">scale_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="n">enhance_contrast</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
             <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
             <span class="n">show_intensity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">blue_black_red</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -976,7 +904,7 @@
 <span class="sd">            The index of the frame to be saved.</span>
 <span class="sd">        filename : str</span>
 <span class="sd">            The file path where the image will be saved.</span>
-<span class="sd">        scale_max : float, optional</span>
+<span class="sd">        enhance_contrast : float, optional</span>
 <span class="sd">            The maximum scale factor for the color limits of the image. Default is 5.</span>
 <span class="sd">        figsize : tuple, optional</span>
 <span class="sd">            The base unit size for the plot. Default is 6.</span>
@@ -998,8 +926,8 @@
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">frame_number</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
 
         <span class="n">image</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
             <span class="n">data</span><span class="p">,</span>
             <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span>
         <span class="p">)</span>
@@ -1008,7 +936,7 @@
             <span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
 
         <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_clim</span><span class="p">()</span>
-        <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">vmin</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">vmax</span><span class="p">))</span> <span class="o">/</span> <span class="n">scale_max</span>
+        <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">vmin</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">vmax</span><span class="p">))</span> <span class="o">/</span> <span class="n">enhance_contrast</span>
         <span class="n">image</span><span class="o">.</span><span class="n">set_clim</span><span class="p">([</span><span class="o">-</span><span class="n">max_diff</span><span class="p">,</span> <span class="n">max_diff</span><span class="p">])</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
@@ -1050,7 +978,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">render_propagation</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">skip_frame</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-            <span class="n">scale_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">enhance_contrast</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
             <span class="n">unit_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
             <span class="n">auto_adjust_clim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
@@ -1065,7 +993,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        skip_frame : int, optional</span>
 <span class="sd">            The number of time steps to skip between frames in the animation. Default is 10.</span>
-<span class="sd">        scale_max : float, optional</span>
+<span class="sd">        enhance_contrast : float, optional</span>
 <span class="sd">            The maximum scale factor for the color limits of the field amplitude. Default is 1.</span>
 <span class="sd">        unit_size : int, optional</span>
 <span class="sd">            The base unit size for scaling the plot elements. Default is 6.</span>
@@ -1087,8 +1015,8 @@
             <span class="c1"># Initialize the field display</span>
             <span class="n">initial_field</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
             <span class="n">field_artist</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
                 <span class="n">initial_field</span><span class="p">,</span>
                 <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span>
             <span class="p">)</span>
@@ -1109,7 +1037,7 @@
             <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
                 <span class="n">artist_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">))</span>
 
-            <span class="n">max_amplitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">scale_max</span>
+            <span class="n">max_amplitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">enhance_contrast</span>
             <span class="n">field_artist</span><span class="o">.</span><span class="n">set_clim</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">max_amplitude</span><span class="p">)</span>
 
         <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
@@ -1131,7 +1059,7 @@
             <span class="n">field_artist</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">field_t</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">auto_adjust_clim</span><span class="p">:</span>
-                <span class="n">max_amplitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">field_t</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">scale_max</span>
+                <span class="n">max_amplitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">field_t</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">enhance_contrast</span>
                 <span class="n">field_artist</span><span class="o">.</span><span class="n">set_clim</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">max_amplitude</span><span class="p">)</span>
 
             <span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;time: </span><span class="si">{</span><span class="n">time</span><span class="si">:</span><span class="s1">.1e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>

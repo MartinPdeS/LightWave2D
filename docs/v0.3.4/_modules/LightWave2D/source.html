@@ -454,7 +454,7 @@
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">bresenham_line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic.dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -462,7 +462,8 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Physics</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.binary</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceInterface</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.binary</span><span class="w"> </span><span class="kn">import</span> <span class="n">interface_source</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span>
 
 <span class="c1"># Configuration dictionary for dataclasses</span>
 <span class="n">config_dict</span> <span class="o">=</span> <span class="p">{</span>
@@ -526,12 +527,12 @@
 <span class="sd">        Wavelength(s) of the source.</span>
 <span class="sd">    amplitude : Union[float, List[float], np.ndarray]</span>
 <span class="sd">        Amplitude(s) of the source.</span>
-<span class="sd">    delay : Optional[Union[float, List[float], np.ndarray]], optional</span>
+<span class="sd">    delay : Optional[units.Quantity], optional</span>
 <span class="sd">        Delay(s) for each wavelength (default is None).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">wavelength</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
-    <span class="n">amplitude</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
-    <span class="n">delay</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">wavelength</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
+    <span class="n">amplitude</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">delay</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="MultiWavelenth.init_base_parameters">
 <a class="viewcode-back" href="../../code.html#LightWave2D.source.MultiWavelenth.init_base_parameters">[docs]</a>
@@ -539,14 +540,14 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the base parameters for the wavelengths.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Size of wavelength and amplitude and (option) delay must be the same.&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">second</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">)</span>
 
@@ -560,8 +561,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build the multi-wavelength source object and calculate its coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">binding</span> <span class="o">=</span> <span class="n">SourceInterface</span><span class="o">.</span><span class="n">MultiWavelength</span><span class="p">(</span>
-            <span class="n">omega</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">omega</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binding</span> <span class="o">=</span> <span class="n">interface_source</span><span class="o">.</span><span class="n">MultiWavelength</span><span class="p">(</span>
+            <span class="n">omega</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">omega</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;hertz&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
             <span class="n">amplitude</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="p">,</span>
             <span class="n">delay</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
             <span class="n">indexes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slc</span>
@@ -600,12 +601,12 @@
 <span class="sd">        Amplitude of the impulsion.</span>
 <span class="sd">    duration : float</span>
 <span class="sd">        Duration of the impulsion.</span>
-<span class="sd">    delay : float</span>
+<span class="sd">    delay : units.Quantity</span>
 <span class="sd">        Delay before the impulsion starts.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">amplitude</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">delay</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
+    <span class="n">delay</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
 
 <div class="viewcode-block" id="Impulsion.init_base_parameters">
 <a class="viewcode-back" href="../../code.html#LightWave2D.source.Impulsion.init_base_parameters">[docs]</a>
@@ -620,10 +621,10 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build the impulsion source object and calculate its coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">binding</span> <span class="o">=</span> <span class="n">SourceInterface</span><span class="o">.</span><span class="n">Impulsion</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binding</span> <span class="o">=</span> <span class="n">interface_source</span><span class="o">.</span><span class="n">Impulsion</span><span class="p">(</span>
             <span class="n">amplitude</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="p">,</span>
-            <span class="n">duration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span>
-            <span class="n">delay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">,</span>
+            <span class="n">duration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="n">delay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
             <span class="n">indexes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slc</span>
         <span class="p">)</span></div>
 
@@ -684,14 +685,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">slice_indexes</span> <span class="o">=</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_slc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">])</span>
 
-        <span class="n">p0</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">p1</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">LineString</span><span class="p">((</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="Line.add_to_ax">
 <a class="viewcode-back" href="../../code.html#LightWave2D.source.Line.add_to_ax">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_to_ax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_to_ax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="n">distance_units</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">=</span> <span class="n">units</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add the line source to the provided axis.</span>
 
@@ -722,7 +723,7 @@
 <span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
 <span class="sd">        Position (x, y) of the point in the simulation grid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
 
 <div class="viewcode-block" id="Point.build_geometry">
 <a class="viewcode-back" href="../../code.html#LightWave2D.source.Point.build_geometry">[docs]</a>
@@ -732,7 +733,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">indexes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y_index</span><span class="p">]])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_slc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y_index</span><span class="p">]])</span></div>
@@ -750,8 +751,8 @@
 <span class="sd">            The axis to which the point source will be added.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
             <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">facecolor</span><span class="p">,</span>
             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;source&#39;</span>
         <span class="p">)</span></div>
@@ -831,7 +832,7 @@
 <span class="sd">        Duration of the impulsion.</span>
 <span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
 <span class="sd">        Position (x, y) of the source.</span>
-<span class="sd">    delay : float</span>
+<span class="sd">    delay : units.Quantity</span>
 <span class="sd">        Delay before the impulsion starts.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -862,7 +863,7 @@
 <span class="sd">        Starting position (x, y) of the source.</span>
 <span class="sd">    position_1 : Tuple[Union[float, str], Union[float, str]]</span>
 <span class="sd">        Ending position (x, y) of the source.</span>
-<span class="sd">    delay : float</span>
+<span class="sd">    delay : units.Quantity</span>
 <span class="sd">        Delay before the impulsion starts.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_scattering_spherical_impulsion.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -28,13 +28,14 @@ We will define the simulation grid, add a circular scatterer and a line source, 
 
 Importing the necessary packages
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-15
+.. GENERATED FROM PYTHON SOURCE LINES 11-16
 
-.. code-block:: python3
+.. code-block:: Python
 
     from LightWave2D.grid import Grid
     from LightWave2D.experiment import Experiment
     from MPSPlots import colormaps
+    import LightWave2D.units as units
 
 
 
@@ -43,19 +44,19 @@ Importing the necessary packages
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-17
+.. GENERATED FROM PYTHON SOURCE LINES 17-18
 
 Define the simulation grid
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-27
+.. GENERATED FROM PYTHON SOURCE LINES 18-28
 
-.. code-block:: python3
+.. code-block:: Python
 
     grid = Grid(
-        resolution=0.2e-6,  # Grid resolution in meters
-        size_x=52e-6,       # Grid size in the x direction in meters
-        size_y=40e-6,       # Grid size in the y direction in meters
-        n_steps=800         # Number of time steps for the simulation
+        resolution=0.2 * units.micrometer,
+        size_x=52 * units.micrometer,
+        size_y=40 * units.micrometer,
+        n_steps=800
     )
 
     # Initialize the experiment with the defined grid
@@ -68,19 +69,19 @@ Define the simulation grid
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-29
+.. GENERATED FROM PYTHON SOURCE LINES 29-30
 
 Add a circular scatterer to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-36
+.. GENERATED FROM PYTHON SOURCE LINES 30-37
 
-.. code-block:: python3
+.. code-block:: Python
 
     scatterer = experiment.add_circle(
         position=('50%', '50%'),  # Center position of the scatterer
         epsilon_r=2.5,            # Relative permittivity of the scatterer
-        radius=4e-6,              # Radius of the circular scatterer in meters
-        sigma=0e6
+        radius=4 * units.micrometer,
+        sigma=0 * (units.siemens / units.meter)  # Conductivity of the scatterer
     )
 
 
@@ -90,20 +91,20 @@ Add a circular scatterer to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-38
+.. GENERATED FROM PYTHON SOURCE LINES 38-39
 
 Add a line source to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-46
+.. GENERATED FROM PYTHON SOURCE LINES 39-47
 
-.. code-block:: python3
+.. code-block:: Python
 
     source = experiment.add_line_impulsion(
-        duration=1e-15,         # Wavelength of the source in meters
+        duration=1 * units.femtosecond,
         position_0=('30%', '60%'),  # Starting position of the source
         position_1=('30%', '40%'),  # Ending position of the source
         amplitude=1,                # Amplitude of the source
-        delay=0e-14
+        delay=0 * units.femtosecond
     )
 
 
@@ -113,18 +114,18 @@ Add a line source to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-48
+.. GENERATED FROM PYTHON SOURCE LINES 48-49
 
 Add a perfectly matched layer (PML) to absorb boundary reflections
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-54
+.. GENERATED FROM PYTHON SOURCE LINES 49-55
 
-.. code-block:: python3
+.. code-block:: Python
 
     experiment.add_pml(
         order=1,          # Order of the PML polynomial profile
         width='20%',      # Width of the PML region as a percentage of grid size
-        sigma_max=10_000    # Maximum conductivity for the PML
+        sigma_max=10_000 * (units.siemens / units.meter)    # Maximum conductivity for the PML
     )
 
 
@@ -136,22 +137,22 @@ Add a perfectly matched layer (PML) to absorb boundary reflections
  .. code-block:: none
 
 
-    PML(grid=Grid(resolution=2e-07, size_x=5.2e-05, size_y=4e-05, n_steps=800), width='20%', sigma_max=10000.0, order=1)
+    PML(grid=Grid(resolution=<Quantity(0.2, 'micrometer')>, size_x=<Quantity(52, 'micrometer')>, size_y=<Quantity(40, 'micrometer')>, n_steps=800), width='20%', sigma_max=<Quantity(10000, 'siemens / meter')>, order=1)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-56
+.. GENERATED FROM PYTHON SOURCE LINES 56-57
 
 Plot the entire experiment setup
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-62
+.. GENERATED FROM PYTHON SOURCE LINES 57-63
 
-.. code-block:: python3
+.. code-block:: Python
 
     experiment.plot()
 
     # Run the FDTD simulation
-    experiment.run_fdtd()
+    experiment.run()
 
 
 
@@ -166,19 +167,19 @@ Plot the entire experiment setup
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-64
+.. GENERATED FROM PYTHON SOURCE LINES 64-65
 
 Render an animation of the field propagation over time
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-73
+.. GENERATED FROM PYTHON SOURCE LINES 65-74
 
-.. code-block:: python3
+.. code-block:: Python
 
     animation = experiment.show_propagation(
         skip_frame=5,                            # Number of frames to skip in the animation
         unit_size=5,                             # Size of each unit in the animation
         colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
-        scale_max=2
+        enhance_contrast=4
     )
 
     # Save the animation as a GIF file
@@ -204,7 +205,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 5.659 seconds)
+   **Total running time of the script:** (0 minutes 12.334 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_spherical_impulsion.py:
@@ -213,16 +214,17 @@ Render an animation of the field propagation over time
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: spherical_impulsion.ipynb <spherical_impulsion.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: spherical_impulsion.py <spherical_impulsion.py>`
 
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
+    .. container:: sphx-glr-download sphx-glr-download-zip
 
-      :download:`Download Jupyter notebook: spherical_impulsion.ipynb <spherical_impulsion.ipynb>`
+      :download:`Download zipped: spherical_impulsion.zip <spherical_impulsion.zip>`
 
 
 .. only:: html

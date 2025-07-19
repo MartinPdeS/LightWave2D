@@ -11,14 +11,15 @@ We will define the simulation grid, add a circular scatterer and a line source, 
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
 from MPSPlots import colormaps
+import LightWave2D.units as units
 
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.2e-6,  # Grid resolution in meters
-    size_x=52e-6,       # Grid size in the x direction in meters
-    size_y=40e-6,       # Grid size in the y direction in meters
-    n_steps=800         # Number of time steps for the simulation
+    resolution=0.2 * units.micrometer,
+    size_x=52 * units.micrometer,
+    size_y=40 * units.micrometer,
+    n_steps=800
 )
 
 # Initialize the experiment with the defined grid
@@ -29,18 +30,18 @@ experiment = Experiment(grid=grid)
 scatterer = experiment.add_circle(
     position=('50%', '50%'),  # Center position of the scatterer
     epsilon_r=2.5,            # Relative permittivity of the scatterer
-    radius=4e-6,              # Radius of the circular scatterer in meters
-    sigma=0e6
+    radius=4 * units.micrometer,
+    sigma=0 * (units.siemens / units.meter)  # Conductivity of the scatterer
 )
 
 # %%
 # Add a line source to the experiment
 source = experiment.add_line_impulsion(
-    duration=1e-15,         # Wavelength of the source in meters
+    duration=1 * units.femtosecond,
     position_0=('30%', '60%'),  # Starting position of the source
     position_1=('30%', '40%'),  # Ending position of the source
     amplitude=1,                # Amplitude of the source
-    delay=0e-14
+    delay=0 * units.femtosecond
 )
 
 # %%
@@ -48,7 +49,7 @@ source = experiment.add_line_impulsion(
 experiment.add_pml(
     order=1,          # Order of the PML polynomial profile
     width='20%',      # Width of the PML region as a percentage of grid size
-    sigma_max=10_000    # Maximum conductivity for the PML
+    sigma_max=10_000 * (units.siemens / units.meter)    # Maximum conductivity for the PML
 )
 
 # %%
@@ -56,7 +57,7 @@ experiment.add_pml(
 experiment.plot()
 
 # Run the FDTD simulation
-experiment.run_fdtd()
+experiment.run()
 
 
 # %%
@@ -65,7 +66,7 @@ animation = experiment.show_propagation(
     skip_frame=5,                            # Number of frames to skip in the animation
     unit_size=5,                             # Size of each unit in the animation
     colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
-    scale_max=2
+    enhance_contrast=4
 )
 
 # Save the animation as a GIF file

@@ -502,24 +502,25 @@
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-gallery-extra-resonator-py"><span class="std std-ref">Go to the end</span></a>
-to download the full example code</p>
+to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="ring-resonator">
 <span id="sphx-glr-gallery-extra-resonator-py"></span><h1>Ring Resonator<a class="headerlink" href="#ring-resonator" title="Link to this heading">#</a></h1>
 <p>This example demonstrates the setup and execution of a ring resonator experiment using LightWave2D.
 We will define the simulation grid, add a ring resonator scatterer, a point source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.</p>
 <p>Importing the necessary packages</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">polytechnique</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span>
 </pre></div>
 </div>
 <p>Define the simulation grid</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1e-6</span><span class="p">,</span>  <span class="c1"># Grid resolution in meters</span>
-    <span class="n">size_x</span><span class="o">=</span><span class="mf">50e-6</span><span class="p">,</span>       <span class="c1"># Grid size in the x direction in meters</span>
-    <span class="n">size_y</span><span class="o">=</span><span class="mf">30e-6</span><span class="p">,</span>       <span class="c1"># Grid size in the y direction in meters</span>
-    <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span>         <span class="c1"># Number of time steps for the simulation</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid resolution in meters</span>
+    <span class="n">size_x</span><span class="o">=</span><span class="mi">50</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>       <span class="c1"># Grid size in the x direction in meters</span>
+    <span class="n">size_y</span><span class="o">=</span><span class="mi">30</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>       <span class="c1"># Grid size in the y direction in meters</span>
+    <span class="n">n_steps</span><span class="o">=</span><span class="mi">200</span>         <span class="c1"># Number of time steps for the simulation</span>
 <span class="p">)</span>
 
 <span class="c1"># Initialize the experiment with the defined grid</span>
@@ -527,27 +528,26 @@ We will define the simulation grid, add a ring resonator scatterer, a point sour
 </pre></div>
 </div>
 <p>Add a ring resonator scatterer to the experiment</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ring_resonator</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_ring_resonator</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">ring_resonator</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_ring_resonator</span><span class="p">(</span>
     <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;50%&#39;</span><span class="p">,</span> <span class="s1">&#39;49%&#39;</span><span class="p">),</span>  <span class="c1"># Center position of the ring resonator</span>
     <span class="n">epsilon_r</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span>            <span class="c1"># Relative permittivity of the ring resonator</span>
-    <span class="n">inner_radius</span><span class="o">=</span><span class="mf">4e-6</span><span class="p">,</span>        <span class="c1"># Inner radius of the ring resonator in meters</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">2e-6</span>                <span class="c1"># Width of the ring resonator in meters</span>
+    <span class="n">inner_radius</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>        <span class="c1"># Inner radius of the ring resonator in meters</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span>                <span class="c1"># Width of the ring resonator in meters</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Add a waveguide to the experiment</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">ring_resonator</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_waveguide</span><span class="p">(</span>
-    <span class="c1"># position=(&#39;35%&#39;, &#39;50%&#39;),  # Center position of the ring resonator</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">ring_resonator</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_waveguide</span><span class="p">(</span>
     <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;0%&#39;</span><span class="p">,</span> <span class="s1">&#39;25%&#39;</span><span class="p">),</span>  <span class="c1"># Center position of the ring resonator</span>
     <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;100%&#39;</span><span class="p">,</span> <span class="s1">&#39;25%&#39;</span><span class="p">),</span>  <span class="c1"># Center position of the ring resonator</span>
     <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>            <span class="c1"># Relative permittivity of the ring resonator</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">2e-6</span>                <span class="c1"># Width of the ring resonator in meters</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span>                <span class="c1"># Width of the ring resonator in meters</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Add a point source to the experiment</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="o">=</span><span class="mf">2110e-9</span><span class="p">,</span>       <span class="c1"># Wavelength of the source in meters</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span><span class="p">(</span>
+    <span class="n">wavelength</span><span class="o">=</span><span class="mi">2110</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>       <span class="c1"># Wavelength of the source in meters</span>
     <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;23%&#39;</span><span class="p">),</span>  <span class="c1"># Center position of the ring resonator</span>
     <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;27%&#39;</span><span class="p">),</span>  <span class="c1"># Center position of the ring resonator</span>
     <span class="n">amplitude</span><span class="o">=</span><span class="mi">100</span>             <span class="c1"># Amplitude of the source</span>
@@ -555,30 +555,30 @@ We will define the simulation grid, add a ring resonator scatterer, a point sour
 </pre></div>
 </div>
 <p>Add a perfectly matched layer (PML) to absorb boundary reflections</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">pml</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pml</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span>
     <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>          <span class="c1"># Order of the PML polynomial profile</span>
     <span class="n">width</span><span class="o">=</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span>      <span class="c1"># Width of the PML region as a percentage of grid size</span>
-    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span>    <span class="c1"># Maximum conductivity for the PML</span>
+    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">units</span><span class="o">.</span><span class="n">meter</span>    <span class="c1"># Maximum conductivity for the PML</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Plot the experiment layout</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 
 
 <span class="c1"># Run the FDTD simulation</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">run_fdtd</span><span class="p">()</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_resonator_001.png" srcset="../../_images/sphx_glr_resonator_001.png" alt="Fiber structure" class = "sphx-glr-single-img"/><p>Plot the last time frame of the computed fields</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">plot_frame</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">plot_frame</span><span class="p">(</span>
     <span class="n">frame_number</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Plot the last frame</span>
-    <span class="n">scale_max</span><span class="o">=</span><span class="mi">4</span>       <span class="c1"># Maximum scale for the field visualization</span>
+    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">2</span>       <span class="c1"># Maximum scale for the field visualization</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_resonator_002.png" srcset="../../_images/sphx_glr_resonator_002.png" alt="Fiber structure" class = "sphx-glr-single-img"/><p>Render an animation of the field propagation over time</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
     <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>                            <span class="c1"># Number of frames to skip in the animation</span>
     <span class="n">colormap</span><span class="o">=</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span>    <span class="c1"># Colormap for the animation</span>
 <span class="p">)</span>
@@ -590,13 +590,16 @@ We will define the simulation grid, add a ring resonator scatterer, a point sour
 <img src="../../_images/sphx_glr_resonator_003.png" srcset="../../_images/sphx_glr_resonator_003.png" alt="resonator" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>MovieWriter Pillow unavailable; using Pillow instead.
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.323 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 7.051 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-extra-resonator-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/7c8027c98bb3ebb305fa8404cd51526a/resonator.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">resonator.ipynb</span></code></a></p>
+</div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/1cd6d7fce7cd276db7316c81f6376527/resonator.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">resonator.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/7c8027c98bb3ebb305fa8404cd51526a/resonator.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">resonator.ipynb</span></code></a></p>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/908e3de18acae9bff790376b034c37aa/resonator.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">resonator.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>

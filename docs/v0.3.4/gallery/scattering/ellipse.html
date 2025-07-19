@@ -502,24 +502,25 @@
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-gallery-scattering-ellipse-py"><span class="std std-ref">Go to the end</span></a>
-to download the full example code</p>
+to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="elliptic-scatterer">
 <span id="sphx-glr-gallery-scattering-ellipse-py"></span><h1>Elliptic Scatterer<a class="headerlink" href="#elliptic-scatterer" title="Link to this heading">#</a></h1>
 <p>This example demonstrates the setup and execution of an elliptic scatterer experiment using LightWave2D.
 We will define the simulation grid, add an elliptic scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.</p>
 <p>Importing the necessary packages</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots</span><span class="w"> </span><span class="kn">import</span> <span class="n">colormaps</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">LightWave2D.units</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">units</span>
 </pre></div>
 </div>
 <p>Define the simulation grid</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1e-6</span><span class="p">,</span>  <span class="c1"># Grid resolution in meters</span>
-    <span class="n">size_x</span><span class="o">=</span><span class="mf">40e-6</span><span class="p">,</span>       <span class="c1"># Grid size in the x direction in meters</span>
-    <span class="n">size_y</span><span class="o">=</span><span class="mf">30e-6</span><span class="p">,</span>       <span class="c1"># Grid size in the y direction in meters</span>
-    <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span>        <span class="c1"># Number of time steps for the simulation</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+    <span class="n">size_x</span><span class="o">=</span><span class="mi">40</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+    <span class="n">size_y</span><span class="o">=</span><span class="mi">30</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+    <span class="n">n_steps</span><span class="o">=</span><span class="mi">400</span>
 <span class="p">)</span>
 
 <span class="c1"># Initialize the experiment with the defined grid</span>
@@ -527,53 +528,55 @@ We will define the simulation grid, add an elliptic scatterer and a line source,
 </pre></div>
 </div>
 <p>Add an elliptic scatterer to the experiment</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_ellipse</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_ellipse</span><span class="p">(</span>
     <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;30%&#39;</span><span class="p">,</span> <span class="s1">&#39;40%&#39;</span><span class="p">),</span>  <span class="c1"># Center position of the ellipse</span>
-    <span class="n">width</span><span class="o">=</span><span class="mf">4e-6</span><span class="p">,</span>               <span class="c1"># Width of the ellipse in meters</span>
-    <span class="n">height</span><span class="o">=</span><span class="mf">10e-6</span><span class="p">,</span>             <span class="c1"># Height of the ellipse in meters</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">10</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
     <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span>               <span class="c1"># Relative permittivity of the ellipse</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Add a line source to the experiment</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="o">=</span><span class="mf">1550e-9</span><span class="p">,</span>       <span class="c1"># Wavelength of the source in meters</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span><span class="p">(</span>
+    <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>
     <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;100%&#39;</span><span class="p">),</span>  <span class="c1"># Starting position of the source</span>
     <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;0%&#39;</span><span class="p">),</span>    <span class="c1"># Ending position of the source</span>
-    <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span>              <span class="c1"># Amplitude of the source</span>
+    <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span>                 <span class="c1"># Amplitude of the source</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Add a perfectly matched layer (PML) to absorb boundary reflections</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span>
     <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>          <span class="c1"># Order of the PML polynomial profile</span>
     <span class="n">width</span><span class="o">=</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span>      <span class="c1"># Width of the PML region as a percentage of grid size</span>
-    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span>    <span class="c1"># Maximum conductivity for the PML</span>
+    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">units</span><span class="o">.</span><span class="n">meter</span>    <span class="c1"># Maximum conductivity for the PML</span>
 <span class="p">)</span>
 
 <span class="c1"># Run the FDTD simulation</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">run_fdtd</span><span class="p">()</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 
 <span class="c1"># Plot the entire experiment setup</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="c1"># experiment.plot()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_ellipse_001.png" srcset="../../_images/sphx_glr_ellipse_001.png" alt="Fiber structure" class = "sphx-glr-single-img"/><p>Plot the last time frame of the computed fields</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">plot_frame</span><span class="p">(</span>
+<p>Plot the last time frame of the computed fields</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">plot_frame</span><span class="p">(</span>
     <span class="n">frame_number</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Plot the last frame</span>
+    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">colormap</span><span class="o">=</span><span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span>  <span class="c1"># Colormap for the plot</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_ellipse_002.png" srcset="../../_images/sphx_glr_ellipse_002.png" alt="Fiber structure" class = "sphx-glr-single-img"/><p>Save the last time frame as an image</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">save_frame_as_image</span><span class="p">(</span>
+<img src="../../_images/sphx_glr_ellipse_001.png" srcset="../../_images/sphx_glr_ellipse_001.png" alt="Fiber structure" class = "sphx-glr-single-img"/><p>Save the last time frame as an image</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">save_frame_as_image</span><span class="p">(</span>
     <span class="n">frame_number</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Frame number to save</span>
+    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;elliptic_scatterer_last_frame.png&#39;</span>  <span class="c1"># Filename for the image</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_ellipse_003.png" srcset="../../_images/sphx_glr_ellipse_003.png" alt="Fiber structure" class = "sphx-glr-single-img"/><p>Render an animation of the field propagation over time</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
+<img src="../../_images/sphx_glr_ellipse_002.png" srcset="../../_images/sphx_glr_ellipse_002.png" alt="Fiber structure" class = "sphx-glr-single-img"/><p>Render an animation of the field propagation over time</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
     <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>                            <span class="c1"># Number of frames to skip in the animation</span>
     <span class="n">unit_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>                             <span class="c1"># Size of each unit in the animation</span>
     <span class="n">colormap</span><span class="o">=</span><span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span>  <span class="c1"># Colormap for the animation</span>
@@ -583,16 +586,19 @@ We will define the simulation grid, add an elliptic scatterer and a line source,
 <span class="n">animation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./elliptic_scatterer_propagation.gif&#39;</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s1">&#39;Pillow&#39;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_ellipse_004.png" srcset="../../_images/sphx_glr_ellipse_004.png" alt="ellipse" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>MovieWriter Pillow unavailable; using Pillow instead.
+<img src="../../_images/sphx_glr_ellipse_003.png" srcset="../../_images/sphx_glr_ellipse_003.png" alt="ellipse" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>MovieWriter Pillow unavailable; using Pillow instead.
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.565 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 11.241 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-scattering-ellipse-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/98151585bae3ac6cec7c0a6dc37dc220/ellipse.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ellipse.ipynb</span></code></a></p>
+</div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/94dd7ea696a062d9633ac7cd10d44a10/ellipse.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">ellipse.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/98151585bae3ac6cec7c0a6dc37dc220/ellipse.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ellipse.ipynb</span></code></a></p>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/22c96b74cf402f5e9c74a9199014906c/ellipse.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">ellipse.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
