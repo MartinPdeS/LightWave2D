@@ -175,14 +175,14 @@ class PointWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSou
         Transparency level of the source (default is 0.3).
     """
     grid: Grid
-    wavelength: Union[float, list, np.ndarray]
+    wavelength: units.Quantity
     position: Tuple[units.Quantity | str, units.Quantity | str]
     amplitude: float
     edgecolor: str = 'red'
     facecolor: str = 'red'
     alpha: float = 0.3
 
-    def __init__(self):
+    def __post_init__(self):
         self.wavelength = np.atleast_1d(self.wavelength)
         self.amplitude = np.atleast_1d(self.amplitude)
 
