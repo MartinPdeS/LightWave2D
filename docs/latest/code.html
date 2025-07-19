@@ -2076,17 +2076,21 @@ the specified file using the given writer and frame rate.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LinePulseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">grid:</span> <span class="pre">~LightWave2D.grid.Grid,</span> <span class="pre">duration:</span> <span class="pre">~pint.Quantity,</span> <span class="pre">amplitude:</span> <span class="pre">float,</span> <span class="pre">position_0:</span> <span class="pre">~typing.Tuple[float</span> <span class="pre">|</span> <span class="pre">str,</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">str],</span> <span class="pre">position_1:</span> <span class="pre">~typing.Tuple[float</span> <span class="pre">|</span> <span class="pre">str,</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">str],</span> <span class="pre">delay:</span> <span class="pre">~pint.Quantity</span> <span class="pre">=</span> <span class="pre">&lt;Quantity(0,</span> <span class="pre">'second')&gt;,</span> <span class="pre">edgecolor:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'red',</span> <span class="pre">facecolor:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'red',</span> <span class="pre">alpha:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.3</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/source.html#LinePulseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.source.LinePulseSource" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LinePulseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">grid:</span> <span class="pre">~LightWave2D.grid.Grid,</span> <span class="pre">duration:</span> <span class="pre">~pint.Quantity,</span> <span class="pre">amplitude:</span> <span class="pre">float,</span> <span class="pre">position_0:</span> <span class="pre">~typing.Tuple[~pint.Quantity</span> <span class="pre">|</span> <span class="pre">str,</span> <span class="pre">~pint.Quantity</span> <span class="pre">|</span> <span class="pre">str],</span> <span class="pre">position_1:</span> <span class="pre">~typing.Tuple[~pint.Quantity</span> <span class="pre">|</span> <span class="pre">str,</span> <span class="pre">~pint.Quantity</span> <span class="pre">|</span> <span class="pre">str],</span> <span class="pre">delay:</span> <span class="pre">~pint.Quantity</span> <span class="pre">=</span> <span class="pre">&lt;Quantity(0,</span> <span class="pre">'second')&gt;,</span> <span class="pre">edgecolor:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'red',</span> <span class="pre">facecolor:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'red',</span> <span class="pre">alpha:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.3</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/source.html#LinePulseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.source.LinePulseSource" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Impulsion</span></code>, <a class="reference internal" href="#LightWave2D.source.Impulsion" title="LightWave2D.source.Impulsion"><code class="xref py py-class docutils literal notranslate"><span class="pre">Impulsion</span></code></a>, <a class="reference internal" href="#LightWave2D.source.Line" title="LightWave2D.source.Line"><code class="xref py py-class docutils literal notranslate"><span class="pre">Line</span></code></a>, <a class="reference internal" href="#LightWave2D.source.BaseSource" title="LightWave2D.source.BaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSource</span></code></a></p>
 <p>Represents a line pulse source in a 2D light wave simulation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>duration</strong> (<em>float</em>) – Duration of the impulsion.</p></li>
+<li><p><strong>grid</strong> (<em>Grid</em>) – The grid of the simulation mesh.</p></li>
+<li><p><strong>duration</strong> (<em>units.Quantity</em>) – Duration of the impulsion.</p></li>
 <li><p><strong>amplitude</strong> (<em>float</em>) – Amplitude of the electric field.</p></li>
 <li><p><strong>position_0</strong> (<em>Tuple</em><em>[</em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>, </em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Starting position (x, y) of the source.</p></li>
 <li><p><strong>position_1</strong> (<em>Tuple</em><em>[</em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>, </em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Ending position (x, y) of the source.</p></li>
-<li><p><strong>delay</strong> (<em>units.Quantity</em>) – Delay before the impulsion starts.</p></li>
+<li><p><strong>delay</strong> (<em>units.Quantity</em><em>, </em><em>optional</em>) – Delay before the impulsion starts (default is 0 seconds).</p></li>
+<li><p><strong>edgecolor</strong> (<em>str</em><em>, </em><em>optional</em>) – Color of the source edge (default is ‘red’).</p></li>
+<li><p><strong>facecolor</strong> (<em>str</em><em>, </em><em>optional</em>) – Color of the source face (default is ‘red’).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – Transparency level of the source (default is 0.3).</p></li>
 </ul>
 </dd>
 </dl>
@@ -2121,11 +2125,46 @@ the specified file using the given writer and frame rate.</p>
 <dd><p>Injects the impulse into the field</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.alpha">
+<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.3</span></em><a class="headerlink" href="#LightWave2D.source.LinePulseSource.alpha" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.amplitude">
+<span class="sig-name descname"><span class="pre">amplitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#LightWave2D.source.LinePulseSource.amplitude" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.build_geometry">
 <span class="sig-name descname"><span class="pre">build_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="headerlink" href="#LightWave2D.source.LinePulseSource.build_geometry" title="Link to this definition">#</a></dt>
 <dd><p>Build the geometry for the line source and calculate its coordinates.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.delay">
+<span class="sig-name descname"><span class="pre">delay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Quantity</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Quantity(0,</span> <span class="pre">'second')&gt;</span></em><a class="headerlink" href="#LightWave2D.source.LinePulseSource.delay" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Quantity</span></em><a class="headerlink" href="#LightWave2D.source.LinePulseSource.duration" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.edgecolor">
+<span class="sig-name descname"><span class="pre">edgecolor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'red'</span></em><a class="headerlink" href="#LightWave2D.source.LinePulseSource.edgecolor" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.facecolor">
+<span class="sig-name descname"><span class="pre">facecolor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'red'</span></em><a class="headerlink" href="#LightWave2D.source.LinePulseSource.facecolor" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.grid">
+<span class="sig-name descname"><span class="pre">grid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Grid</span></em><a class="headerlink" href="#LightWave2D.source.LinePulseSource.grid" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.plot">
@@ -2133,13 +2172,38 @@ the specified file using the given writer and frame rate.</p>
 <dd><p>Plot the source on a 2D grid.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.position_0">
+<span class="sig-name descname"><span class="pre">position_0</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#LightWave2D.source.LinePulseSource.position_0" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.position_1">
+<span class="sig-name descname"><span class="pre">position_1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#LightWave2D.source.LinePulseSource.position_1" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LineWaveSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Quantity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facecolor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/source.html#LineWaveSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.source.LineWaveSource" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LineWaveSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Quantity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facecolor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/source.html#LineWaveSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.source.LineWaveSource" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultiWavelength</span></code>, <a class="reference internal" href="#LightWave2D.source.MultiWavelength" title="LightWave2D.source.MultiWavelength"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiWavelength</span></code></a>, <a class="reference internal" href="#LightWave2D.source.BaseSource" title="LightWave2D.source.BaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSource</span></code></a>, <a class="reference internal" href="#LightWave2D.source.Line" title="LightWave2D.source.Line"><code class="xref py py-class docutils literal notranslate"><span class="pre">Line</span></code></a></p>
 <p>Represents a line source in a 2D light wave simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> (<em>Grid</em>) – The grid of the simulation mesh.</p></li>
+<li><p><strong>amplitude</strong> (<em>float</em>) – Amplitude of the electric field.</p></li>
+<li><p><strong>wavelength</strong> (<em>units.Quantity</em>) – Wavelength of the source.</p></li>
+<li><p><strong>position_0</strong> (<em>Tuple</em><em>[</em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>, </em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Starting position (x, y) of the source.</p></li>
+<li><p><strong>position_1</strong> (<em>Tuple</em><em>[</em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>, </em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Ending position (x, y) of the source.</p></li>
+<li><p><strong>delay</strong> (<em>Optional</em><em>[</em><em>units.Quantity</em><em>]</em><em>, </em><em>optional</em>) – Delay before the source starts (default is None).</p></li>
+<li><p><strong>edgecolor</strong> (<em>str</em><em>, </em><em>optional</em>) – Color of the source edge (default is ‘red’).</p></li>
+<li><p><strong>facecolor</strong> (<em>str</em><em>, </em><em>optional</em>) – Color of the source face (default is ‘red’).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – Transparency level of the source (default is 0.3).</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.add_source_to_field">
 <span class="sig-name descname"><span class="pre">add_source_to_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="headerlink" href="#LightWave2D.source.LineWaveSource.add_source_to_field" title="Link to this definition">#</a></dt>
@@ -2171,17 +2235,57 @@ the specified file using the given writer and frame rate.</p>
 <dd><p>Injects the source into the field</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.alpha">
+<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.3</span></em><a class="headerlink" href="#LightWave2D.source.LineWaveSource.alpha" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.amplitude">
+<span class="sig-name descname"><span class="pre">amplitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#LightWave2D.source.LineWaveSource.amplitude" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.build_geometry">
 <span class="sig-name descname"><span class="pre">build_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="headerlink" href="#LightWave2D.source.LineWaveSource.build_geometry" title="Link to this definition">#</a></dt>
 <dd><p>Build the geometry for the line source and calculate its coordinates.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.edgecolor">
+<span class="sig-name descname"><span class="pre">edgecolor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'red'</span></em><a class="headerlink" href="#LightWave2D.source.LineWaveSource.edgecolor" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.facecolor">
+<span class="sig-name descname"><span class="pre">facecolor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'red'</span></em><a class="headerlink" href="#LightWave2D.source.LineWaveSource.facecolor" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.grid">
+<span class="sig-name descname"><span class="pre">grid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Grid</span></em><a class="headerlink" href="#LightWave2D.source.LineWaveSource.grid" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.plot">
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="headerlink" href="#LightWave2D.source.LineWaveSource.plot" title="Link to this definition">#</a></dt>
 <dd><p>Plot the source on a 2D grid.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.position_0">
+<span class="sig-name descname"><span class="pre">position_0</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#LightWave2D.source.LineWaveSource.position_0" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.position_1">
+<span class="sig-name descname"><span class="pre">position_1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#LightWave2D.source.LineWaveSource.position_1" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.wavelength">
+<span class="sig-name descname"><span class="pre">wavelength</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Quantity</span></em><a class="headerlink" href="#LightWave2D.source.LineWaveSource.wavelength" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -2232,9 +2336,23 @@ the specified file using the given writer and frame rate.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PointPulseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">grid:</span> <span class="pre">~LightWave2D.grid.Grid,</span> <span class="pre">amplitude:</span> <span class="pre">float,</span> <span class="pre">duration:</span> <span class="pre">~pint.Quantity,</span> <span class="pre">position:</span> <span class="pre">~typing.Tuple[float</span> <span class="pre">|</span> <span class="pre">str,</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">str],</span> <span class="pre">delay:</span> <span class="pre">~pint.Quantity</span> <span class="pre">=</span> <span class="pre">&lt;Quantity(0,</span> <span class="pre">'second')&gt;,</span> <span class="pre">edgecolor:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'red',</span> <span class="pre">facecolor:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'red',</span> <span class="pre">alpha:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.3</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/source.html#PointPulseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.source.PointPulseSource" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PointPulseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">grid:</span> <span class="pre">~LightWave2D.grid.Grid,</span> <span class="pre">amplitude:</span> <span class="pre">float,</span> <span class="pre">duration:</span> <span class="pre">~pint.Quantity,</span> <span class="pre">position:</span> <span class="pre">~typing.Tuple[~pint.Quantity</span> <span class="pre">|</span> <span class="pre">str,</span> <span class="pre">~pint.Quantity</span> <span class="pre">|</span> <span class="pre">str],</span> <span class="pre">delay:</span> <span class="pre">~pint.Quantity</span> <span class="pre">=</span> <span class="pre">&lt;Quantity(0,</span> <span class="pre">'second')&gt;,</span> <span class="pre">edgecolor:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'red',</span> <span class="pre">facecolor:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'red',</span> <span class="pre">alpha:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.3</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/source.html#PointPulseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.source.PointPulseSource" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.source.Impulsion" title="LightWave2D.source.Impulsion"><code class="xref py py-class docutils literal notranslate"><span class="pre">Impulsion</span></code></a>, <a class="reference internal" href="#LightWave2D.source.Point" title="LightWave2D.source.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>, <a class="reference internal" href="#LightWave2D.source.BaseSource" title="LightWave2D.source.BaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSource</span></code></a></p>
 <p>Represents a point impulsion source in a 2D light wave simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> (<em>Grid</em>) – The grid of the simulation mesh.</p></li>
+<li><p><strong>amplitude</strong> (<em>float</em>) – Amplitude of the electric field.</p></li>
+<li><p><strong>duration</strong> (<em>units.Quantity</em>) – Duration of the impulsion.</p></li>
+<li><p><strong>position</strong> (<em>Tuple</em><em>[</em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>, </em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Position (x, y) of the source.</p></li>
+<li><p><strong>delay</strong> (<em>units.Quantity</em><em>, </em><em>optional</em>) – Delay before the impulsion starts (default is 0 seconds).</p></li>
+<li><p><strong>edgecolor</strong> (<em>str</em><em>, </em><em>optional</em>) – Color of the source edge (default is ‘red’).</p></li>
+<li><p><strong>facecolor</strong> (<em>str</em><em>, </em><em>optional</em>) – Color of the source face (default is ‘red’).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – Transparency level of the source (default is 0.3).</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.add_source_to_field">
 <span class="sig-name descname"><span class="pre">add_source_to_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="headerlink" href="#LightWave2D.source.PointPulseSource.add_source_to_field" title="Link to this definition">#</a></dt>
@@ -2260,11 +2378,46 @@ the specified file using the given writer and frame rate.</p>
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.alpha">
+<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.3</span></em><a class="headerlink" href="#LightWave2D.source.PointPulseSource.alpha" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.amplitude">
+<span class="sig-name descname"><span class="pre">amplitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#LightWave2D.source.PointPulseSource.amplitude" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.build_geometry">
 <span class="sig-name descname"><span class="pre">build_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="headerlink" href="#LightWave2D.source.PointPulseSource.build_geometry" title="Link to this definition">#</a></dt>
 <dd><p>Build the geometry for the point source and calculate its coordinates.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.delay">
+<span class="sig-name descname"><span class="pre">delay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Quantity</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Quantity(0,</span> <span class="pre">'second')&gt;</span></em><a class="headerlink" href="#LightWave2D.source.PointPulseSource.delay" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Quantity</span></em><a class="headerlink" href="#LightWave2D.source.PointPulseSource.duration" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.edgecolor">
+<span class="sig-name descname"><span class="pre">edgecolor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'red'</span></em><a class="headerlink" href="#LightWave2D.source.PointPulseSource.edgecolor" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.facecolor">
+<span class="sig-name descname"><span class="pre">facecolor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'red'</span></em><a class="headerlink" href="#LightWave2D.source.PointPulseSource.facecolor" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.grid">
+<span class="sig-name descname"><span class="pre">grid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Grid</span></em><a class="headerlink" href="#LightWave2D.source.PointPulseSource.grid" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.plot">
@@ -2272,13 +2425,31 @@ the specified file using the given writer and frame rate.</p>
 <dd><p>Plot the source on a 2D grid.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.position">
+<span class="sig-name descname"><span class="pre">position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#LightWave2D.source.PointPulseSource.position" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PointWaveSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facecolor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/source.html#PointWaveSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.source.PointWaveSource" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PointWaveSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Quantity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facecolor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/source.html#PointWaveSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.source.PointWaveSource" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultiWavelength</span></code>, <a class="reference internal" href="#LightWave2D.source.MultiWavelength" title="LightWave2D.source.MultiWavelength"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiWavelength</span></code></a>, <a class="reference internal" href="#LightWave2D.source.BaseSource" title="LightWave2D.source.BaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSource</span></code></a>, <a class="reference internal" href="#LightWave2D.source.Point" title="LightWave2D.source.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a></p>
 <p>Represents a point source in a 2D light wave simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> (<em>Grid</em>) – The grid of the simulation mesh.</p></li>
+<li><p><strong>wavelength</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>list</em><em>, </em><em>np.ndarray</em><em>]</em>) – Wavelength of the source.</p></li>
+<li><p><strong>position</strong> (<em>Tuple</em><em>[</em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>, </em><em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Position (x, y) of the source.</p></li>
+<li><p><strong>amplitude</strong> (<em>float</em>) – Amplitude of the electric field.</p></li>
+<li><p><strong>edgecolor</strong> (<em>str</em><em>, </em><em>optional</em>) – Color of the source edge (default is ‘red’).</p></li>
+<li><p><strong>facecolor</strong> (<em>str</em><em>, </em><em>optional</em>) – Color of the source face (default is ‘red’).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – Transparency level of the source (default is 0.3).</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource.add_source_to_field">
 <span class="sig-name descname"><span class="pre">add_source_to_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="headerlink" href="#LightWave2D.source.PointWaveSource.add_source_to_field" title="Link to this definition">#</a></dt>
@@ -2310,17 +2481,52 @@ the specified file using the given writer and frame rate.</p>
 <dd><p>Injects the source into the field</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource.alpha">
+<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.3</span></em><a class="headerlink" href="#LightWave2D.source.PointWaveSource.alpha" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource.amplitude">
+<span class="sig-name descname"><span class="pre">amplitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#LightWave2D.source.PointWaveSource.amplitude" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource.build_geometry">
 <span class="sig-name descname"><span class="pre">build_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="headerlink" href="#LightWave2D.source.PointWaveSource.build_geometry" title="Link to this definition">#</a></dt>
 <dd><p>Build the geometry for the point source and calculate its coordinates.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource.edgecolor">
+<span class="sig-name descname"><span class="pre">edgecolor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'red'</span></em><a class="headerlink" href="#LightWave2D.source.PointWaveSource.edgecolor" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource.facecolor">
+<span class="sig-name descname"><span class="pre">facecolor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'red'</span></em><a class="headerlink" href="#LightWave2D.source.PointWaveSource.facecolor" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource.grid">
+<span class="sig-name descname"><span class="pre">grid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Grid</span></em><a class="headerlink" href="#LightWave2D.source.PointWaveSource.grid" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource.plot">
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NoReturn</span></span></span><a class="headerlink" href="#LightWave2D.source.PointWaveSource.plot" title="Link to this definition">#</a></dt>
 <dd><p>Plot the source on a 2D grid.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource.position">
+<span class="sig-name descname"><span class="pre">position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Quantity</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#LightWave2D.source.PointWaveSource.position" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource.wavelength">
+<span class="sig-name descname"><span class="pre">wavelength</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Quantity</span></em><a class="headerlink" href="#LightWave2D.source.PointWaveSource.wavelength" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -2641,16 +2847,33 @@ the specified file using the given writer and frame rate.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.add_source_to_field"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.add_source_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.add_to_ax"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.add_to_field"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.add_to_field()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.alpha"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.alpha</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.amplitude"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.amplitude</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.build_geometry"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.build_geometry()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.delay"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.delay</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.duration"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.duration</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.edgecolor"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.edgecolor</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.facecolor"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.facecolor</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.grid"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.grid</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.plot"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.plot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.position_0"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.position_0</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.position_1"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.position_1</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource"><code class="docutils literal notranslate"><span class="pre">LineWaveSource</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.add_source_to_field"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.add_source_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.add_to_ax"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.add_to_field"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.add_to_field()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.alpha"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.alpha</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.amplitude"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.amplitude</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.build_geometry"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.build_geometry()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.edgecolor"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.edgecolor</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.facecolor"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.facecolor</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.grid"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.grid</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.plot"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.plot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.position_0"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.position_0</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.position_1"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.position_1</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.wavelength"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.wavelength</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.MultiWavelength"><code class="docutils literal notranslate"><span class="pre">MultiWavelength</span></code></a><ul class="nav section-nav flex-column">
@@ -2665,16 +2888,31 @@ the specified file using the given writer and frame rate.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource"><code class="docutils literal notranslate"><span class="pre">PointPulseSource</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.add_source_to_field"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.add_source_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.add_to_ax"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.add_to_ax()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.alpha"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.alpha</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.amplitude"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.amplitude</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.build_geometry"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.build_geometry()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.delay"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.delay</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.duration"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.duration</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.edgecolor"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.edgecolor</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.facecolor"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.facecolor</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.grid"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.grid</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.plot"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.plot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.position"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.position</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource"><code class="docutils literal notranslate"><span class="pre">PointWaveSource</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.add_source_to_field"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.add_source_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.add_to_ax"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.add_to_field"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.add_to_field()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.alpha"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.alpha</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.amplitude"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.amplitude</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.build_geometry"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.build_geometry()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.edgecolor"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.edgecolor</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.facecolor"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.facecolor</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.grid"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.grid</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.plot"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.plot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.position"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.position</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.wavelength"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.wavelength</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.pml.PML"><code class="docutils literal notranslate"><span class="pre">PML</span></code></a><ul class="nav section-nav flex-column">
