@@ -671,41 +671,41 @@
 <div class="viewcode-block" id="Experiment.add_point_source">
 <a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_point_source">[docs]</a>
     <span class="nd">@add_to_source</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_point_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">PointSource</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_point_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">PointWaveSource</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to add a source.PointSource to the simulation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">PointSource</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">PointWaveSource</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Experiment.add_point_impulsion">
 <a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_point_impulsion">[docs]</a>
     <span class="nd">@add_to_source</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_point_impulsion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">PointImpulsion</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_point_impulsion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">PointPulseSource</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to add a source.Impulsion to the simulation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">PointImpulsion</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">PointPulseSource</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Experiment.add_line_source">
 <a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_line_source">[docs]</a>
     <span class="nd">@add_to_source</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_line_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">LineSource</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_line_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">LineWaveSource</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to add a source.LineSource to the simulation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">LineSource</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">LineWaveSource</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Experiment.add_line_impulsion">
 <a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_line_impulsion">[docs]</a>
     <span class="nd">@add_to_source</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_line_impulsion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">LineImpulsion</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_line_impulsion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">source</span><span class="o">.</span><span class="n">LinePulseSource</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to add a source.LineSource to the simulation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">LineImpulsion</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="n">LinePulseSource</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Experiment.add_point_detector">
@@ -822,7 +822,7 @@
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_cpp_set_sources</span><span class="p">(</span>
-            <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">binding</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">]</span>
+            <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">]</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_cpp_run</span><span class="p">(</span><span class="n">Ez_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">)</span>
