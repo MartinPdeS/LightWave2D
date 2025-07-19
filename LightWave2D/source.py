@@ -67,12 +67,12 @@ class MultiWavelenth:
         Wavelength(s) of the source.
     amplitude : Union[float, List[float], np.ndarray]
         Amplitude(s) of the source.
-    delay : Optional[Union[float, List[float], np.ndarray]], optional
+    delay : Optional[units.Quantity], optional
         Delay(s) for each wavelength (default is None).
     """
     wavelength: units.Quantity
     amplitude: Any
-    delay: Optional[Any] = None
+    delay: Optional[units.Quantity] = None
 
     def init_base_parameters(self) -> NoReturn:
         """
@@ -85,7 +85,7 @@ class MultiWavelenth:
             raise ValueError('Size of wavelength and amplitude and (option) delay must be the same.')
 
         if not self.delay:
-            self.delay = np.zeros(self.wavelength.size)
+            self.delay = np.zeros(self.wavelength.size) * units.second
 
         self.delay = np.atleast_1d(self.delay)
 
@@ -96,7 +96,6 @@ class MultiWavelenth:
         """
         Build the multi-wavelength source object and calculate its coordinates.
         """
-        print(self.omega.to('hertz').magnitude)
         self.binding = interface_source.MultiWavelength(
             omega=self.omega.to('hertz').magnitude,
             amplitude=self.amplitude,
@@ -130,12 +129,12 @@ class Impulsion:
         Amplitude of the impulsion.
     duration : float
         Duration of the impulsion.
-    delay : float
+    delay : units.Quantity
         Delay before the impulsion starts.
     """
     amplitude: float
-    duration: float
-    delay: float
+    duration: units.Quantity
+    delay: units.Quantity
 
     def init_base_parameters(self) -> NoReturn:
         """Initialize base parameters (if needed)."""
@@ -231,7 +230,7 @@ class Point:
     position : Tuple[Union[float, str], Union[float, str]]
         Position (x, y) of the point in the simulation grid.
     """
-    position: Tuple[Union[float, str], Union[float, str]]
+    position: Tuple[Union[units.Quantity, str], Union[units.Quantity, str]]
 
     def build_geometry(self) -> NoReturn:
         """
@@ -254,8 +253,8 @@ class Point:
             The axis to which the point source will be added.
         """
         ax.scatter(
-            self.p0.x,
-            self.p0.y,
+            self.p0.x.to('meter').magnitude,
+            self.p0.y.to('meter').magnitude,
             color=self.facecolor,
             label='source'
         )
@@ -325,7 +324,7 @@ class PointImpulsion(Impulsion, Point, BaseSource):
         Duration of the impulsion.
     position : Tuple[Union[float, str], Union[float, str]]
         Position (x, y) of the source.
-    delay : float
+    delay : units.Quantity
         Delay before the impulsion starts.
     """
 
@@ -353,7 +352,7 @@ class LineImpulsion(Impulsion, Line, BaseSource):
         Starting position (x, y) of the source.
     position_1 : Tuple[Union[float, str], Union[float, str]]
         Ending position (x, y) of the source.
-    delay : float
+    delay : units.Quantity
         Delay before the impulsion starts.
     """
 

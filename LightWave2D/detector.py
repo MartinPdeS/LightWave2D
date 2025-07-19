@@ -122,7 +122,7 @@ class PointDetector(BaseDetector):
     data : numpy.ndarray
         The data collected by the detector over time.
     """
-    position: Tuple[units.Quantity, units.Quantity]
+    position: Tuple[units.Quantity | str, units.Quantity | str]
     coherent: bool = True
     data: np.ndarray = field(init=False)
 
@@ -156,6 +156,7 @@ class PointDetector(BaseDetector):
         Plot the detector data over time.
         """
         figure, ax = plt.subplots(1, 1, figsize=(8, 4))
+
         ax.plot(self.grid.time_stamp, self.data)
         ax.set_ylabel('Amplitude')
         ax.set_xlabel('Time [seconds]')
@@ -171,8 +172,8 @@ class PointDetector(BaseDetector):
             The axis to which the point detector will be added.
         """
         ax.scatter(
-            self.p0.x,
-            self.p0.y,
+            self.p0.x.to('meter').magnitude,
+            self.p0.y.to('meter').magnitude,
             color=self.facecolor,
             label='detector'
         )

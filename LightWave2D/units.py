@@ -7,11 +7,11 @@ pint.set_application_registry(ureg)
 
 # Define a list of base units to scale
 BASE_UNITS = [
-    'farad', 'henry', 'meter', 'second'
+    'farad', 'henry', 'meter', 'second', 'siemens'
 ]
 
 # Define prefixes for scaling units
-SCALES = ['nano', 'micro', 'milli', '', 'kilo', 'mega', 'giga', 'tera']
+SCALES = ['femto', 'nano', 'micro', 'milli', '', 'kilo', 'mega', 'giga', 'tera']
 
 
 def initialize_registry(ureg: Optional[object] = None):

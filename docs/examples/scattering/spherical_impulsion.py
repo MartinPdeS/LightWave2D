@@ -31,7 +31,7 @@ scatterer = experiment.add_circle(
     position=('50%', '50%'),  # Center position of the scatterer
     epsilon_r=2.5,            # Relative permittivity of the scatterer
     radius=4 * units.micrometer,
-    sigma=0e6
+    sigma=0 * (units.siemens / units.meter)  # Conductivity of the scatterer
 )
 
 # %%
@@ -49,7 +49,7 @@ source = experiment.add_line_impulsion(
 experiment.add_pml(
     order=1,          # Order of the PML polynomial profile
     width='20%',      # Width of the PML region as a percentage of grid size
-    sigma_max=10_000    # Maximum conductivity for the PML
+    sigma_max=10_000 * (units.siemens / units.meter)    # Maximum conductivity for the PML
 )
 
 # %%
@@ -57,7 +57,7 @@ experiment.add_pml(
 experiment.plot()
 
 # Run the FDTD simulation
-experiment.run_fdtd()
+experiment.run()
 
 
 # %%
@@ -66,7 +66,7 @@ animation = experiment.show_propagation(
     skip_frame=5,                            # Number of frames to skip in the animation
     unit_size=5,                             # Size of each unit in the animation
     colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
-    scale_max=2
+    enhance_contrast=4
 )
 
 # Save the animation as a GIF file

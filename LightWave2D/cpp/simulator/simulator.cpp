@@ -1,7 +1,9 @@
 #include "simulator.h"
 
 
-std::tuple<pybind11::array_t<double>, pybind11::array_t<double>> compute_yee_gradients(const Config &config, FieldSet& field_set)
+// void
+std::tuple<pybind11::array_t<double>, pybind11::array_t<double>>
+FDTDSimulator::compute_yee_gradients(FieldSet& field_set)
 {
     // Initialize gradient arrays
     pybind11::array_t<double> dEz_dx({config.nx - 1, config.ny});
@@ -11,6 +13,7 @@ std::tuple<pybind11::array_t<double>, pybind11::array_t<double>> compute_yee_gra
     py_ref_rw<double, 2>
         dEz_dx_r = dEz_dx.mutable_unchecked<2>(),
         dEz_dy_r = dEz_dy.mutable_unchecked<2>();
+
     py_ref_r<double, 2> Ez_r = field_set.get_Ez_r();
 
 
@@ -29,10 +32,10 @@ std::tuple<pybind11::array_t<double>, pybind11::array_t<double>> compute_yee_gra
 }
 
 
-void update_magnetic_fields(const Config& config, const MeshSet& mesh_set, FieldSet& field_set)
-{
+void
+FDTDSimulator::update_magnetic_fields(FieldSet& field_set) {
     // Compute Yee gradients of the electric field
-    auto [dEz_dx, dEz_dy] = compute_yee_gradients(config, field_set);
+    auto [dEz_dx, dEz_dy] = compute_yee_gradients(field_set);
 
     // Get references to arrays
     py_ref_r<double, 2>
@@ -58,7 +61,9 @@ void update_magnetic_fields(const Config& config, const MeshSet& mesh_set, Field
             Hy_rw(i, j) += (config.dt / mesh_set.mu) * dEz_dx_r(i, j) * (1 - sigma_x_r(i, j) * (config.dt / mesh_set.mu) / 2);
 }
 
-std::tuple<pybind11::array_t<double>, pybind11::array_t<double>> compute_magnetic_field_gradients(const Config &config, FieldSet& field_set)
+// void
+std::tuple<pybind11::array_t<double>, pybind11::array_t<double>>
+FDTDSimulator::compute_magnetic_field_gradients(FieldSet& field_set)
 {
     // Initialize gradient arrays
     pybind11::array_t<double> dHy_dx({config.nx - 1, config.ny - 1});
@@ -89,7 +94,8 @@ std::tuple<pybind11::array_t<double>, pybind11::array_t<double>> compute_magneti
 }
 
 
-void apply_kerr_effect(const Config &config, FieldSet& field_set, MeshSet& mesh_set)
+void
+FDTDSimulator::apply_kerr_effect(FieldSet& field_set)
 {
     // Get mutable references to the z electric field
     py_ref_rw<double, 2> Ez_rw = field_set.get_Ez_rw();
@@ -110,7 +116,8 @@ void apply_kerr_effect(const Config &config, FieldSet& field_set, MeshSet& mesh_
 }
 
 
-void apply_second_harmonic_generation(const Config &config, FieldSet& field_set, MeshSet& mesh_set)
+void
+FDTDSimulator::apply_second_harmonic_generation(FieldSet& field_set)
 {
     // Get mutable references to the z electric field
     py_ref_rw<double, 2> Ez_rw = field_set.get_Ez_rw();
@@ -126,10 +133,11 @@ void apply_second_harmonic_generation(const Config &config, FieldSet& field_set,
     }
 }
 
-void update_electric_field(const Config &config, FieldSet& field_set, MeshSet& mesh_set)
+void
+FDTDSimulator::update_electric_field(FieldSet& field_set)
 {
     // Compute the Yee gradients of the magnetic fields Hx and Hy
-    auto [dHy_dx, dHx_dy] = compute_magnetic_field_gradients(config, field_set);
+    auto [dHy_dx, dHx_dy] = compute_magnetic_field_gradients(field_set);
 
     // Get mutable references to the z electric field
     py_ref_rw<double, 2> Ez_rw = field_set.get_Ez_rw();
@@ -147,7 +155,8 @@ void update_electric_field(const Config &config, FieldSet& field_set, MeshSet& m
             Ez_rw(i, j) += (config.dt / epsilon_r(i, j)) * (dHy_dx_r(i, j) - dHx_dy_r(i, j));
 }
 
-void apply_absorption(const Config &config, FieldSet &field_set, MeshSet &mesh_set) {
+void
+FDTDSimulator::apply_absorption(FieldSet &field_set) {
     // Get references to arrays
     py_ref_rw<double, 2> Ez_rw = field_set.get_Ez_rw();
 
@@ -168,7 +177,8 @@ void apply_absorption(const Config &config, FieldSet &field_set, MeshSet &mesh_s
 }
 
 
-void update_field(const Config &config, py_ref_rw<double, 3>& Ez_time_r, FieldSet& field_set)
+void
+FDTDSimulator::update_field(py_ref_rw<double, 3>& Ez_time_r, FieldSet& field_set)
 {
     // Get reference to the electric field
     py_ref_r<double, 2> Ez_r = field_set.get_Ez_r();
@@ -179,59 +189,40 @@ void update_field(const Config &config, py_ref_rw<double, 3>& Ez_time_r, FieldSe
 }
 
 
-void run_fdtd(
-    pybind11::array_t<double> Ez_time,
-    const std::vector<double>& time_stamp,
-    const pybind11::array_t<double>& sigma_x,
-    const pybind11::array_t<double>& sigma_y,
-    const pybind11::array_t<double>& epsilon,
-    const pybind11::array_t<double>& gamma,
-    const pybind11::array_t<double>& n2,
-    const double dt,
-    const double mu_0,
-    const size_t n_steps,
-    const double dx,
-    const double dy,
-    const size_t nx,
-    const size_t ny,
-    std::vector<std::shared_ptr<BaseSource>>& sources
-    )
+void
+FDTDSimulator::run(pybind11::array_t<double> Ez_time)
 {
     // Get mutable reference to the 3D array for Ez over time
     py_ref_rw<double, 3> Ez_time_r = Ez_time.mutable_unchecked<3>();
 
     // // Initialize MeshSet and FieldSet
-    MeshSet mesh_set(epsilon, n2, gamma, mu_0, sigma_x, sigma_y);
-    Config config(dx, dy, dt, nx, ny, time_stamp);
-    FieldSet field_set(config);
+    FieldSet field_set(this->config);
 
 
     // Time-stepping loop
-    for (size_t iteration = 0; iteration < n_steps; ++iteration)
+    for (size_t iteration = 0; iteration < this->config.time_stamp.size(); ++iteration)
     {
         // Update the magnetic fields Hx and Hy using Maxwell's equations
-        update_magnetic_fields(config, mesh_set, field_set);
+        this->update_magnetic_fields(field_set);
 
         // Update the electric field Ez using Maxwell's equations
-        update_electric_field(config, field_set, mesh_set);
+        this->update_electric_field(field_set);
 
         // Apply Kerr effect to the electric field Ez
         // apply_kerr_effect(config, field_set, mesh_set);
 
         // Apply Third-Harmonic Generation (THG) to the electric field Ez
-        apply_second_harmonic_generation(config, field_set, mesh_set);
+        this->apply_second_harmonic_generation(field_set);
 
         // Apply absorption to the electric field Ez
-        apply_absorption(config, field_set, mesh_set);
+        this->apply_absorption(field_set);
 
         // Add source contributions to the electric field Ez
-        for (auto& source : sources){
+        for (auto& source : sources)
             source->add_to_field(config, field_set);
 
-        }
-
         // Update the field data for the current time step
-        update_field(config, Ez_time_r, field_set);
+        this->update_field(Ez_time_r, field_set);
 
         // Move to the next time step
         config.next();

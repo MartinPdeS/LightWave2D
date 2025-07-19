@@ -27,12 +27,12 @@ experiment = Experiment(grid=grid)
 
 # %%
 # Add an elliptic scatterer to the experiment
-# scatterer = experiment.add_ellipse(
-#     position=('30%', '40%'),  # Center position of the ellipse
-#     width=4 * units.micrometer,
-#     height=10 * units.micrometer,
-#     epsilon_r=2               # Relative permittivity of the ellipse
-# )
+scatterer = experiment.add_ellipse(
+    position=('30%', '40%'),  # Center position of the ellipse
+    width=4 * units.micrometer,
+    height=10 * units.micrometer,
+    epsilon_r=2               # Relative permittivity of the ellipse
+)
 
 # %%
 # Add a line source to the experiment
@@ -45,14 +45,14 @@ source = experiment.add_line_source(
 
 # %%
 # Add a perfectly matched layer (PML) to absorb boundary reflections
-# experiment.add_pml(
-#     order=1,          # Order of the PML polynomial profile
-#     width='10%',      # Width of the PML region as a percentage of grid size
-#     sigma_max=5000    # Maximum conductivity for the PML
-# )
+experiment.add_pml(
+    order=1,          # Order of the PML polynomial profile
+    width='10%',      # Width of the PML region as a percentage of grid size
+    sigma_max=5000 * units.siemens / units.meter    # Maximum conductivity for the PML
+)
 
 # Run the FDTD simulation
-experiment.run_fdtd()
+experiment.run()
 
 # Plot the entire experiment setup
 # experiment.plot()
@@ -61,23 +61,25 @@ experiment.run_fdtd()
 # Plot the last time frame of the computed fields
 experiment.plot_frame(
     frame_number=-1,  # Plot the last frame
+    enhance_contrast=2,
     colormap=colormaps.polytechnique.red_black_blue  # Colormap for the plot
 )
 
-# # %%
-# # Save the last time frame as an image
-# experiment.save_frame_as_image(
-#     frame_number=-1,  # Frame number to save
-#     filename='elliptic_scatterer_last_frame.png'  # Filename for the image
-# )
+# %%
+# Save the last time frame as an image
+experiment.save_frame_as_image(
+    frame_number=-1,  # Frame number to save
+    enhance_contrast=2,
+    filename='elliptic_scatterer_last_frame.png'  # Filename for the image
+)
 
 # %%
 # Render an animation of the field propagation over time
-# animation = experiment.render_propagation(
-#     skip_frame=5,                            # Number of frames to skip in the animation
-#     unit_size=5,                             # Size of each unit in the animation
-#     colormap=colormaps.polytechnique.red_black_blue  # Colormap for the animation
-# )
+animation = experiment.render_propagation(
+    skip_frame=5,                            # Number of frames to skip in the animation
+    unit_size=5,                             # Size of each unit in the animation
+    colormap=colormaps.polytechnique.red_black_blue  # Colormap for the animation
+)
 
-# # Save the animation as a GIF file
-# animation.save('./elliptic_scatterer_propagation.gif', writer='Pillow', fps=10)
+# Save the animation as a GIF file
+animation.save('./elliptic_scatterer_propagation.gif', writer='Pillow', fps=10)

@@ -17,6 +17,8 @@ public:
     pybind11::array_t<double> sigma_x;
     pybind11::array_t<double> sigma_y;
 
+    MeshSet() = default;
+
     MeshSet(
         const pybind11::array_t<double>& epsilon,
         const pybind11::array_t<double>& n2,

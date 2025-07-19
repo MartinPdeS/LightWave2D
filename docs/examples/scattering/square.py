@@ -47,7 +47,7 @@ source = experiment.add_line_source(
 experiment.add_pml(
     order=1,          # Order of the PML polynomial profile
     width='10%',      # Width of the PML region as a percentage of grid size
-    sigma_max=5000    # Maximum conductivity for the PML
+    sigma_max=5000 * units.siemens / units.meter    # Maximum conductivity for the PML
 )
 
 # %%
@@ -61,7 +61,7 @@ detector = experiment.add_point_detector(
 experiment.plot()
 
 # Run the FDTD simulation
-experiment.run_fdtd()
+experiment.run()
 
 # %%
 # Plot the field measured at the detector
@@ -71,7 +71,7 @@ detector.plot_data()
 # Plot the last time frame of the computed fields
 experiment.plot_frame(
     frame_number=-1,  # Plot the last frame
-    scale_max=2       # Maximum scale for the field visualization
+    enhance_contrast=2       # Maximum scale for the field visualization
 )
 
 # %%

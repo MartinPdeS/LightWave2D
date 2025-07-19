@@ -19,7 +19,7 @@ grid = Grid(
     resolution=0.1 * units.micrometer,
     size_x=60 * units.micrometer,
     size_y=30 * units.micrometer,
-    n_steps=100
+    n_steps=300
 )
 
 # Initialize the experiment with the defined grid
@@ -37,7 +37,7 @@ scatterer = experiment.add_lense(
 # %%
 # Add a point source to the experiment
 source = experiment.add_point_source(
-    wavelength=[1310 * units.nanometer],
+    wavelength=[1310] * units.nanometer,
     position=('10%', '50%'),        # Position of the source
     amplitude=10e10                    # Amplitude of the source
 )
@@ -45,7 +45,7 @@ source = experiment.add_point_source(
 # %%
 # Add a point detector to the experiment
 detector = experiment.add_point_detector(
-    position=('60%', '50%')  # Position of the detector
+    position=('40%', '50%')  # Position of the detector
 )
 
 # %%
@@ -53,7 +53,7 @@ detector = experiment.add_point_detector(
 experiment.add_pml(
     order=1,          # Order of the PML polynomial profile
     width='10%',      # Width of the PML region as a percentage of grid size
-    sigma_max=5000    # Maximum conductivity for the PML
+    sigma_max=5000 * (units.siemens / units.meter)    # Maximum conductivity for the PML
 )
 
 # %%
@@ -61,7 +61,7 @@ experiment.add_pml(
 experiment.plot()
 
 # Run the FDTD simulation
-experiment.run_fdtd()
+experiment.run()
 
 # Plot the field measured at the detector
 detector.plot_data()
@@ -70,7 +70,7 @@ detector.plot_data()
 # Plot the last time frame of the computed fields
 experiment.plot_frame(
     frame_number=-1,  # Plot the last frame
-    scale_max=3,      # Maximum scale for the field visualization
+    enhance_contrast=3,      # Maximum scale for the field visualization
     colormap=colormaps.polytechnique.red_black_blue  # Colormap for the plot
 )
 
@@ -80,7 +80,7 @@ animation = experiment.render_propagation(
     skip_frame=5,                            # Number of frames to skip in the animation
     unit_size=5,                             # Size of each unit in the animation
     colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
-    scale_max=3
+    enhance_contrast=3
 )
 
 # Save the animation as a GIF file

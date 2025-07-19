@@ -29,7 +29,7 @@ config_dict = dict(
 
 
 @dataclass(config=config_dict)
-class Experiment:
+class Experiment(interface_simulator.FDTDSimulator):
     """Class representing an FDTD simulation experiment."""
 
     grid: Grid
@@ -42,6 +42,8 @@ class Experiment:
         self.Ez_t = numpy.zeros((self.grid.n_steps, *self.grid.shape))
         self.epsilon = numpy.ones(self.grid.shape) * Physics.epsilon_0
         self.pml = None
+
+        super().__init__()
 
     def get_gradient(self, field: numpy.ndarray, axis: str) -> numpy.ndarray:
         """
@@ -68,18 +70,13 @@ class Experiment:
         return gradient
 
     @_plot_helper
-    def plot(self, ax: plt.Axes, unit_size: int = 8, colormap: Optional[Union[str, object]] = 'Blues') -> None:
+    def plot(self, ax: plt.Axes, ) -> None:
         """
         Generates a plot of the FDTD simulation setup using a specified colormap.
 
         This function initializes a plotting scene and adds elements of the FDTD simulation
         such as components, sources, detectors, and optionally the PML layers. It adjusts
         the axis properties and attaches a colorbar based on the selected colormap.
-
-        Parameters
-        ----------
-        colormap : Optional[Union[str, object]])
-            The colormap to use for the plot. If 'None' is passed, a default dark-themed colormap is used. Default is 'Blues'.
 
         """
         # Add PML layers to the plot if present
@@ -246,7 +243,7 @@ class Experiment:
 
         return epsilon_r_mesh * Physics.epsilon_0
 
-    def run_fdtd(self) -> None:
+    def run(self) -> None:
         r"""
         Run the Finite-Difference Time-Domain (FDTD) simulation.
 
@@ -290,31 +287,39 @@ class Experiment:
         sigma_x, sigma_y = self.get_sigma()
         epsilon = self.get_epsilon()
 
-        interface_simulator.run_fdtd(
-            Ez=self.Ez_t,
-            time_stamp=self.grid.time_stamp.to('second').magnitude,
-            sigma_x=sigma_x,
-            sigma_y=sigma_y,
-            epsilon=epsilon,
-            gamma=epsilon * 0,
-            n2=(epsilon * 0).to('farad/meter').magnitude,
+        self._cpp_set_config(
             dt=self.grid.dt.to('second').magnitude,
-            mu_0=Physics.mu_0.to('henry/meter').magnitude,
-            n_steps=self.grid.n_steps,
             dx=self.grid.dx.to('meter').magnitude,
             dy=self.grid.dy.to('meter').magnitude,
             nx=self.grid.n_x,
             ny=self.grid.n_y,
+            time_stamp=self.grid.time_stamp.to('second').magnitude
+        )
+
+        self._cpp_set_geometry_mesh(
+            epsilon=epsilon.to('farad/meter').magnitude,
+            n2=(epsilon * 0).to('farad/meter').magnitude,  # Non-linear refractive index, if any
+            gamma=(epsilon * 0).to('farad/meter').magnitude,  # Non-linear absorption, if any
+            sigma_x=sigma_x.to('siemens/meter').magnitude,
+            sigma_y=sigma_y.to('siemens/meter').magnitude,
+            mu_0=Physics.mu_0.to('henry/meter').magnitude
+        )
+
+        self._cpp_set_sources(
             sources=[s.binding for s in self.sources]
         )
+
+        self._cpp_run(Ez_time=self.Ez_t)
+
+        for detector in self.detectors:
+            detector.update_data(self.Ez_t)
 
     @_plot_helper
     def plot_frame(
             self,
             ax: plt.Axes,
             frame_number: int,
-            scale_max: float = 2,
-            unit_size: int = 6,
+            enhance_contrast: float = 1,
             show_intensity: bool = False,
             colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
         """
@@ -327,10 +332,8 @@ class Experiment:
         ----------
         frame_number : int
             The index of the frame to be visualized.
-        scale_max : float, optional
+        enhance_contrast : float, optional
             The maximum scale factor for the color limits of the field. Default is 5.
-        unit_size : int, optional
-            The base unit size for the plot. Default is 6.
         show_intensity : bool, optional
             If True, displays the intensity instead of the amplitude. Default is False.
         colormap : Optional[Union[str, object]], optional
@@ -357,7 +360,7 @@ class Experiment:
             component.add_to_ax(ax)
 
         vmin, vmax = image.get_clim()
-        max_diff = max(abs(vmin), abs(vmax)) / scale_max
+        max_diff = max(abs(vmin), abs(vmax)) / enhance_contrast
         image.set_clim([-max_diff, max_diff])
 
         plt.colorbar(image)
@@ -368,7 +371,7 @@ class Experiment:
             ax: plt.Axes,
             frame_number: int,
             filename: str,
-            scale_max: float = 5,
+            enhance_contrast: float = 1,
             dpi: int = 200,
             show_intensity: bool = False,
             colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
@@ -384,7 +387,7 @@ class Experiment:
             The index of the frame to be saved.
         filename : str
             The file path where the image will be saved.
-        scale_max : float, optional
+        enhance_contrast : float, optional
             The maximum scale factor for the color limits of the image. Default is 5.
         figsize : tuple, optional
             The base unit size for the plot. Default is 6.
@@ -406,8 +409,8 @@ class Experiment:
             data = self.Ez_t[frame_number].T
 
         image = ax.pcolormesh(
-            self.grid.x_stamp,
-            self.grid.y_stamp,
+            self.grid.x_stamp.to('meter').magnitude,
+            self.grid.y_stamp.to('meter').magnitude,
             data,
             cmap=colormap
         )
@@ -416,7 +419,7 @@ class Experiment:
             component.add_to_ax(ax)
 
         vmin, vmax = image.get_clim()
-        max_diff = max(abs(vmin), abs(vmax)) / scale_max
+        max_diff = max(abs(vmin), abs(vmax)) / enhance_contrast
         image.set_clim([-max_diff, max_diff])
 
         plt.savefig(filename, dpi=dpi)
@@ -453,7 +456,7 @@ class Experiment:
     def render_propagation(
             self,
             skip_frame: int = 10,
-            scale_max: float = 1,
+            enhance_contrast: float = 1,
             unit_size: int = 6,
             auto_adjust_clim: bool = False,
             fps: int = 10,
@@ -468,7 +471,7 @@ class Experiment:
         ----------
         skip_frame : int, optional
             The number of time steps to skip between frames in the animation. Default is 10.
-        scale_max : float, optional
+        enhance_contrast : float, optional
             The maximum scale factor for the color limits of the field amplitude. Default is 1.
         unit_size : int, optional
             The base unit size for scaling the plot elements. Default is 6.
@@ -490,8 +493,8 @@ class Experiment:
             # Initialize the field display
             initial_field = numpy.zeros(self.Ez_t[0].shape).T
             field_artist = ax.pcolormesh(
-                self.grid.x_stamp,
-                self.grid.y_stamp,
+                self.grid.x_stamp.to('meter').magnitude,
+                self.grid.y_stamp.to('meter').magnitude,
                 initial_field,
                 cmap=colormap
             )
@@ -512,7 +515,7 @@ class Experiment:
             for component in self.components:
                 artist_list.append(component.add_to_ax(ax))
 
-            max_amplitude = abs(self.Ez_t).max() / scale_max
+            max_amplitude = abs(self.Ez_t).max() / enhance_contrast
             field_artist.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
 
         def update(frame) -> List:
@@ -534,7 +537,7 @@ class Experiment:
             field_artist.set_array(field_t)
 
             if auto_adjust_clim:
-                max_amplitude = abs(field_t).max() / scale_max
+                max_amplitude = abs(field_t).max() / enhance_contrast
                 field_artist.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
 
             title.set_text(f'time: {time:.1e}')

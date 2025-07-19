@@ -48,7 +48,7 @@ class BaseComponent:
     edgecolor: str = 'blue'
     alpha: float = 0.3
     rotation: float = 0
-    sigma: float = 0
+    sigma: units.Quantity = 0 * (units.siemens / units.meter)
 
     def __post_init__(self):
         """
@@ -153,18 +153,18 @@ class Waveguide(BaseComponent):
 
     Parameters
     ----------
-    position_0 : Tuple[Union[float, str], Union[float, str]]
+    position_0 : Tuple[units.Quantity | str, units.Quantity | str]
         The starting position of the waveguide.
-    position_1 : Tuple[Union[float, str], Union[float, str]]
+    position_1 : Tuple[units.Quantity | str, units.Quantity | str]
         The ending position of the waveguide.
-    width : float
+    width : units.Quantity | str
         The width of the waveguide.
-    epsilon_r : float
+    epsilon_r : units.Quantity
         The relative permittivity inside the waveguide.
     """
-    position_0: Tuple[Union[float, str], Union[float, str]]
-    position_1: Tuple[Union[float, str], Union[float, str]]
-    width: float
+    position_0: Tuple[units.Quantity | str, units.Quantity | str]
+    position_1: Tuple[units.Quantity | str, units.Quantity | str]
+    width: units.Quantity
     epsilon_r: float
 
     def __post_init__(self):
@@ -182,9 +182,12 @@ class Waveguide(BaseComponent):
         Compute the polygon of the waveguide.
         """
         line = geo.LineString(
-            [(self.coordinate_0.x, self.coordinate_0.y), (self.coordinate_1.x, self.coordinate_1.y)]
+            [
+                (self.coordinate_0.x.to('meter').magnitude, self.coordinate_0.y.to('meter').magnitude),
+                (self.coordinate_1.x.to('meter').magnitude, self.coordinate_1.y.to('meter').magnitude)
+            ]
         )
-        self.polygon = line.buffer(self.width / 2)
+        self.polygon = line.buffer(self.width.to('meter').magnitude / 2)
 
 
 @dataclass(config=config_dict)
@@ -201,7 +204,7 @@ class Square(BaseComponent):
     side_length : float
         The side length of the square scatterer.
     """
-    position: Tuple[Union[units.Quantity, str], Union[units.Quantity, str]]
+    position: Tuple[units.Quantity | str, units.Quantity | str]
     epsilon_r: float
     side_length: units.Quantity
 
@@ -374,17 +377,17 @@ class RingResonator(BaseComponent):
         The width of the ring.
     """
     grid: Grid
-    position: Tuple[Union[float, str], Union[float, str]]
+    position: Tuple[units.Quantity | str, units.Quantity | str]
     epsilon_r: float
-    inner_radius: float
-    width: float
+    inner_radius: units.Quantity
+    width: units.Quantity
 
     def compute_polygon(self) -> NoReturn:
         """
         Compute the polygon of the ring resonator.
         """
-        inner_circle = geo.Point(self.coordinate.x, self.coordinate.y).buffer(self.inner_radius)
-        outer_circle = geo.Point(self.coordinate.x, self.coordinate.y).buffer(self.inner_radius + self.width)
+        inner_circle = geo.Point(self.coordinate.x.to('meter').magnitude, self.coordinate.y.to('meter').magnitude).buffer(self.inner_radius.to('meter').magnitude)
+        outer_circle = geo.Point(self.coordinate.x.to('meter').magnitude, self.coordinate.y.to('meter').magnitude).buffer(self.inner_radius.to('meter').magnitude + self.width.to('meter').magnitude)
         self.polygon = outer_circle.difference(inner_circle)
 
 
@@ -406,8 +409,8 @@ class Lense(BaseComponent):
     """
     position: Tuple[Union[float, str], Union[float, str]]
     epsilon_r: float
-    width: float
-    curvature: float
+    width: units.Quantity
+    curvature: units.Quantity
 
     def compute_polygon(self) -> NoReturn:
         """
@@ -417,7 +420,7 @@ class Lense(BaseComponent):
         x0 = self.coordinate.x + self.curvature - self.width / 2
         x1 = self.coordinate.x - self.curvature + self.width / 2
 
-        arc3 = geo.Point(x0, self.coordinate.y).buffer(self.curvature, resolution=100)
-        arc4 = geo.Point(x1, self.coordinate.y).buffer(self.curvature, resolution=100)
+        arc3 = geo.Point(x0.to('meter').magnitude, self.coordinate.y.to('meter').magnitude).buffer(self.curvature.to('meter').magnitude, resolution=100)
+        arc4 = geo.Point(x1.to('meter').magnitude, self.coordinate.y.to('meter').magnitude).buffer(self.curvature.to('meter').magnitude, resolution=100)
 
         self.polygon = arc3.intersection(arc4)

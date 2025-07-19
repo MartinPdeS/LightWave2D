@@ -70,7 +70,7 @@ def test_add_sources(experiment, method, params):
 
 # Test adding a PML
 def test_add_pml(experiment):
-    pml = experiment.add_pml(order=1, width='10%', sigma_max=5000)
+    pml = experiment.add_pml(order=1, width='10%', sigma_max=5000 * (units.siemens / units.meter))
     assert pml is not None  # Assuming pmls is a list of added elements
 
 

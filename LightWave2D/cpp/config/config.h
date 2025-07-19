@@ -17,6 +17,8 @@ public:
     ssize_t iteration = 0;
     double time = 0;
 
+    Config() = default;
+
     Config(
         const double dx,
         const double dy,

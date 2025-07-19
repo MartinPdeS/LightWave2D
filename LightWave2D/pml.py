@@ -36,7 +36,7 @@ class PML:
     """
     grid: Grid
     width: str = "10"
-    sigma_max: float = 0.045
+    sigma_max: units.Quantity = 0.045 * units.siemens / units.meter
     order: int = 3
 
     def __post_init__(self):
@@ -59,10 +59,17 @@ class PML:
         top_boundary = y_mesh > self.width_stop.y
         right_boundary = x_mesh > self.width_stop.x
 
-        self.sigma_y[bottom_boundary] = self.sigma_max * ((self.width_start.y.to('meter').magnitude - y_mesh[bottom_boundary].to('meter').magnitude) / self.width_start.y.to('meter').magnitude) ** self.order
-        self.sigma_y[top_boundary] = self.sigma_max * ((y_mesh[top_boundary].to('meter').magnitude - self.width_stop.y.to('meter').magnitude) / self.width_start.y.to('meter').magnitude) ** self.order
-        self.sigma_x[left_boundary] = self.sigma_max * ((self.width_start.x.to('meter').magnitude - x_mesh[left_boundary].to('meter').magnitude) / self.width_start.x.to('meter').magnitude) ** self.order
-        self.sigma_x[right_boundary] = self.sigma_max * ((x_mesh[right_boundary].to('meter').magnitude - self.width_stop.x.to('meter').magnitude) / self.width_start.x.to('meter').magnitude) ** self.order
+        _sigma_max = self.sigma_max.to('siemens/meter').magnitude
+
+        self.sigma_y[bottom_boundary] = _sigma_max * ((self.width_start.y.to('meter').magnitude - y_mesh[bottom_boundary].to('meter').magnitude) / self.width_start.y.to('meter').magnitude) ** self.order
+        self.sigma_y[top_boundary] = _sigma_max * ((y_mesh[top_boundary].to('meter').magnitude - self.width_stop.y.to('meter').magnitude) / self.width_start.y.to('meter').magnitude) ** self.order
+        self.sigma_x[left_boundary] = _sigma_max * ((self.width_start.x.to('meter').magnitude - x_mesh[left_boundary].to('meter').magnitude) / self.width_start.x.to('meter').magnitude) ** self.order
+        self.sigma_x[right_boundary] = _sigma_max * ((x_mesh[right_boundary].to('meter').magnitude - self.width_stop.x.to('meter').magnitude) / self.width_start.x.to('meter').magnitude) ** self.order
+
+        self.sigma_x *= units.siemens / units.meter
+        self.sigma_y *= units.siemens / units.meter
+
+
 
     def add_to_ax(self, ax: plt.Axes, distance_units: units.Quantity = units.meter) -> NoReturn:
         """
@@ -78,9 +85,9 @@ class PML:
         cmap = ListedColormap(cmap)
 
         ax.pcolormesh(
-            self.grid.x_stamp.to(distance_units).magnitude,
-            self.grid.y_stamp.to(distance_units).magnitude,
-            self.sigma_y.T + self.sigma_x.T,
+            self.grid.x_stamp.to('meter').magnitude,
+            self.grid.y_stamp.to('meter').magnitude,
+            self.sigma_y.T.to('siemens/meter').magnitude + self.sigma_x.T.to('siemens/meter').magnitude,
             cmap=cmap,
         )
 

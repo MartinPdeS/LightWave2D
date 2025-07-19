@@ -2,26 +2,33 @@
 #include <pybind11/stl.h>
 #include "source.h"
 
-PYBIND11_MODULE(interface_source, module) {
-    pybind11::class_<BaseSource, std::shared_ptr<BaseSource>>(module, "BaseSource");
+namespace py = pybind11;
 
-    pybind11::class_<MultiWavelength, BaseSource, std::shared_ptr<MultiWavelength>>(module, "MultiWavelength")
-        .def(
-            pybind11::init<const pybind11::array_t<double>&, const pybind11::array_t<double>&, const pybind11::array_t<double>&, const pybind11::array_t<ssize_t>&>(),
-            pybind11::arg("omega"),
-            pybind11::arg("amplitude"),
-            pybind11::arg("delay"),
-            pybind11::arg("indexes")
-        )
-        .def("add_to_field", &MultiWavelength::add_to_field);
+PYBIND11_MODULE(interface_source, m) {
+    m.doc() = "Python bindings for FDTD simulation sources";
 
-    pybind11::class_<Impulsion, BaseSource, std::shared_ptr<Impulsion>>(module, "Impulsion")
+    // Abstract base class
+    py::class_<BaseSource, std::shared_ptr<BaseSource>>(m, "BaseSource");
+
+    // Multi-wavelength source
+    py::class_<MultiWavelength, BaseSource, std::shared_ptr<MultiWavelength>>(m, "MultiWavelength")
         .def(
-            pybind11::init<const double, const double, const double, const pybind11::array_t<ssize_t>&>(),
-            pybind11::arg("amplitude"),
-            pybind11::arg("duration"),
-            pybind11::arg("delay"),
-            pybind11::arg("indexes")
+            py::init<const py::array_t<double>&, const py::array_t<double>&, const py::array_t<double>&, const py::array_t<ssize_t>&>(),
+            py::arg("omega"),
+            py::arg("amplitude"),
+            py::arg("delay"),
+            py::arg("indexes")
         )
-        .def("add_to_field", &Impulsion::add_to_field);
+        .def("add_to_field", &MultiWavelength::add_to_field, "Injects the source into the field");
+
+    // Impulse source
+    py::class_<Impulsion, BaseSource, std::shared_ptr<Impulsion>>(m, "Impulsion")
+        .def(
+            py::init<const double, const double, const double, const py::array_t<ssize_t>&>(),
+            py::arg("amplitude"),
+            py::arg("duration"),
+            py::arg("delay"),
+            py::arg("indexes")
+        )
+        .def("add_to_field", &Impulsion::add_to_field, "Injects the impulse into the field");
 }
