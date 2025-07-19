@@ -54,7 +54,8 @@ dependencies = [
     "numpy ==2.2.6",
     'opencv-python ~=4.10',
     "pydantic >=2.9.2,<2.11.0",
-    'ffmpeg ~= 1.4'
+    'ffmpeg ~= 1.4',
+    'pint>=0.24'
 ]
 
 [tool.setuptools_scm]

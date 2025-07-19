@@ -1,5 +1,6 @@
 import pytest
 import numpy as np
+import pint
 from LightWave2D.grid import Grid
 
 
@@ -98,6 +99,20 @@ def test_parse_y_strings(default_grid, key, val):
     grid = default_grid
     expected = val(grid) if callable(val) else val
     assert grid.parse_y_position(key) == expected
+
+
+def test_grid_initialization_with_units():
+    ureg = pint.UnitRegistry()
+    grid = Grid(
+        resolution=ureg('1 micrometer'),
+        size_x=ureg.Quantity(32, 'micrometer'),
+        size_y='16 micrometer',
+        n_steps=100
+    )
+
+    assert grid.dx == pytest.approx(1e-6)
+    assert grid.size_x == pytest.approx(32e-6)
+    assert grid.size_y == pytest.approx(16e-6)
 
 
 

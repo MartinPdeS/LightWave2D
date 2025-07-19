@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from typing import Union, Optional
+from typing import Union, Optional, Any
 import numpy
 from LightWave2D.physics import Physics
 from pydantic.dataclasses import dataclass
 import shapely.geometry as geo
+from LightWave2D.units import to_meters, Quantity
 
 config_dict = dict(
     kw_only=True,
     slots=True,
-    extra='forbid'
+    extra='forbid',
+    arbitrary_types_allowed=True
 )
 
 
@@ -35,12 +37,16 @@ class Grid:
         size_y (float): Size of the grid in the y-direction in meters.
         n_steps (int): Number of time steps for the simulation (default is 200).
     """
-    resolution: float
-    size_x: float
-    size_y: float
+    resolution: Any
+    size_x: Any
+    size_y: Any
     n_steps: int = 200
 
     def __post_init__(self):
+        self.resolution = to_meters(self.resolution)
+        self.size_x = to_meters(self.size_x)
+        self.size_y = to_meters(self.size_y)
+
         self.n_x = int(self.size_x / self.resolution)
         self.n_y = int(self.size_y / self.resolution)
         self.dx = self.size_x / self.n_x  # Should be approximately equal to the resolution
@@ -76,7 +82,7 @@ class Grid:
         distance_mesh = numpy.sqrt((x_mesh - x0)**2 + (y_mesh - y0)**2)
         return distance_mesh
 
-    def get_coordinate(self, x: Optional[Union[float, str]] = None, y: Optional[Union[float, str]] = None) -> NameSpace:
+    def get_coordinate(self, x: Optional[Union[float, str, Quantity]] = None, y: Optional[Union[float, str, Quantity]] = None) -> NameSpace:
         """
         Get the coordinate and index for a given position in the grid.
 
@@ -93,6 +99,10 @@ class Grid:
             x = self.parse_x_position(x)
         if isinstance(y, str):
             y = self.parse_y_position(y)
+        if isinstance(x, Quantity):
+            x = to_meters(x)
+        if isinstance(y, Quantity):
+            y = to_meters(y)
 
         if x is not None:
             x = numpy.clip(x, self.x_stamp[0], self.x_stamp[-1])
@@ -106,7 +116,7 @@ class Grid:
 
         return coordinate
 
-    def parse_y_position(self, value: Union[str, float]) -> float:
+    def parse_y_position(self, value: Union[str, float, Quantity]) -> float:
         """
         Convert a position string to a y-coordinate.
 
@@ -116,6 +126,8 @@ class Grid:
         Returns:
             float: Corresponding y-coordinate.
         """
+        if isinstance(value, Quantity):
+            return to_meters(value)
         if isinstance(value, str):
             value = value.lower()
             if '%' in value:
@@ -135,7 +147,7 @@ class Grid:
 
         return value
 
-    def parse_x_position(self, value: Union[str, float]) -> float:
+    def parse_x_position(self, value: Union[str, float, Quantity]) -> float:
         """
         Convert a position string to an x-coordinate.
 
@@ -145,6 +157,8 @@ class Grid:
         Returns:
             float: Corresponding x-coordinate.
         """
+        if isinstance(value, Quantity):
+            return to_meters(value)
         if isinstance(value, str):
             value = value.lower()
             if '%' in value:

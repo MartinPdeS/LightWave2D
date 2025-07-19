@@ -71,6 +71,7 @@ Coding examples
 
 
 LightWave2D was developed with the aim of being an intuitive and easy to use tool.
+All dimensional arguments can now be provided using `pint` quantities or strings with units.
 Below are two examples that illustrate this:
 
 # Spherical scatterer
@@ -80,10 +81,11 @@ Below are two examples that illustrate this:
    from LightWave2D.grid import Grid
    from LightWave2D.experiment import Experiment
    from MPSPlots import colormaps
+   import LightWave2D.units as units
 
    grid = Grid(
-       resolution=0.1e-6,
-       size_x=32e-6,
+       resolution=units.ureg('0.1 micrometer'),
+       size_x='32 micrometer',
        size_y=20e-6,
        n_steps=300
    )
