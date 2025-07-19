@@ -55,7 +55,7 @@ For common versions of Windows, Linux, and macOS, (on x86_64 architecture), the 
    >>> pip install LightWave2D
 
 Building Documentation Locally
-****************************
+******************************
 
 To generate the HTML documentation on your machine, install the optional dependencies and run:
 
