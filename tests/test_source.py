@@ -1,13 +1,14 @@
 import pytest
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
+import LightWave2D.units as units
 
 
 # Test the grid initialization
 def test_grid_initialization(grid):
     assert grid.resolution == 1e-6
-    assert grid.size_x == 10e-6
-    assert grid.size_y == 5e-6
+    assert grid.size_x == pytest.approx(10e-6)
+    assert grid.size_y == pytest.approx(5e-6)
     assert grid.n_steps == 20
 
 
@@ -18,8 +19,24 @@ def test_experiment_initialization(experiment, grid):
 
 # Test adding scatterers
 @pytest.mark.parametrize("method, params", [
-    ('add_square', {'position': ('25%', '20%'), 'epsilon_r': 2, 'side_length': 3e-6}),
-    ('add_ellipse', {'position': ('25%', '70%'), 'epsilon_r': 2, 'width': 5e-6, 'height': 10e-6, 'rotation': 10})
+    (
+        'add_square',
+        {
+            'position': ('25%', '20%'),
+            'epsilon_r': 2,
+            'side_length': units.to_meters(3 * units.micrometer)
+        }
+    ),
+    (
+        'add_ellipse',
+        {
+            'position': ('25%', '70%'),
+            'epsilon_r': 2,
+            'width': units.to_meters(5 * units.micrometer),
+            'height': units.to_meters(10 * units.micrometer),
+            'rotation': 10
+        }
+    )
 ])
 def test_add_scatterers(experiment, method, params):
     scatterer = getattr(experiment, method)(**params)
@@ -28,8 +45,23 @@ def test_add_scatterers(experiment, method, params):
 
 # Test adding sources
 @pytest.mark.parametrize("method, params", [
-    ('add_point_source', {'wavelength': 1550e-9, 'position': ('30%', '70%'), 'amplitude': 10}),
-    ('add_line_source', {'wavelength': 1550e-9, 'position_0': ('10%', '100%'), 'position_1': ('10%', '0%'), 'amplitude': 10})
+    (
+        'add_point_source',
+        {
+            'wavelength': units.to_meters(1550 * units.nanometer),
+            'position': ('30%', '70%'),
+            'amplitude': 10
+        }
+    ),
+    (
+        'add_line_source',
+        {
+            'wavelength': units.to_meters(1550 * units.nanometer),
+            'position_0': ('10%', '100%'),
+            'position_1': ('10%', '0%'),
+            'amplitude': 10
+        }
+    )
 ])
 def test_add_sources(experiment, method, params):
     source = getattr(experiment, method)(**params)
@@ -44,7 +76,7 @@ def test_add_pml(experiment):
 
 # Test adding a detector
 def test_add_detector(experiment):
-    detector = experiment.add_point_detector(position=(5e-6, 'center'))
+    detector = experiment.add_point_detector(position=(units.to_meters(5 * units.micrometer), 'center'))
     assert detector in experiment.detectors  # Assuming detectors is a list of added elements
 
 

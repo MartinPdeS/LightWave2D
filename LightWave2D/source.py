@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-from typing import Tuple, NoReturn, List, Union, Optional
+from typing import Tuple, NoReturn, List, Union, Optional, Any
 from LightWave2D.utils import bresenham_line
 from pydantic.dataclasses import dataclass
 from matplotlib.path import Path
@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
 from LightWave2D.binary import SourceInterface
+from LightWave2D.units import to_meters
 
 # Configuration dictionary for dataclasses
 config_dict = {
@@ -69,15 +70,17 @@ class MultiWavelenth:
     delay : Optional[Union[float, List[float], np.ndarray]], optional
         Delay(s) for each wavelength (default is None).
     """
-    wavelength: Union[float, List[float], np.ndarray]
-    amplitude: Union[float, List[float], np.ndarray]
-    delay: Optional[Union[float, List[float], np.ndarray]] = None
+    wavelength: Any
+    amplitude: Any
+    delay: Optional[Any] = None
 
     def init_base_parameters(self) -> NoReturn:
         """
         Initialize the base parameters for the wavelengths.
         """
         self.wavelength = np.atleast_1d(self.wavelength)
+        # Convert wavelength values to meters to ensure consistent units
+        self.wavelength = np.asarray([to_meters(w) for w in self.wavelength])
         self.amplitude = np.atleast_1d(self.amplitude)
 
         if self.wavelength.size != self.amplitude.size:

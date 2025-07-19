@@ -11,14 +11,15 @@ We will define the simulation grid, add a square scatterer and a line source, ap
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
 from MPSPlots.colormaps import polytechnique
+import LightWave2D.units as units
 
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.1e-6,  # Grid resolution in meters
-    size_x=4 * 8e-6,    # Grid size in the x direction in meters
-    size_y=4 * 4e-6,    # Grid size in the y direction in meters
-    n_steps=500         # Number of time steps for the simulation
+    resolution=0.1 * units.micrometer,  # Grid resolution
+    size_x=32 * units.micrometer,       # Grid size in the x direction
+    size_y=16 * units.micrometer,       # Grid size in the y direction
+    n_steps=500
 )
 
 # Initialize the experiment with the defined grid
@@ -29,13 +30,13 @@ experiment = Experiment(grid=grid)
 scatterer = experiment.add_square(
     position=('25%', '50%'),  # Center position of the scatterer
     epsilon_r=2,              # Relative permittivity of the scatterer
-    side_length=5e-6          # Side length of the square scatterer in meters
+    side_length=5 * units.micrometer  # Side length of the square scatterer
 )
 
 # %%
 # Add a line source to the experiment
 source = experiment.add_line_source(
-    wavelength=1550e-9,       # Wavelength of the source in meters
+    wavelength=1550 * units.nanometer,  # Wavelength of the source
     position_0=('10%', '100%'),  # Starting position of the source
     position_1=('10%', '0%'),    # Ending position of the source
     amplitude=10              # Amplitude of the source
@@ -52,7 +53,7 @@ experiment.add_pml(
 # %%
 # Add a point detector to the experiment
 detector = experiment.add_point_detector(
-    position=(25e-6, 'center')  # Position of the detector
+    position=(25 * units.micrometer, 'center')  # Position of the detector
 )
 
 # %%

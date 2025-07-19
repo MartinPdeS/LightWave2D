@@ -78,32 +78,32 @@ Below are two examples that illustrate this:
 
 .. code:: python
 
-   from LightWave2D.grid import Grid
-   from LightWave2D.experiment import Experiment
-   from MPSPlots import colormaps
-   import LightWave2D.units as units
+    from LightWave2D.grid import Grid
+    from LightWave2D.experiment import Experiment
+    from MPSPlots import colormaps
+    import LightWave2D.units as units
 
-   grid = Grid(
-       resolution=units.ureg('0.1 micrometer'),
-       size_x='32 micrometer',
-       size_y=20e-6,
-       n_steps=300
-   )
+    grid = Grid(
+        resolution=0.1 * units.micrometer,
+        size_x=32 * units.micrometer,
+        size_y=20 * units.micrometer,
+        n_steps=300
+    )
 
    experiment = Experiment(grid=grid)
 
-   scatterer = experiment.add_circle(
-       position=('30%', '50%'),
-       epsilon_r=2,
-       radius=3e-6
-   )
+    scatterer = experiment.add_circle(
+        position=('30%', '50%'),
+        epsilon_r=2,
+        radius=3 * units.micrometer
+    )
 
-   source = experiment.add_line_source(
-       wavelength=1550e-9,
-       point_0=('10%', '100%'),
-       point_1=('10%', '0%'),
-       amplitude=10,
-   )
+    source = experiment.add_line_source(
+        wavelength=1550 * units.nanometer,
+        point_0=('10%', '100%'),
+        point_1=('10%', '0%'),
+        amplitude=10,
+    )
 
    experiment.add_pml(order=1, width=70, sigma_max=5000)
 
@@ -130,28 +130,28 @@ Below are two examples that illustrate this:
    from LightWave2D.experiment import Experiment
    from MPSPlots.colormaps import polytechnique
 
-   grid = Grid(
-       resolution=0.1e-6,
-       size_x=50e-6,
-       size_y=30e-6,
-       n_steps=800
-   )
+    grid = Grid(
+        resolution=0.1 * units.micrometer,
+        size_x=50 * units.micrometer,
+        size_y=30 * units.micrometer,
+        n_steps=800
+    )
 
    experiment = Experiment(grid=grid)
 
 
-   scatterer = experiment.add_ring_resonator(
-       position=('35%', '50%'),
-       epsilon_r=1.5,
-       inner_radius=4e-6,
-       width=2e-6
-   )
+    scatterer = experiment.add_ring_resonator(
+        position=('35%', '50%'),
+        epsilon_r=1.5,
+        inner_radius=4 * units.micrometer,
+        width=2 * units.micrometer
+    )
 
-   source = experiment.add_point_source(
-       wavelength=1550e-9,
-       position=('25%', '50%'),
-       amplitude=100,
-   )
+    source = experiment.add_point_source(
+        wavelength=1550 * units.nanometer,
+        position=('25%', '50%'),
+        amplitude=100,
+    )
 
    pml = experiment.add_pml(order=1, width=70, sigma_max=5000)
 
@@ -174,27 +174,27 @@ Below are two examples that illustrate this:
    from LightWave2D.experiment import Experiment
    from MPSPlots import colormaps
 
-   grid = Grid(
-       resolution=0.1e-6,
-       size_x=60e-6,
-       size_y=30e-6,
-       n_steps=1200
-   )
+    grid = Grid(
+        resolution=0.1 * units.micrometer,
+        size_x=60 * units.micrometer,
+        size_y=30 * units.micrometer,
+        n_steps=1200
+    )
 
    experiment = Experiment(grid=grid)
 
-   scatterer = experiment.add_lense(
-       position=('35%', '50%'),
-       epsilon_r=2,
-       curvature=10e-6,
-       width=5e-6
-   )
+    scatterer = experiment.add_lense(
+        position=('35%', '50%'),
+        epsilon_r=2,
+        curvature=10 * units.micrometer,
+        width=5 * units.micrometer
+    )
 
-   source = experiment.add_point_source(
-       wavelength=1550e-9,
-       position=('10%', '50%'),
-       amplitude=10,
-   )
+    source = experiment.add_point_source(
+        wavelength=1550 * units.nanometer,
+        position=('10%', '50%'),
+        amplitude=10,
+    )
 
 
    experiment.add_pml(order=1, width=50, sigma_max=5000)
