@@ -11,14 +11,15 @@ We will define the simulation grid, add a lens scatterer, a point source, and a 
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
 from MPSPlots import colormaps
+import LightWave2D.units as units
 
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.1e-6,  # Grid resolution in meters
-    size_x=60e-6,       # Grid size in the x direction in meters
-    size_y=30e-6,       # Grid size in the y direction in meters
-    n_steps=100         # Number of time steps for the simulation
+    resolution=0.1 * units.micrometer,
+    size_x=60 * units.micrometer,
+    size_y=30 * units.micrometer,
+    n_steps=100
 )
 
 # Initialize the experiment with the defined grid
@@ -29,14 +30,14 @@ experiment = Experiment(grid=grid)
 scatterer = experiment.add_lense(
     position=('35%', '50%'),  # Center position of the lens
     epsilon_r=2,              # Relative permittivity of the lens
-    curvature=10e-6,          # Curvature of the lens in meters
-    width=5e-6                # Width of the lens in meters
+    curvature=10 * units.micrometer,
+    width=5 * units.micrometer
 )
 
 # %%
 # Add a point source to the experiment
 source = experiment.add_point_source(
-    wavelength=[1310e-9],  # Wavelengths of the source in meters
+    wavelength=[1310 * units.nanometer],
     position=('10%', '50%'),        # Position of the source
     amplitude=10e10                    # Amplitude of the source
 )

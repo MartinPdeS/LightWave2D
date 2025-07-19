@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from typing import Tuple, Union, NoReturn
+from typing import Tuple, Any, NoReturn
 from dataclasses import field
 import numpy as np
 from LightWave2D.grid import Grid
@@ -121,7 +121,7 @@ class PointDetector(BaseDetector):
     data : numpy.ndarray
         The data collected by the detector over time.
     """
-    position: Union[Tuple[float, str], Tuple[str, str]]
+    position: Tuple[Any, Any]
     coherent: bool = True
     data: np.ndarray = field(init=False)
 

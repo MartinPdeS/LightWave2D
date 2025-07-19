@@ -1,20 +1,46 @@
 import pytest
 import numpy as np
-import pint
 from LightWave2D.grid import Grid
+import LightWave2D.units as units
 
 
 @pytest.fixture
 def default_grid():
     """Backward compatibility fixture kept for tests using it directly."""
-    return Grid(resolution=1e-6, size_x=32e-6, size_y=16e-6, n_steps=3000)
+    return Grid(
+        resolution=1 * units.micrometer,
+        size_x=32 * units.micrometer,
+        size_y=16 * units.micrometer,
+        n_steps=3000
+    )
 
 
 # List of dictionaries for grid initialization parameters
 grid_parameters = [
-    dict(resolution=1e-6, size_x=32e-6, size_y=16e-6, n_steps=3000, expected_n_x=32, expected_n_y=16),
-    dict(resolution=0.5e-6, size_x=64e-6, size_y=32e-6, n_steps=1000, expected_n_x=128, expected_n_y=64),
-    dict(resolution=2e-6, size_x=64e-6, size_y=32e-6, n_steps=5000, expected_n_x=32, expected_n_y=16)
+    dict(
+        resolution=1 * units.micrometer,
+        size_x=32 * units.micrometer,
+        size_y=16 * units.micrometer,
+        n_steps=3000,
+        expected_n_x=32,
+        expected_n_y=16
+    ),
+    dict(
+        resolution=0.5 * units.micrometer,
+        size_x=64 * units.micrometer,
+        size_y=32 * units.micrometer,
+        n_steps=1000,
+        expected_n_x=128,
+        expected_n_y=64
+    ),
+    dict(
+        resolution=2 * units.micrometer,
+        size_x=64 * units.micrometer,
+        size_y=32 * units.micrometer,
+        n_steps=5000,
+        expected_n_x=32,
+        expected_n_y=16
+    )
 ]
 
 
@@ -28,8 +54,9 @@ def test_grid_initialization(params):
     )
     assert grid.n_x == params["expected_n_x"], f"Expected n_x to be {params['expected_n_x']}, got {grid.n_x}"
     assert grid.n_y == params["expected_n_y"], f"Expected n_y to be {params['expected_n_y']}, got {grid.n_y}"
-    assert grid.dx == params["resolution"], f"Expected dx to be {params['resolution']}, got {grid.dx}"
-    assert grid.dy == params["resolution"], f"Expected dy to be {params['resolution']}, got {grid.dy}"
+    expected_res = units.to_meters(params["resolution"])
+    assert grid.dx == expected_res, f"Expected dx to be {expected_res}, got {grid.dx}"
+    assert grid.dy == expected_res, f"Expected dy to be {expected_res}, got {grid.dy}"
     assert grid.n_steps == params["n_steps"], f"Expected n_steps to be {params['n_steps']}, got {grid.n_steps}"
 
 
@@ -102,11 +129,10 @@ def test_parse_y_strings(default_grid, key, val):
 
 
 def test_grid_initialization_with_units():
-    ureg = pint.UnitRegistry()
     grid = Grid(
-        resolution=ureg('1 micrometer'),
-        size_x=ureg.Quantity(32, 'micrometer'),
-        size_y='16 micrometer',
+        resolution=1 * units.micrometer,
+        size_x=32 * units.micrometer,
+        size_y=16 * units.micrometer,
         n_steps=100
     )
 

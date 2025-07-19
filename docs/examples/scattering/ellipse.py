@@ -11,14 +11,15 @@ We will define the simulation grid, add an elliptic scatterer and a line source,
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
 from MPSPlots import colormaps
+import LightWave2D.units as units
 
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.1e-6,  # Grid resolution in meters
-    size_x=40e-6,       # Grid size in the x direction in meters
-    size_y=30e-6,       # Grid size in the y direction in meters
-    n_steps=100        # Number of time steps for the simulation
+    resolution=0.1 * units.micrometer,
+    size_x=40 * units.micrometer,
+    size_y=30 * units.micrometer,
+    n_steps=100
 )
 
 # Initialize the experiment with the defined grid
@@ -28,15 +29,15 @@ experiment = Experiment(grid=grid)
 # Add an elliptic scatterer to the experiment
 scatterer = experiment.add_ellipse(
     position=('30%', '40%'),  # Center position of the ellipse
-    width=4e-6,               # Width of the ellipse in meters
-    height=10e-6,             # Height of the ellipse in meters
+    width=4 * units.micrometer,
+    height=10 * units.micrometer,
     epsilon_r=2               # Relative permittivity of the ellipse
 )
 
 # %%
 # Add a line source to the experiment
 source = experiment.add_line_source(
-    wavelength=1550e-9,       # Wavelength of the source in meters
+    wavelength=1550 * units.nanometer,
     position_0=('10%', '100%'),  # Starting position of the source
     position_1=('10%', '0%'),    # Ending position of the source
     amplitude=10              # Amplitude of the source

@@ -11,14 +11,15 @@ We will define the simulation grid, add a circular scatterer and a line source, 
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
 from MPSPlots import colormaps
+import LightWave2D.units as units
 
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.03e-6,  # Grid resolution in meters
-    size_x=32e-6,       # Grid size in the x direction in meters
-    size_y=20e-6,       # Grid size in the y direction in meters
-    n_steps=200         # Number of time steps for the simulation
+    resolution=0.03 * units.micrometer,
+    size_x=32 * units.micrometer,
+    size_y=20 * units.micrometer,
+    n_steps=200
 )
 
 # Initialize the experiment with the defined grid
@@ -29,14 +30,14 @@ experiment = Experiment(grid=grid)
 scatterer = experiment.add_circle(
     position=('30%', '50%'),  # Center position of the scatterer
     epsilon_r=1.5,            # Relative permittivity of the scatterer
-    radius=0.5e-6,              # Radius of the circular scatterer in meters
+    radius=0.5 * units.micrometer,
     sigma=0e6
 )
 
 # %%
 # Add a line source to the experiment
 source = experiment.add_line_source(
-    wavelength=1550e-9,         # Wavelength of the source in meters
+    wavelength=1550 * units.nanometer,
     position_0=('10%', '80%'),  # Starting position of the source
     position_1=('10%', '20%'),  # Ending position of the source
     amplitude=10                # Amplitude of the source
