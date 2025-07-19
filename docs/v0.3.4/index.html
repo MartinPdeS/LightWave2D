@@ -494,15 +494,17 @@ firefox<span class="w"> </span>build/html/index.html
 <section id="coding-examples">
 <h2>Coding examples<a class="headerlink" href="#coding-examples" title="Link to this heading">#</a></h2>
 <p>LightWave2D was developed with the aim of being an intuitive and easy to use tool.
+All dimensional arguments can now be provided using <cite>pint</cite> quantities or strings with units.
 Below are two examples that illustrate this:</p>
 <p># Spherical scatterer</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots</span><span class="w"> </span><span class="kn">import</span> <span class="n">colormaps</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">LightWave2D.units</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">units</span>
 
 <span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1e-6</span><span class="p">,</span>
-    <span class="n">size_x</span><span class="o">=</span><span class="mf">32e-6</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="n">units</span><span class="o">.</span><span class="n">ureg</span><span class="p">(</span><span class="s1">&#39;0.1 micrometer&#39;</span><span class="p">),</span>
+    <span class="n">size_x</span><span class="o">=</span><span class="s1">&#39;32 micrometer&#39;</span><span class="p">,</span>
     <span class="n">size_y</span><span class="o">=</span><span class="mf">20e-6</span><span class="p">,</span>
     <span class="n">n_steps</span><span class="o">=</span><span class="mi">300</span>
 <span class="p">)</span>
