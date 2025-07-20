@@ -57,4 +57,3 @@ def plot_helper(func: Callable) -> Callable:
             plt.show()
 
     return wrapper
-

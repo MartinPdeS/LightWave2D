@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from typing import Tuple, Any, NoReturn
+from typing import Tuple, NoReturn
 from dataclasses import field
 import numpy as np
 from LightWave2D.grid import Grid
