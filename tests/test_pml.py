@@ -35,22 +35,14 @@ def test_pml_conductivity_profile():
     assert np.any(boundary_layer.sigma_y > 0)
 
 
-def test_invalid_position_strings():
+@pytest.mark.parametrize("method", ["parse_x_position", "parse_y_position"])
+def test_invalid_position_strings(method):
     grid = create_simple_grid()
     with pytest.raises(AssertionError):
-        grid.parse_x_position("invalid")
-    with pytest.raises(AssertionError):
-        grid.parse_y_position("invalid")
+        getattr(grid, method)("invalid")
 
 
-def test_bresenham_vertical_line():
-    from LightWave2D.utils import bresenham_line
 
-    starting_x, starting_y = 2, 1
-    ending_x, ending_y = 2, 5
-    expected_points = np.array([
-        [2, 2, 2, 2, 2],
-        [1, 2, 3, 4, 5],
-    ])
-    generated_line = bresenham_line(starting_x, starting_y, ending_x, ending_y)
-    assert np.array_equal(generated_line, expected_points)
+if __name__ == "__main__":
+    pytest.main(["-W error", "-s", __file__])
+

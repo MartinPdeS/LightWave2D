@@ -127,6 +127,15 @@ def test_parse_y_strings(default_grid, key, val):
     assert grid.parse_y_position(key) == expected
 
 
+@pytest.mark.parametrize(
+    "method,value",
+    [("parse_x_position", "bad"), ("parse_y_position", "bad")],
+)
+def test_invalid_parse_strings(default_grid, method, value):
+    with pytest.raises(AssertionError):
+        getattr(default_grid, method)(value)
+
+
 def test_grid_initialization_with_units():
     grid = Grid(
         resolution=1 * units.micrometer,
@@ -143,4 +152,4 @@ def test_grid_initialization_with_units():
 
 
 if __name__ == "__main__":
-    pytest.main(["-W error", __file__])
+    pytest.main(["-W error", "-s", __file__])

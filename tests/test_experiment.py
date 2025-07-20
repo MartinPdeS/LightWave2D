@@ -25,3 +25,7 @@ def test_get_epsilon_sigma_without_components(experiment):
     expected = np.ones(experiment.grid.shape) * Physics.epsilon_0
     assert np.allclose(epsilon, expected)
 
+
+if __name__ == "__main__":
+    pytest.main(["-W error", "-s", __file__])
+

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-from typing import Tuple, NoReturn, Union
+from typing import Tuple, NoReturn
 from LightWave2D.utils import bresenham_line
 from matplotlib.path import Path
 import shapely.geometry as geo
@@ -21,6 +21,7 @@ config_dict = {
     'slots': True,
     'arbitrary_types_allowed': True
 }
+
 
 class BaseSource():
     """
@@ -121,6 +122,7 @@ class Line:
             label='source'
         )
 
+
 class Point:
     """
     Represents a point source in the simulation.
@@ -151,6 +153,7 @@ class Point:
             color=self.facecolor,
             label='source'
         )
+
 
 @dataclass(config=config_dict)
 class PointWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSource, Point):
@@ -202,6 +205,7 @@ class PointWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSou
             delay=np.zeros(self.amplitude.shape),
             indexes=self._slc
         )
+
 
 @dataclass(config=config_dict)
 class LineWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSource, Line):
@@ -304,6 +308,7 @@ class PointPulseSource(Impulsion, Point, BaseSource):
             delay=self.delay.to('second').magnitude,
             indexes=self._slc
         )
+
 
 @dataclass(config=config_dict)
 class LinePulseSource(interface_source.Impulsion, Impulsion, Line, BaseSource):

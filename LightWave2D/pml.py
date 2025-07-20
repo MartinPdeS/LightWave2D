@@ -69,8 +69,6 @@ class PML:
         self.sigma_x *= units.siemens / units.meter
         self.sigma_y *= units.siemens / units.meter
 
-
-
     def add_to_ax(self, ax: plt.Axes, distance_units: units.Quantity = units.meter) -> NoReturn:
         """
         Add the PML regions to a matplotlib axis.
