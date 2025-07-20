@@ -16,7 +16,7 @@ from pydantic.dataclasses import dataclass
 import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 from MPSPlots.styles import mps
-from LightWave2D.helper import _plot_helper
+from LightWave2D.helper import plot_helper
 
 from LightWave2D.binary import interface_simulator
 
@@ -69,7 +69,7 @@ class Experiment(interface_simulator.FDTDSimulator):
             raise ValueError("Axis must be 'x' or 'y'.")
         return gradient
 
-    @_plot_helper
+    @plot_helper
     def plot(self, ax: plt.Axes, ) -> None:
         """
         Generates a plot of the FDTD simulation setup using a specified colormap.
@@ -314,7 +314,7 @@ class Experiment(interface_simulator.FDTDSimulator):
         for detector in self.detectors:
             detector.update_data(self.Ez_t)
 
-    @_plot_helper
+    @plot_helper
     def plot_frame(
             self,
             ax: plt.Axes,
@@ -365,7 +365,7 @@ class Experiment(interface_simulator.FDTDSimulator):
 
         plt.colorbar(image)
 
-    @_plot_helper
+    @plot_helper
     def save_frame_as_image(
             self,
             ax: plt.Axes,
