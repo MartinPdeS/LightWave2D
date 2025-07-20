@@ -454,7 +454,7 @@
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">NoReturn</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">bresenham_line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">geo</span>
@@ -473,6 +473,7 @@
     <span class="s1">&#39;slots&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="s1">&#39;arbitrary_types_allowed&#39;</span><span class="p">:</span> <span class="kc">True</span>
 <span class="p">}</span>
+
 
 <div class="viewcode-block" id="BaseSource">
 <a class="viewcode-back" href="../../code.html#LightWave2D.source.BaseSource">[docs]</a>
@@ -600,6 +601,7 @@
 </div>
 
 
+
 <div class="viewcode-block" id="Point">
 <a class="viewcode-back" href="../../code.html#LightWave2D.source.Point">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Point</span><span class="p">:</span>
@@ -638,6 +640,7 @@
             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;source&#39;</span>
         <span class="p">)</span></div>
 </div>
+
 
 
 <div class="viewcode-block" id="PointWaveSource">
@@ -692,6 +695,7 @@
             <span class="n">delay</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
             <span class="n">indexes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slc</span>
         <span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="LineWaveSource">
@@ -800,6 +804,7 @@
             <span class="n">delay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
             <span class="n">indexes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slc</span>
         <span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="LinePulseSource">
