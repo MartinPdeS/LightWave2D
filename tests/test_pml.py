@@ -1,0 +1,56 @@
+import numpy as np
+import pytest
+from LightWave2D.grid import Grid
+from LightWave2D.pml import PML
+import LightWave2D.units as units
+
+
+def create_simple_grid():
+    return Grid(
+        resolution=1 * units.micrometer,
+        size_x=10 * units.micrometer,
+        size_y=5 * units.micrometer,
+        n_steps=10,
+    )
+
+
+def test_pml_conductivity_profile():
+    grid = create_simple_grid()
+    boundary_layer = PML(grid=grid, width="20%", sigma_max=1 * (units.siemens / units.meter), order=1)
+
+    assert boundary_layer.sigma_x.shape == (grid.n_x, grid.n_y)
+    assert boundary_layer.sigma_y.shape == (grid.n_x, grid.n_y)
+
+    interior_slice_x = boundary_layer.sigma_x[
+        boundary_layer.width_start.x_index + 1 : boundary_layer.width_stop.x_index - 1,
+        boundary_layer.width_start.y_index + 1 : boundary_layer.width_stop.y_index - 1,
+    ]
+    interior_slice_y = boundary_layer.sigma_y[
+        boundary_layer.width_start.x_index + 1 : boundary_layer.width_stop.x_index - 1,
+        boundary_layer.width_start.y_index + 1 : boundary_layer.width_stop.y_index - 1,
+    ]
+    assert np.allclose(interior_slice_x, 0)
+    assert np.allclose(interior_slice_y, 0)
+    assert np.any(boundary_layer.sigma_x > 0)
+    assert np.any(boundary_layer.sigma_y > 0)
+
+
+def test_invalid_position_strings():
+    grid = create_simple_grid()
+    with pytest.raises(AssertionError):
+        grid.parse_x_position("invalid")
+    with pytest.raises(AssertionError):
+        grid.parse_y_position("invalid")
+
+
+def test_bresenham_vertical_line():
+    from LightWave2D.utils import bresenham_line
+
+    starting_x, starting_y = 2, 1
+    ending_x, ending_y = 2, 5
+    expected_points = np.array([
+        [2, 2, 2, 2, 2],
+        [1, 2, 3, 4, 5],
+    ])
+    generated_line = bresenham_line(starting_x, starting_y, ending_x, ending_y)
+    assert np.array_equal(generated_line, expected_points)
