@@ -20,8 +20,6 @@ wheelhouse
 # Docs-specific patterns
 docs/source/gallery/*
 !docs/source/gallery/index.rst
-PyOptik/data/**/test*
-PyOptik/data/**/example*
 
 # Override for documentation_build
 !documentation_build
