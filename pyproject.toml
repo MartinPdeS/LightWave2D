@@ -47,7 +47,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "setuptools_scm[toml] ~=8.0",
+    "setuptools_scm[toml] >=8,<10",
     "MPSPlots",
     'PyOptik',
     'shapely ~=2.0',
