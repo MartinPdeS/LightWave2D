@@ -11,14 +11,14 @@ We will define the simulation grid, add a circular scatterer and a line source, 
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
 from MPSPlots import colormaps
-import LightWave2D.units as units
+from TypedUnit import ureg
 
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.03 * units.micrometer,
-    size_x=32 * units.micrometer,
-    size_y=20 * units.micrometer,
+    resolution=0.03 * ureg.micrometer,
+    size_x=32 * ureg.micrometer,
+    size_y=20 * ureg.micrometer,
     n_steps=200
 )
 
@@ -30,14 +30,14 @@ experiment = Experiment(grid=grid)
 scatterer = experiment.add_circle(
     position=('30%', '50%'),  # Center position of the scatterer
     epsilon_r=1.5,            # Relative permittivity of the scatterer
-    radius=3 * units.micrometer,
-    sigma=0 * (units.siemens / units.meter)  # Conductivity of the scatterer
+    radius=3 * ureg.micrometer,
+    sigma=0 * (ureg.siemens / ureg.meter)  # Conductivity of the scatterer
 )
 
 # %%
 # Add a line source to the experiment
 source = experiment.add_line_source(
-    wavelength=1550 * units.nanometer,
+    wavelength=1550 * ureg.nanometer,
     position_0=('10%', '80%'),  # Starting position of the source
     position_1=('10%', '20%'),  # Ending position of the source
     amplitude=10                # Amplitude of the source
@@ -48,7 +48,7 @@ source = experiment.add_line_source(
 experiment.add_pml(
     order=1,          # Order of the PML polynomial profile
     width='10%',      # Width of the PML region as a percentage of grid size
-    sigma_max=5000 * (units.siemens / units.meter)    # Maximum conductivity for the PML
+    sigma_max=5000 * (ureg.siemens / ureg.meter)    # Maximum conductivity for the PML
 )
 
 # %%
