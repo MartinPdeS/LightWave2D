@@ -28,14 +28,15 @@ We will define the simulation grid, add an elliptic scatterer and a line source,
 
 Importing the necessary packages
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-16
+.. GENERATED FROM PYTHON SOURCE LINES 11-17
 
 .. code-block:: Python
 
+    from TypedUnit import ureg
+    from MPSPlots import colormaps
+
     from LightWave2D.grid import Grid
     from LightWave2D.experiment import Experiment
-    from MPSPlots import colormaps
-    import LightWave2D.units as units
 
 
 
@@ -44,18 +45,18 @@ Importing the necessary packages
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-18
+.. GENERATED FROM PYTHON SOURCE LINES 18-19
 
 Define the simulation grid
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-28
+.. GENERATED FROM PYTHON SOURCE LINES 19-29
 
 .. code-block:: Python
 
     grid = Grid(
-        resolution=0.1 * units.micrometer,
-        size_x=40 * units.micrometer,
-        size_y=30 * units.micrometer,
+        resolution=0.1 * ureg.micrometer,
+        size_x=40 * ureg.micrometer,
+        size_y=30 * ureg.micrometer,
         n_steps=400
     )
 
@@ -69,18 +70,18 @@ Define the simulation grid
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-30
+.. GENERATED FROM PYTHON SOURCE LINES 30-31
 
 Add an elliptic scatterer to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-37
+.. GENERATED FROM PYTHON SOURCE LINES 31-38
 
 .. code-block:: Python
 
     scatterer = experiment.add_ellipse(
         position=('30%', '40%'),  # Center position of the ellipse
-        width=4 * units.micrometer,
-        height=10 * units.micrometer,
+        width=4 * ureg.micrometer,
+        height=10 * ureg.micrometer,
         epsilon_r=2               # Relative permittivity of the ellipse
     )
 
@@ -91,16 +92,16 @@ Add an elliptic scatterer to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-39
+.. GENERATED FROM PYTHON SOURCE LINES 39-40
 
 Add a line source to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-46
+.. GENERATED FROM PYTHON SOURCE LINES 40-47
 
 .. code-block:: Python
 
     source = experiment.add_line_source(
-        wavelength=1550 * units.nanometer,
+        wavelength=1550 * ureg.nanometer,
         position_0=('10%', '100%'),  # Starting position of the source
         position_1=('10%', '0%'),    # Ending position of the source
         amplitude=10                 # Amplitude of the source
@@ -113,18 +114,18 @@ Add a line source to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-48
+.. GENERATED FROM PYTHON SOURCE LINES 48-49
 
 Add a perfectly matched layer (PML) to absorb boundary reflections
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-60
+.. GENERATED FROM PYTHON SOURCE LINES 49-61
 
 .. code-block:: Python
 
     experiment.add_pml(
         order=1,          # Order of the PML polynomial profile
         width='10%',      # Width of the PML region as a percentage of grid size
-        sigma_max=5000 * units.siemens / units.meter    # Maximum conductivity for the PML
+        sigma_max=5000 * ureg.siemens / ureg.meter    # Maximum conductivity for the PML
     )
 
     # Run the FDTD simulation
@@ -140,11 +141,11 @@ Add a perfectly matched layer (PML) to absorb boundary reflections
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-62
+.. GENERATED FROM PYTHON SOURCE LINES 62-63
 
 Plot the last time frame of the computed fields
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-68
+.. GENERATED FROM PYTHON SOURCE LINES 63-69
 
 .. code-block:: Python
 
@@ -166,11 +167,11 @@ Plot the last time frame of the computed fields
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-70
+.. GENERATED FROM PYTHON SOURCE LINES 70-71
 
 Save the last time frame as an image
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-76
+.. GENERATED FROM PYTHON SOURCE LINES 71-77
 
 .. code-block:: Python
 
@@ -192,11 +193,11 @@ Save the last time frame as an image
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-78
+.. GENERATED FROM PYTHON SOURCE LINES 78-79
 
 Render an animation of the field propagation over time
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-86
+.. GENERATED FROM PYTHON SOURCE LINES 79-87
 
 .. code-block:: Python
 
@@ -229,7 +230,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 11.172 seconds)
+   **Total running time of the script:** (0 minutes 11.672 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_ellipse.py:

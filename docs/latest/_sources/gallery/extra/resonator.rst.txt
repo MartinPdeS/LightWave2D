@@ -28,14 +28,15 @@ We will define the simulation grid, add a ring resonator scatterer, a point sour
 
 Importing the necessary packages
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-16
+.. GENERATED FROM PYTHON SOURCE LINES 11-17
 
 .. code-block:: Python
 
+    from TypedUnit import ureg
+    from MPSPlots.colormaps import polytechnique
+
     from LightWave2D.grid import Grid
     from LightWave2D.experiment import Experiment
-    from MPSPlots.colormaps import polytechnique
-    from LightWave2D import units
 
 
 
@@ -44,18 +45,18 @@ Importing the necessary packages
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-18
+.. GENERATED FROM PYTHON SOURCE LINES 18-19
 
 Define the simulation grid
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-28
+.. GENERATED FROM PYTHON SOURCE LINES 19-29
 
 .. code-block:: Python
 
     grid = Grid(
-        resolution=0.1 * units.micrometer,  # Grid resolution in meters
-        size_x=50 * units.micrometer,       # Grid size in the x direction in meters
-        size_y=30 * units.micrometer,       # Grid size in the y direction in meters
+        resolution=0.1 * ureg.micrometer,  # Grid resolution in meters
+        size_x=50 * ureg.micrometer,       # Grid size in the x direction in meters
+        size_y=30 * ureg.micrometer,       # Grid size in the y direction in meters
         n_steps=200         # Number of time steps for the simulation
     )
 
@@ -69,19 +70,19 @@ Define the simulation grid
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-30
+.. GENERATED FROM PYTHON SOURCE LINES 30-31
 
 Add a ring resonator scatterer to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-38
+.. GENERATED FROM PYTHON SOURCE LINES 31-39
 
 .. code-block:: Python
 
     ring_resonator = experiment.add_ring_resonator(
         position=('50%', '49%'),  # Center position of the ring resonator
         epsilon_r=2.,            # Relative permittivity of the ring resonator
-        inner_radius=4 * units.micrometer,        # Inner radius of the ring resonator in meters
-        width=2 * units.micrometer                # Width of the ring resonator in meters
+        inner_radius=4 * ureg.micrometer,        # Inner radius of the ring resonator in meters
+        width=2 * ureg.micrometer                # Width of the ring resonator in meters
     )
 
 
@@ -92,11 +93,11 @@ Add a ring resonator scatterer to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-40
+.. GENERATED FROM PYTHON SOURCE LINES 40-41
 
 Add a waveguide to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-47
+.. GENERATED FROM PYTHON SOURCE LINES 41-48
 
 .. code-block:: Python
 
@@ -104,7 +105,7 @@ Add a waveguide to the experiment
         position_0=('0%', '25%'),  # Center position of the ring resonator
         position_1=('100%', '25%'),  # Center position of the ring resonator
         epsilon_r=2,            # Relative permittivity of the ring resonator
-        width=2 * units.micrometer                # Width of the ring resonator in meters
+        width=2 * ureg.micrometer                # Width of the ring resonator in meters
     )
 
 
@@ -114,16 +115,16 @@ Add a waveguide to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-49
+.. GENERATED FROM PYTHON SOURCE LINES 49-50
 
 Add a point source to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-56
+.. GENERATED FROM PYTHON SOURCE LINES 50-57
 
 .. code-block:: Python
 
     source = experiment.add_line_source(
-        wavelength=2110 * units.nanometer,       # Wavelength of the source in meters
+        wavelength=2110 * ureg.nanometer,       # Wavelength of the source in meters
         position_0=('10%', '23%'),  # Center position of the ring resonator
         position_1=('10%', '27%'),  # Center position of the ring resonator
         amplitude=100             # Amplitude of the source
@@ -136,18 +137,18 @@ Add a point source to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-58
+.. GENERATED FROM PYTHON SOURCE LINES 58-59
 
 Add a perfectly matched layer (PML) to absorb boundary reflections
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-64
+.. GENERATED FROM PYTHON SOURCE LINES 59-65
 
 .. code-block:: Python
 
     pml = experiment.add_pml(
         order=1,          # Order of the PML polynomial profile
         width='10%',      # Width of the PML region as a percentage of grid size
-        sigma_max=5000 * units.siemens / units.meter    # Maximum conductivity for the PML
+        sigma_max=5000 * ureg.siemens / ureg.meter    # Maximum conductivity for the PML
     )
 
 
@@ -157,11 +158,11 @@ Add a perfectly matched layer (PML) to absorb boundary reflections
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-66
+.. GENERATED FROM PYTHON SOURCE LINES 66-67
 
 Plot the experiment layout
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-72
+.. GENERATED FROM PYTHON SOURCE LINES 67-73
 
 .. code-block:: Python
 
@@ -183,11 +184,11 @@ Plot the experiment layout
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-74
+.. GENERATED FROM PYTHON SOURCE LINES 74-75
 
 Plot the last time frame of the computed fields
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-79
+.. GENERATED FROM PYTHON SOURCE LINES 75-80
 
 .. code-block:: Python
 
@@ -208,11 +209,11 @@ Plot the last time frame of the computed fields
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-81
+.. GENERATED FROM PYTHON SOURCE LINES 81-82
 
 Render an animation of the field propagation over time
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-88
+.. GENERATED FROM PYTHON SOURCE LINES 82-89
 
 .. code-block:: Python
 
@@ -244,7 +245,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 7.085 seconds)
+   **Total running time of the script:** (0 minutes 7.159 seconds)
 
 
 .. _sphx_glr_download_gallery_extra_resonator.py:

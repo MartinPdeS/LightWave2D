@@ -8,17 +8,18 @@ We will define the simulation grid, add a lens scatterer, a point source, apply 
 
 # %%
 # Importing the necessary packages
+from TypedUnit import ureg
+from MPSPlots import colormaps
+
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
-from MPSPlots import colormaps
-from LightWave2D import units
 
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.1 * units.micrometer,  # Grid resolution in meters
-    size_x=60 * units.micrometer,       # Grid size in the x direction in meters
-    size_y=30 * units.micrometer,       # Grid size in the y direction in meters
+    resolution=0.1 * ureg.micrometer,  # Grid resolution in meters
+    size_x=60 * ureg.micrometer,       # Grid size in the x direction in meters
+    size_y=30 * ureg.micrometer,       # Grid size in the y direction in meters
     n_steps=100        # Number of time steps for the simulation
 )
 
@@ -31,14 +32,14 @@ experiment = Experiment(grid=grid)
 scatterer = experiment.add_lense(
     position=('35%', '50%'),  # Center position of the lens
     epsilon_r=2,              # Relative permittivity of the lens
-    curvature=10 * units.micrometer,          # Curvature of the lens in meters
-    width=5 * units.micrometer                # Width of the lens in meters
+    curvature=10 * ureg.micrometer,          # Curvature of the lens in meters
+    width=5 * ureg.micrometer                # Width of the lens in meters
 )
 
 # %%
 # Add a point source to the experiment
 source = experiment.add_point_source(
-    wavelength=1550 * units.nanometer,       # Wavelength of the source in meters
+    wavelength=1550 * ureg.nanometer,       # Wavelength of the source in meters
     position=('10%', '50%'),  # Position of the source
     amplitude=10              # Amplitude of the source
 )
@@ -48,7 +49,7 @@ source = experiment.add_point_source(
 experiment.add_pml(
     order=1,          # Order of the PML polynomial profile
     width='10%',      # Width of the PML region as a percentage of grid size
-    sigma_max=500 * (units.siemens / units.meter)    # Maximum conductivity for the PML
+    sigma_max=500 * (ureg.siemens / ureg.meter)    # Maximum conductivity for the PML
 )
 
 

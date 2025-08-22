@@ -509,17 +509,18 @@ to download the full example code.</p>
 <p>This example demonstrates the setup and execution of an elliptic scatterer experiment using LightWave2D.
 We will define the simulation grid, add an elliptic scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.</p>
 <p>Importing the necessary packages</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots</span><span class="w"> </span><span class="kn">import</span> <span class="n">colormaps</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">LightWave2D.units</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">units</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
 </pre></div>
 </div>
 <p>Define the simulation grid</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-    <span class="n">size_x</span><span class="o">=</span><span class="mi">40</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-    <span class="n">size_y</span><span class="o">=</span><span class="mi">30</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+    <span class="n">size_x</span><span class="o">=</span><span class="mi">40</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+    <span class="n">size_y</span><span class="o">=</span><span class="mi">30</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
     <span class="n">n_steps</span><span class="o">=</span><span class="mi">400</span>
 <span class="p">)</span>
 
@@ -530,15 +531,15 @@ We will define the simulation grid, add an elliptic scatterer and a line source,
 <p>Add an elliptic scatterer to the experiment</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_ellipse</span><span class="p">(</span>
     <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;30%&#39;</span><span class="p">,</span> <span class="s1">&#39;40%&#39;</span><span class="p">),</span>  <span class="c1"># Center position of the ellipse</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">10</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">10</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
     <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span>               <span class="c1"># Relative permittivity of the ellipse</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Add a line source to the experiment</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>
+    <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>
     <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;100%&#39;</span><span class="p">),</span>  <span class="c1"># Starting position of the source</span>
     <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;0%&#39;</span><span class="p">),</span>    <span class="c1"># Ending position of the source</span>
     <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span>                 <span class="c1"># Amplitude of the source</span>
@@ -549,7 +550,7 @@ We will define the simulation grid, add an elliptic scatterer and a line source,
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span>
     <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>          <span class="c1"># Order of the PML polynomial profile</span>
     <span class="n">width</span><span class="o">=</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span>      <span class="c1"># Width of the PML region as a percentage of grid size</span>
-    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">units</span><span class="o">.</span><span class="n">meter</span>    <span class="c1"># Maximum conductivity for the PML</span>
+    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span>    <span class="c1"># Maximum conductivity for the PML</span>
 <span class="p">)</span>
 
 <span class="c1"># Run the FDTD simulation</span>
@@ -589,7 +590,7 @@ We will define the simulation grid, add an elliptic scatterer and a line source,
 <img src="../../_images/sphx_glr_ellipse_003.png" srcset="../../_images/sphx_glr_ellipse_003.png" alt="ellipse" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>MovieWriter Pillow unavailable; using Pillow instead.
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 11.172 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 11.672 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-scattering-ellipse-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/98151585bae3ac6cec7c0a6dc37dc220/ellipse.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ellipse.ipynb</span></code></a></p>

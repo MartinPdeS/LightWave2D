@@ -8,17 +8,18 @@ We will define the simulation grid, add a lens scatterer, a point source, and a 
 
 # %%
 # Importing the necessary packages
+from TypedUnit import ureg
+from MPSPlots import colormaps
+
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
-from MPSPlots import colormaps
-import LightWave2D.units as units
 
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.1 * units.micrometer,
-    size_x=60 * units.micrometer,
-    size_y=30 * units.micrometer,
+    resolution=0.1 * ureg.micrometer,
+    size_x=60 * ureg.micrometer,
+    size_y=30 * ureg.micrometer,
     n_steps=300
 )
 
@@ -30,14 +31,14 @@ experiment = Experiment(grid=grid)
 scatterer = experiment.add_lense(
     position=('35%', '50%'),  # Center position of the lens
     epsilon_r=2,              # Relative permittivity of the lens
-    curvature=10 * units.micrometer,
-    width=5 * units.micrometer
+    curvature=10 * ureg.micrometer,
+    width=5 * ureg.micrometer
 )
 
 # %%
 # Add a point source to the experiment
 source = experiment.add_point_source(
-    wavelength=[1310] * units.nanometer,
+    wavelength=[1310] * ureg.nanometer,
     position=('10%', '50%'),        # Position of the source
     amplitude=10e10                    # Amplitude of the source
 )
@@ -53,7 +54,7 @@ detector = experiment.add_point_detector(
 experiment.add_pml(
     order=1,          # Order of the PML polynomial profile
     width='10%',      # Width of the PML region as a percentage of grid size
-    sigma_max=5000 * (units.siemens / units.meter)    # Maximum conductivity for the PML
+    sigma_max=5000 * (ureg.siemens / ureg.meter)    # Maximum conductivity for the PML
 )
 
 # %%

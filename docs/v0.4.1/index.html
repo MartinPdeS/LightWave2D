@@ -428,7 +428,7 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p><strong>Date</strong>: Aug 17, 2025, <strong>Version</strong>: 0.4.1</p>
+  <p><strong>Date</strong>: Aug 22, 2025, <strong>Version</strong>: 0.4.1</p>
 <section id="lightwave2d">
 <h1>LightWave2D<a class="headerlink" href="#lightwave2d" title="Link to this heading">#</a></h1>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -500,12 +500,12 @@ Below are two examples that illustrate this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
  <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
  <span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots</span><span class="w"> </span><span class="kn">import</span> <span class="n">colormaps</span>
- <span class="kn">import</span><span class="w"> </span><span class="nn">LightWave2D.units</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">units</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span>
 
  <span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
-     <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-     <span class="n">size_x</span><span class="o">=</span><span class="mi">32</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-     <span class="n">size_y</span><span class="o">=</span><span class="mi">20</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+     <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+     <span class="n">size_x</span><span class="o">=</span><span class="mi">32</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+     <span class="n">size_y</span><span class="o">=</span><span class="mi">20</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
      <span class="n">n_steps</span><span class="o">=</span><span class="mi">300</span>
  <span class="p">)</span>
 
@@ -514,11 +514,11 @@ Below are two examples that illustrate this:</p>
  <span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_circle</span><span class="p">(</span>
      <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;30%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>
      <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-     <span class="n">radius</span><span class="o">=</span><span class="mi">3</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span>
+     <span class="n">radius</span><span class="o">=</span><span class="mi">3</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span>
  <span class="p">)</span>
 
  <span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span><span class="p">(</span>
-     <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>
+     <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>
      <span class="n">point_0</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;100%&#39;</span><span class="p">),</span>
      <span class="n">point_1</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;0%&#39;</span><span class="p">),</span>
      <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
@@ -542,11 +542,12 @@ Below are two examples that illustrate this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">polytechnique</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span>
 
  <span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
-     <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-     <span class="n">size_x</span><span class="o">=</span><span class="mi">50</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-     <span class="n">size_y</span><span class="o">=</span><span class="mi">30</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+     <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+     <span class="n">size_x</span><span class="o">=</span><span class="mi">50</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+     <span class="n">size_y</span><span class="o">=</span><span class="mi">30</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
      <span class="n">n_steps</span><span class="o">=</span><span class="mi">800</span>
  <span class="p">)</span>
 
@@ -556,12 +557,12 @@ Below are two examples that illustrate this:</p>
  <span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_ring_resonator</span><span class="p">(</span>
      <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;35%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>
      <span class="n">epsilon_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
-     <span class="n">inner_radius</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-     <span class="n">width</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span>
+     <span class="n">inner_radius</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+     <span class="n">width</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span>
  <span class="p">)</span>
 
  <span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_point_source</span><span class="p">(</span>
-     <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>
+     <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>
      <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;25%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>
      <span class="n">amplitude</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
  <span class="p">)</span>
@@ -580,11 +581,12 @@ Below are two examples that illustrate this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots</span><span class="w"> </span><span class="kn">import</span> <span class="n">colormaps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span>
 
  <span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
-     <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-     <span class="n">size_x</span><span class="o">=</span><span class="mi">60</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-     <span class="n">size_y</span><span class="o">=</span><span class="mi">30</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+     <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+     <span class="n">size_x</span><span class="o">=</span><span class="mi">60</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+     <span class="n">size_y</span><span class="o">=</span><span class="mi">30</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
      <span class="n">n_steps</span><span class="o">=</span><span class="mi">1200</span>
  <span class="p">)</span>
 
@@ -593,12 +595,12 @@ Below are two examples that illustrate this:</p>
  <span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_lense</span><span class="p">(</span>
      <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;35%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>
      <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-     <span class="n">curvature</span><span class="o">=</span><span class="mi">10</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-     <span class="n">width</span><span class="o">=</span><span class="mi">5</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">micrometer</span>
+     <span class="n">curvature</span><span class="o">=</span><span class="mi">10</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+     <span class="n">width</span><span class="o">=</span><span class="mi">5</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span>
  <span class="p">)</span>
 
  <span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_point_source</span><span class="p">(</span>
-     <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>
+     <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>
      <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>
      <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
  <span class="p">)</span>

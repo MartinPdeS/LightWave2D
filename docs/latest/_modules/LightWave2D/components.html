@@ -453,7 +453,7 @@
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic.dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
@@ -462,22 +462,16 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">patches</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">PatchCollection</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">shapely.affinity</span><span class="w"> </span><span class="kn">import</span> <span class="n">scale</span><span class="p">,</span> <span class="n">rotate</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnyUnit</span><span class="p">,</span> <span class="n">Length</span><span class="p">,</span> <span class="n">ureg</span>
 
-<span class="c1"># Configuration dictionary for dataclasses</span>
-<span class="n">config_dict</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;kw_only&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s1">&#39;extra&#39;</span><span class="p">:</span> <span class="s1">&#39;forbid&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;slots&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s1">&#39;arbitrary_types_allowed&#39;</span><span class="p">:</span> <span class="kc">True</span>
-<span class="p">}</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">config_dict</span>
 
 
 <div class="viewcode-block" id="BaseComponent">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseComponent</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a generic component in a simulation grid.</span>
@@ -502,7 +496,7 @@
     <span class="n">edgecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span>
     <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>
     <span class="n">rotation</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">sigma</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">*</span> <span class="p">(</span><span class="n">units</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">units</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span>
+    <span class="n">sigma</span><span class="p">:</span> <span class="n">AnyUnit</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">*</span> <span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -514,7 +508,7 @@
 
 <div class="viewcode-block" id="BaseComponent.build_object">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent.build_object">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">build_object</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_object</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build the permittivity mesh for the component.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -558,7 +552,7 @@
 
 <div class="viewcode-block" id="BaseComponent.plot">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent.plot">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot the component.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -574,7 +568,7 @@
 
 <div class="viewcode-block" id="BaseComponent.add_to_epsilon_r_mesh">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent.add_to_epsilon_r_mesh">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_to_epsilon_r_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsilon_r_mesh</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_to_epsilon_r_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsilon_r_mesh</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add the component&#39;s permittivity to the provided mesh.</span>
 
@@ -588,7 +582,7 @@
 
 <div class="viewcode-block" id="BaseComponent.add_to_sigma_mesh">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent.add_to_sigma_mesh">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_to_sigma_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma_mesh</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_to_sigma_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma_mesh</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add the component&#39;s sigma to the provided mesh.</span>
 
@@ -602,7 +596,7 @@
 
 <div class="viewcode-block" id="BaseComponent.add_non_linear_effect_to_field">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.BaseComponent.add_non_linear_effect_to_field">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_non_linear_effect_to_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_non_linear_effect_to_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add non-linear effects to the field.</span>
 
@@ -621,25 +615,25 @@
 
 <div class="viewcode-block" id="Waveguide">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Waveguide">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Waveguide</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a waveguide scatterer in a simulation grid.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    position_0 : Tuple[units.Quantity | str, units.Quantity | str]</span>
+<span class="sd">    position_0 : Tuple[Length | str, Length | str]</span>
 <span class="sd">        The starting position of the waveguide.</span>
-<span class="sd">    position_1 : Tuple[units.Quantity | str, units.Quantity | str]</span>
+<span class="sd">    position_1 : Tuple[Length | str, Length | str]</span>
 <span class="sd">        The ending position of the waveguide.</span>
-<span class="sd">    width : units.Quantity | str</span>
+<span class="sd">    width : Length | str</span>
 <span class="sd">        The width of the waveguide.</span>
-<span class="sd">    epsilon_r : units.Quantity</span>
+<span class="sd">    epsilon_r : float</span>
 <span class="sd">        The relative permittivity inside the waveguide.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">position_0</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
-    <span class="n">position_1</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
-    <span class="n">width</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
+    <span class="n">position_0</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">position_1</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">width</span><span class="p">:</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span>
     <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -682,12 +676,12 @@
 <span class="sd">        The center position of the scatterer.</span>
 <span class="sd">    epsilon_r : float</span>
 <span class="sd">        The relative permittivity inside the scatterer.</span>
-<span class="sd">    side_length : float</span>
+<span class="sd">    side_length : Length</span>
 <span class="sd">        The side length of the square scatterer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
     <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">side_length</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
+    <span class="n">side_length</span><span class="p">:</span> <span class="n">Length</span>
 
 <div class="viewcode-block" id="Square.compute_polygon">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Square.compute_polygon">[docs]</a>
@@ -711,27 +705,27 @@
 
 <div class="viewcode-block" id="Circle">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Circle">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Circle</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a circular scatterer in a simulation grid.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">    position : Tuple[Length | str, Length | str]</span>
 <span class="sd">        The center position of the scatterer.</span>
 <span class="sd">    epsilon_r : float</span>
 <span class="sd">        The relative permittivity inside the scatterer.</span>
 <span class="sd">    radius : float</span>
 <span class="sd">        The radius of the scatterer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
     <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">radius</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
+    <span class="n">radius</span><span class="p">:</span> <span class="n">Length</span>
 
 <div class="viewcode-block" id="Circle.compute_polygon">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Circle.compute_polygon">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the polygon of the circular scatterer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -742,27 +736,27 @@
 
 <div class="viewcode-block" id="Triangle">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Triangle">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Triangle</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a triangular scatterer in a simulation grid.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">    position : Tuple[Length | str, Length | str]</span>
 <span class="sd">        The center position of the scatterer.</span>
 <span class="sd">    epsilon_r : float</span>
 <span class="sd">        The relative permittivity inside the scatterer.</span>
-<span class="sd">    side_length : float</span>
+<span class="sd">    side_length : Length</span>
 <span class="sd">        The side length of the triangular scatterer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
     <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">side_length</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">side_length</span><span class="p">:</span> <span class="n">Length</span>
 
 <div class="viewcode-block" id="Triangle.compute_polygon">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Triangle.compute_polygon">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the polygon of the triangular scatterer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -780,33 +774,33 @@
 
 <div class="viewcode-block" id="Ellipse">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Ellipse">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Ellipse</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents an elliptical scatterer in a simulation grid.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">    position : Tuple[Length | str, Length | str]</span>
 <span class="sd">        The center position of the scatterer.</span>
-<span class="sd">    width : float</span>
+<span class="sd">    width : Length | str</span>
 <span class="sd">        The width of the ellipse.</span>
-<span class="sd">    height : float</span>
+<span class="sd">    height : Length | str</span>
 <span class="sd">        The height of the ellipse.</span>
 <span class="sd">    epsilon_r : float</span>
 <span class="sd">        The relative permittivity inside the scatterer.</span>
 <span class="sd">    resolution : float, optional</span>
 <span class="sd">        The resolution of the ellipse (default is 100).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
-    <span class="n">width</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
-    <span class="n">height</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">width</span><span class="p">:</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span>
+    <span class="n">height</span><span class="p">:</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span>
     <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">resolution_factor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mf">10e6</span>
 
 <div class="viewcode-block" id="Ellipse.compute_polygon">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Ellipse.compute_polygon">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the polygon of the elliptical scatterer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -827,14 +821,14 @@
 
 <div class="viewcode-block" id="Grating">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Grating">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Grating</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a grating in a simulation grid.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">    position : Tuple[Length | str, Length | str]</span>
 <span class="sd">        The starting position of the grating.</span>
 <span class="sd">    epsilon_r : float</span>
 <span class="sd">        The relative permittivity inside the grating.</span>
@@ -845,7 +839,7 @@
 <span class="sd">    num_periods : int</span>
 <span class="sd">        The number of periods in the grating.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
     <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">period</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">duty_cycle</span><span class="p">:</span> <span class="nb">float</span>
@@ -853,7 +847,7 @@
 
 <div class="viewcode-block" id="Grating.compute_polygon">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Grating.compute_polygon">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the polygon of the grating.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -871,14 +865,14 @@
 
 <div class="viewcode-block" id="RingResonator">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.RingResonator">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">RingResonator</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a ring resonator in a simulation grid.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">    position : Tuple[Length | str, Length | str]</span>
 <span class="sd">        The center position of the ring resonator.</span>
 <span class="sd">    epsilon_r : float</span>
 <span class="sd">        The relative permittivity inside the resonator.</span>
@@ -888,14 +882,14 @@
 <span class="sd">        The width of the ring.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span>
-    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
     <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">inner_radius</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
-    <span class="n">width</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
+    <span class="n">inner_radius</span><span class="p">:</span> <span class="n">Length</span>
+    <span class="n">width</span><span class="p">:</span> <span class="n">Length</span>
 
 <div class="viewcode-block" id="RingResonator.compute_polygon">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.RingResonator.compute_polygon">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the polygon of the ring resonator.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -908,30 +902,30 @@
 
 <div class="viewcode-block" id="Lense">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Lense">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Lense</span><span class="p">(</span><span class="n">BaseComponent</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a lens in a simulation grid.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">    position : Tuple[Length | str, Length | str]</span>
 <span class="sd">        The center position of the lens.</span>
 <span class="sd">    epsilon_r : float</span>
 <span class="sd">        The relative permittivity inside the lens.</span>
-<span class="sd">    width : float</span>
+<span class="sd">    width : Length | str</span>
 <span class="sd">        The width of the lens.</span>
-<span class="sd">    curvature : float</span>
+<span class="sd">    curvature : Length | str</span>
 <span class="sd">        The curvature of the lens (positive for convex, negative for concave).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
     <span class="n">epsilon_r</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">width</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
-    <span class="n">curvature</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
+    <span class="n">width</span><span class="p">:</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span>
+    <span class="n">curvature</span><span class="p">:</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span>
 
 <div class="viewcode-block" id="Lense.compute_polygon">
 <a class="viewcode-back" href="../../code.html#LightWave2D.components.Lense.compute_polygon">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the polygon of the lens.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

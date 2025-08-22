@@ -28,14 +28,15 @@ We will define the simulation grid, add a square scatterer and a line source, ap
 
 Importing the necessary packages
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-16
+.. GENERATED FROM PYTHON SOURCE LINES 11-17
 
 .. code-block:: Python
 
+    from TypedUnit import ureg
+    from MPSPlots.colormaps import polytechnique
+
     from LightWave2D.grid import Grid
     from LightWave2D.experiment import Experiment
-    from MPSPlots.colormaps import polytechnique
-    import LightWave2D.units as units
 
 
 
@@ -44,18 +45,18 @@ Importing the necessary packages
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-18
+.. GENERATED FROM PYTHON SOURCE LINES 18-19
 
 Define the simulation grid
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-28
+.. GENERATED FROM PYTHON SOURCE LINES 19-29
 
 .. code-block:: Python
 
     grid = Grid(
-        resolution=0.1 * units.micrometer,  # Grid resolution
-        size_x=32 * units.micrometer,       # Grid size in the x direction
-        size_y=16 * units.micrometer,       # Grid size in the y direction
+        resolution=0.1 * ureg.micrometer,  # Grid resolution
+        size_x=32 * ureg.micrometer,       # Grid size in the x direction
+        size_y=16 * ureg.micrometer,       # Grid size in the y direction
         n_steps=500
     )
 
@@ -69,18 +70,18 @@ Define the simulation grid
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-30
+.. GENERATED FROM PYTHON SOURCE LINES 30-31
 
 Add a square scatterer to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-36
+.. GENERATED FROM PYTHON SOURCE LINES 31-37
 
 .. code-block:: Python
 
     scatterer = experiment.add_square(
         position=('25%', '50%'),  # Center position of the scatterer
         epsilon_r=2,              # Relative permittivity of the scatterer
-        side_length=5 * units.micrometer  # Side length of the square scatterer
+        side_length=5 * ureg.micrometer  # Side length of the square scatterer
     )
 
 
@@ -90,16 +91,16 @@ Add a square scatterer to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-38
+.. GENERATED FROM PYTHON SOURCE LINES 38-39
 
 Add a line source to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-45
+.. GENERATED FROM PYTHON SOURCE LINES 39-46
 
 .. code-block:: Python
 
     source = experiment.add_line_source(
-        wavelength=1550 * units.nanometer,  # Wavelength of the source
+        wavelength=1550 * ureg.nanometer,  # Wavelength of the source
         position_0=('10%', '100%'),  # Starting position of the source
         position_1=('10%', '0%'),    # Ending position of the source
         amplitude=10              # Amplitude of the source
@@ -112,18 +113,18 @@ Add a line source to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-47
+.. GENERATED FROM PYTHON SOURCE LINES 47-48
 
 Add a perfectly matched layer (PML) to absorb boundary reflections
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-53
+.. GENERATED FROM PYTHON SOURCE LINES 48-54
 
 .. code-block:: Python
 
     experiment.add_pml(
         order=1,          # Order of the PML polynomial profile
         width='10%',      # Width of the PML region as a percentage of grid size
-        sigma_max=5000 * units.siemens / units.meter    # Maximum conductivity for the PML
+        sigma_max=5000 * ureg.siemens / ureg.meter    # Maximum conductivity for the PML
     )
 
 
@@ -139,16 +140,16 @@ Add a perfectly matched layer (PML) to absorb boundary reflections
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-55
+.. GENERATED FROM PYTHON SOURCE LINES 55-56
 
 Add a point detector to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-59
+.. GENERATED FROM PYTHON SOURCE LINES 56-60
 
 .. code-block:: Python
 
     detector = experiment.add_point_detector(
-        position=(25 * units.micrometer, 'center')  # Position of the detector
+        position=(25 * ureg.micrometer, 'center')  # Position of the detector
     )
 
 
@@ -158,11 +159,11 @@ Add a point detector to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-61
+.. GENERATED FROM PYTHON SOURCE LINES 61-62
 
 Plot the entire experiment setup
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-66
+.. GENERATED FROM PYTHON SOURCE LINES 62-67
 
 .. code-block:: Python
 
@@ -183,11 +184,11 @@ Plot the entire experiment setup
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-68
+.. GENERATED FROM PYTHON SOURCE LINES 68-69
 
 Plot the field measured at the detector
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-70
+.. GENERATED FROM PYTHON SOURCE LINES 69-71
 
 .. code-block:: Python
 
@@ -212,11 +213,11 @@ Plot the field measured at the detector
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-72
+.. GENERATED FROM PYTHON SOURCE LINES 72-73
 
 Plot the last time frame of the computed fields
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-77
+.. GENERATED FROM PYTHON SOURCE LINES 73-78
 
 .. code-block:: Python
 
@@ -237,11 +238,11 @@ Plot the last time frame of the computed fields
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-79
+.. GENERATED FROM PYTHON SOURCE LINES 79-80
 
 Render an animation of the field propagation over time
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-86
+.. GENERATED FROM PYTHON SOURCE LINES 80-87
 
 .. code-block:: Python
 
@@ -273,7 +274,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 8.983 seconds)
+   **Total running time of the script:** (0 minutes 8.951 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_square.py:

@@ -455,24 +455,17 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">NoReturn</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">bresenham_line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">geo</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic.dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Length</span><span class="p">,</span> <span class="n">Time</span><span class="p">,</span> <span class="n">ureg</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">bresenham_line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Physics</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.binary</span><span class="w"> </span><span class="kn">import</span> <span class="n">interface_source</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic.dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span>
-
-
-<span class="c1"># Configuration dictionary for dataclasses</span>
-<span class="n">config_dict</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;kw_only&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s1">&#39;extra&#39;</span><span class="p">:</span> <span class="s1">&#39;forbid&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;slots&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s1">&#39;arbitrary_types_allowed&#39;</span><span class="p">:</span> <span class="kc">True</span>
-<span class="p">}</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">config_dict</span>
 
 
 <div class="viewcode-block" id="BaseSource">
@@ -583,7 +576,7 @@
 
 <div class="viewcode-block" id="Line.add_to_ax">
 <a class="viewcode-back" href="../../code.html#LightWave2D.source.Line.add_to_ax">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_to_ax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="n">distance_units</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">=</span> <span class="n">units</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_to_ax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add the line source to the provided axis.</span>
 
@@ -645,7 +638,7 @@
 
 <div class="viewcode-block" id="PointWaveSource">
 <a class="viewcode-back" href="../../code.html#LightWave2D.source.PointWaveSource">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">PointWaveSource</span><span class="p">(</span><span class="n">interface_source</span><span class="o">.</span><span class="n">MultiWavelength</span><span class="p">,</span> <span class="n">MultiWavelength</span><span class="p">,</span> <span class="n">BaseSource</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a point source in a 2D light wave simulation.</span>
@@ -668,8 +661,8 @@
 <span class="sd">        Transparency level of the source (default is 0.3).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span>
-    <span class="n">wavelength</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
-    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">wavelength</span><span class="p">:</span> <span class="n">Length</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
     <span class="n">amplitude</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">edgecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
     <span class="n">facecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
@@ -700,7 +693,7 @@
 
 <div class="viewcode-block" id="LineWaveSource">
 <a class="viewcode-back" href="../../code.html#LightWave2D.source.LineWaveSource">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">LineWaveSource</span><span class="p">(</span><span class="n">interface_source</span><span class="o">.</span><span class="n">MultiWavelength</span><span class="p">,</span> <span class="n">MultiWavelength</span><span class="p">,</span> <span class="n">BaseSource</span><span class="p">,</span> <span class="n">Line</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a line source in a 2D light wave simulation.</span>
@@ -711,13 +704,13 @@
 <span class="sd">        The grid of the simulation mesh.</span>
 <span class="sd">    amplitude : float</span>
 <span class="sd">        Amplitude of the electric field.</span>
-<span class="sd">    wavelength : units.Quantity</span>
+<span class="sd">    wavelength : Length</span>
 <span class="sd">        Wavelength of the source.</span>
-<span class="sd">    position_0 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">    position_0 : Tuple[Length | str, Length | str]</span>
 <span class="sd">        Starting position (x, y) of the source.</span>
-<span class="sd">    position_1 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">    position_1 : Tuple[Length | str, Length | str]</span>
 <span class="sd">        Ending position (x, y) of the source.</span>
-<span class="sd">    delay : Optional[units.Quantity], optional</span>
+<span class="sd">    delay : Optional[ureg.Quantity], optional</span>
 <span class="sd">        Delay before the source starts (default is None).</span>
 <span class="sd">    edgecolor : str, optional</span>
 <span class="sd">        Color of the source edge (default is &#39;red&#39;).</span>
@@ -728,9 +721,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span>
     <span class="n">amplitude</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">wavelength</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
-    <span class="n">position_0</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
-    <span class="n">position_1</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">wavelength</span><span class="p">:</span> <span class="n">Length</span>
+    <span class="n">position_0</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">position_1</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
     <span class="n">edgecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
     <span class="n">facecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
     <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>
@@ -760,7 +753,7 @@
 
 <div class="viewcode-block" id="PointPulseSource">
 <a class="viewcode-back" href="../../code.html#LightWave2D.source.PointPulseSource">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">PointPulseSource</span><span class="p">(</span><span class="n">Impulsion</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">BaseSource</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a point impulsion source in a 2D light wave simulation.</span>
@@ -771,11 +764,11 @@
 <span class="sd">        The grid of the simulation mesh.</span>
 <span class="sd">    amplitude : float</span>
 <span class="sd">        Amplitude of the electric field.</span>
-<span class="sd">    duration : units.Quantity</span>
+<span class="sd">    duration : Time</span>
 <span class="sd">        Duration of the impulsion.</span>
 <span class="sd">    position : Tuple[Union[float, str], Union[float, str]]</span>
 <span class="sd">        Position (x, y) of the source.</span>
-<span class="sd">    delay : units.Quantity, optional</span>
+<span class="sd">    delay : Time, optional</span>
 <span class="sd">        Delay before the impulsion starts (default is 0 seconds).</span>
 <span class="sd">    edgecolor : str, optional</span>
 <span class="sd">        Color of the source edge (default is &#39;red&#39;).</span>
@@ -786,9 +779,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span>
     <span class="n">amplitude</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">duration</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
-    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
-    <span class="n">delay</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">second</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="n">Time</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">delay</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">second</span>
     <span class="n">edgecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
     <span class="n">facecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
     <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>
@@ -809,7 +802,7 @@
 
 <div class="viewcode-block" id="LinePulseSource">
 <a class="viewcode-back" href="../../code.html#LightWave2D.source.LinePulseSource">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">LinePulseSource</span><span class="p">(</span><span class="n">interface_source</span><span class="o">.</span><span class="n">Impulsion</span><span class="p">,</span> <span class="n">Impulsion</span><span class="p">,</span> <span class="n">Line</span><span class="p">,</span> <span class="n">BaseSource</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a line pulse source in a 2D light wave simulation.</span>
@@ -818,15 +811,15 @@
 <span class="sd">    ----------</span>
 <span class="sd">    grid : Grid</span>
 <span class="sd">        The grid of the simulation mesh.</span>
-<span class="sd">    duration : units.Quantity</span>
+<span class="sd">    duration : Time</span>
 <span class="sd">        Duration of the impulsion.</span>
 <span class="sd">    amplitude : float</span>
 <span class="sd">        Amplitude of the electric field.</span>
-<span class="sd">    position_0 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">    position_0 : Tuple[Length | str, Length | str]</span>
 <span class="sd">        Starting position (x, y) of the source.</span>
-<span class="sd">    position_1 : Tuple[Union[float, str], Union[float, str]]</span>
+<span class="sd">    position_1 : Tuple[Length | str, Length | str]</span>
 <span class="sd">        Ending position (x, y) of the source.</span>
-<span class="sd">    delay : units.Quantity, optional</span>
+<span class="sd">    delay : Time, optional</span>
 <span class="sd">        Delay before the impulsion starts (default is 0 seconds).</span>
 <span class="sd">    edgecolor : str, optional</span>
 <span class="sd">        Color of the source edge (default is &#39;red&#39;).</span>
@@ -836,11 +829,11 @@
 <span class="sd">        Transparency level of the source (default is 0.3).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span>
-    <span class="n">duration</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="n">Time</span>
     <span class="n">amplitude</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">position_0</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
-    <span class="n">position_1</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
-    <span class="n">delay</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">second</span>
+    <span class="n">position_0</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">position_1</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Length</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">delay</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">second</span>
     <span class="n">edgecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
     <span class="n">facecolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
     <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>

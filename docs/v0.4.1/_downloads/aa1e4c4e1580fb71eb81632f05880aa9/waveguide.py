@@ -8,17 +8,18 @@ We will define the simulation grid, add a waveguide and a line source, apply a p
 
 # %%
 # Importing the necessary packages
+from TypedUnit import ureg
+from MPSPlots import colormaps
+
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
-from MPSPlots import colormaps
-from LightWave2D import units
 
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.1 * units.micrometer,  # Grid resolution in meters
-    size_x=50 * units.micrometer,       # Grid size in the x direction in meters
-    size_y=15 * units.micrometer,       # Grid size in the y direction in meters
+    resolution=0.1 * ureg.micrometer,  # Grid resolution in meters
+    size_x=50 * ureg.micrometer,       # Grid size in the x direction in meters
+    size_y=15 * ureg.micrometer,       # Grid size in the y direction in meters
     n_steps=100                          # Number of time steps for the simulation
 )
 
@@ -30,13 +31,13 @@ experiment = Experiment(grid=grid)
 scatterer = experiment.add_waveguide(
     position_0=('0%', '50%'),    # Starting position of the waveguide
     position_1=('100%', '50%'),  # Ending position of the waveguide
-    width=2 * units.micrometer,  # Width of the waveguide in meters
+    width=2 * ureg.micrometer,  # Width of the waveguide in meters
     epsilon_r=2                  # Relative permittivity of the waveguide
 )
 
 # Add a line source to the experiment
 source = experiment.add_line_source(
-    wavelength=1550 * units.nanometer,         # Wavelength of the source in meters
+    wavelength=1550 * ureg.nanometer,         # Wavelength of the source in meters
     position_0=('20%', '45%'),  # Starting position of the source
     position_1=('20%', '55%'),  # Ending position of the source
     amplitude=10                # Amplitude of the source
@@ -47,7 +48,7 @@ source = experiment.add_line_source(
 experiment.add_pml(
     order=1,          # Order of the PML polynomial profile
     width='10%',      # Width of the PML region as a percentage of grid size
-    sigma_max=5000 * (units.siemens / units.meter)    # Maximum conductivity for the PML
+    sigma_max=5000 * (ureg.siemens / ureg.meter)    # Maximum conductivity for the PML
 )
 
 # %%
