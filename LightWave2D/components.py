@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from typing import NoReturn, Union, Tuple
+from typing import Tuple
 from pydantic.dataclasses import dataclass
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,20 +10,14 @@ from matplotlib.patches import PathPatch
 from matplotlib import patches
 from matplotlib.path import Path
 from matplotlib.collections import PatchCollection
-from LightWave2D.grid import Grid
 from shapely.affinity import scale, rotate
-from LightWave2D import units
+from TypedUnit import AnyUnit, Length, ureg
 
-# Configuration dictionary for dataclasses
-config_dict = {
-    'kw_only': True,
-    'extra': 'forbid',
-    'slots': True,
-    'arbitrary_types_allowed': True
-}
+from LightWave2D.grid import Grid
+from LightWave2D.utils import config_dict
 
 
-@dataclass(kw_only=True, config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class BaseComponent:
     """
     Represents a generic component in a simulation grid.
@@ -48,7 +42,7 @@ class BaseComponent:
     edgecolor: str = 'blue'
     alpha: float = 0.3
     rotation: float = 0
-    sigma: units.Quantity = 0 * (units.siemens / units.meter)
+    sigma: AnyUnit = 0 * (ureg.siemens / ureg.meter)
 
     def __post_init__(self):
         """
@@ -58,7 +52,7 @@ class BaseComponent:
         self.coordinate = self.grid.get_coordinate(x=x0, y=y0)
         self.build_object()
 
-    def build_object(self) -> NoReturn:
+    def build_object(self) -> None:
         """
         Build the permittivity mesh for the component.
         """
@@ -96,7 +90,7 @@ class BaseComponent:
         ax.autoscale_view()
         return collection
 
-    def plot(self) -> NoReturn:
+    def plot(self) -> None:
         """
         Plot the component.
         """
@@ -109,7 +103,7 @@ class BaseComponent:
         ax.autoscale_view()
         plt.show()
 
-    def add_to_epsilon_r_mesh(self, epsilon_r_mesh: np.ndarray) -> NoReturn:
+    def add_to_epsilon_r_mesh(self, epsilon_r_mesh: np.ndarray) -> None:
         """
         Add the component's permittivity to the provided mesh.
 
@@ -120,7 +114,7 @@ class BaseComponent:
         """
         epsilon_r_mesh[self.idx] = self.epsilon_r
 
-    def add_to_sigma_mesh(self, sigma_mesh: np.ndarray) -> NoReturn:
+    def add_to_sigma_mesh(self, sigma_mesh: np.ndarray) -> None:
         """
         Add the component's sigma to the provided mesh.
 
@@ -131,7 +125,7 @@ class BaseComponent:
         """
         sigma_mesh[self.idx] = self.sigma
 
-    def add_non_linear_effect_to_field(self, field: np.ndarray) -> NoReturn:
+    def add_non_linear_effect_to_field(self, field: np.ndarray) -> None:
         """
         Add non-linear effects to the field.
 
@@ -146,25 +140,25 @@ class BaseComponent:
         return field + self.grid.dt * nonlinear_term
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class Waveguide(BaseComponent):
     """
     Represents a waveguide scatterer in a simulation grid.
 
     Parameters
     ----------
-    position_0 : Tuple[units.Quantity | str, units.Quantity | str]
+    position_0 : Tuple[Length | str, Length | str]
         The starting position of the waveguide.
-    position_1 : Tuple[units.Quantity | str, units.Quantity | str]
+    position_1 : Tuple[Length | str, Length | str]
         The ending position of the waveguide.
-    width : units.Quantity | str
+    width : Length | str
         The width of the waveguide.
-    epsilon_r : units.Quantity
+    epsilon_r : float
         The relative permittivity inside the waveguide.
     """
-    position_0: Tuple[units.Quantity | str, units.Quantity | str]
-    position_1: Tuple[units.Quantity | str, units.Quantity | str]
-    width: units.Quantity
+    position_0: Tuple[Length | str, Length | str]
+    position_1: Tuple[Length | str, Length | str]
+    width: Length | str
     epsilon_r: float
 
     def __post_init__(self):
@@ -201,12 +195,12 @@ class Square(BaseComponent):
         The center position of the scatterer.
     epsilon_r : float
         The relative permittivity inside the scatterer.
-    side_length : float
+    side_length : Length
         The side length of the square scatterer.
     """
-    position: Tuple[units.Quantity | str, units.Quantity | str]
+    position: Tuple[Length | str, Length | str]
     epsilon_r: float
-    side_length: units.Quantity
+    side_length: Length
 
     def compute_polygon(self) -> Path:
         """
@@ -224,50 +218,50 @@ class Square(BaseComponent):
         ]).convex_hull
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class Circle(BaseComponent):
     """
     Represents a circular scatterer in a simulation grid.
 
     Parameters
     ----------
-    position : Tuple[Union[float, str], Union[float, str]]
+    position : Tuple[Length | str, Length | str]
         The center position of the scatterer.
     epsilon_r : float
         The relative permittivity inside the scatterer.
     radius : float
         The radius of the scatterer.
     """
-    position: Tuple[Union[float, str], Union[float, str]]
+    position: Tuple[Length | str, Length | str]
     epsilon_r: float
-    radius: units.Quantity
+    radius: Length
 
-    def compute_polygon(self) -> NoReturn:
+    def compute_polygon(self) -> None:
         """
         Compute the polygon of the circular scatterer.
         """
         self.polygon = geo.Point(self.coordinate.x.to('meter').magnitude, self.coordinate.y.to('meter').magnitude).buffer(self.radius.to('meter').magnitude)
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class Triangle(BaseComponent):
     """
     Represents a triangular scatterer in a simulation grid.
 
     Parameters
     ----------
-    position : Tuple[Union[float, str], Union[float, str]]
+    position : Tuple[Length | str, Length | str]
         The center position of the scatterer.
     epsilon_r : float
         The relative permittivity inside the scatterer.
-    side_length : float
+    side_length : Length
         The side length of the triangular scatterer.
     """
-    position: Tuple[Union[float, str], Union[float, str]]
+    position: Tuple[Length | str, Length | str]
     epsilon_r: float
-    side_length: float
+    side_length: Length
 
-    def compute_polygon(self) -> NoReturn:
+    def compute_polygon(self) -> None:
         """
         Compute the polygon of the triangular scatterer.
         """
@@ -281,31 +275,31 @@ class Triangle(BaseComponent):
         self.polygon = geo.Polygon([p0, p1, p2])
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class Ellipse(BaseComponent):
     """
     Represents an elliptical scatterer in a simulation grid.
 
     Parameters
     ----------
-    position : Tuple[Union[float, str], Union[float, str]]
+    position : Tuple[Length | str, Length | str]
         The center position of the scatterer.
-    width : float
+    width : Length | str
         The width of the ellipse.
-    height : float
+    height : Length | str
         The height of the ellipse.
     epsilon_r : float
         The relative permittivity inside the scatterer.
     resolution : float, optional
         The resolution of the ellipse (default is 100).
     """
-    position: Tuple[Union[float, str], Union[float, str]]
-    width: units.Quantity
-    height: units.Quantity
+    position: Tuple[Length | str, Length | str]
+    width: Length | str
+    height: Length | str
     epsilon_r: float
     resolution_factor: int = 10e6
 
-    def compute_polygon(self) -> NoReturn:
+    def compute_polygon(self) -> None:
         """
         Compute the polygon of the elliptical scatterer.
         """
@@ -322,14 +316,14 @@ class Ellipse(BaseComponent):
         self.polygon = scale(self.polygon, xfact=1 / self.resolution_factor, yfact=1 / self.resolution_factor)
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class Grating(BaseComponent):
     """
     Represents a grating in a simulation grid.
 
     Parameters
     ----------
-    position : Tuple[Union[float, str], Union[float, str]]
+    position : Tuple[Length | str, Length | str]
         The starting position of the grating.
     epsilon_r : float
         The relative permittivity inside the grating.
@@ -340,13 +334,13 @@ class Grating(BaseComponent):
     num_periods : int
         The number of periods in the grating.
     """
-    position: Tuple[Union[float, str], Union[float, str]]
+    position: Tuple[Length | str, Length | str]
     epsilon_r: float
     period: float
     duty_cycle: float
     num_periods: int
 
-    def compute_polygon(self) -> NoReturn:
+    def compute_polygon(self) -> None:
         """
         Compute the polygon of the grating.
         """
@@ -360,14 +354,14 @@ class Grating(BaseComponent):
         self.polygon = geo.MultiPolygon(bars)
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class RingResonator(BaseComponent):
     """
     Represents a ring resonator in a simulation grid.
 
     Parameters
     ----------
-    position : Tuple[Union[float, str], Union[float, str]]
+    position : Tuple[Length | str, Length | str]
         The center position of the ring resonator.
     epsilon_r : float
         The relative permittivity inside the resonator.
@@ -377,12 +371,12 @@ class RingResonator(BaseComponent):
         The width of the ring.
     """
     grid: Grid
-    position: Tuple[units.Quantity | str, units.Quantity | str]
+    position: Tuple[Length | str, Length | str]
     epsilon_r: float
-    inner_radius: units.Quantity
-    width: units.Quantity
+    inner_radius: Length
+    width: Length
 
-    def compute_polygon(self) -> NoReturn:
+    def compute_polygon(self) -> None:
         """
         Compute the polygon of the ring resonator.
         """
@@ -391,28 +385,28 @@ class RingResonator(BaseComponent):
         self.polygon = outer_circle.difference(inner_circle)
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class Lense(BaseComponent):
     """
     Represents a lens in a simulation grid.
 
     Parameters
     ----------
-    position : Tuple[Union[float, str], Union[float, str]]
+    position : Tuple[Length | str, Length | str]
         The center position of the lens.
     epsilon_r : float
         The relative permittivity inside the lens.
-    width : float
+    width : Length | str
         The width of the lens.
-    curvature : float
+    curvature : Length | str
         The curvature of the lens (positive for convex, negative for concave).
     """
-    position: Tuple[Union[float, str], Union[float, str]]
+    position: Tuple[Length | str, Length | str]
     epsilon_r: float
-    width: units.Quantity
-    curvature: units.Quantity
+    width: Length | str
+    curvature: Length | str
 
-    def compute_polygon(self) -> NoReturn:
+    def compute_polygon(self) -> None:
         """
         Compute the polygon of the lens.
         """

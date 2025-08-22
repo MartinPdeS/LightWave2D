@@ -3,24 +3,17 @@
 
 import numpy as np
 from typing import Tuple, NoReturn
-from LightWave2D.utils import bresenham_line
 from matplotlib.path import Path
 import shapely.geometry as geo
 import matplotlib.pyplot as plt
+from pydantic.dataclasses import dataclass
+from TypedUnit import Length, Time, ureg
+
+from LightWave2D.utils import bresenham_line
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
 from LightWave2D.binary import interface_source
-from pydantic.dataclasses import dataclass
-from LightWave2D import units
-
-
-# Configuration dictionary for dataclasses
-config_dict = {
-    'kw_only': True,
-    'extra': 'forbid',
-    'slots': True,
-    'arbitrary_types_allowed': True
-}
+from LightWave2D.utils import config_dict
 
 
 class BaseSource():
@@ -106,7 +99,7 @@ class Line:
         p1 = geo.Point(self.p1.x.to('meter').magnitude, self.p1.y.to('meter').magnitude)
         self.polygon = geo.LineString((p0, p1))
 
-    def add_to_ax(self, ax: plt.Axes, distance_units: units.Quantity = units.meter) -> NoReturn:
+    def add_to_ax(self, ax: plt.Axes) -> NoReturn:
         """
         Add the line source to the provided axis.
 
@@ -155,7 +148,7 @@ class Point:
         )
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class PointWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSource, Point):
     """
     Represents a point source in a 2D light wave simulation.
@@ -178,8 +171,8 @@ class PointWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSou
         Transparency level of the source (default is 0.3).
     """
     grid: Grid
-    wavelength: units.Quantity
-    position: Tuple[units.Quantity | str, units.Quantity | str]
+    wavelength: Length
+    position: Tuple[Length | str, Length | str]
     amplitude: float
     edgecolor: str = 'red'
     facecolor: str = 'red'
@@ -207,7 +200,7 @@ class PointWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSou
         )
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class LineWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSource, Line):
     """
     Represents a line source in a 2D light wave simulation.
@@ -218,13 +211,13 @@ class LineWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSour
         The grid of the simulation mesh.
     amplitude : float
         Amplitude of the electric field.
-    wavelength : units.Quantity
+    wavelength : Length
         Wavelength of the source.
-    position_0 : Tuple[Union[float, str], Union[float, str]]
+    position_0 : Tuple[Length | str, Length | str]
         Starting position (x, y) of the source.
-    position_1 : Tuple[Union[float, str], Union[float, str]]
+    position_1 : Tuple[Length | str, Length | str]
         Ending position (x, y) of the source.
-    delay : Optional[units.Quantity], optional
+    delay : Optional[ureg.Quantity], optional
         Delay before the source starts (default is None).
     edgecolor : str, optional
         Color of the source edge (default is 'red').
@@ -235,9 +228,9 @@ class LineWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSour
     """
     grid: Grid
     amplitude: float
-    wavelength: units.Quantity
-    position_0: Tuple[units.Quantity | str, units.Quantity | str]
-    position_1: Tuple[units.Quantity | str, units.Quantity | str]
+    wavelength: Length
+    position_0: Tuple[Length | str, Length | str]
+    position_1: Tuple[Length | str, Length | str]
     edgecolor: str = 'red'
     facecolor: str = 'red'
     alpha: float = 0.3
@@ -264,7 +257,7 @@ class LineWaveSource(interface_source.MultiWavelength, MultiWavelength, BaseSour
         )
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class PointPulseSource(Impulsion, Point, BaseSource):
     """
     Represents a point impulsion source in a 2D light wave simulation.
@@ -275,11 +268,11 @@ class PointPulseSource(Impulsion, Point, BaseSource):
         The grid of the simulation mesh.
     amplitude : float
         Amplitude of the electric field.
-    duration : units.Quantity
+    duration : Time
         Duration of the impulsion.
     position : Tuple[Union[float, str], Union[float, str]]
         Position (x, y) of the source.
-    delay : units.Quantity, optional
+    delay : Time, optional
         Delay before the impulsion starts (default is 0 seconds).
     edgecolor : str, optional
         Color of the source edge (default is 'red').
@@ -290,9 +283,9 @@ class PointPulseSource(Impulsion, Point, BaseSource):
     """
     grid: Grid
     amplitude: float
-    duration: units.Quantity
-    position: Tuple[units.Quantity | str, units.Quantity | str]
-    delay: units.Quantity = 0 * units.second
+    duration: Time
+    position: Tuple[Length | str, Length | str]
+    delay: Time = 0 * ureg.second
     edgecolor: str = 'red'
     facecolor: str = 'red'
     alpha: float = 0.3
@@ -310,7 +303,7 @@ class PointPulseSource(Impulsion, Point, BaseSource):
         )
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class LinePulseSource(interface_source.Impulsion, Impulsion, Line, BaseSource):
     """
     Represents a line pulse source in a 2D light wave simulation.
@@ -319,15 +312,15 @@ class LinePulseSource(interface_source.Impulsion, Impulsion, Line, BaseSource):
     ----------
     grid : Grid
         The grid of the simulation mesh.
-    duration : units.Quantity
+    duration : Time
         Duration of the impulsion.
     amplitude : float
         Amplitude of the electric field.
-    position_0 : Tuple[Union[float, str], Union[float, str]]
+    position_0 : Tuple[Length | str, Length | str]
         Starting position (x, y) of the source.
-    position_1 : Tuple[Union[float, str], Union[float, str]]
+    position_1 : Tuple[Length | str, Length | str]
         Ending position (x, y) of the source.
-    delay : units.Quantity, optional
+    delay : Time, optional
         Delay before the impulsion starts (default is 0 seconds).
     edgecolor : str, optional
         Color of the source edge (default is 'red').
@@ -337,11 +330,11 @@ class LinePulseSource(interface_source.Impulsion, Impulsion, Line, BaseSource):
         Transparency level of the source (default is 0.3).
     """
     grid: Grid
-    duration: units.Quantity
+    duration: Time
     amplitude: float
-    position_0: Tuple[units.Quantity | str, units.Quantity | str]
-    position_1: Tuple[units.Quantity | str, units.Quantity | str]
-    delay: units.Quantity = 0 * units.second
+    position_0: Tuple[Length | str, Length | str]
+    position_1: Tuple[Length | str, Length | str]
+    delay: Time = 0 * ureg.second
     edgecolor: str = 'red'
     facecolor: str = 'red'
     alpha: float = 0.3

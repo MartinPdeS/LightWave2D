@@ -81,12 +81,12 @@ Below are two examples that illustrate this:
     from LightWave2D.grid import Grid
     from LightWave2D.experiment import Experiment
     from MPSPlots import colormaps
-    import LightWave2D.units as units
+    from TypedUnit import ureg
 
     grid = Grid(
-        resolution=0.1 * units.micrometer,
-        size_x=32 * units.micrometer,
-        size_y=20 * units.micrometer,
+        resolution=0.1 * ureg.micrometer,
+        size_x=32 * ureg.micrometer,
+        size_y=20 * ureg.micrometer,
         n_steps=300
     )
 
@@ -95,11 +95,11 @@ Below are two examples that illustrate this:
     scatterer = experiment.add_circle(
         position=('30%', '50%'),
         epsilon_r=2,
-        radius=3 * units.micrometer
+        radius=3 * ureg.micrometer
     )
 
     source = experiment.add_line_source(
-        wavelength=1550 * units.nanometer,
+        wavelength=1550 * ureg.nanometer,
         point_0=('10%', '100%'),
         point_1=('10%', '0%'),
         amplitude=10,
@@ -129,11 +129,12 @@ Below are two examples that illustrate this:
    from LightWave2D.grid import Grid
    from LightWave2D.experiment import Experiment
    from MPSPlots.colormaps import polytechnique
+   from TypedUnit import ureg
 
     grid = Grid(
-        resolution=0.1 * units.micrometer,
-        size_x=50 * units.micrometer,
-        size_y=30 * units.micrometer,
+        resolution=0.1 * ureg.micrometer,
+        size_x=50 * ureg.micrometer,
+        size_y=30 * ureg.micrometer,
         n_steps=800
     )
 
@@ -143,12 +144,12 @@ Below are two examples that illustrate this:
     scatterer = experiment.add_ring_resonator(
         position=('35%', '50%'),
         epsilon_r=1.5,
-        inner_radius=4 * units.micrometer,
-        width=2 * units.micrometer
+        inner_radius=4 * ureg.micrometer,
+        width=2 * ureg.micrometer
     )
 
     source = experiment.add_point_source(
-        wavelength=1550 * units.nanometer,
+        wavelength=1550 * ureg.nanometer,
         position=('25%', '50%'),
         amplitude=100,
     )
@@ -173,11 +174,12 @@ Below are two examples that illustrate this:
    from LightWave2D.grid import Grid
    from LightWave2D.experiment import Experiment
    from MPSPlots import colormaps
+   from TypedUnit import ureg
 
     grid = Grid(
-        resolution=0.1 * units.micrometer,
-        size_x=60 * units.micrometer,
-        size_y=30 * units.micrometer,
+        resolution=0.1 * ureg.micrometer,
+        size_x=60 * ureg.micrometer,
+        size_y=30 * ureg.micrometer,
         n_steps=1200
     )
 
@@ -186,12 +188,12 @@ Below are two examples that illustrate this:
     scatterer = experiment.add_lense(
         position=('35%', '50%'),
         epsilon_r=2,
-        curvature=10 * units.micrometer,
-        width=5 * units.micrometer
+        curvature=10 * ureg.micrometer,
+        width=5 * ureg.micrometer
     )
 
     source = experiment.add_point_source(
-        wavelength=1550 * units.nanometer,
+        wavelength=1550 * ureg.nanometer,
         position=('10%', '50%'),
         amplitude=10,
     )

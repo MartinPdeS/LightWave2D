@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from typing import Tuple, NoReturn
+from typing import Tuple
 from dataclasses import field
 import numpy as np
-from LightWave2D.grid import Grid
 import shapely.geometry as geo
 from matplotlib.path import Path
 from pydantic.dataclasses import dataclass
@@ -12,15 +11,10 @@ from matplotlib.collections import PatchCollection
 from matplotlib.patches import PathPatch
 import matplotlib.pyplot as plt
 import matplotlib
-from LightWave2D import units
+from TypedUnit import Length
 
-config_dict = dict(
-    kw_only=True,
-    slots=True,
-    extra='forbid',
-    arbitrary_types_allowed=True
-)
-
+from LightWave2D.grid import Grid
+from LightWave2D.utils import config_dict
 
 @dataclass(kw_only=True, config=config_dict)
 class BaseDetector:
@@ -54,7 +48,7 @@ class BaseDetector:
         self.coordinate = self.grid.get_coordinate(x=x0, y=y0)
         self.build_object()
 
-    def build_object(self) -> NoReturn:
+    def build_object(self) -> None:
         """
         Build the permittivity mesh for the scatterer.
         """
@@ -90,7 +84,7 @@ class BaseDetector:
         ax.autoscale_view()
         return collection
 
-    def plot(self) -> NoReturn:
+    def plot(self) -> None:
         """
         Plot the scatterer on a 2D grid.
         """
@@ -122,7 +116,7 @@ class PointDetector(BaseDetector):
     data : numpy.ndarray
         The data collected by the detector over time.
     """
-    position: Tuple[units.Quantity | str, units.Quantity | str]
+    position: Tuple[Length | str, Length | str]
     coherent: bool = True
     data: np.ndarray = field(init=False)
 
@@ -137,7 +131,7 @@ class PointDetector(BaseDetector):
         self.path = Path(self.polygon.coords)
         self.data = np.zeros(self.grid.n_steps)
 
-    def update_data(self, field: np.ndarray) -> NoReturn:
+    def update_data(self, field: np.ndarray) -> None:
         """
         Update the detector data based on the provided field values.
 
@@ -151,7 +145,7 @@ class PointDetector(BaseDetector):
         else:
             self.data = abs(field[:, self.p0.x_index, self.p0.y_index])
 
-    def plot_data(self) -> NoReturn:
+    def plot_data(self) -> None:
         """
         Plot the detector data over time.
         """
@@ -162,7 +156,7 @@ class PointDetector(BaseDetector):
         ax.set_xlabel('Time [seconds]')
         plt.show()
 
-    def add_to_ax(self, ax: plt.Axes) -> NoReturn:
+    def add_to_ax(self, ax: plt.Axes) -> None:
         """
         Add the point detector to the provided axis as a scatter point.
 

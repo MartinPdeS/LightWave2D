@@ -8,17 +8,18 @@ We will define the simulation grid, add a circular scatterer and a line source, 
 
 # %%
 # Importing the necessary packages
+from TypedUnit import ureg
+from MPSPlots import colormaps
+
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
-from MPSPlots import colormaps
-import LightWave2D.units as units
 
 # %%
 # Define the simulation grid
 grid = Grid(
-    resolution=0.2 * units.micrometer,
-    size_x=52 * units.micrometer,
-    size_y=40 * units.micrometer,
+    resolution=0.2 * ureg.micrometer,
+    size_x=52 * ureg.micrometer,
+    size_y=40 * ureg.micrometer,
     n_steps=800
 )
 
@@ -30,18 +31,18 @@ experiment = Experiment(grid=grid)
 scatterer = experiment.add_circle(
     position=('50%', '50%'),  # Center position of the scatterer
     epsilon_r=2.5,            # Relative permittivity of the scatterer
-    radius=4 * units.micrometer,
-    sigma=0 * (units.siemens / units.meter)  # Conductivity of the scatterer
+    radius=4 * ureg.micrometer,
+    sigma=0 * (ureg.siemens / ureg.meter)  # Conductivity of the scatterer
 )
 
 # %%
 # Add a line source to the experiment
 source = experiment.add_line_impulsion(
-    duration=1 * units.femtosecond,
+    duration=1 * ureg.femtosecond,
     position_0=('30%', '60%'),  # Starting position of the source
     position_1=('30%', '40%'),  # Ending position of the source
     amplitude=1,                # Amplitude of the source
-    delay=0 * units.femtosecond
+    delay=0 * ureg.femtosecond
 )
 
 # %%
@@ -49,7 +50,7 @@ source = experiment.add_line_impulsion(
 experiment.add_pml(
     order=1,          # Order of the PML polynomial profile
     width='20%',      # Width of the PML region as a percentage of grid size
-    sigma_max=10_000 * (units.siemens / units.meter)    # Maximum conductivity for the PML
+    sigma_max=10_000 * (ureg.siemens / ureg.meter)    # Maximum conductivity for the PML
 )
 
 # %%

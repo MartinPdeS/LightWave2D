@@ -3,18 +3,12 @@
 
 from typing import Union, Optional
 import numpy
-from LightWave2D.physics import Physics
 from pydantic.dataclasses import dataclass
 import shapely.geometry as geo
-from LightWave2D.units import Quantity
-from LightWave2D import units
+from TypedUnit import Length
 
-config_dict = dict(
-    kw_only=True,
-    slots=True,
-    extra='forbid',
-    arbitrary_types_allowed=True
-)
+from LightWave2D.physics import Physics
+from LightWave2D.utils import config_dict
 
 
 class NameSpace:
@@ -27,20 +21,25 @@ class NameSpace:
             setattr(self, k, v)
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class Grid:
     """
     Represents a 2D simulation grid with specified dimensions and time steps.
 
-    Attributes:
-        resolution (float): Spatial resolution of the grid in meters per cell.
-        size_x (float): Size of the grid in the x-direction in meters.
-        size_y (float): Size of the grid in the y-direction in meters.
-        n_steps (int): Number of time steps for the simulation (default is 200).
+    Attributes
+    ----------
+    resolution : Length
+        The spatial resolution of the grid.
+    size_x : Length
+        The size of the grid in the x-direction.
+    size_y : Length
+        The size of the grid in the y-direction.
+    n_steps : int
+        The number of time steps for the simulation (default is 200).
     """
-    resolution: units.Quantity
-    size_x: units.Quantity
-    size_y: units.Quantity
+    resolution: Length
+    size_x: Length
+    size_y: Length
     n_steps: int = 200
 
     def __post_init__(self):
@@ -83,16 +82,21 @@ class Grid:
         distance_mesh = numpy.sqrt((x_mesh - x0)**2 + (y_mesh - y0)**2)
         return distance_mesh
 
-    def get_coordinate(self, x: Optional[Union[float, str, Quantity]] = None, y: Optional[Union[float, str, Quantity]] = None) -> NameSpace:
+    def get_coordinate(self, x: Optional[Union[float, str, Length]] = None, y: Optional[Union[float, str, Length]] = None) -> NameSpace:
         """
         Get the coordinate and index for a given position in the grid.
 
-        Args:
-            x (float | str): x-coordinate or position string ('left', 'center', 'right').
-            y (float | str): y-coordinate or position string ('bottom', 'center', 'top').
+        Parameters
+        ----------
+        x : float | str | Length
+            The x-coordinate or position string ('left', 'center', 'right').
+        y : float | str | Length
+            The y-coordinate or position string ('bottom', 'center', 'top').
 
-        Returns:
-            NameSpace: An object containing the coordinates and indices.
+        Returns
+        -------
+        NameSpace
+            An object containing the coordinates and indices.
         """
         coordinate = NameSpace()
 
@@ -113,15 +117,19 @@ class Grid:
 
         return coordinate
 
-    def parse_y_position(self, value: Union[str, float, Quantity]) -> float:
+    def parse_y_position(self, value: Union[str, float, Length]) -> float:
         """
         Convert a position string to a y-coordinate.
 
-        Args:
-            position_string (str): Position string ('bottom', 'center', 'top').
+        Parameters
+        ----------
+        value : str | float | Length
+            The position string or coordinate value.
 
-        Returns:
-            float: Corresponding y-coordinate.
+        Returns
+        -------
+        float
+            The corresponding y-coordinate.
         """
         if isinstance(value, str):
             value = value.lower()
@@ -142,15 +150,19 @@ class Grid:
 
         return value
 
-    def parse_x_position(self, value: Union[str, float, Quantity]) -> float:
+    def parse_x_position(self, value: Union[str, float, Length]) -> float:
         """
         Convert a position string to an x-coordinate.
 
-        Args:
-            position_string (str): Position string ('left', 'center', 'right').
+        Parameters
+        ----------
+        value : str | float | Length
+            The position string or coordinate value.
 
-        Returns:
-            float: Corresponding x-coordinate.
+        Returns
+        -------
+        float
+            The corresponding x-coordinate.
         """
         if isinstance(value, str):
             value = value.lower()

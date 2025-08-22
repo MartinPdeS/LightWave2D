@@ -2,7 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+from pydantic import ConfigDict
 
+config_dict = ConfigDict(
+    kw_only=True,
+    slots=True,
+    extra='forbid',
+    arbitrary_types_allowed=True
+)
 
 def bresenham_line(x0: float, y0: float, x1: float, y1: float) -> np.ndarray:
     """

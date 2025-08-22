@@ -1,24 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from typing import NoReturn
 import numpy as np
-from LightWave2D.grid import Grid
-from pydantic.dataclasses import dataclass
-from matplotlib.colors import ListedColormap
 import matplotlib.pyplot as plt
-from LightWave2D import units
+from matplotlib.colors import ListedColormap
+from pydantic.dataclasses import dataclass
+from TypedUnit import AnyUnit, ureg
 
-# Configuration dictionary for dataclasses
-config_dict = {
-    'kw_only': True,
-    'slots': True,
-    'extra': 'forbid',
-    'arbitrary_types_allowed': True
-}
+from LightWave2D.grid import Grid
+from LightWave2D.utils import config_dict
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class PML:
     """
     Represents a Perfectly Matched Layer (PML) for absorbing boundary conditions in FDTD simulations.
@@ -29,14 +22,14 @@ class PML:
         The simulation grid.
     width : str
         Width of the PML region in grid cells, expressed as a percentage (e.g., "10%").
-    sigma_max : float
+    sigma_max : AnyUnit
         Maximum value of the conductivity profile.
     order : int
         Polynomial order of the conductivity profile.
     """
     grid: Grid
     width: str = "10"
-    sigma_max: units.Quantity = 0.045 * units.siemens / units.meter
+    sigma_max: AnyUnit = 0.045 * ureg.siemens / ureg.meter
     order: int = 3
 
     def __post_init__(self):
@@ -66,10 +59,10 @@ class PML:
         self.sigma_x[left_boundary] = _sigma_max * ((self.width_start.x.to('meter').magnitude - x_mesh[left_boundary].to('meter').magnitude) / self.width_start.x.to('meter').magnitude) ** self.order
         self.sigma_x[right_boundary] = _sigma_max * ((x_mesh[right_boundary].to('meter').magnitude - self.width_stop.x.to('meter').magnitude) / self.width_start.x.to('meter').magnitude) ** self.order
 
-        self.sigma_x *= units.siemens / units.meter
-        self.sigma_y *= units.siemens / units.meter
+        self.sigma_x *= ureg.siemens / ureg.meter
+        self.sigma_y *= ureg.siemens / ureg.meter
 
-    def add_to_ax(self, ax: plt.Axes, distance_units: units.Quantity = units.meter) -> NoReturn:
+    def add_to_ax(self, ax: plt.Axes, distance_units: ureg.Quantity = ureg.meter) -> None:
         """
         Add the PML regions to a matplotlib axis.
 
@@ -89,7 +82,7 @@ class PML:
             cmap=cmap,
         )
 
-    def plot(self, unit_size: int = 6) -> NoReturn:
+    def plot(self, unit_size: int = 6) -> None:
         """
         Plot the PML regions.
 

@@ -1,22 +1,24 @@
 import numpy as np
 import pytest
+from TypedUnit import ureg
+
 from LightWave2D.grid import Grid
 from LightWave2D.pml import PML
-import LightWave2D.units as units
+
 
 
 def create_simple_grid():
     return Grid(
-        resolution=1 * units.micrometer,
-        size_x=10 * units.micrometer,
-        size_y=5 * units.micrometer,
+        resolution=1 * ureg.micrometer,
+        size_x=10 * ureg.micrometer,
+        size_y=5 * ureg.micrometer,
         n_steps=10,
     )
 
 
 def test_pml_conductivity_profile():
     grid = create_simple_grid()
-    boundary_layer = PML(grid=grid, width="20%", sigma_max=1 * (units.siemens / units.meter), order=1)
+    boundary_layer = PML(grid=grid, width="20%", sigma_max=1 * (ureg.siemens / ureg.meter), order=1)
 
     assert boundary_layer.sigma_x.shape == (grid.n_x, grid.n_y)
     assert boundary_layer.sigma_y.shape == (grid.n_x, grid.n_y)

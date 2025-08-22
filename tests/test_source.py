@@ -1,14 +1,13 @@
 import pytest
-from LightWave2D.grid import Grid
-from LightWave2D.experiment import Experiment
-import LightWave2D.units as units
+
+from TypedUnit import ureg
 
 
 # Test the grid initialization
 def test_grid_initialization(grid):
-    assert grid.resolution == 1 * units.micrometer
-    assert grid.size_x == 10 * units.micrometer
-    assert grid.size_y == 5 * units.micrometer
+    assert grid.resolution == 1 * ureg.micrometer
+    assert grid.size_x == 10 * ureg.micrometer
+    assert grid.size_y == 5 * ureg.micrometer
     assert grid.n_steps == 20
 
 
@@ -24,7 +23,7 @@ def test_experiment_initialization(experiment, grid):
         {
             'position': ('25%', '20%'),
             'epsilon_r': 2,
-            'side_length': 3 * units.micrometer
+            'side_length': 3 * ureg.micrometer
         }
     ),
     (
@@ -32,8 +31,8 @@ def test_experiment_initialization(experiment, grid):
         {
             'position': ('25%', '70%'),
             'epsilon_r': 2,
-            'width': 5 * units.micrometer,
-            'height': 10 * units.micrometer,
+            'width': 5 * ureg.micrometer,
+            'height': 10 * ureg.micrometer,
             'rotation': 10
         }
     )
@@ -48,7 +47,7 @@ def test_add_scatterers(experiment, method, params):
     (
         'add_point_source',
         {
-            'wavelength': 1550 * units.nanometer,
+            'wavelength': 1550 * ureg.nanometer,
             'position': ('30%', '70%'),
             'amplitude': 10
         }
@@ -56,7 +55,7 @@ def test_add_scatterers(experiment, method, params):
     (
         'add_line_source',
         {
-            'wavelength': 1550 * units.nanometer,
+            'wavelength': 1550 * ureg.nanometer,
             'position_0': ('10%', '100%'),
             'position_1': ('10%', '0%'),
             'amplitude': 10
@@ -70,13 +69,13 @@ def test_add_sources(experiment, method, params):
 
 # Test adding a PML
 def test_add_pml(experiment):
-    pml = experiment.add_pml(order=1, width='10%', sigma_max=5000 * (units.siemens / units.meter))
+    pml = experiment.add_pml(order=1, width='10%', sigma_max=5000 * (ureg.siemens / ureg.meter))
     assert pml is not None  # Assuming pmls is a list of added elements
 
 
 # Test adding a detector
 def test_add_detector(experiment):
-    detector = experiment.add_point_detector(position=(5 * units.micrometer, 5 * units.micrometer))
+    detector = experiment.add_point_detector(position=(5 * ureg.micrometer, 5 * ureg.micrometer))
     assert detector in experiment.detectors  # Assuming detectors is a list of added elements
 
 

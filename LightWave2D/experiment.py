@@ -4,31 +4,25 @@
 
 from typing import Tuple, Optional, Union, List
 import numpy
+import matplotlib.animation as animation
+from pydantic.dataclasses import dataclass
+import matplotlib.ticker as ticker
+import matplotlib.pyplot as plt
+from MPSPlots.styles import mps
+from MPSPlots import colormaps
+
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
 from LightWave2D import components
 from LightWave2D import source
 from LightWave2D.detector import PointDetector
 from LightWave2D.pml import PML
-from MPSPlots import colormaps
-import matplotlib.animation as animation
-from pydantic.dataclasses import dataclass
-import matplotlib.ticker as ticker
-import matplotlib.pyplot as plt
-from MPSPlots.styles import mps
 from LightWave2D.helper import plot_helper
-
 from LightWave2D.binary import interface_simulator
-
-config_dict = dict(
-    kw_only=True,
-    slots=True,
-    extra='forbid',
-    arbitrary_types_allowed=True
-)
+from LightWave2D.utils import config_dict
 
 
-@dataclass(config=config_dict)
+@dataclass(config=config_dict, kw_only=True)
 class Experiment(interface_simulator.FDTDSimulator):
     """Class representing an FDTD simulation experiment."""
 

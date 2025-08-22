@@ -1,16 +1,17 @@
 import pytest
 import numpy as np
+from TypedUnit import ureg
+
 from LightWave2D.grid import Grid
-import LightWave2D.units as units
 
 
 @pytest.fixture
 def default_grid():
     """Backward compatibility fixture kept for tests using it directly."""
     return Grid(
-        resolution=1 * units.micrometer,
-        size_x=32 * units.micrometer,
-        size_y=16 * units.micrometer,
+        resolution=1 * ureg.micrometer,
+        size_x=32 * ureg.micrometer,
+        size_y=16 * ureg.micrometer,
         n_steps=3000
     )
 
@@ -18,25 +19,25 @@ def default_grid():
 # List of dictionaries for grid initialization parameters
 grid_parameters = [
     dict(
-        resolution=1 * units.micrometer,
-        size_x=32 * units.micrometer,
-        size_y=16 * units.micrometer,
+        resolution=1 * ureg.micrometer,
+        size_x=32 * ureg.micrometer,
+        size_y=16 * ureg.micrometer,
         n_steps=3000,
         expected_n_x=32,
         expected_n_y=16
     ),
     dict(
-        resolution=0.5 * units.micrometer,
-        size_x=64 * units.micrometer,
-        size_y=32 * units.micrometer,
+        resolution=0.5 * ureg.micrometer,
+        size_x=64 * ureg.micrometer,
+        size_y=32 * ureg.micrometer,
         n_steps=1000,
         expected_n_x=128,
         expected_n_y=64
     ),
     dict(
-        resolution=2 * units.micrometer,
-        size_x=64 * units.micrometer,
-        size_y=32 * units.micrometer,
+        resolution=2 * ureg.micrometer,
+        size_x=64 * ureg.micrometer,
+        size_y=32 * ureg.micrometer,
         n_steps=5000,
         expected_n_x=32,
         expected_n_y=16
@@ -90,7 +91,7 @@ def test_get_distance_grid(default_grid):
 
     # Check the distance at the opposite corner of the grid
     expected_distance = np.sqrt((grid.size_x - grid.dx)**2 + (grid.size_y - grid.dy)**2)
-    assert np.isclose(distance_grid[-1, -1], expected_distance, atol=2 * units.micrometer), (
+    assert np.isclose(distance_grid[-1, -1], expected_distance, atol=2 * ureg.micrometer), (
         f"Expected distance at the opposite corner to be approximately {expected_distance}, got {distance_grid[-1, -1]}"
     )
 
@@ -138,15 +139,15 @@ def test_invalid_parse_strings(default_grid, method, value):
 
 def test_grid_initialization_with_units():
     grid = Grid(
-        resolution=1 * units.micrometer,
-        size_x=32 * units.micrometer,
-        size_y=16 * units.micrometer,
+        resolution=1 * ureg.micrometer,
+        size_x=32 * ureg.micrometer,
+        size_y=16 * ureg.micrometer,
         n_steps=100
     )
 
-    assert grid.dx == 1 * units.micrometer
-    assert grid.size_x == 32 * units.micrometer
-    assert grid.size_y == 16 * units.micrometer
+    assert grid.dx == 1 * ureg.micrometer
+    assert grid.size_x == 32 * ureg.micrometer
+    assert grid.size_y == 16 * ureg.micrometer
 
 
 

@@ -1,15 +1,16 @@
 import pytest
+from TypedUnit import ureg
+
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
-import LightWave2D.units as units
 
 
 @pytest.fixture
 def grid():
     return Grid(
-        resolution=1 * units.micrometer,
-        size_x=10 * units.micrometer,
-        size_y=5 * units.micrometer,
+        resolution=1 * ureg.micrometer,
+        size_x=10 * ureg.micrometer,
+        size_y=5 * ureg.micrometer,
         n_steps=20
     )
 
