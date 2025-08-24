@@ -230,7 +230,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 12.136 seconds)
+   **Total running time of the script:** (0 minutes 11.783 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_ellipse.py:
