@@ -63,12 +63,10 @@ experiment.run()
 
 # %%
 # Render an animation of the field propagation over time
-animation = experiment.show_propagation(
-    skip_frame=5,                            # Number of frames to skip in the animation
-    unit_size=5,                             # Size of each unit in the animation
+animation = experiment.render_propagation(
+    skip_frame=5,                                     # Number of frames to skip in the animation
     colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
-    enhance_contrast=4
+    enhance_contrast=4,                               # Enhance contrast for better visualization
+    save_as='./circular_scatterer_propagation.gif',   # Save the animation as a GIF file
+    fps=30
 )
-
-# Save the animation as a GIF file
-animation.save('./circular_scatterer_propagation.gif', writer='Pillow', fps=30)

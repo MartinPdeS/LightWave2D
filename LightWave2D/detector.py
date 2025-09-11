@@ -12,6 +12,10 @@ from matplotlib.patches import PathPatch
 import matplotlib.pyplot as plt
 import matplotlib
 from TypedUnit import Length
+import MPSPlots
+from MPSPlots import helper
+
+# print(dir(MPSPlots))
 
 from LightWave2D.grid import Grid
 from LightWave2D.utils import config_dict
@@ -84,20 +88,24 @@ class BaseDetector:
         ax.autoscale_view()
         return collection
 
+    @helper.post_mpl_plot
     def plot(self) -> None:
         """
         Plot the scatterer on a 2D grid.
         """
         figure, ax = plt.subplots(1, 1, figsize=(6, 6))
-        ax.set_title('FDTD Simulation')
-        ax.set_xlabel(r'x position [$\mu$m]')
-        ax.set_ylabel(r'y position [$\mu$m]')
-        ax.set_aspect('equal')
+
+        ax.set(
+            title='FDTD Simulation',
+            xlabel=r'x position [$\mu$m]',
+            ylabel=r'y position [$\mu$m]',
+            aspect='equal'
+        )
 
         self.add_to_ax(ax)
         ax.autoscale_view()
 
-        plt.show()
+        return figure
 
 
 @dataclass(kw_only=True, config=config_dict)
@@ -145,6 +153,7 @@ class PointDetector(BaseDetector):
         else:
             self.data = abs(field[:, self.p0.x_index, self.p0.y_index])
 
+    @MPSPlots.helper.post_mpl_plot
     def plot_data(self) -> None:
         """
         Plot the detector data over time.
@@ -152,9 +161,11 @@ class PointDetector(BaseDetector):
         figure, ax = plt.subplots(1, 1, figsize=(8, 4))
 
         ax.plot(self.grid.time_stamp, self.data)
-        ax.set_ylabel('Amplitude')
-        ax.set_xlabel('Time [seconds]')
-        plt.show()
+        ax.set(
+            ylabel='Amplitude',
+            xlabel='Time [seconds]'
+        )
+        return figure
 
     def add_to_ax(self, ax: plt.Axes) -> None:
         """

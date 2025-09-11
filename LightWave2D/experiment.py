@@ -10,6 +10,7 @@ import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 from MPSPlots.styles import mps
 from MPSPlots import colormaps
+from MPSPlots import helper
 
 from LightWave2D.physics import Physics
 from LightWave2D.grid import Grid
@@ -308,14 +309,13 @@ class Experiment(interface_simulator.FDTDSimulator):
         for detector in self.detectors:
             detector.update_data(self.Ez_t)
 
-    @plot_helper
+    @helper.post_mpl_plot
     def plot_frame(
-            self,
-            ax: plt.Axes,
-            frame_number: int,
-            enhance_contrast: float = 1,
-            show_intensity: bool = False,
-            colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
+        self,
+        frame_number: int,
+        enhance_contrast: float = 1,
+        show_intensity: bool = False,
+        colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
         """
         Plot a specific frame from the FDTD simulation.
 
@@ -332,12 +332,8 @@ class Experiment(interface_simulator.FDTDSimulator):
             If True, displays the intensity instead of the amplitude. Default is False.
         colormap : Optional[Union[str, object]], optional
             The colormap used for visualization. Default is a blue-black-red colormap from the Polytechnique collection.
-
-        Returns
-        -------
-        None
-            This method does not return any value; it displays the plot.
         """
+        figure, ax = plt.subplots(1, 1)
         if show_intensity:
             data = abs(self.Ez_t[frame_number].T)
         else:
@@ -359,102 +355,17 @@ class Experiment(interface_simulator.FDTDSimulator):
 
         plt.colorbar(image)
 
-    @plot_helper
-    def save_frame_as_image(
-            self,
-            ax: plt.Axes,
-            frame_number: int,
-            filename: str,
-            enhance_contrast: float = 1,
-            dpi: int = 200,
-            show_intensity: bool = False,
-            colormap: Optional[Union[str, object]] = colormaps.polytechnique.blue_black_red) -> None:
-        """
-        Save a specific frame from the FDTD simulation as an image.
-
-        This method plots a specific frame of the simulation using the specified colormap
-        and saves it as an image file with the given resolution.
-
-        Parameters
-        ----------
-        frame_number : int
-            The index of the frame to be saved.
-        filename : str
-            The file path where the image will be saved.
-        enhance_contrast : float, optional
-            The maximum scale factor for the color limits of the image. Default is 5.
-        figsize : tuple, optional
-            The base unit size for the plot. Default is 6.
-        dpi : int, optional
-            The resolution of the saved image in dots per inch. Default is 200.
-        show_intensity : bool, optional
-            If True, displays intensity instead of amplitude. Default is False.
-        colormap : Optional[Union[str, object]], optional
-            The colormap used for visualizing the data. Default is a predefined blue-black-red colormap.
-
-        Returns
-        -------
-        None
-            This method does not return any value, but saves an image file at the specified path.
-        """
-        if show_intensity:
-            data = abs(self.Ez_t[frame_number].T)
-        else:
-            data = self.Ez_t[frame_number].T
-
-        image = ax.pcolormesh(
-            self.grid.x_stamp.to('meter').magnitude,
-            self.grid.y_stamp.to('meter').magnitude,
-            data,
-            cmap=colormap
-        )
-
-        for component in [*self.components, *self.sources, *self.detectors]:
-            component.add_to_ax(ax)
-
-        vmin, vmax = image.get_clim()
-        max_diff = max(abs(vmin), abs(vmax)) / enhance_contrast
-        image.set_clim([-max_diff, max_diff])
-
-        plt.savefig(filename, dpi=dpi)
-
-    def get_figure_ax(self, unit_size: int = 6) -> Tuple:
-        """
-        Get a matplotlib figure and axis for plotting.
-
-        Parameters
-        ----------
-        unit_size : int, optional
-            The base unit size for scaling the plot. Default is 6.
-
-        Returns
-        -------
-        Tuple
-            A tuple containing the matplotlib figure and axis objects.
-        """
-        figsize = int(unit_size), int(unit_size * self.grid.size_y / self.grid.size_x)
-        figure, ax = plt.subplots(1, 1, figsize=figsize)
-
-        ax.set_xlabel(r'x position [$\mu$m]')
-        ax.set_ylabel(r'y position [$\mu$m]')
-        ax.set_aspect('equal')
-
-        ticks_x = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x / 1e-6))
-        ax.xaxis.set_major_formatter(ticks_x)
-
-        ticks_y = ticker.FuncFormatter(lambda y, pos: '{0:g}'.format(y / 1e-6))
-        ax.yaxis.set_major_formatter(ticks_y)
-
-        return figure, ax
+        return figure
 
     def render_propagation(
-            self,
-            skip_frame: int = 10,
-            enhance_contrast: float = 1,
-            unit_size: int = 6,
-            auto_adjust_clim: bool = False,
-            fps: int = 10,
-            colormap: Optional[Union[str, object]] = colormaps.blue_black_red) -> animation.FuncAnimation:
+        self,
+        skip_frame: int = 10,
+        enhance_contrast: float = 1,
+        auto_adjust_clim: bool = False,
+        fps: int = 10,
+        save_as: Optional[str] = None,
+        show: bool = True,
+        colormap: Optional[Union[str, object]] = colormaps.blue_black_red) -> animation.FuncAnimation:
         """
         Render an animation of the field propagation.
 
@@ -467,50 +378,64 @@ class Experiment(interface_simulator.FDTDSimulator):
             The number of time steps to skip between frames in the animation. Default is 10.
         enhance_contrast : float, optional
             The maximum scale factor for the color limits of the field amplitude. Default is 1.
-        unit_size : int, optional
-            The base unit size for scaling the plot elements. Default is 6.
         auto_adjust_clim : bool, optional
             If True, automatically adjusts color limits based on field amplitude for each frame. Default is False.
         fps : int, optional
             The frames per second for the animation. Default is 10.
         colormap : Optional[Union[str, object]], optional
             The colormap used for visualizing the data. Default is a predefined blue-black-red colormap.
+        save_as : Optional[str], optional
+            If provided, saves the animation to the specified file. Default is None.
+        show : bool, optional
+            If True, displays the animation after rendering. Default is True.
 
         Returns
         -------
         animation.FuncAnimation
             The animation object that can be displayed or saved.
         """
-        with plt.style.context(mps):
-            figure, ax = self.get_figure_ax(unit_size=unit_size)
+        figure, ax = plt.subplots(1, 1)
 
-            # Initialize the field display
-            initial_field = numpy.zeros(self.Ez_t[0].shape).T
-            field_artist = ax.pcolormesh(
-                self.grid.x_stamp.to('meter').magnitude,
-                self.grid.y_stamp.to('meter').magnitude,
-                initial_field,
-                cmap=colormap
-            )
+        ax.set(
+            xlabel=r'x position [m]',
+            ylabel=r'y position [m]',
+            aspect='equal'
+        )
 
-            title = ax.text(
-                x=0.85,
-                y=.9,
-                s="",
-                transform=ax.transAxes,
-                ha="center",
-                color='white'
-            )
+        ticks_x = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x / 1e-6))
+        ax.xaxis.set_major_formatter(ticks_x)
 
-            # Store all artists for updating
-            artist_list = [field_artist]
+        ticks_y = ticker.FuncFormatter(lambda y, pos: '{0:g}'.format(y / 1e-6))
+        ax.yaxis.set_major_formatter(ticks_y)
 
-            # Add other components to the axis and their artists to the list
-            for component in self.components:
-                artist_list.append(component.add_to_ax(ax))
 
-            max_amplitude = abs(self.Ez_t).max() / enhance_contrast
-            field_artist.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
+        # Initialize the field display
+        initial_field = numpy.zeros(self.Ez_t[0].shape).T
+        field_artist = ax.pcolormesh(
+            self.grid.x_stamp.to('meter').magnitude,
+            self.grid.y_stamp.to('meter').magnitude,
+            initial_field,
+            cmap=colormap
+        )
+
+        title = ax.text(
+            x=0.85,
+            y=.9,
+            s="",
+            transform=ax.transAxes,
+            ha="center",
+            color='white'
+        )
+
+        # Store all artists for updating
+        artist_list = [field_artist]
+
+        # Add other components to the axis and their artists to the list
+        for component in self.components:
+            artist_list.append(component.add_to_ax(ax))
+
+        max_amplitude = abs(self.Ez_t).max() / enhance_contrast
+        field_artist.set_clim(vmin=-max_amplitude, vmax=max_amplitude)
 
         def update(frame) -> List:
             """
@@ -553,7 +478,7 @@ class Experiment(interface_simulator.FDTDSimulator):
             ax.set_yticks([])
             return field_artist, title,
 
-        render = animation.FuncAnimation(
+        rendered_animation = animation.FuncAnimation(
             fig=figure,
             func=update,
             frames=numpy.arange(0, self.grid.n_steps, skip_frame),
@@ -562,53 +487,11 @@ class Experiment(interface_simulator.FDTDSimulator):
             init_func=init_func
         )
 
-        return render
+        if save_as is not None:
+            rendered_animation.save(save_as, writer='Pillow', fps=fps)
 
-    def save_propagation(self, filename: str, writer: str = 'Pillow', fps: int = 10, **kwargs) -> animation.FuncAnimation:
-        """
-        Save the field propagation animation to a file.
+        if show:
+            plt.show()
 
-        This method generates an animation of the electric field propagation and saves it to
-        the specified file using the given writer and frame rate.
-
-        Parameters
-        ----------
-        filename : str
-            The name of the file to save the animation.
-        writer : str, optional
-            The writer used for saving the animation. Default is 'Pillow'.
-        fps : int, optional
-            The frames per second for the animation. Default is 10.
-        **kwargs
-            Additional keyword arguments passed to the render_propagation method.
-
-        Returns
-        -------
-        animation.FuncAnimation
-            The generated animation object.
-        """
-        animation = self.render_propagation(**kwargs)
-        animation.save(filename, writer=writer, fps=fps)
-        return animation
-
-    def show_propagation(self, **kwargs) -> animation.FuncAnimation:
-        """
-        Display the field propagation animation.
-
-        This method generates and displays an animation of the electric field propagation.
-
-        Parameters
-        ----------
-        **kwargs
-            Additional keyword arguments passed to the render_propagation method.
-
-        Returns
-        -------
-        animation.FuncAnimation
-            The generated animation object.
-        """
-        animation = self.render_propagation(**kwargs)
-        plt.show()
-        return animation
-
+        return rendered_animation
 # -

@@ -60,27 +60,26 @@ experiment.run()
 
 # %%
 # Plot the last time frame of the computed fields
-experiment.plot_frame(
-    frame_number=-1,  # Plot the last frame
-    enhance_contrast=2,
-    colormap=colormaps.polytechnique.red_black_blue  # Colormap for the plot
-)
+# experiment.plot_frame(
+#     frame_number=-1,  # Plot the last frame
+#     enhance_contrast=2,
+#     colormap=colormaps.polytechnique.red_black_blue  # Colormap for the plot
+# )
 
 # %%
 # Save the last time frame as an image
-experiment.save_frame_as_image(
-    frame_number=-1,  # Frame number to save
-    enhance_contrast=2,
-    filename='elliptic_scatterer_last_frame.png'  # Filename for the image
-)
+# experiment.plot_frame(
+#     frame_number=-1,  # Frame number to save
+#     enhance_contrast=2,
+#     save_as='elliptic_scatterer_last_frame.png'  # Filename for the image
+# )
 
 # %%
 # Render an animation of the field propagation over time
 animation = experiment.render_propagation(
-    skip_frame=5,                            # Number of frames to skip in the animation
-    unit_size=5,                             # Size of each unit in the animation
-    colormap=colormaps.polytechnique.red_black_blue  # Colormap for the animation
+    skip_frame=5,                                     # Number of frames to skip in the animation
+    colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
+    enhance_contrast=4,                               # Enhance contrast for better visualization
+    save_as='./elliptic_scatterer_propagation.gif',   # Save the animation as a GIF file
+    fps=30
 )
-
-# Save the animation as a GIF file
-animation.save('./elliptic_scatterer_propagation.gif', writer='Pillow', fps=10)

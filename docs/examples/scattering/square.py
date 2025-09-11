@@ -78,9 +78,9 @@ experiment.plot_frame(
 # %%
 # Render an animation of the field propagation over time
 animation = experiment.render_propagation(
-    skip_frame=5,                            # Number of frames to skip in the animation
-    colormap=polytechnique.red_black_blue    # Colormap for the animation
+    skip_frame=5,                                     # Number of frames to skip in the animation
+    colormap=polytechnique.red_black_blue,            # Colormap for the animation
+    enhance_contrast=4,                               # Enhance contrast for better visualization
+    save_as='./square_scatterer_propagation.gif',   # Save the animation as a GIF file
+    fps=30
 )
-
-# Save the animation as a GIF file
-animation.save('./square_scatterer_propagation.gif', fps=10)
