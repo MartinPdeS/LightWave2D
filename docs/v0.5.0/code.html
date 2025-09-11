@@ -569,23 +569,6 @@ Method to add a components.Square to the simulation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.get_figure_ax">
-<span class="sig-name descname"><span class="pre">get_figure_ax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.get_figure_ax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.get_figure_ax" title="Link to this definition">#</a></dt>
-<dd><p>Get a matplotlib figure and axis for plotting.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>unit_size</strong> (<em>int</em><em>, </em><em>optional</em>) – The base unit size for scaling the plot. Default is 6.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A tuple containing the matplotlib figure and axis objects.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.get_gradient">
 <span class="sig-name descname"><span class="pre">get_gradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.get_gradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.get_gradient" title="Link to this definition">#</a></dt>
 <dd><p>Compute the gradient of the field along the specified axis.</p>
@@ -629,13 +612,62 @@ Method to add a components.Square to the simulation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.plot_frame">
-<span class="sig-name descname"><span class="pre">plot_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Axes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#LightWave2D.experiment.Experiment.plot_frame" title="Link to this definition">#</a></dt>
-<dd><p>Wrapper injected around the plotting function.</p>
+<span class="sig-name descname"><span class="pre">plot_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame_number:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhance_contrast:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_intensity:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">object</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.plot_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.plot_frame" title="Link to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Plot a specific frame from the FDTD simulation.</p>
+<p>This method visualizes the electric field distribution for a specified frame, including
+the components, sources, and detectors present in the simulation.</p>
+<dl class="simple">
+<dt>frame_number<span class="classifier">int</span></dt><dd><p>The index of the frame to be visualized.</p>
+</dd>
+<dt>enhance_contrast<span class="classifier">float, optional</span></dt><dd><p>The maximum scale factor for the color limits of the field. Default is 5.</p>
+</dd>
+<dt>show_intensity<span class="classifier">bool, optional</span></dt><dd><p>If True, displays the intensity instead of the amplitude. Default is False.</p>
+</dd>
+<dt>colormap<span class="classifier">Optional[Union[str, object]], optional</span></dt><dd><p>The colormap used for visualization. Default is a blue-black-red colormap from the Polytechnique collection.</p>
+</dd>
+</dl>
+</div></blockquote>
+<section id="extra-parameters">
+<h2>Extra Parameters<a class="headerlink" href="#extra-parameters" title="Link to this heading">#</a></h2>
+<dl class="simple">
+<dt>show<span class="classifier">bool</span></dt><dd><p>Whether to display the plot after creation.</p>
+</dd>
+<dt>save_as<span class="classifier">str, optional</span></dt><dd><p>If provided, save the figure to this path.</p>
+</dd>
+<dt>figure_size<span class="classifier">tuple, optional</span></dt><dd><p>Size of the figure in inches.</p>
+</dd>
+<dt>tight_layout<span class="classifier">bool, default=True</span></dt><dd><p>Whether to use tight layout for the figure.</p>
+</dd>
+<dt>axes<span class="classifier">matplotlib.axes.Axes, optional</span></dt><dd><p>Axes to draw on. If None, a new figure+axes are created.</p>
+</dd>
+<dt>xscale<span class="classifier">str, optional</span></dt><dd><p>X-axis scale type (e.g., ‘linear’, ‘log’).</p>
+</dd>
+<dt>yscale<span class="classifier">str, optional</span></dt><dd><p>Y-axis scale type (e.g., ‘linear’, ‘log’).</p>
+</dd>
+<dt>xlim<span class="classifier">tuple, optional</span></dt><dd><p>X-axis limits as (min, max).</p>
+</dd>
+<dt>ylim<span class="classifier">tuple, optional</span></dt><dd><p>Y-axis limits as (min, max).</p>
+</dd>
+<dt>style<span class="classifier">str, default=plot_style</span></dt><dd><p>Matplotlib style to use for the plot.</p>
+</dd>
+<dt><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs</dt><dd><p>Additional keyword arguments to pass to the plotting function.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>axes</strong> – The axes with the market prices plot.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>matplotlib.axes.Axes</p>
+</dd>
+</dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.render_propagation">
-<span class="sig-name descname"><span class="pre">render_propagation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">skip_frame:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhance_contrast:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_size:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_adjust_clim:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">object</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">FuncAnimation</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.render_propagation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.render_propagation" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">render_propagation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">skip_frame:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhance_contrast:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_adjust_clim:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_as:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">object</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">FuncAnimation</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.render_propagation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.render_propagation" title="Link to this definition">#</a></dt>
 <dd><p>Render an animation of the field propagation.</p>
 <p>This method sets up the scene, initializes the field display, and creates
 an animation showing the evolution of the field over time.</p>
@@ -644,10 +676,11 @@ an animation showing the evolution of the field over time.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>skip_frame</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of time steps to skip between frames in the animation. Default is 10.</p></li>
 <li><p><strong>enhance_contrast</strong> (<em>float</em><em>, </em><em>optional</em>) – The maximum scale factor for the color limits of the field amplitude. Default is 1.</p></li>
-<li><p><strong>unit_size</strong> (<em>int</em><em>, </em><em>optional</em>) – The base unit size for scaling the plot elements. Default is 6.</p></li>
 <li><p><strong>auto_adjust_clim</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, automatically adjusts color limits based on field amplitude for each frame. Default is False.</p></li>
 <li><p><strong>fps</strong> (<em>int</em><em>, </em><em>optional</em>) – The frames per second for the animation. Default is 10.</p></li>
 <li><p><strong>colormap</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>object</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The colormap used for visualizing the data. Default is a predefined blue-black-red colormap.</p></li>
+<li><p><strong>save_as</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – If provided, saves the animation to the specified file. Default is None.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, displays the animation after rendering. Default is True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -765,54 +798,6 @@ of absorption, sources, and non-linear interactions.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.save_frame_as_image">
-<span class="sig-name descname"><span class="pre">save_frame_as_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Axes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#LightWave2D.experiment.Experiment.save_frame_as_image" title="Link to this definition">#</a></dt>
-<dd><p>Wrapper injected around the plotting function.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.save_propagation">
-<span class="sig-name descname"><span class="pre">save_propagation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">writer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Pillow'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">FuncAnimation</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.save_propagation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.save_propagation" title="Link to this definition">#</a></dt>
-<dd><p>Save the field propagation animation to a file.</p>
-<p>This method generates an animation of the electric field propagation and saves it to
-the specified file using the given writer and frame rate.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>str</em>) – The name of the file to save the animation.</p></li>
-<li><p><strong>writer</strong> (<em>str</em><em>, </em><em>optional</em>) – The writer used for saving the animation. Default is ‘Pillow’.</p></li>
-<li><p><strong>fps</strong> (<em>int</em><em>, </em><em>optional</em>) – The frames per second for the animation. Default is 10.</p></li>
-<li><p><strong>**kwargs</strong> – Additional keyword arguments passed to the render_propagation method.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The generated animation object.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>animation.FuncAnimation</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.show_propagation">
-<span class="sig-name descname"><span class="pre">show_propagation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">FuncAnimation</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.show_propagation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.show_propagation" title="Link to this definition">#</a></dt>
-<dd><p>Display the field propagation animation.</p>
-<p>This method generates and displays an animation of the electric field propagation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>**kwargs</strong> – Additional keyword arguments passed to the render_propagation method.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The generated animation object.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>animation.FuncAnimation</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2622,7 +2607,6 @@ the specified file using the given writer and frame rate.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.add_triangle"><code class="docutils literal notranslate"><span class="pre">Experiment.add_triangle()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.add_waveguide"><code class="docutils literal notranslate"><span class="pre">Experiment.add_waveguide()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.get_epsilon"><code class="docutils literal notranslate"><span class="pre">Experiment.get_epsilon()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.get_figure_ax"><code class="docutils literal notranslate"><span class="pre">Experiment.get_figure_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.get_gradient"><code class="docutils literal notranslate"><span class="pre">Experiment.get_gradient()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.get_sigma"><code class="docutils literal notranslate"><span class="pre">Experiment.get_sigma()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.grid"><code class="docutils literal notranslate"><span class="pre">Experiment.grid</span></code></a></li>
@@ -2640,9 +2624,6 @@ the specified file using the given writer and frame rate.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.eps_factor"><code class="docutils literal notranslate"><span class="pre">Experiment.eps_factor</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.save_frame_as_image"><code class="docutils literal notranslate"><span class="pre">Experiment.save_frame_as_image()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.save_propagation"><code class="docutils literal notranslate"><span class="pre">Experiment.save_propagation()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.show_propagation"><code class="docutils literal notranslate"><span class="pre">Experiment.show_propagation()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.BaseComponent"><code class="docutils literal notranslate"><span class="pre">BaseComponent</span></code></a><ul class="nav section-nav flex-column">

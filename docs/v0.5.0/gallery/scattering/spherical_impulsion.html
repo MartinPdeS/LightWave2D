@@ -511,21 +511,19 @@ We will define the simulation grid, add a circular scatterer and a line source, 
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_spherical_impulsion_001.png" srcset="../../_images/sphx_glr_spherical_impulsion_001.png" alt="Fiber structure" class = "sphx-glr-single-img"/><p>Render an animation of the field propagation over time</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">show_propagation</span><span class="p">(</span>
-    <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>                            <span class="c1"># Number of frames to skip in the animation</span>
-    <span class="n">unit_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>                             <span class="c1"># Size of each unit in the animation</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
+    <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>                                     <span class="c1"># Number of frames to skip in the animation</span>
     <span class="n">colormap</span><span class="o">=</span><span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span><span class="p">,</span>  <span class="c1"># Colormap for the animation</span>
-    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">4</span>
+    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>                               <span class="c1"># Enhance contrast for better visualization</span>
+    <span class="n">save_as</span><span class="o">=</span><span class="s1">&#39;./circular_scatterer_propagation.gif&#39;</span><span class="p">,</span>   <span class="c1"># Save the animation as a GIF file</span>
+    <span class="n">fps</span><span class="o">=</span><span class="mi">30</span>
 <span class="p">)</span>
-
-<span class="c1"># Save the animation as a GIF file</span>
-<span class="n">animation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./circular_scatterer_propagation.gif&#39;</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s1">&#39;Pillow&#39;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_spherical_impulsion_002.png" srcset="../../_images/sphx_glr_spherical_impulsion_002.png" alt="spherical impulsion" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>MovieWriter Pillow unavailable; using Pillow instead.
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 11.893 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 15.992 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-scattering-spherical-impulsion-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/bc061604c30312856246110bfa1a9f74/spherical_impulsion.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">spherical_impulsion.ipynb</span></code></a></p>

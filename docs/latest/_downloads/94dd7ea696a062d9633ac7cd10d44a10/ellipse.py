@@ -20,7 +20,7 @@ grid = Grid(
     resolution=0.1 * ureg.micrometer,
     size_x=40 * ureg.micrometer,
     size_y=30 * ureg.micrometer,
-    n_steps=400
+    n_steps=400,
 )
 
 # Initialize the experiment with the defined grid
@@ -29,27 +29,27 @@ experiment = Experiment(grid=grid)
 # %%
 # Add an elliptic scatterer to the experiment
 scatterer = experiment.add_ellipse(
-    position=('30%', '40%'),  # Center position of the ellipse
+    position=("30%", "40%"),  # Center position of the ellipse
     width=4 * ureg.micrometer,
     height=10 * ureg.micrometer,
-    epsilon_r=2               # Relative permittivity of the ellipse
+    epsilon_r=2,  # Relative permittivity of the ellipse
 )
 
 # %%
 # Add a line source to the experiment
 source = experiment.add_line_source(
     wavelength=1550 * ureg.nanometer,
-    position_0=('10%', '100%'),  # Starting position of the source
-    position_1=('10%', '0%'),    # Ending position of the source
-    amplitude=10                 # Amplitude of the source
+    position_0=("10%", "100%"),  # Starting position of the source
+    position_1=("10%", "0%"),  # Ending position of the source
+    amplitude=10,  # Amplitude of the source
 )
 
 # %%
 # Add a perfectly matched layer (PML) to absorb boundary reflections
 experiment.add_pml(
-    order=1,          # Order of the PML polynomial profile
-    width='10%',      # Width of the PML region as a percentage of grid size
-    sigma_max=5000 * ureg.siemens / ureg.meter    # Maximum conductivity for the PML
+    order=1,  # Order of the PML polynomial profile
+    width="10%",  # Width of the PML region as a percentage of grid size
+    sigma_max=5000 * ureg.siemens / ureg.meter,  # Maximum conductivity for the PML
 )
 
 # Run the FDTD simulation
@@ -60,27 +60,26 @@ experiment.run()
 
 # %%
 # Plot the last time frame of the computed fields
-experiment.plot_frame(
-    frame_number=-1,  # Plot the last frame
-    enhance_contrast=2,
-    colormap=colormaps.polytechnique.red_black_blue  # Colormap for the plot
-)
+# experiment.plot_frame(
+#     frame_number=-1,  # Plot the last frame
+#     enhance_contrast=2,
+#     colormap=colormaps.polytechnique.red_black_blue  # Colormap for the plot
+# )
 
 # %%
 # Save the last time frame as an image
-experiment.save_frame_as_image(
-    frame_number=-1,  # Frame number to save
-    enhance_contrast=2,
-    filename='elliptic_scatterer_last_frame.png'  # Filename for the image
-)
+# experiment.plot_frame(
+#     frame_number=-1,  # Frame number to save
+#     enhance_contrast=2,
+#     save_as='elliptic_scatterer_last_frame.png'  # Filename for the image
+# )
 
 # %%
 # Render an animation of the field propagation over time
 animation = experiment.render_propagation(
-    skip_frame=5,                            # Number of frames to skip in the animation
-    unit_size=5,                             # Size of each unit in the animation
-    colormap=colormaps.polytechnique.red_black_blue  # Colormap for the animation
+    skip_frame=5,  # Number of frames to skip in the animation
+    colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
+    enhance_contrast=4,  # Enhance contrast for better visualization
+    save_as="./elliptic_scatterer.gif",  # Save the animation as a GIF file
+    fps=30,
 )
-
-# Save the animation as a GIF file
-animation.save('./elliptic_scatterer_propagation.gif', writer='Pillow', fps=10)

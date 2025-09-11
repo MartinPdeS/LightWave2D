@@ -172,19 +172,17 @@ Plot the entire experiment setup
 
 Render an animation of the field propagation over time
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-75
+.. GENERATED FROM PYTHON SOURCE LINES 66-73
 
 .. code-block:: Python
 
-    animation = experiment.show_propagation(
-        skip_frame=5,                            # Number of frames to skip in the animation
-        unit_size=5,                             # Size of each unit in the animation
+    animation = experiment.render_propagation(
+        skip_frame=5,                                     # Number of frames to skip in the animation
         colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
-        enhance_contrast=4
+        enhance_contrast=4,                               # Enhance contrast for better visualization
+        save_as='./circular_scatterer_propagation.gif',   # Save the animation as a GIF file
+        fps=30
     )
-
-    # Save the animation as a GIF file
-    animation.save('./circular_scatterer_propagation.gif', writer='Pillow', fps=30)
 
 
 
@@ -206,7 +204,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 11.893 seconds)
+   **Total running time of the script:** (0 minutes 15.992 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_spherical_impulsion.py:

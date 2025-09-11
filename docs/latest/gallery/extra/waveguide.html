@@ -464,9 +464,9 @@ We will define the simulation grid, add a waveguide and a line source, apply a p
 <p>Define the simulation grid</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
     <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid resolution in meters</span>
-    <span class="n">size_x</span><span class="o">=</span><span class="mi">50</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>       <span class="c1"># Grid size in the x direction in meters</span>
-    <span class="n">size_y</span><span class="o">=</span><span class="mi">15</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>       <span class="c1"># Grid size in the y direction in meters</span>
-    <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span>                          <span class="c1"># Number of time steps for the simulation</span>
+    <span class="n">size_x</span><span class="o">=</span><span class="mi">50</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid size in the x direction in meters</span>
+    <span class="n">size_y</span><span class="o">=</span><span class="mi">15</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid size in the y direction in meters</span>
+    <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># Number of time steps for the simulation</span>
 <span class="p">)</span>
 
 <span class="c1"># Initialize the experiment with the defined grid</span>
@@ -475,26 +475,26 @@ We will define the simulation grid, add a waveguide and a line source, apply a p
 </div>
 <p>Add a waveguide to the experiment</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_waveguide</span><span class="p">(</span>
-    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;0%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>    <span class="c1"># Starting position of the waveguide</span>
-    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;100%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>  <span class="c1"># Ending position of the waveguide</span>
+    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;0%&quot;</span><span class="p">,</span> <span class="s2">&quot;50%&quot;</span><span class="p">),</span>  <span class="c1"># Starting position of the waveguide</span>
+    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;50%&quot;</span><span class="p">),</span>  <span class="c1"># Ending position of the waveguide</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Width of the waveguide in meters</span>
-    <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span>                  <span class="c1"># Relative permittivity of the waveguide</span>
+    <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># Relative permittivity of the waveguide</span>
 <span class="p">)</span>
 
 <span class="c1"># Add a line source to the experiment</span>
 <span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>         <span class="c1"># Wavelength of the source in meters</span>
-    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;20%&#39;</span><span class="p">,</span> <span class="s1">&#39;45%&#39;</span><span class="p">),</span>  <span class="c1"># Starting position of the source</span>
-    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;20%&#39;</span><span class="p">,</span> <span class="s1">&#39;55%&#39;</span><span class="p">),</span>  <span class="c1"># Ending position of the source</span>
-    <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span>                <span class="c1"># Amplitude of the source</span>
+    <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>  <span class="c1"># Wavelength of the source in meters</span>
+    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;20%&quot;</span><span class="p">,</span> <span class="s2">&quot;45%&quot;</span><span class="p">),</span>  <span class="c1"># Starting position of the source</span>
+    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;20%&quot;</span><span class="p">,</span> <span class="s2">&quot;55%&quot;</span><span class="p">),</span>  <span class="c1"># Ending position of the source</span>
+    <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Amplitude of the source</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Add a perfectly matched layer (PML) to absorb boundary reflections</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span>
-    <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>          <span class="c1"># Order of the PML polynomial profile</span>
-    <span class="n">width</span><span class="o">=</span><span class="s1">&#39;10%&#39;</span><span class="p">,</span>      <span class="c1"># Width of the PML region as a percentage of grid size</span>
-    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span> <span class="o">*</span> <span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span>    <span class="c1"># Maximum conductivity for the PML</span>
+    <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Order of the PML polynomial profile</span>
+    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;10%&quot;</span><span class="p">,</span>  <span class="c1"># Width of the PML region as a percentage of grid size</span>
+    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span> <span class="o">*</span> <span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">),</span>  <span class="c1"># Maximum conductivity for the PML</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -513,21 +513,20 @@ We will define the simulation grid, add a waveguide and a line source, apply a p
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">plot_frame</span><span class="p">(</span><span class="n">frame_number</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_waveguide_002.png" srcset="../../_images/sphx_glr_waveguide_002.png" alt="Fiber structure" class = "sphx-glr-single-img"/><p>Render an animation of the wave propagation</p>
+<img src="../../_images/sphx_glr_waveguide_002.png" srcset="../../_images/sphx_glr_waveguide_002.png" alt="waveguide" class = "sphx-glr-single-img"/><p>Render an animation of the wave propagation</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
-    <span class="n">skip_frame</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>                            <span class="c1"># Number of frames to skip in the animation</span>
+    <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># Number of frames to skip in the animation</span>
     <span class="n">colormap</span><span class="o">=</span><span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span><span class="p">,</span>  <span class="c1"># Colormap for the animation</span>
-    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">2</span>                               <span class="c1"># Maximum scale for the field visualization</span>
+    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># Enhance contrast for better visualization</span>
+    <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;./waveguide.gif&quot;</span><span class="p">,</span>  <span class="c1"># Save the animation as a GIF file</span>
+    <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
 <span class="p">)</span>
-
-<span class="c1"># Save the animation as a GIF file</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./waveguide_propagation.gif&#39;</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s1">&#39;Pillow&#39;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_waveguide_003.png" srcset="../../_images/sphx_glr_waveguide_003.png" alt="waveguide" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>MovieWriter Pillow unavailable; using Pillow instead.
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.847 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.995 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-extra-waveguide-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/4a6b7ed60f51a26fb04b24fe434e1b63/waveguide.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">waveguide.ipynb</span></code></a></p>

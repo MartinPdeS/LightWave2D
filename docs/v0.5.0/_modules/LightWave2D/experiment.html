@@ -448,6 +448,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">mps</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots</span><span class="w"> </span><span class="kn">import</span> <span class="n">colormaps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots</span><span class="w"> </span><span class="kn">import</span> <span class="n">helper</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Physics</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
@@ -811,14 +812,15 @@
             <span class="n">detector</span><span class="o">.</span><span class="n">update_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">)</span></div>
 
 
-    <span class="nd">@plot_helper</span>
+<div class="viewcode-block" id="Experiment.plot_frame">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.plot_frame">[docs]</a>
+    <span class="nd">@helper</span><span class="o">.</span><span class="n">post_mpl_plot</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">plot_frame</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span>
-            <span class="n">frame_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-            <span class="n">enhance_contrast</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="n">show_intensity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">blue_black_red</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">frame_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">enhance_contrast</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">show_intensity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">blue_black_red</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot a specific frame from the FDTD simulation.</span>
 
@@ -835,12 +837,8 @@
 <span class="sd">            If True, displays the intensity instead of the amplitude. Default is False.</span>
 <span class="sd">        colormap : Optional[Union[str, object]], optional</span>
 <span class="sd">            The colormap used for visualization. Default is a blue-black-red colormap from the Polytechnique collection.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        None</span>
-<span class="sd">            This method does not return any value; it displays the plot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">show_intensity</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">frame_number</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -862,107 +860,20 @@
 
         <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
-    <span class="nd">@plot_helper</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">save_frame_as_image</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span>
-            <span class="n">frame_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-            <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-            <span class="n">enhance_contrast</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
-            <span class="n">show_intensity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">blue_black_red</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Save a specific frame from the FDTD simulation as an image.</span>
-
-<span class="sd">        This method plots a specific frame of the simulation using the specified colormap</span>
-<span class="sd">        and saves it as an image file with the given resolution.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        frame_number : int</span>
-<span class="sd">            The index of the frame to be saved.</span>
-<span class="sd">        filename : str</span>
-<span class="sd">            The file path where the image will be saved.</span>
-<span class="sd">        enhance_contrast : float, optional</span>
-<span class="sd">            The maximum scale factor for the color limits of the image. Default is 5.</span>
-<span class="sd">        figsize : tuple, optional</span>
-<span class="sd">            The base unit size for the plot. Default is 6.</span>
-<span class="sd">        dpi : int, optional</span>
-<span class="sd">            The resolution of the saved image in dots per inch. Default is 200.</span>
-<span class="sd">        show_intensity : bool, optional</span>
-<span class="sd">            If True, displays intensity instead of amplitude. Default is False.</span>
-<span class="sd">        colormap : Optional[Union[str, object]], optional</span>
-<span class="sd">            The colormap used for visualizing the data. Default is a predefined blue-black-red colormap.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        None</span>
-<span class="sd">            This method does not return any value, but saves an image file at the specified path.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">show_intensity</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">frame_number</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="n">frame_number</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
-
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="n">data</span><span class="p">,</span>
-            <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span>
-        <span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">]:</span>
-            <span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-
-        <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_clim</span><span class="p">()</span>
-        <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">vmin</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">vmax</span><span class="p">))</span> <span class="o">/</span> <span class="n">enhance_contrast</span>
-        <span class="n">image</span><span class="o">.</span><span class="n">set_clim</span><span class="p">([</span><span class="o">-</span><span class="n">max_diff</span><span class="p">,</span> <span class="n">max_diff</span><span class="p">])</span>
-
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
-
-<div class="viewcode-block" id="Experiment.get_figure_ax">
-<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.get_figure_ax">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_figure_ax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get a matplotlib figure and axis for plotting.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        unit_size : int, optional</span>
-<span class="sd">            The base unit size for scaling the plot. Default is 6.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        Tuple</span>
-<span class="sd">            A tuple containing the matplotlib figure and axis objects.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">figsize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">unit_size</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">unit_size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">size_y</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">size_x</span><span class="p">)</span>
-        <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
-
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;x position [$\mu$m]&#39;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;y position [$\mu$m]&#39;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-
-        <span class="n">ticks_x</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{0:g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">1e-6</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticks_x</span><span class="p">)</span>
-
-        <span class="n">ticks_y</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{0:g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="mf">1e-6</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticks_y</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span></div>
+        <span class="k">return</span> <span class="n">figure</span></div>
 
 
 <div class="viewcode-block" id="Experiment.render_propagation">
 <a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.render_propagation">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">render_propagation</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">skip_frame</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-            <span class="n">enhance_contrast</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="n">unit_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
-            <span class="n">auto_adjust_clim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-            <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colormaps</span><span class="o">.</span><span class="n">blue_black_red</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">skip_frame</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">enhance_contrast</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">auto_adjust_clim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">save_as</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="n">colormaps</span><span class="o">.</span><span class="n">blue_black_red</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Render an animation of the field propagation.</span>
 
@@ -975,50 +886,64 @@
 <span class="sd">            The number of time steps to skip between frames in the animation. Default is 10.</span>
 <span class="sd">        enhance_contrast : float, optional</span>
 <span class="sd">            The maximum scale factor for the color limits of the field amplitude. Default is 1.</span>
-<span class="sd">        unit_size : int, optional</span>
-<span class="sd">            The base unit size for scaling the plot elements. Default is 6.</span>
 <span class="sd">        auto_adjust_clim : bool, optional</span>
 <span class="sd">            If True, automatically adjusts color limits based on field amplitude for each frame. Default is False.</span>
 <span class="sd">        fps : int, optional</span>
 <span class="sd">            The frames per second for the animation. Default is 10.</span>
 <span class="sd">        colormap : Optional[Union[str, object]], optional</span>
 <span class="sd">            The colormap used for visualizing the data. Default is a predefined blue-black-red colormap.</span>
+<span class="sd">        save_as : Optional[str], optional</span>
+<span class="sd">            If provided, saves the animation to the specified file. Default is None.</span>
+<span class="sd">        show : bool, optional</span>
+<span class="sd">            If True, displays the animation after rendering. Default is True.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        animation.FuncAnimation</span>
 <span class="sd">            The animation object that can be displayed or saved.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="n">mps</span><span class="p">):</span>
-            <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_figure_ax</span><span class="p">(</span><span class="n">unit_size</span><span class="o">=</span><span class="n">unit_size</span><span class="p">)</span>
+        <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-            <span class="c1"># Initialize the field display</span>
-            <span class="n">initial_field</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-            <span class="n">field_artist</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-                <span class="n">initial_field</span><span class="p">,</span>
-                <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span>
-            <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+            <span class="n">xlabel</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;x position [m]&#39;</span><span class="p">,</span>
+            <span class="n">ylabel</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;y position [m]&#39;</span><span class="p">,</span>
+            <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span>
+        <span class="p">)</span>
 
-            <span class="n">title</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-                <span class="n">x</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span>
-                <span class="n">y</span><span class="o">=</span><span class="mf">.9</span><span class="p">,</span>
-                <span class="n">s</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-                <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
-                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
-            <span class="p">)</span>
+        <span class="n">ticks_x</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{0:g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">1e-6</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticks_x</span><span class="p">)</span>
 
-            <span class="c1"># Store all artists for updating</span>
-            <span class="n">artist_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">field_artist</span><span class="p">]</span>
+        <span class="n">ticks_y</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{0:g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="mf">1e-6</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticks_y</span><span class="p">)</span>
 
-            <span class="c1"># Add other components to the axis and their artists to the list</span>
-            <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
-                <span class="n">artist_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">))</span>
 
-            <span class="n">max_amplitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">enhance_contrast</span>
-            <span class="n">field_artist</span><span class="o">.</span><span class="n">set_clim</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">max_amplitude</span><span class="p">)</span>
+        <span class="c1"># Initialize the field display</span>
+        <span class="n">initial_field</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">field_artist</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;meter&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="n">initial_field</span><span class="p">,</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span>
+        <span class="p">)</span>
+
+        <span class="n">title</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="mf">.9</span><span class="p">,</span>
+            <span class="n">s</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Store all artists for updating</span>
+        <span class="n">artist_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">field_artist</span><span class="p">]</span>
+
+        <span class="c1"># Add other components to the axis and their artists to the list</span>
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
+            <span class="n">artist_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">))</span>
+
+        <span class="n">max_amplitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">enhance_contrast</span>
+        <span class="n">field_artist</span><span class="o">.</span><span class="n">set_clim</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">max_amplitude</span><span class="p">)</span>
 
         <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1061,7 +986,7 @@
             <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
             <span class="k">return</span> <span class="n">field_artist</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span>
 
-        <span class="n">render</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span>
+        <span class="n">rendered_animation</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span>
             <span class="n">fig</span><span class="o">=</span><span class="n">figure</span><span class="p">,</span>
             <span class="n">func</span><span class="o">=</span><span class="n">update</span><span class="p">,</span>
             <span class="n">frames</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span> <span class="n">skip_frame</span><span class="p">),</span>
@@ -1070,62 +995,14 @@
             <span class="n">init_func</span><span class="o">=</span><span class="n">init_func</span>
         <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">render</span></div>
+        <span class="k">if</span> <span class="n">save_as</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rendered_animation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">save_as</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s1">&#39;Pillow&#39;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Experiment.save_propagation">
-<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.save_propagation">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">save_propagation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Pillow&#39;</span><span class="p">,</span> <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Save the field propagation animation to a file.</span>
-
-<span class="sd">        This method generates an animation of the electric field propagation and saves it to</span>
-<span class="sd">        the specified file using the given writer and frame rate.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        filename : str</span>
-<span class="sd">            The name of the file to save the animation.</span>
-<span class="sd">        writer : str, optional</span>
-<span class="sd">            The writer used for saving the animation. Default is &#39;Pillow&#39;.</span>
-<span class="sd">        fps : int, optional</span>
-<span class="sd">            The frames per second for the animation. Default is 10.</span>
-<span class="sd">        **kwargs</span>
-<span class="sd">            Additional keyword arguments passed to the render_propagation method.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        animation.FuncAnimation</span>
-<span class="sd">            The generated animation object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">animation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="n">writer</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">animation</span></div>
-
-
-<div class="viewcode-block" id="Experiment.show_propagation">
-<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.show_propagation">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">show_propagation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Display the field propagation animation.</span>
-
-<span class="sd">        This method generates and displays an animation of the electric field propagation.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        **kwargs</span>
-<span class="sd">            Additional keyword arguments passed to the render_propagation method.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        animation.FuncAnimation</span>
-<span class="sd">            The generated animation object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">animation</span></div>
+        <span class="k">return</span> <span class="n">rendered_animation</span></div>
 </div>
-
 
 <span class="c1"># -</span>
 </pre></div>
