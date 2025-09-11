@@ -20,7 +20,7 @@ grid = Grid(
     resolution=0.1 * ureg.micrometer,
     size_x=60 * ureg.micrometer,
     size_y=30 * ureg.micrometer,
-    n_steps=300
+    n_steps=300,
 )
 
 # Initialize the experiment with the defined grid
@@ -29,32 +29,32 @@ experiment = Experiment(grid=grid)
 # %%
 # Add a lens scatterer to the experiment
 scatterer = experiment.add_lense(
-    position=('35%', '50%'),  # Center position of the lens
-    epsilon_r=2,              # Relative permittivity of the lens
+    position=("35%", "50%"),  # Center position of the lens
+    epsilon_r=2,  # Relative permittivity of the lens
     curvature=10 * ureg.micrometer,
-    width=5 * ureg.micrometer
+    width=5 * ureg.micrometer,
 )
 
 # %%
 # Add a point source to the experiment
 source = experiment.add_point_source(
     wavelength=[1310] * ureg.nanometer,
-    position=('10%', '50%'),        # Position of the source
-    amplitude=10e10                    # Amplitude of the source
+    position=("10%", "50%"),  # Position of the source
+    amplitude=10e10,  # Amplitude of the source
 )
 
 # %%
 # Add a point detector to the experiment
 detector = experiment.add_point_detector(
-    position=('40%', '50%')  # Position of the detector
+    position=("40%", "50%")  # Position of the detector
 )
 
 # %%
 # Add a perfectly matched layer (PML) to absorb boundary reflections
 experiment.add_pml(
-    order=1,          # Order of the PML polynomial profile
-    width='10%',      # Width of the PML region as a percentage of grid size
-    sigma_max=5000 * (ureg.siemens / ureg.meter)    # Maximum conductivity for the PML
+    order=1,  # Order of the PML polynomial profile
+    width="10%",  # Width of the PML region as a percentage of grid size
+    sigma_max=5000 * (ureg.siemens / ureg.meter),  # Maximum conductivity for the PML
 )
 
 # %%
@@ -71,18 +71,16 @@ detector.plot_data()
 # Plot the last time frame of the computed fields
 experiment.plot_frame(
     frame_number=-1,  # Plot the last frame
-    enhance_contrast=3,      # Maximum scale for the field visualization
-    colormap=colormaps.polytechnique.red_black_blue  # Colormap for the plot
+    enhance_contrast=3,  # Maximum scale for the field visualization
+    colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the plot
 )
 
 # %%
 # Render an animation of the field propagation over time
 animation = experiment.render_propagation(
-    skip_frame=5,                            # Number of frames to skip in the animation
-    unit_size=5,                             # Size of each unit in the animation
+    skip_frame=5,  # Number of frames to skip in the animation
     colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
-    enhance_contrast=3
+    enhance_contrast=4,  # Enhance contrast for better visualization
+    save_as="./detector.gif",  # Save the animation as a GIF file
+    fps=30,
 )
-
-# Save the animation as a GIF file
-animation.save('./lens_propagation.gif', writer='Pillow', fps=10)
