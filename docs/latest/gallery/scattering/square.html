@@ -518,14 +518,20 @@ We will define the simulation grid, add a square scatterer and a line source, ap
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">detector</span><span class="o">.</span><span class="n">plot_data</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_square_002.png" srcset="../../_images/sphx_glr_square_002.png" alt="square" class = "sphx-glr-single-img"/><p>Plot the last time frame of the computed fields</p>
+<img src="../../_images/sphx_glr_square_002.png" srcset="../../_images/sphx_glr_square_002.png" alt="square" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 800x400 with 1 Axes&gt;
+</pre></div>
+</div>
+<p>Plot the last time frame of the computed fields</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">plot_frame</span><span class="p">(</span>
     <span class="n">frame_number</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Plot the last frame</span>
     <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># Maximum scale for the field visualization</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_square_003.png" srcset="../../_images/sphx_glr_square_003.png" alt="square" class = "sphx-glr-single-img"/><p>Render an animation of the field propagation over time</p>
+<img src="../../_images/sphx_glr_square_003.png" srcset="../../_images/sphx_glr_square_003.png" alt="square" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 800x500 with 2 Axes&gt;
+</pre></div>
+</div>
+<p>Render an animation of the field propagation over time</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
     <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># Number of frames to skip in the animation</span>
     <span class="n">colormap</span><span class="o">=</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span><span class="p">,</span>  <span class="c1"># Colormap for the animation</span>
@@ -538,7 +544,7 @@ We will define the simulation grid, add a square scatterer and a line source, ap
 <img src="../../_images/sphx_glr_square_004.png" srcset="../../_images/sphx_glr_square_004.png" alt="square" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>MovieWriter Pillow unavailable; using Pillow instead.
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 10.649 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 10.734 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-scattering-square-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/2a72475ee5541660d3e65a4289197731/square.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">square.ipynb</span></code></a></p>
