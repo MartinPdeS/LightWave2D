@@ -52,7 +52,7 @@ dependencies = [
     'shapely ~=2.0',
     "numpy ==2.2.6",
     'opencv-python ~=4.10',
-    "pydantic >=2.9.2,<2.12.0",
+    "pydantic >=2.9.2,<2.13.0",
     'ffmpeg ~= 1.4',
     'pint>=0.24',
     "TypedUnit"
