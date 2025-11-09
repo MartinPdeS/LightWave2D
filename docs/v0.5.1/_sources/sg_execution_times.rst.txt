@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**01:31.928** total execution time for 8 files **from all galleries**:
+**01:32.816** total execution time for 8 files **from all galleries**:
 
 .. container::
 
@@ -33,26 +33,26 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_scattering_spherical.py` (``../examples/scattering/spherical.py``)
-     - 00:24.522
+     - 00:24.838
      - 0.0
    * - :ref:`sphx_glr_gallery_scattering_spherical_impulsion.py` (``../examples/scattering/spherical_impulsion.py``)
-     - 00:16.074
+     - 00:16.156
      - 0.0
    * - :ref:`sphx_glr_gallery_scattering_ellipse.py` (``../examples/scattering/ellipse.py``)
-     - 00:12.690
+     - 00:12.653
      - 0.0
    * - :ref:`sphx_glr_gallery_detector_source_detector.py` (``../examples/detector/source_detector.py``)
-     - 00:12.211
+     - 00:12.375
      - 0.0
    * - :ref:`sphx_glr_gallery_scattering_square.py` (``../examples/scattering/square.py``)
-     - 00:10.663
+     - 00:10.782
      - 0.0
    * - :ref:`sphx_glr_gallery_extra_resonator.py` (``../examples/extra/resonator.py``)
-     - 00:07.790
+     - 00:07.906
      - 0.0
    * - :ref:`sphx_glr_gallery_extra_lense.py` (``../examples/extra/lense.py``)
-     - 00:04.983
+     - 00:05.065
      - 0.0
    * - :ref:`sphx_glr_gallery_extra_waveguide.py` (``../examples/extra/waveguide.py``)
-     - 00:02.994
+     - 00:03.040
      - 0.0
