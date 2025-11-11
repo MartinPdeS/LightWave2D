@@ -2,18 +2,19 @@
 
 [Full report](https://htmlpreview.github.io/?https://github.com/MartinPdeS/LightWave2D/blob/python-coverage-comment-action-data/htmlcov/index.html)
 
-| Name                      |    Stmts |     Miss |   Branch |   BrPart |   Cover |   Missing |
-|-------------------------- | -------: | -------: | -------: | -------: | ------: | --------: |
-| LightWave2D/components.py |      119 |       48 |        2 |        0 |     59% |81-91, 97-104, 115, 126, 137-140, 168-172, 178-184, 243, 268-275, 347-354, 383-385, 414-420 |
-| LightWave2D/detector.py   |       65 |       25 |        2 |        0 |     60% |51-53, 59-61, 79-89, 96-108, 151-154, 161-168, 179 |
-| LightWave2D/experiment.py |      180 |       75 |       28 |        4 |     53% |64, 78-85, 121, 143, 150, 157, 164, 171, 185, 199, 216, 221-222, 237, 280-310, 336-358, 397-496 |
-| LightWave2D/grid.py       |       80 |        3 |       30 |        7 |     91% |21, 108->113, 113->118, 151, 184 |
-| LightWave2D/helper.py     |       19 |       12 |        6 |        0 |     28% |     36-57 |
-| LightWave2D/physics.py    |       11 |        0 |        0 |        0 |    100% |           |
-| LightWave2D/pml.py        |       45 |       12 |        0 |        0 |     73% |74-78, 94-103 |
-| LightWave2D/source.py     |      103 |       22 |        4 |        2 |     78% |27-33, 51-52, 70-72, 111, 143, 188, 245, 294-298, 343-347 |
-| LightWave2D/utils.py      |       29 |        2 |       10 |        1 |     92% |     52-53 |
-|                 **TOTAL** |  **651** |  **199** |   **82** |   **14** | **67%** |           |
+| Name                      |    Stmts |     Miss |   Branch |   BrPart |      Cover |   Missing |
+|-------------------------- | -------: | -------: | -------: | -------: | ---------: | --------: |
+| LightWave2D/components.py |      119 |       48 |        2 |        0 |     58.68% |81-91, 97-104, 115, 126, 137-140, 168-172, 178-184, 243, 268-275, 347-354, 383-385, 414-420 |
+| LightWave2D/detector.py   |       65 |       25 |        2 |        0 |     59.70% |51-53, 59-61, 79-89, 96-108, 151-154, 161-168, 179 |
+| LightWave2D/experiment.py |      180 |       75 |       28 |        4 |     53.37% |64, 78-85, 121, 143, 150, 157, 164, 171, 185, 199, 216, 221-222, 237, 280-310, 336-358, 397-496 |
+| LightWave2D/grid.py       |       80 |        3 |       30 |        7 |     90.91% |21, 108->113, 113->118, 151, 184 |
+| LightWave2D/helper.py     |       19 |       12 |        6 |        0 |     28.00% |     36-57 |
+| LightWave2D/pml.py        |       45 |       12 |        0 |        0 |     73.33% |74-78, 94-103 |
+| LightWave2D/source.py     |      103 |       22 |        4 |        2 |     77.57% |27-33, 51-52, 70-72, 111, 143, 188, 245, 294-298, 343-347 |
+| LightWave2D/utils.py      |       29 |        2 |       10 |        1 |     92.31% |     52-53 |
+|                 **TOTAL** |  **651** |  **199** |   **82** |   **14** | **67.12%** |           |
+
+1 file skipped due to complete coverage.
 
 
 ## Setup coverage badge
