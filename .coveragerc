@@ -1,0 +1,22 @@
+# .coveragerc
+[run]
+source = LightWave2D
+branch = True
+relative_files = True
+parallel = True
+omit =
+    **/__init__.py
+    LightWave2D/_version.py
+    LightWave2D/directories.py
+    LightWave2D/**/__main__.py
+
+[report]
+skip_covered = True
+show_missing = True
+precision = 2
+
+[html]
+directory = htmlcov
+
+[xml]
+output = coverage.xml
