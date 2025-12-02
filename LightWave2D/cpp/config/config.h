@@ -23,8 +23,8 @@ public:
         const double dx,
         const double dy,
         const double dt,
-        const double nx,
-        const double ny,
+        const int64_t nx,
+        const int64_t ny,
         const std::vector<double>& time_stamp)
     : dx(dx), dy(dy), dt(dt), nx(nx), ny(ny), time_stamp(time_stamp)
     {}
