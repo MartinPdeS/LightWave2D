@@ -33,6 +33,12 @@ if (WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-fopenmp)
     add_link_options(-static -fopenmp -Wl,--whole-archive -lgomp -Wl,--no-whole-archive)
 endif()
+
+if (WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    add_compile_options(/W4 /permissive-)
+else()
+    add_compile_options(-Wall -Wextra -pedantic-errors)
+endif()
 # --------------------- Platform-specific compiler and linker options --------------------
 
 
