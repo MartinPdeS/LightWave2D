@@ -11,10 +11,10 @@ public:
     double dx;
     double dy;
     double dt;
-    ssize_t nx;
-    ssize_t ny;
+    int64_t nx;
+    int64_t ny;
     std::vector<double> time_stamp;
-    ssize_t iteration = 0;
+    int64_t iteration = 0;
     double time = 0;
 
     Config() = default;
