@@ -19,13 +19,13 @@ FDTDSimulator::compute_yee_gradients(FieldSet& field_set)
 
     // Compute the gradients
     #pragma omp parallel for collapse(2)
-    for (ssize_t i = 0; i < config.nx - 1; ++i)
-        for (ssize_t j = 0; j < config.ny; ++j)
+    for (int64_t i = 0; i < config.nx - 1; ++i)
+        for (int64_t j = 0; j < config.ny; ++j)
             dEz_dx_r(i, j) = (Ez_r(i + 1, j) - Ez_r(i, j)) / config.dx;
 
     #pragma omp parallel for collapse(2)
-    for (ssize_t i = 1; i < config.nx; ++i)
-        for (ssize_t j = 0; j < config.ny - 1; ++j)
+    for (int64_t i = 1; i < config.nx; ++i)
+        for (int64_t j = 0; j < config.ny - 1; ++j)
             dEz_dy_r(i, j) = (Ez_r(i, j + 1) - Ez_r(i, j)) / config.dy;
 
     return std::make_tuple(dEz_dx, dEz_dy);
@@ -50,14 +50,14 @@ FDTDSimulator::update_magnetic_fields(FieldSet& field_set) {
 
     // Update Hx
     #pragma omp parallel for collapse(2)
-    for (ssize_t i = 0; i < config.nx; ++i)
-        for (ssize_t j = 0; j < config.ny - 1; ++j)
+    for (int64_t i = 0; i < config.nx; ++i)
+        for (int64_t j = 0; j < config.ny - 1; ++j)
             Hx_rw(i, j) -= (config.dt / mesh_set.mu) * dEz_dy_r(i, j) * (1 - sigma_y_r(i, j) * (config.dt / mesh_set.mu) / 2);
 
     // Update Hy
     #pragma omp parallel for collapse(2)
-    for (ssize_t i = 0; i < config.nx - 1; ++i)
-        for (ssize_t j = 0; j < config.ny; ++j)
+    for (int64_t i = 0; i < config.nx - 1; ++i)
+        for (int64_t j = 0; j < config.ny; ++j)
             Hy_rw(i, j) += (config.dt / mesh_set.mu) * dEz_dx_r(i, j) * (1 - sigma_x_r(i, j) * (config.dt / mesh_set.mu) / 2);
 }
 
@@ -81,13 +81,13 @@ FDTDSimulator::compute_magnetic_field_gradients(FieldSet& field_set)
 
     // Compute the gradients
     #pragma omp parallel for collapse(2)
-    for (ssize_t i = 1; i < config.nx - 1; ++i)
-        for (ssize_t j = 1; j < config.ny - 1; ++j)
+    for (int64_t i = 1; i < config.nx - 1; ++i)
+        for (int64_t j = 1; j < config.ny - 1; ++j)
             dHy_dx_rw(i, j) = (Hy_r(i, j) - Hy_r(i - 1, j)) / config.dx;
 
     #pragma omp parallel for collapse(2)
-    for (ssize_t i = 1; i < config.nx - 1; ++i)
-        for (ssize_t j = 1; j < config.ny - 1; ++j)
+    for (int64_t i = 1; i < config.nx - 1; ++i)
+        for (int64_t j = 1; j < config.ny - 1; ++j)
             dHx_dy_rw(i, j) = (Hx_r(i, j) - Hx_r(i, j - 1)) / config.dy;
 
     return std::make_tuple(dHy_dx, dHx_dy);
@@ -106,8 +106,8 @@ FDTDSimulator::apply_kerr_effect(FieldSet& field_set)
 
     // Apply Kerr effect
     #pragma omp parallel for collapse(2)
-    for (ssize_t i = 1; i < config.nx - 1; ++i) {
-        for (ssize_t j = 1; j < config.ny - 1; ++j) {
+    for (int64_t i = 1; i < config.nx - 1; ++i) {
+        for (int64_t j = 1; j < config.ny - 1; ++j) {
             double intensity = Ez_rw(i, j) * Ez_rw(i, j);
             double nonlinear_epsilon = epsilon_r(i, j) + n2_r(i, j) * intensity;
             Ez_rw(i, j) *= (config.dt / nonlinear_epsilon);
@@ -125,8 +125,8 @@ FDTDSimulator::apply_second_harmonic_generation(FieldSet& field_set)
 
     // Apply Second-Harmonic Generation (SHG)
     #pragma omp parallel for collapse(2)
-    for (ssize_t i = 0; i < config.nx; ++i) {
-        for (ssize_t j = 0; j < config.ny; ++j) {
+    for (int64_t i = 0; i < config.nx; ++i) {
+        for (int64_t j = 0; j < config.ny; ++j) {
             double intensity = Ez_rw(i, j) * Ez_rw(i, j);
             Ez_rw(i, j) += gamma_r(i, j) * intensity * config.dt;
         }
@@ -150,8 +150,8 @@ FDTDSimulator::update_electric_field(FieldSet& field_set)
 
     // Update Ez
     #pragma omp parallel for collapse(2)
-    for (ssize_t i = 1; i < config.nx - 1; ++i)
-        for (ssize_t j = 1; j < config.ny - 1; ++j)
+    for (int64_t i = 1; i < config.nx - 1; ++i)
+        for (int64_t j = 1; j < config.ny - 1; ++j)
             Ez_rw(i, j) += (config.dt / epsilon_r(i, j)) * (dHy_dx_r(i, j) - dHx_dy_r(i, j));
 }
 
@@ -167,8 +167,8 @@ FDTDSimulator::apply_absorption(FieldSet &field_set) {
 
     // Apply absorption
     #pragma omp parallel for collapse(2)
-    for (ssize_t i = 0; i < config.nx; ++i)
-        for (ssize_t j = 0; j < config.ny; ++j) {
+    for (int64_t i = 0; i < config.nx; ++i)
+        for (int64_t j = 0; j < config.ny; ++j) {
             double epsilon_factor = config.dt / epsilon_r(i, j);
             double absorption_factor = 1 - (sigma_x_r(i, j) + sigma_y_r(i, j)) * epsilon_factor / 2;
             absorption_factor = std::clamp(absorption_factor, 0.0, 1.0);  // Clipped to [0, 1] to ensure stability
@@ -183,8 +183,8 @@ FDTDSimulator::update_field(py_ref_rw<double, 3>& Ez_time_r, FieldSet& field_set
     // Get reference to the electric field
     py_ref_r<double, 2> Ez_r = field_set.get_Ez_r();
 
-    for (ssize_t i = 0; i < config.nx; ++i)
-        for (ssize_t j = 0; j < config.ny; ++j)
+    for (int64_t i = 0; i < config.nx; ++i)
+        for (int64_t j = 0; j < config.ny; ++j)
             Ez_time_r(config.iteration, i, j) = Ez_r(i, j);
 }
 

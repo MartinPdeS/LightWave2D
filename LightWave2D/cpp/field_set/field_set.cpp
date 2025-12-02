@@ -15,8 +15,8 @@ void FieldSet::set_to_zero() {
         Hx_r = Hx.mutable_unchecked<2>(),
         Hy_r = Hy.mutable_unchecked<2>();
 
-    for (ssize_t i = 0; i < config.nx; ++i) {
-        for (ssize_t j = 0; j < config.ny; ++j) {
+    for (int64_t i = 0; i < config.nx; ++i) {
+        for (int64_t j = 0; j < config.ny; ++j) {
             Ez_r(i, j) = 0.0;
             Hx_r(i, j) = 0.0;
             Hy_r(i, j) = 0.0;
