@@ -47,8 +47,6 @@ endif()
 find_package(OpenMP REQUIRED)
 find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
 find_package(pybind11 CONFIG REQUIRED)
-# Compiler and linker options
-add_compile_options(-Wall -Wextra -pedantic-errors)
 # --------------------- Find dependencies and compile options --------------------
 
 # ----------------- Package specific settings--------------------
