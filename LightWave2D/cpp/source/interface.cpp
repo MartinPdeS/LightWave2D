@@ -13,7 +13,7 @@ PYBIND11_MODULE(interface_source, m) {
     // Multi-wavelength source
     py::class_<MultiWavelength, BaseSource, std::shared_ptr<MultiWavelength>>(m, "MultiWavelength")
         .def(
-            py::init<const py::array_t<double>&, const py::array_t<double>&, const py::array_t<double>&, const py::array_t<ssize_t>&>(),
+            py::init<const py::array_t<double>&, const py::array_t<double>&, const py::array_t<double>&, const py::array_t<int64_t>&>(),
             py::arg("omega"),
             py::arg("amplitude"),
             py::arg("delay"),
@@ -24,7 +24,7 @@ PYBIND11_MODULE(interface_source, m) {
     // Impulse source
     py::class_<Impulsion, BaseSource, std::shared_ptr<Impulsion>>(m, "Impulsion")
         .def(
-            py::init<const double, const double, const double, const py::array_t<ssize_t>&>(),
+            py::init<const double, const double, const double, const py::array_t<int64_t>&>(),
             py::arg("amplitude"),
             py::arg("duration"),
             py::arg("delay"),
