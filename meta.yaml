@@ -57,7 +57,7 @@ about:
 
 files:
   include:
-    - "TradeTide/binary/*.so"
+    - "LightWave2D/binary/*.so"
 
 test:
   imports:
