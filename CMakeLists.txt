@@ -35,7 +35,7 @@ if (WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 if (WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    add_compile_options(/W4 /permissive-)
+    add_compile_options(/W4 /permissive- /Zc:preprocessor)
 else()
     add_compile_options(-Wall -Wextra -pedantic-errors)
 endif()
