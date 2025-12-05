@@ -85,7 +85,7 @@ message(STATUS "  Python site packages : ${Python_SITELIB}")
 
 message(STATUS "")
 message(STATUS "PyMieSim integration")
-message(STATUS "  PyMieSim version     : ${PYMIESIM_VERSION}")
+message(STATUS "  PyMieSim version     : ${PACKAGE_VERSION}")
 message(STATUS "  PyMieSim include dir : ${LOCAL_CXX_DIR}")
 
 message(STATUS "")
@@ -104,3 +104,10 @@ add_subdirectory(LightWave2D/cpp/mesh_set)       # mesh_set
 add_subdirectory(LightWave2D/cpp/source)         # source
 add_subdirectory(LightWave2D/cpp/simulator)         # simulator
 # ----------------- collect subdirectories --------------------
+
+install(
+    TARGETS ${LIGHTWAVE2D_TARGETS}
+    LIBRARY DESTINATION ${LOCAL_BIN_DIR}
+    ARCHIVE DESTINATION ${LOCAL_BIN_DIR}
+    RUNTIME DESTINATION ${LOCAL_BIN_DIR}
+)
