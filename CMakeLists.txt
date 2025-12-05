@@ -105,6 +105,8 @@ add_subdirectory(LightWave2D/cpp/source)         # source
 add_subdirectory(LightWave2D/cpp/simulator)         # simulator
 # ----------------- collect subdirectories --------------------
 
+get_property(LIGHTWAVE2D_TARGETS GLOBAL PROPERTY LIGHTWAVE2D_TARGETS)
+
 install(
     TARGETS ${LIGHTWAVE2D_TARGETS}
     LIBRARY DESTINATION ${LOCAL_BIN_DIR}
