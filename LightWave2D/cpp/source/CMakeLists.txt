@@ -6,7 +6,7 @@ set(NAME "source")
 add_library("${NAME}" STATIC "${NAME}.cpp")
 
 # Link with pybind11 module target
-target_link_libraries("${NAME}" PRIVATE pybind11::module cpp_config cpp_field_set)
+target_link_libraries("${NAME}" PRIVATE pybind11::module config field_set)
 
 # Create your Python module
 pybind11_add_module("interface_${NAME}" MODULE interface.cpp)
