@@ -24,156 +24,7 @@ Elliptic Scatterer
 This example demonstrates the setup and execution of an elliptic scatterer experiment using LightWave2D.
 We will define the simulation grid, add an elliptic scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-11
-
-Importing the necessary packages
-
-.. GENERATED FROM PYTHON SOURCE LINES 11-17
-
-.. code-block:: Python
-
-    from TypedUnit import ureg
-    from MPSPlots import colormaps
-
-    from LightWave2D.grid import Grid
-    from LightWave2D.experiment import Experiment
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 18-19
-
-Define the simulation grid
-
-.. GENERATED FROM PYTHON SOURCE LINES 19-29
-
-.. code-block:: Python
-
-    grid = Grid(
-        resolution=0.1 * ureg.micrometer,
-        size_x=40 * ureg.micrometer,
-        size_y=30 * ureg.micrometer,
-        n_steps=400,
-    )
-
-    # Initialize the experiment with the defined grid
-    experiment = Experiment(grid=grid)
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 30-31
-
-Add an elliptic scatterer to the experiment
-
-.. GENERATED FROM PYTHON SOURCE LINES 31-38
-
-.. code-block:: Python
-
-    scatterer = experiment.add_ellipse(
-        position=("30%", "40%"),  # Center position of the ellipse
-        width=4 * ureg.micrometer,
-        height=10 * ureg.micrometer,
-        epsilon_r=2,  # Relative permittivity of the ellipse
-    )
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 39-40
-
-Add a line source to the experiment
-
-.. GENERATED FROM PYTHON SOURCE LINES 40-47
-
-.. code-block:: Python
-
-    source = experiment.add_line_source(
-        wavelength=1550 * ureg.nanometer,
-        position_0=("10%", "100%"),  # Starting position of the source
-        position_1=("10%", "0%"),  # Ending position of the source
-        amplitude=10,  # Amplitude of the source
-    )
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 48-49
-
-Add a perfectly matched layer (PML) to absorb boundary reflections
-
-.. GENERATED FROM PYTHON SOURCE LINES 49-61
-
-.. code-block:: Python
-
-    experiment.add_pml(
-        order=1,  # Order of the PML polynomial profile
-        width="10%",  # Width of the PML region as a percentage of grid size
-        sigma_max=5000 * ureg.siemens / ureg.meter,  # Maximum conductivity for the PML
-    )
-
-    # Run the FDTD simulation
-    experiment.run()
-
-    # Plot the entire experiment setup
-    # experiment.plot()
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 62-68
-
-Plot the last time frame of the computed fields
-experiment.plot_frame(
-    frame_number=-1,  # Plot the last frame
-    enhance_contrast=2,
-    colormap=colormaps.polytechnique.red_black_blue  # Colormap for the plot
-)
-
-.. GENERATED FROM PYTHON SOURCE LINES 70-76
-
-Save the last time frame as an image
-experiment.plot_frame(
-    frame_number=-1,  # Frame number to save
-    enhance_contrast=2,
-    save_as='elliptic_scatterer_last_frame.png'  # Filename for the image
-)
-
-.. GENERATED FROM PYTHON SOURCE LINES 78-79
-
-Render an animation of the field propagation over time
-
-.. GENERATED FROM PYTHON SOURCE LINES 79-86
-
-.. code-block:: Python
-
-    animation = experiment.render_propagation(
-        skip_frame=5,  # Number of frames to skip in the animation
-        colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
-        enhance_contrast=4,  # Enhance contrast for better visualization
-        save_as="./elliptic_scatterer.gif",  # Save the animation as a GIF file
-        fps=30,
-    )
+.. GENERATED FROM PYTHON SOURCE LINES 10-54
 
 
 
@@ -193,9 +44,60 @@ Render an animation of the field propagation over time
 
 
 
+
+|
+
+.. code-block:: Python
+
+    from TypedUnit import ureg
+    from MPSPlots import colormaps
+
+    from LightWave2D.grid import Grid
+    from LightWave2D.experiment import Experiment
+
+    grid = Grid(
+        resolution=0.1 * ureg.micrometer,
+        size_x=40 * ureg.micrometer,
+        size_y=30 * ureg.micrometer,
+        n_steps=400,
+    )
+
+    experiment = Experiment(grid=grid)
+
+    scatterer = experiment.add_ellipse(
+        position=("30%", "40%"),  # Center position of the ellipse
+        width=4 * ureg.micrometer,
+        height=10 * ureg.micrometer,
+        epsilon_r=2,  # Relative permittivity of the ellipse
+    )
+
+    source = experiment.add_line_source(
+        wavelength=1550 * ureg.nanometer,
+        position_0=("10%", "100%"),  # Starting position of the source
+        position_1=("10%", "0%"),  # Ending position of the source
+        amplitude=10,  # Amplitude of the source
+    )
+
+    experiment.add_pml(
+        order=1,  # Order of the PML polynomial profile
+        width="10%",  # Width of the PML region as a percentage of grid size
+        sigma_max=5000 * ureg.siemens / ureg.meter,  # Maximum conductivity for the PML
+    )
+
+    experiment.run()
+
+    animation = experiment.render_propagation(
+        skip_frame=5,  # Number of frames to skip in the animation
+        colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
+        enhance_contrast=4,  # Enhance contrast for better visualization
+        save_as="./elliptic_scatterer.gif",  # Save the animation as a GIF file
+        fps=30,
+    )
+
+
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 12.328 seconds)
+   **Total running time of the script:** (0 minutes 12.180 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_ellipse.py:

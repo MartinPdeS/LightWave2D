@@ -24,11 +24,7 @@ Square Scatterer
 This example demonstrates the setup and execution of a square scatterer experiment using LightWave2D.
 We will define the simulation grid, add a square scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-11
-
-Importing the necessary packages
-
-.. GENERATED FROM PYTHON SOURCE LINES 11-17
+.. GENERATED FROM PYTHON SOURCE LINES 10-54
 
 .. code-block:: Python
 
@@ -38,21 +34,6 @@ Importing the necessary packages
     from LightWave2D.grid import Grid
     from LightWave2D.experiment import Experiment
 
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 18-19
-
-Define the simulation grid
-
-.. GENERATED FROM PYTHON SOURCE LINES 19-29
-
-.. code-block:: Python
-
     grid = Grid(
         resolution=0.1 * ureg.micrometer,  # Grid resolution
         size_x=32 * ureg.micrometer,  # Grid size in the x direction
@@ -60,44 +41,13 @@ Define the simulation grid
         n_steps=500,
     )
 
-    # Initialize the experiment with the defined grid
     experiment = Experiment(grid=grid)
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 30-31
-
-Add a square scatterer to the experiment
-
-.. GENERATED FROM PYTHON SOURCE LINES 31-37
-
-.. code-block:: Python
 
     scatterer = experiment.add_square(
         position=("25%", "50%"),  # Center position of the scatterer
         epsilon_r=2,  # Relative permittivity of the scatterer
         side_length=5 * ureg.micrometer,  # Side length of the square scatterer
     )
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 38-39
-
-Add a line source to the experiment
-
-.. GENERATED FROM PYTHON SOURCE LINES 39-46
-
-.. code-block:: Python
 
     source = experiment.add_line_source(
         wavelength=1550 * ureg.nanometer,  # Wavelength of the source
@@ -106,101 +56,41 @@ Add a line source to the experiment
         amplitude=10,  # Amplitude of the source
     )
 
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 47-48
-
-Add a perfectly matched layer (PML) to absorb boundary reflections
-
-.. GENERATED FROM PYTHON SOURCE LINES 48-54
-
-.. code-block:: Python
-
     experiment.add_pml(
         order=1,  # Order of the PML polynomial profile
         width="10%",  # Width of the PML region as a percentage of grid size
         sigma_max=5000 * ureg.siemens / ureg.meter,  # Maximum conductivity for the PML
     )
 
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    PML(grid=Grid(resolution=<Quantity(0.1, 'micrometer')>, size_x=<Quantity(32, 'micrometer')>, size_y=<Quantity(16, 'micrometer')>, n_steps=500), width='10%', sigma_max=<Quantity(5000.0, 'siemens / meter')>, order=1)
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 55-56
-
-Add a point detector to the experiment
-
-.. GENERATED FROM PYTHON SOURCE LINES 56-60
-
-.. code-block:: Python
-
     detector = experiment.add_point_detector(
         position=(25 * ureg.micrometer, "center")  # Position of the detector
     )
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 61-62
-
-Plot the entire experiment setup
-
-.. GENERATED FROM PYTHON SOURCE LINES 62-67
-
-.. code-block:: Python
-
     experiment.plot()
 
-    # Run the FDTD simulation
     experiment.run()
-
-
-
-
-.. image-sg:: /gallery/scattering/images/sphx_glr_square_001.png
-   :alt: Fiber structure
-   :srcset: /gallery/scattering/images/sphx_glr_square_001.png
-   :class: sphx-glr-single-img
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 68-69
-
-Plot the field measured at the detector
-
-.. GENERATED FROM PYTHON SOURCE LINES 69-71
-
-.. code-block:: Python
 
     detector.plot_data()
 
 
 
 
-.. image-sg:: /gallery/scattering/images/sphx_glr_square_002.png
-   :alt: square
-   :srcset: /gallery/scattering/images/sphx_glr_square_002.png
-   :class: sphx-glr-single-img
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image-sg:: /gallery/scattering/images/sphx_glr_square_001.png
+         :alt: Fiber structure
+         :srcset: /gallery/scattering/images/sphx_glr_square_001.png
+         :class: sphx-glr-multi-img
+
+    *
+
+      .. image-sg:: /gallery/scattering/images/sphx_glr_square_002.png
+         :alt: square
+         :srcset: /gallery/scattering/images/sphx_glr_square_002.png
+         :class: sphx-glr-multi-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -212,11 +102,11 @@ Plot the field measured at the detector
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-73
+.. GENERATED FROM PYTHON SOURCE LINES 55-56
 
-Plot the last time frame of the computed fields
+Render an frame
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-78
+.. GENERATED FROM PYTHON SOURCE LINES 56-61
 
 .. code-block:: Python
 
@@ -243,18 +133,18 @@ Plot the last time frame of the computed fields
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-80
+.. GENERATED FROM PYTHON SOURCE LINES 62-63
 
 Render an animation of the field propagation over time
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-87
+.. GENERATED FROM PYTHON SOURCE LINES 63-70
 
 .. code-block:: Python
 
     animation = experiment.render_propagation(
         skip_frame=5,  # Number of frames to skip in the animation
         colormap=polytechnique.red_black_blue,  # Colormap for the animation
-        enhance_contrast=4,  # Enhance contrast for better visualization
+        enhance_contrast=8,  # Enhance contrast for better visualization
         save_as="./square_scatterer.gif",  # Save the animation as a GIF file
         fps=30,
     )
@@ -279,7 +169,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.627 seconds)
+   **Total running time of the script:** (0 minutes 10.359 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_square.py:

@@ -459,71 +459,56 @@ We will define the simulation grid, add a circular scatterer and a line source, 
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
-</pre></div>
-</div>
-<p>Define the simulation grid</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
     <span class="n">resolution</span><span class="o">=</span><span class="mf">0.2</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
     <span class="n">size_x</span><span class="o">=</span><span class="mi">52</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
     <span class="n">size_y</span><span class="o">=</span><span class="mi">40</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-    <span class="n">n_steps</span><span class="o">=</span><span class="mi">800</span>
+    <span class="n">n_steps</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Initialize the experiment with the defined grid</span>
 <span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Add a circular scatterer to the experiment</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_circle</span><span class="p">(</span>
-    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;50%&#39;</span><span class="p">,</span> <span class="s1">&#39;50%&#39;</span><span class="p">),</span>  <span class="c1"># Center position of the scatterer</span>
-    <span class="n">epsilon_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>            <span class="c1"># Relative permittivity of the scatterer</span>
-    <span class="n">radius</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-    <span class="n">sigma</span><span class="o">=</span><span class="mi">0</span> <span class="o">*</span> <span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span>  <span class="c1"># Conductivity of the scatterer</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>Add a line source to the experiment</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_line_impulsion</span><span class="p">(</span>
-    <span class="n">duration</span><span class="o">=</span><span class="mi">1</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">femtosecond</span><span class="p">,</span>
-    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;30%&#39;</span><span class="p">,</span> <span class="s1">&#39;60%&#39;</span><span class="p">),</span>  <span class="c1"># Starting position of the source</span>
-    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;30%&#39;</span><span class="p">,</span> <span class="s1">&#39;40%&#39;</span><span class="p">),</span>  <span class="c1"># Ending position of the source</span>
-    <span class="n">amplitude</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                <span class="c1"># Amplitude of the source</span>
-    <span class="n">delay</span><span class="o">=</span><span class="mi">0</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">femtosecond</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>Add a perfectly matched layer (PML) to absorb boundary reflections</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span>
-    <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>          <span class="c1"># Order of the PML polynomial profile</span>
-    <span class="n">width</span><span class="o">=</span><span class="s1">&#39;20%&#39;</span><span class="p">,</span>      <span class="c1"># Width of the PML region as a percentage of grid size</span>
-    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">10_000</span> <span class="o">*</span> <span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span>    <span class="c1"># Maximum conductivity for the PML</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>PML(grid=Grid(resolution=&lt;Quantity(0.2, &#39;micrometer&#39;)&gt;, size_x=&lt;Quantity(52, &#39;micrometer&#39;)&gt;, size_y=&lt;Quantity(40, &#39;micrometer&#39;)&gt;, n_steps=800), width=&#39;20%&#39;, sigma_max=&lt;Quantity(10000, &#39;siemens / meter&#39;)&gt;, order=1)
-</pre></div>
-</div>
-<p>Plot the entire experiment setup</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 
-<span class="c1"># Run the FDTD simulation</span>
+<span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_circle</span><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;50%&quot;</span><span class="p">,</span> <span class="s2">&quot;50%&quot;</span><span class="p">),</span>  <span class="c1"># Center position of the scatterer</span>
+    <span class="n">epsilon_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>  <span class="c1"># Relative permittivity of the scatterer</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
+    <span class="n">sigma</span><span class="o">=</span><span class="mi">0</span> <span class="o">*</span> <span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">),</span>  <span class="c1"># Conductivity of the scatterer</span>
+<span class="p">)</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_line_impulsion</span><span class="p">(</span>
+    <span class="n">duration</span><span class="o">=</span><span class="mi">1</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">femtosecond</span><span class="p">,</span>
+    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;30%&quot;</span><span class="p">,</span> <span class="s2">&quot;60%&quot;</span><span class="p">),</span>  <span class="c1"># Starting position of the source</span>
+    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;30%&quot;</span><span class="p">,</span> <span class="s2">&quot;40%&quot;</span><span class="p">),</span>  <span class="c1"># Ending position of the source</span>
+    <span class="n">amplitude</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Amplitude of the source</span>
+    <span class="n">delay</span><span class="o">=</span><span class="mi">0</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">femtosecond</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span>
+    <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Order of the PML polynomial profile</span>
+    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;20%&quot;</span><span class="p">,</span>  <span class="c1"># Width of the PML region as a percentage of grid size</span>
+    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">10_000</span> <span class="o">*</span> <span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">),</span>  <span class="c1"># Maximum conductivity for the PML</span>
+<span class="p">)</span>
+
+<span class="n">experiment</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
 <span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_spherical_impulsion_001.png" srcset="../../_images/sphx_glr_spherical_impulsion_001.png" alt="Fiber structure" class = "sphx-glr-single-img"/><p>Render an animation of the field propagation over time</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
-    <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>                                     <span class="c1"># Number of frames to skip in the animation</span>
+    <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># Number of frames to skip in the animation</span>
     <span class="n">colormap</span><span class="o">=</span><span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span><span class="p">,</span>  <span class="c1"># Colormap for the animation</span>
-    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>                               <span class="c1"># Enhance contrast for better visualization</span>
-    <span class="n">save_as</span><span class="o">=</span><span class="s1">&#39;./circular_scatterer_propagation.gif&#39;</span><span class="p">,</span>   <span class="c1"># Save the animation as a GIF file</span>
-    <span class="n">fps</span><span class="o">=</span><span class="mi">30</span>
+    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># Enhance contrast for better visualization</span>
+    <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;./circular_scatterer_propagation.gif&quot;</span><span class="p">,</span>  <span class="c1"># Save the animation as a GIF file</span>
+    <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_spherical_impulsion_002.png" srcset="../../_images/sphx_glr_spherical_impulsion_002.png" alt="spherical impulsion" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>MovieWriter Pillow unavailable; using Pillow instead.
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 15.967 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 15.846 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-scattering-spherical-impulsion-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/bc061604c30312856246110bfa1a9f74/spherical_impulsion.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">spherical_impulsion.ipynb</span></code></a></p>

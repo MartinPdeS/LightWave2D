@@ -24,11 +24,7 @@ Circular Scatterer
 This example demonstrates the setup and execution of a circular scatterer experiment using LightWave2D.
 We will define the simulation grid, add a circular scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-11
-
-Importing the necessary packages
-
-.. GENERATED FROM PYTHON SOURCE LINES 11-16
+.. GENERATED FROM PYTHON SOURCE LINES 10-48
 
 .. code-block:: Python
 
@@ -37,21 +33,6 @@ Importing the necessary packages
     from MPSPlots import colormaps
     from TypedUnit import ureg
 
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 17-18
-
-Define the simulation grid
-
-.. GENERATED FROM PYTHON SOURCE LINES 18-28
-
-.. code-block:: Python
-
     grid = Grid(
         resolution=0.03 * ureg.micrometer,
         size_x=32 * ureg.micrometer,
@@ -59,23 +40,7 @@ Define the simulation grid
         n_steps=200,
     )
 
-    # Initialize the experiment with the defined grid
     experiment = Experiment(grid=grid)
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 29-30
-
-Add a circular scatterer to the experiment
-
-.. GENERATED FROM PYTHON SOURCE LINES 30-37
-
-.. code-block:: Python
 
     scatterer = experiment.add_circle(
         position=("30%", "50%"),  # Center position of the scatterer
@@ -84,21 +49,6 @@ Add a circular scatterer to the experiment
         sigma=0 * (ureg.siemens / ureg.meter),  # Conductivity of the scatterer
     )
 
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 38-39
-
-Add a line source to the experiment
-
-.. GENERATED FROM PYTHON SOURCE LINES 39-46
-
-.. code-block:: Python
-
     source = experiment.add_line_source(
         wavelength=1550 * ureg.nanometer,
         position_0=("10%", "80%"),  # Starting position of the source
@@ -106,51 +56,14 @@ Add a line source to the experiment
         amplitude=10,  # Amplitude of the source
     )
 
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 47-48
-
-Add a perfectly matched layer (PML) to absorb boundary reflections
-
-.. GENERATED FROM PYTHON SOURCE LINES 48-54
-
-.. code-block:: Python
-
     experiment.add_pml(
         order=1,  # Order of the PML polynomial profile
         width="10%",  # Width of the PML region as a percentage of grid size
         sigma_max=5000 * (ureg.siemens / ureg.meter),  # Maximum conductivity for the PML
     )
 
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    PML(grid=Grid(resolution=<Quantity(0.03, 'micrometer')>, size_x=<Quantity(32, 'micrometer')>, size_y=<Quantity(20, 'micrometer')>, n_steps=200), width='10%', sigma_max=<Quantity(5000, 'siemens / meter')>, order=1)
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 55-56
-
-Plot the entire experiment setup
-
-.. GENERATED FROM PYTHON SOURCE LINES 56-61
-
-.. code-block:: Python
-
     experiment.plot()
 
-    # Run the FDTD simulation
     experiment.run()
 
 
@@ -165,44 +78,11 @@ Plot the entire experiment setup
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-63
-
-Plot the last time frame of the computed fields
-
-.. GENERATED FROM PYTHON SOURCE LINES 63-70
-
-.. code-block:: Python
-
-    experiment.plot_frame(
-        frame_number=-1,  # Plot the last frame
-        enhance_contrast=1,  # Maximum scale for the field visualization
-        colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the plot
-        show_intensity=True,
-    )
-
-
-
-
-.. image-sg:: /gallery/scattering/images/sphx_glr_spherical_002.png
-   :alt: spherical
-   :srcset: /gallery/scattering/images/sphx_glr_spherical_002.png
-   :class: sphx-glr-single-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    <Figure size 800x500 with 2 Axes>
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 71-72
+.. GENERATED FROM PYTHON SOURCE LINES 49-50
 
 Render an animation of the field propagation over time
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-79
+.. GENERATED FROM PYTHON SOURCE LINES 50-57
 
 .. code-block:: Python
 
@@ -216,9 +96,9 @@ Render an animation of the field propagation over time
 
 
 
-.. image-sg:: /gallery/scattering/images/sphx_glr_spherical_003.png
+.. image-sg:: /gallery/scattering/images/sphx_glr_spherical_002.png
    :alt: spherical
-   :srcset: /gallery/scattering/images/sphx_glr_spherical_003.png
+   :srcset: /gallery/scattering/images/sphx_glr_spherical_002.png
    :class: sphx-glr-single-img
 
 
@@ -234,7 +114,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 24.899 seconds)
+   **Total running time of the script:** (0 minutes 23.226 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_spherical.py:
