@@ -26,7 +26,7 @@ This section showcases examples focused on detectors, guiding you through the pr
   .. image:: /gallery/detector/images/thumb/sphx_glr_source_detector_thumb.png
     :alt:
 
-  :ref:`sphx_glr_gallery_detector_source_detector.py`
+  :doc:`/gallery/detector/source_detector`
 
 .. raw:: html
 

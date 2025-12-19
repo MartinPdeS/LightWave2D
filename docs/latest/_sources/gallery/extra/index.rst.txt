@@ -24,7 +24,7 @@ Explore additional examples that demonstrate various extra features and function
   .. image:: /gallery/extra/images/thumb/sphx_glr_lense_thumb.png
     :alt:
 
-  :ref:`sphx_glr_gallery_extra_lense.py`
+  :doc:`/gallery/extra/lense`
 
 .. raw:: html
 
@@ -41,7 +41,7 @@ Explore additional examples that demonstrate various extra features and function
   .. image:: /gallery/extra/images/thumb/sphx_glr_resonator_thumb.png
     :alt:
 
-  :ref:`sphx_glr_gallery_extra_resonator.py`
+  :doc:`/gallery/extra/resonator`
 
 .. raw:: html
 
@@ -58,7 +58,7 @@ Explore additional examples that demonstrate various extra features and function
   .. image:: /gallery/extra/images/thumb/sphx_glr_waveguide_thumb.png
     :alt:
 
-  :ref:`sphx_glr_gallery_extra_waveguide.py`
+  :doc:`/gallery/extra/waveguide`
 
 .. raw:: html
 
