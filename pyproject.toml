@@ -116,7 +116,10 @@ build = ["cp311-manylinux*", "cp312-manylinux*", "cp313-manylinux*"]
 manylinux-x86_64-image = "manylinux_2_28"
 repair-wheel-command = "auditwheel repair -w {dest_dir} {wheel}"
 before-test = ""
-test-command = "cd {project}; python -m pytest --config-file=pytest.ini"
+# Native extension modules are installed into the wheel, not the source tree.
+# Keep the test working directory outside ``{project}`` so the installed wheel
+# is imported rather than the unbuilt checkout.
+test-command = "python -m pytest --import-mode=importlib --config-file={project}/pytest.ini {project}/tests"
 
 [tool.cibuildwheel.macos]
 archs = ["arm64"]
@@ -124,9 +127,9 @@ build = ["cp311-*", "cp312-*", "cp313-*"]
 environment = "CC=/usr/bin/clang CXX=/usr/bin/clang++"
 before-build = "brew install libomp"
 repair-wheel-command = "delocate-wheel -w {dest_dir} -v {wheel}"  # --exclude=libomp.dylib
-test-command = 'cd {project}; python -m pytest --config-file=pytest.ini'  # DYLD_PRINT_LIBRARIES=NO
+test-command = 'python -m pytest --import-mode=importlib --config-file={project}/pytest.ini {project}/tests'  # DYLD_PRINT_LIBRARIES=NO
 
 [tool.cibuildwheel.windows]
 archs = ["AMD64"]
 build = ["cp311-*", "cp312-*", "cp313-*"]
-test-command = 'cd /d {project} && python -m pytest --config-file=pytest.ini'
+test-command = 'python -m pytest --import-mode=importlib --config-file={project}/pytest.ini {project}/tests'

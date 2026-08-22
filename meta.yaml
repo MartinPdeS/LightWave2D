@@ -7,9 +7,14 @@ source:
 
 build:
   number: 0
-  script:
-    - export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"  # [osx]
-    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  script: |
+    @echo on  # [win]
+    "%PYTHON%" -m pip install . -vv --no-deps --no-build-isolation ^  # [win]
+      "--config-settings=cmake.args=-GNinja" ^  # [win]
+      || exit /b 1  # [win]
+
+    export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"  # [osx]
+    "${PYTHON}" -m pip install . -vv --no-deps --no-build-isolation  # [unix]
 
 channels:
   - conda-forge
@@ -18,6 +23,9 @@ channels:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - vs2022_win-64  # [win]
+    - ninja
+    - cmake
     - llvm-openmp  # [osx]
   host:
     - python {{ PY_VER }}*
