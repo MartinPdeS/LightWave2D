@@ -17,51 +17,59 @@ def test_experiment_initialization(experiment, grid):
 
 
 # Test adding scatterers
-@pytest.mark.parametrize("method, params", [
-    (
-        'add_square',
-        {
-            'position': ('25%', '20%'),
-            'epsilon_r': 2,
-            'side_length': 3 * ureg.micrometer
-        }
-    ),
-    (
-        'add_ellipse',
-        {
-            'position': ('25%', '70%'),
-            'epsilon_r': 2,
-            'width': 5 * ureg.micrometer,
-            'height': 10 * ureg.micrometer,
-            'rotation': 10
-        }
-    )
-])
+@pytest.mark.parametrize(
+    "method, params",
+    [
+        (
+            "add_square",
+            {
+                "position": ("25%", "20%"),
+                "epsilon_r": 2,
+                "side_length": 3 * ureg.micrometer,
+            },
+        ),
+        (
+            "add_ellipse",
+            {
+                "position": ("25%", "70%"),
+                "epsilon_r": 2,
+                "width": 5 * ureg.micrometer,
+                "height": 10 * ureg.micrometer,
+                "rotation": 10,
+            },
+        ),
+    ],
+)
 def test_add_scatterers(experiment, method, params):
     scatterer = getattr(experiment, method)(**params)
-    assert scatterer in experiment.components  # Assuming components is a list of added elements
+    assert (
+        scatterer in experiment.components
+    )  # Assuming components is a list of added elements
 
 
 # Test adding sources
-@pytest.mark.parametrize("method, params", [
-    (
-        'add_point_source',
-        {
-            'wavelength': 1550 * ureg.nanometer,
-            'position': ('30%', '70%'),
-            'amplitude': 10
-        }
-    ),
-    (
-        'add_line_source',
-        {
-            'wavelength': 1550 * ureg.nanometer,
-            'position_0': ('10%', '100%'),
-            'position_1': ('10%', '0%'),
-            'amplitude': 10
-        }
-    )
-])
+@pytest.mark.parametrize(
+    "method, params",
+    [
+        (
+            "add_point_source",
+            {
+                "wavelength": 1550 * ureg.nanometer,
+                "position": ("30%", "70%"),
+                "amplitude": 10,
+            },
+        ),
+        (
+            "add_line_source",
+            {
+                "wavelength": 1550 * ureg.nanometer,
+                "position_0": ("10%", "100%"),
+                "position_1": ("10%", "0%"),
+                "amplitude": 10,
+            },
+        ),
+    ],
+)
 def test_add_sources(experiment, method, params):
     source = getattr(experiment, method)(**params)
     assert source in experiment.sources  # Assuming sources is a list of added elements
@@ -69,21 +77,48 @@ def test_add_sources(experiment, method, params):
 
 # Test adding a PML
 def test_add_pml(experiment):
-    pml = experiment.add_pml(order=1, width='10%', sigma_max=5000 * (ureg.siemens / ureg.meter))
+    pml = experiment.add_pml(
+        order=1, width="10%", sigma_max=5000 * (ureg.siemens / ureg.meter)
+    )
     assert pml is not None  # Assuming pmls is a list of added elements
 
 
 # Test adding a detector
 def test_add_detector(experiment):
-    detector = experiment.add_point_detector(position=(5 * ureg.micrometer, 5 * ureg.micrometer))
-    assert detector in experiment.detectors  # Assuming detectors is a list of added elements
+    detector = experiment.add_point_detector(
+        position=(5 * ureg.micrometer, 5 * ureg.micrometer)
+    )
+    assert (
+        detector in experiment.detectors
+    )  # Assuming detectors is a list of added elements
+
+
+def test_lens_api(experiment):
+    lens = experiment.add_lens(
+        position=("center", "center"),
+        epsilon_r=1.5,
+        curvature=5 * ureg.micrometer,
+        width=2 * ureg.micrometer,
+    )
+
+    assert lens.__class__.__name__ == "Lens"
+
+
+def test_point_pulse_api(experiment):
+    pulse = experiment.add_point_pulse(
+        position=("center", "center"),
+        amplitude=1.0,
+        duration=1 * ureg.femtosecond,
+    )
+
+    assert pulse in experiment.sources
 
 
 @pytest.mark.skip("Heavy computation not required for unit testing")
 def test_experiment_run_and_render(experiment):
-    experiment.run_fdtd()
+    experiment.run()
     animation = experiment.render_propagation(skip_frame=5)
-    animation.save('./tests.gif', writer='Pillow', fps=10)
+    animation.save("./tests.gif", writer="Pillow", fps=10)
 
 
 if __name__ == "__main__":

@@ -92,8 +92,8 @@ Triangle Scatterer
         \epsilon_{r, \text{bg}} & \text{otherwise}
     \end{cases}
 
-Lense
------
+Lens
+----
 
 .. note::
 
@@ -102,7 +102,7 @@ Lense
 .. math::
     &\epsilon_r(x, y) =
     \begin{cases}
-        \epsilon_{r, \text{lense}} & \text{if } (x, y) \in \text{Lense} \\
+        \epsilon_{r, \text{lens}} & \text{if } (x, y) \in \text{Lens} \\
         \epsilon_{r, \text{bg}} & \text{otherwise}
     \end{cases}
 
@@ -147,4 +147,3 @@ Rectangular Waveguide
         \epsilon_{r, \text{rect}} & \text{if } (x, y) \in \text{Rectangular Waveguide} \\
         \epsilon_{r, \text{bg}} & \text{otherwise}
     \end{cases}
-

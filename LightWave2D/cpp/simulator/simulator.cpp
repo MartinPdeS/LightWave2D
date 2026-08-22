@@ -24,7 +24,7 @@ FDTDSimulator::compute_yee_gradients(FieldSet& field_set)
             dEz_dx_r(i, j) = (Ez_r(i + 1, j) - Ez_r(i, j)) / config.dx;
 
     #pragma omp parallel for collapse(2)
-    for (int64_t i = 1; i < config.nx; ++i)
+    for (int64_t i = 0; i < config.nx; ++i)
         for (int64_t j = 0; j < config.ny - 1; ++j)
             dEz_dy_r(i, j) = (Ez_r(i, j + 1) - Ez_r(i, j)) / config.dy;
 
@@ -73,6 +73,15 @@ FDTDSimulator::compute_magnetic_field_gradients(FieldSet& field_set)
     py_ref_rw<double, 2>
         dHy_dx_rw = dHy_dx.mutable_unchecked<2>(),
         dHx_dy_rw = dHx_dy.mutable_unchecked<2>();
+
+    // pybind11 arrays are not zero-initialized.  Boundary values are not
+    // evolved, but initializing them makes their status explicit and avoids
+    // accidental reads of indeterminate memory when update stencils change.
+    for (int64_t i = 0; i < config.nx - 1; ++i)
+        for (int64_t j = 0; j < config.ny - 1; ++j) {
+            dHy_dx_rw(i, j) = 0.0;
+            dHx_dy_rw(i, j) = 0.0;
+        }
 
     // Get read-only references to the magnetic fields
     py_ref_r<double, 2>
@@ -178,22 +187,46 @@ FDTDSimulator::apply_absorption(FieldSet &field_set) {
 
 
 void
-FDTDSimulator::update_field(py_ref_rw<double, 3>& Ez_time_r, FieldSet& field_set)
+FDTDSimulator::update_field(py_ref_rw<double, 3>& Ez_time_r, FieldSet& field_set, const int64_t record_every)
 {
+    if (config.iteration % record_every != 0)
+        return;
+
+    const int64_t frame = config.iteration / record_every;
+    if (frame >= Ez_time_r.shape(0))
+        return;
+
     // Get reference to the electric field
     py_ref_r<double, 2> Ez_r = field_set.get_Ez_r();
 
     for (int64_t i = 0; i < config.nx; ++i)
         for (int64_t j = 0; j < config.ny; ++j)
-            Ez_time_r(config.iteration, i, j) = Ez_r(i, j);
+            Ez_time_r(frame, i, j) = Ez_r(i, j);
+}
+
+void
+FDTDSimulator::update_detectors(py_ref_rw<double, 2>& detector_data_r, py_ref_r<int64_t, 2>& detector_indexes_r, FieldSet& field_set, const int64_t record_every)
+{
+    if (config.iteration % record_every != 0)
+        return;
+
+    const int64_t frame = config.iteration / record_every;
+    if (frame >= detector_data_r.shape(0))
+        return;
+
+    py_ref_r<double, 2> Ez_r = field_set.get_Ez_r();
+    for (int64_t detector = 0; detector < detector_indexes_r.shape(0); ++detector)
+        detector_data_r(frame, detector) = Ez_r(detector_indexes_r(detector, 0), detector_indexes_r(detector, 1));
 }
 
 
 void
-FDTDSimulator::run(pybind11::array_t<double> Ez_time)
+FDTDSimulator::run(pybind11::array_t<double> Ez_time, const int64_t record_every, pybind11::array_t<double> detector_data, pybind11::array_t<int64_t> detector_indexes)
 {
     // Get mutable reference to the 3D array for Ez over time
     py_ref_rw<double, 3> Ez_time_r = Ez_time.mutable_unchecked<3>();
+    py_ref_rw<double, 2> detector_data_r = detector_data.mutable_unchecked<2>();
+    py_ref_r<int64_t, 2> detector_indexes_r = detector_indexes.unchecked<2>();
 
     // // Initialize MeshSet and FieldSet
     FieldSet field_set(this->config);
@@ -222,9 +255,11 @@ FDTDSimulator::run(pybind11::array_t<double> Ez_time)
             source->add_to_field(config, field_set);
 
         // Update the field data for the current time step
-        this->update_field(Ez_time_r, field_set);
+        this->update_field(Ez_time_r, field_set, record_every);
+        this->update_detectors(detector_data_r, detector_indexes_r, field_set, record_every);
 
-        // Move to the next time step
-        config.next();
+        // Do not advance beyond the final stored timestamp.
+        if (iteration + 1 < this->config.time_stamp.size())
+            config.next();
     }
 }

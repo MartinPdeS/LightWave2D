@@ -1,13 +1,15 @@
 [build-system]
-requires = ["scikit-build-core>=0.3.3", "pybind11", "setuptools>=64", "setuptools_scm[toml]>=8.0"]
+requires = ["scikit-build-core>=0.3.3", "pybind11", "setuptools_scm[toml]>=8.0"]
 build-backend = "scikit_build_core.build"
 
 [tool.scikit-build]
 build-dir = ".skbuild/{wheel_tag}"
 metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
-cmake.verbose = true
+build.verbose = true
 editable.verbose = true
 logging.level = "INFO"
+# Keep the Python package and its CMake-built extensions in one wheel.
+wheel.packages = ["LightWave2D"]
 wheel.exclude = ["LightWave2D/cpp"]
 install.strip = false
 sdist.include = ["LightWave2D/binary/*"]
@@ -21,9 +23,8 @@ sdist.exclude = [
 [project]
 name = "LightWave2D"
 dynamic = ["version"]
-description="A package for finite-difference time domain computation for light propagation"
-keywords = ["FDTD", "Light", "propagation", "physics"]
-urls = {"Documentation" = "https://martinpdes.github.io/LightWave2D/", "Repository" = "https://github.com/MartinPdeS/LightWave2D"}
+description = "A package for finite-difference time-domain simulation of light propagation."
+license = { file = "LICENSE" }
 readme = "README.rst"
 requires-python = ">=3.10"
 authors = [{ name = "Martin Poinsinet de Sivry-Houle", email = "martin.poinsinet.de.sivry@gmail.com" }]
@@ -33,6 +34,7 @@ classifiers = [
     'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
     'Programming Language :: Python :: Implementation :: CPython',
     'Development Status :: 3 - Alpha',
     'Intended Audience :: Science/Research',
@@ -47,16 +49,20 @@ classifiers = [
     'Framework :: Sphinx'
 ]
 
+keywords = ["fdtd", "light", "propagation", "electromagnetics", "photonics", "waveguide", "diffraction"]
+
+urls = {"Documentation" = "https://martinpdes.github.io/LightWave2D/", "Repository" = "https://github.com/MartinPdeS/LightWave2D"}
+
 dependencies = [
-    "setuptools_scm[toml] >=8,<10",
-    "MPSPlots",
+    "setuptools_scm[toml] >=8,<11",
+    "MPSPlots ==1.8.9",
     'shapely ~=2.0',
     "numpy ==2.2.6",
     'opencv-python ~=4.10',
     "pydantic >=2.9.2,<2.13.0",
     'ffmpeg ~= 1.4',
     'pint>=0.24',
-    "TypedUnit"
+    "TypedUnit ==0.0.11"
 ]
 
 [tool.setuptools_scm]
@@ -69,39 +75,36 @@ where = ["LightWave2D"]
 
 [project.optional-dependencies]
 testing = [
-    "pytest>=0.6",
-    "pytest-cov>=2.0",
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
     "pytest-json-report==1.5.0",
     "coverage==7.12.0"
 ]
 
 documentation = [
-    "numpydoc==1.9.0",
+    "numpydoc==1.10.0",
     "sphinx>=5.1.1",
-    "sphinx-rtd-theme==3.0.2",
-    "sphinx-gallery==0.19.0",
-    "pydata-sphinx-theme==0.16.1",
+    "sphinx-rtd-theme==3.1.0",
+    "sphinx-gallery==0.21.0",
+    "sphinx_design==0.6.1",
+    "pydata-sphinx-theme==0.19.0",
 ]
 
 dev = [
-    "flake8 ==7.3.0",
+    "flake8==7.3.0",
+    "ruff==0.16.0",
 ]
 
-[tool.pytest.ini_options]
-minversion = "6.0"
-xfail_strict = true
-log_cli_level = "INFO"
-testpaths = [
-    "tests/*",
-]
-addopts = [
-    '-v',
-    '-rA',
-    '-rw',
-    '--cov=LightWave2D',
-    '--cov-report=html',
-    "--cov-report=term"
-]
+[tool.ruff]
+target-version = "py310"
+line-length = 300
+extend-exclude = ["development", "docs", "build", "htmlcov"]
+
+[tool.ruff.lint]
+select = ["E9", "F63", "F7", "F82"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["F401"]
 
 [tool.cibuildwheel]
 build-frontend = "build"
@@ -110,7 +113,7 @@ test-extras = ["testing"]
 [tool.cibuildwheel.linux]
 archs = ["x86_64"]
 build = ["cp311-manylinux*", "cp312-manylinux*", "cp313-manylinux*"]
-manylinux-x86_64-image = "manylinux2014"
+manylinux-x86_64-image = "manylinux_2_28"
 repair-wheel-command = "auditwheel repair -w {dest_dir} {wheel}"
 before-test = ""
 test-command = "cd {project}; python -m pytest --config-file=pytest.ini"
@@ -118,6 +121,8 @@ test-command = "cd {project}; python -m pytest --config-file=pytest.ini"
 [tool.cibuildwheel.macos]
 archs = ["arm64"]
 build = ["cp311-*", "cp312-*", "cp313-*"]
+environment = "CC=/usr/bin/clang CXX=/usr/bin/clang++"
+before-build = "brew install libomp"
 repair-wheel-command = "delocate-wheel -w {dest_dir} -v {wheel}"  # --exclude=libomp.dylib
 test-command = 'cd {project}; python -m pytest --config-file=pytest.ini'  # DYLD_PRINT_LIBRARIES=NO
 

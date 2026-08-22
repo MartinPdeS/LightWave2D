@@ -2,5 +2,6 @@
 
 Scattering Examples
 -------------------
-This section provides examples related to scattering simulations, demonstrating how to set up and analyze scattering events using LightWave2D. Learn how to configure the grid, set up scatterers, and visualize the results.
-
+Each page isolates one scatterer geometry or one broadband response. Start
+with :doc:`spherical` for a circular scatterer, then compare the square and
+ellipse. :doc:`spherical_pulse` focuses only on pulse propagation.

@@ -8,6 +8,12 @@ namespace py = pybind11;
 #define py_ref_rw pybind11::detail::unchecked_mutable_reference
 #define py_ref_r pybind11::detail::unchecked_reference
 
+/**
+ * @brief Material-property arrays consumed by the FDTD update equations.
+ *
+ * All arrays use the common ``(nx, ny)`` cell layout and are assumed to have
+ * been validated at the Python/native boundary.
+ */
 class MeshSet {
 public:
     pybind11::array_t<double> epsilon;

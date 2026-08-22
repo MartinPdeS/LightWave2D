@@ -30,8 +30,8 @@ scatterer = experiment.add_circle(
     sigma=0 * (ureg.siemens / ureg.meter),  # Conductivity of the scatterer
 )
 
-source = experiment.add_line_impulsion(
-    duration=1 * ureg.femtosecond,
+source = experiment.add_line_pulse(
+    duration=10 * ureg.femtosecond,
     position_0=("30%", "60%"),  # Starting position of the source
     position_1=("30%", "40%"),  # Ending position of the source
     amplitude=1,  # Amplitude of the source

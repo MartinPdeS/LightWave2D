@@ -13,6 +13,12 @@
 #include "../field_set/field_set.h"
 #include "../mesh_set/mesh_set.h"
 
+/**
+ * @brief Native Yee-scheme two-dimensional FDTD time integrator.
+ *
+ * The Python binding configures validated SI arrays, source objects, output
+ * buffers, and detector indexes before invoking @ref run.
+ */
 class FDTDSimulator {
 public:
     FDTDSimulator(){};
@@ -41,13 +47,16 @@ public:
     void apply_absorption(FieldSet& field_set);
 
     /// Update the field data at a specific time step.
-    void update_field(pybind11::detail::unchecked_mutable_reference<double, 3>& Ez_time_r, FieldSet& field_set);
+    void update_field(py_ref_rw<double, 3>& Ez_time_r, FieldSet& field_set, const int64_t record_every);
+    void update_detectors(py_ref_rw<double, 2>& detector_data_r, py_ref_r<int64_t, 2>& detector_indexes_r, FieldSet& field_set, const int64_t record_every);
 
+    /** @brief Replace the source list used for subsequent integration runs. */
     void set_sources(const std::vector<std::shared_ptr<BaseSource>>& sources)
     {
         this->sources = sources;
     }
 
+    /** @brief Set validated SI grid spacing, dimensions, and time samples. */
     void set_config(const double dt, const double dx, const double dy, const size_t nx, const size_t ny, const std::vector<double>& time_stamp)
     {
         this->config = Config(dx, dy, dt, nx, ny, time_stamp);
@@ -59,7 +68,7 @@ public:
     }
 
     /// Run the full FDTD simulation.
-    void run(pybind11::array_t<double> Ez_time);
+    void run(pybind11::array_t<double> Ez_time, const int64_t record_every, pybind11::array_t<double> detector_data, pybind11::array_t<int64_t> detector_indexes);
 
 private:
     Config config;

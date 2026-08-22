@@ -2,8 +2,8 @@
 Waveguide
 =========
 
-This example demonstrates the setup and execution of a waveguide experiment using LightWave2D.
-We will define the simulation grid, add a waveguide and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
+Observe guided propagation in one straight dielectric waveguide. The animation
+is the single result of this example.
 """
 
 # %%
@@ -56,16 +56,7 @@ experiment.add_pml(
 experiment.run()
 
 # %%
-# Plot the experiment layout
-experiment.plot()
-
-
-# %%
-# Plot the resulting electric field distribution at a certain time
-experiment.plot_frame(frame_number=-1)
-
-# %%
-# Render an animation of the wave propagation
+# Animate guided propagation.
 animation = experiment.render_propagation(
     skip_frame=5,  # Number of frames to skip in the animation
     colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation

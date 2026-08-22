@@ -1,9 +1,52 @@
 #include "./source.h"
 
+#include <cstdlib>
+#include <stdexcept>
+
+PointGeometry::PointGeometry(int64_t x_index, int64_t y_index)
+{
+    if (x_index < 0 || y_index < 0)
+        throw std::invalid_argument("Point-source indexes must be non-negative.");
+    indexes_.push_back({x_index, y_index});
+}
+
+LineGeometry::LineGeometry(int64_t x0, int64_t y0, int64_t x1, int64_t y1)
+{
+    if (x0 < 0 || y0 < 0 || x1 < 0 || y1 < 0)
+        throw std::invalid_argument("Line-source indexes must be non-negative.");
+
+    const int64_t dx = std::abs(x1 - x0);
+    const int64_t dy = std::abs(y1 - y0);
+    const int64_t step_x = x0 <= x1 ? 1 : -1;
+    const int64_t step_y = y0 <= y1 ? 1 : -1;
+    int64_t error = dx - dy;
+
+    while (true) {
+        indexes_.push_back({x0, y0});
+        if (x0 == x1 && y0 == y1)
+            break;
+
+        const int64_t doubled_error = 2 * error;
+        if (doubled_error > -dy) {
+            error -= dy;
+            x0 += step_x;
+        }
+        if (doubled_error < dx) {
+            error += dx;
+            y0 += step_y;
+        }
+    }
+}
+
 MultiWavelength::MultiWavelength(const pybind11::array_t<double>& omega_list, const pybind11::array_t<double>& amplitude_list, const pybind11::array_t<double>& delay_list, const pybind11::array_t<int64_t>& indexes)
 : omega_list(omega_list), amplitude_list(amplitude_list), delay_list(delay_list), indexes(indexes)
 {
-
+    if (omega_list.ndim() != 1 || amplitude_list.ndim() != 1 || delay_list.ndim() != 1)
+        throw std::invalid_argument("Wave-source frequency, amplitude, and delay arrays must be one-dimensional.");
+    if (omega_list.shape(0) != amplitude_list.shape(0) || omega_list.shape(0) != delay_list.shape(0))
+        throw std::invalid_argument("Wave-source frequency, amplitude, and delay arrays must have the same length.");
+    if (indexes.ndim() != 2 || indexes.shape(1) != 2)
+        throw std::invalid_argument("Source indexes must have shape (n, 2).");
 }
 
 void MultiWavelength::add_to_field(const Config& config, FieldSet &field_set) {
@@ -27,13 +70,16 @@ void MultiWavelength::add_to_field(const Config& config, FieldSet &field_set) {
     }
 }
 
-Impulsion::Impulsion(const double amplitude, const double duration, const double delay, const pybind11::array_t<int64_t>& indexes)
+Pulse::Pulse(const double amplitude, const double duration, const double delay, const pybind11::array_t<int64_t>& indexes)
 : amplitude(amplitude), duration(duration), delay(delay), indexes(indexes)
 {
-
+    if (duration <= 0.0)
+        throw std::invalid_argument("Pulse duration must be positive.");
+    if (indexes.ndim() != 2 || indexes.shape(1) != 2)
+        throw std::invalid_argument("Source indexes must have shape (n, 2).");
 }
 
-void Impulsion::add_to_field(const Config& config, FieldSet &field_set) {
+void Pulse::add_to_field(const Config& config, FieldSet &field_set) {
     py_ref_rw<double, 2> Ez_rw = field_set.get_Ez_rw();
     py_ref_r<int64_t, 2> idx_r = indexes.unchecked<2>();
 

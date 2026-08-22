@@ -48,7 +48,7 @@ All the latest available documentation is available `here <https://lightwave2d.r
 Installation
 ************
 
-For common versions of Windows, Linux, and macOS, (on x86_64 architecture), the package can readily be installed using pip;
+Install the published package with pip:
 
 .. code-block:: python
 
@@ -74,7 +74,8 @@ LightWave2D was developed with the aim of being an intuitive and easy to use too
 All dimensional arguments can now be provided using `pint` quantities or strings with units.
 Below are two examples that illustrate this:
 
-# Spherical scatterer
+Spherical scatterer
+-------------------
 
 .. code:: python
 
@@ -100,18 +101,17 @@ Below are two examples that illustrate this:
 
     source = experiment.add_line_source(
         wavelength=1550 * ureg.nanometer,
-        point_0=('10%', '100%'),
-        point_1=('10%', '0%'),
+        position_0=('10%', '100%'),
+        position_1=('10%', '0%'),
         amplitude=10,
     )
 
-   experiment.add_pml(order=1, width=70, sigma_max=5000)
+   experiment.add_pml(order=1, width="10%", sigma_max=5000 * ureg.siemens / ureg.meter)
 
-   experiment.run_fdtd()
+   experiment.run()
 
    animation = experiment.render_propagation(
        skip_frame=5,
-       unit_size=5,
        colormap=colormaps.polytechnique.red_black_blue
    )
 
@@ -121,7 +121,8 @@ Below are two examples that illustrate this:
 |example_scatterer|
 
 
-# Ring resonator
+Ring resonator
+--------------
 
 
 .. code:: python
@@ -154,9 +155,9 @@ Below are two examples that illustrate this:
         amplitude=100,
     )
 
-   pml = experiment.add_pml(order=1, width=70, sigma_max=5000)
+   experiment.add_pml(order=1, width="10%", sigma_max=5000 * ureg.siemens / ureg.meter)
 
-   experiment.run_fdtd()
+   experiment.run()
 
    animation = experiment.render_propagation(skip_frame=5, colormap=polytechnique.red_black_blue)
 
@@ -166,7 +167,8 @@ Below are two examples that illustrate this:
 |example_resonator|
 
 
-# Ring resonator
+Lens
+----
 
 
 .. code:: python
@@ -185,7 +187,7 @@ Below are two examples that illustrate this:
 
    experiment = Experiment(grid=grid)
 
-    scatterer = experiment.add_lense(
+    scatterer = experiment.add_lens(
         position=('35%', '50%'),
         epsilon_r=2,
         curvature=10 * ureg.micrometer,
@@ -199,26 +201,25 @@ Below are two examples that illustrate this:
     )
 
 
-   experiment.add_pml(order=1, width=50, sigma_max=5000)
+   experiment.add_pml(order=1, width="10%", sigma_max=5000 * ureg.siemens / ureg.meter)
 
-   experiment.run_fdtd()
+   experiment.run()
 
    experiment.plot_frame(
        frame_number=-1,
-       scale_max=5,
+       enhance_contrast=5,
        colormap=colormaps.polytechnique.red_black_blue
    )
 
    animation = experiment.render_propagation(
        skip_frame=5,
-       unit_size=5,
        colormap=colormaps.polytechnique.red_black_blue
    )
 
-   animation.save('./lense.gif', writer='Pillow', fps=10)
+   animation.save('./lens.gif', writer='Pillow', fps=10)
 
 
-|example_lense|
+|example_lens|
 
 Plenty of other examples are available online, I invite you to check the `examples <https://lightwave2d.readthedocs.io/en/master/gallery/index.html>`_
 section of the documentation.
@@ -261,7 +262,7 @@ Email:`martin.poinsinet-de-sivry@polymtl.ca <mailto:martin.poinsinet-de-sivry@po
    :class: with-shadow float-left
    :width: 800px
 
-.. |example_lense| image:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/lense.gif?raw=true
+.. |example_lens| image:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/lens.gif?raw=true
    :alt: some image
    :class: with-shadow float-left
    :width: 800px

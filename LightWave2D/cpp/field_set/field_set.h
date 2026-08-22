@@ -10,6 +10,12 @@
 
 
 
+/**
+ * @brief Owns the Ez, Hx, and Hy arrays for one FDTD time step.
+ *
+ * Accessor methods return unchecked views only for validated internal solver
+ * loops; callers must preserve the configured two-dimensional shape.
+ */
 class FieldSet{
 public:
     Config config;
@@ -19,6 +25,7 @@ public:
 
     FieldSet(const Config& config);
 
+    /** @brief Reset every field component to zero. */
     void set_to_zero();
 
 

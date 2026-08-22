@@ -6,6 +6,11 @@
 
 #define py_ref pybind11::detail::unchecked_mutable_reference
 
+/**
+ * @brief Immutable-at-run-start numerical configuration for the FDTD solver.
+ *
+ * Stores SI spacings, dimensions, time samples, and the current iteration.
+ */
 class Config {
 public:
     double dx;
@@ -29,10 +34,13 @@ public:
     : dx(dx), dy(dy), dt(dt), nx(nx), ny(ny), time_stamp(time_stamp)
     {}
 
+    /** @brief Advance to the next available time sample. */
     void next()
     {
-        iteration += 1;
-        time = time_stamp[iteration];
+        if (iteration + 1 < static_cast<int64_t>(time_stamp.size())) {
+            iteration += 1;
+            time = time_stamp[iteration];
+        }
     }
 
 

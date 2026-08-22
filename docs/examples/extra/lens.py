@@ -1,9 +1,9 @@
 """
-Circular Scatterer
-==================
+Lens focusing
+=============
 
-This example demonstrates the setup and execution of a circular scatterer experiment using LightWave2D.
-We will define the simulation grid, add a lens scatterer, a point source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
+Observe propagation through one dielectric lens. The animation is the single
+result of this example.
 """
 
 # %%
@@ -29,7 +29,7 @@ experiment = Experiment(grid=grid)
 
 # %%
 # Add a lens scatterer to the experiment
-scatterer = experiment.add_lense(
+scatterer = experiment.add_lens(
     position=("35%", "50%"),  # Center position of the lens
     epsilon_r=2,  # Relative permittivity of the lens
     curvature=10 * ureg.micrometer,  # Curvature of the lens in meters
@@ -53,26 +53,11 @@ experiment.add_pml(
 )
 
 
-# %%
-# Plot the experiment layout
-experiment.plot()
-
-
 # Run the FDTD simulation
 experiment.run()
 
-
 # %%
-# Plot the last time frame of the computed fields
-experiment.plot_frame(
-    frame_number=-1,  # Plot the last frame
-    enhance_contrast=2,  # Maximum scale for the field visualization
-    colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the plot
-)
-
-
-# %%
-# Render an animation of the field propagation over time
+# Animate lens focusing.
 animation = experiment.render_propagation(
     skip_frame=5,  # Number of frames to skip in the animation
     colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation

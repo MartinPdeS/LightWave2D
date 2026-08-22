@@ -1,11 +1,11 @@
 # --------------------- CMake configuration --------------------
 cmake_minimum_required(VERSION 3.20)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "15.0" CACHE STRING "Minimum OS X deployment version")
-project(LightWave2D CXX)
+project(LightWave2D LANGUAGES CXX)
 
 # CMake settings
 set(CMAKE_VERBOSE_MAKEFILE ON)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Type of build")
@@ -14,6 +14,7 @@ set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Type of build")
 # --------------------- Set the output directory for libraries --------------------
 set(LOCAL_CXX_DIR "${PROJECT_NAME}/cpp")
 set(LOCAL_BIN_DIR "${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/binary")
+include_directories(${LOCAL_CXX_DIR})
 # --------------------- Set the output directory for libraries --------------------
 
 # --------------------- Platform-specific compiler and linker options --------------------
@@ -44,9 +45,10 @@ endif()
 
 # --------------------- Find dependencies and compile options --------------------
 # Include directories
-find_package(OpenMP REQUIRED)
+find_package(OpenMP REQUIRED COMPONENTS CXX)
 find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
 find_package(pybind11 CONFIG REQUIRED)
+set(PYBIND11_FINDPYTHON ON)
 # --------------------- Find dependencies and compile options --------------------
 
 # ----------------- Package specific settings--------------------
@@ -84,9 +86,9 @@ message(STATUS "  Python include dir   : ${Python_INCLUDE_DIRS}")
 message(STATUS "  Python site packages : ${Python_SITELIB}")
 
 message(STATUS "")
-message(STATUS "PyMieSim integration")
-message(STATUS "  PyMieSim version     : ${PACKAGE_VERSION}")
-message(STATUS "  PyMieSim include dir : ${LOCAL_CXX_DIR}")
+message(STATUS "LightWave2D integration")
+message(STATUS "  LightWave2D version  : ${PROJECT_VERSION}")
+message(STATUS "  LightWave2D include dir : ${LOCAL_CXX_DIR}")
 
 message(STATUS "")
 message(STATUS "Install destination")
@@ -101,6 +103,10 @@ message(STATUS "")
 add_subdirectory(LightWave2D/cpp/config)         # config
 add_subdirectory(LightWave2D/cpp/field_set)      # field_set
 add_subdirectory(LightWave2D/cpp/mesh_set)       # mesh_set
+add_subdirectory(LightWave2D/cpp/grid)           # grid
+add_subdirectory(LightWave2D/cpp/detector)       # detector
+add_subdirectory(LightWave2D/cpp/pml)            # pml
+add_subdirectory(LightWave2D/cpp/components)     # components
 add_subdirectory(LightWave2D/cpp/source)         # source
 add_subdirectory(LightWave2D/cpp/simulator)         # simulator
 # ----------------- collect subdirectories --------------------

@@ -102,6 +102,9 @@ PYBIND11_MODULE(interface_simulator, m) {
         .def("_cpp_run",
             &FDTDSimulator::run,
             pybind11::arg("Ez_time"),
+            pybind11::arg("record_every"),
+            pybind11::arg("detector_data"),
+            pybind11::arg("detector_indexes"),
             R"pbdoc(
             Run the FDTD simulation for a given number of time steps.
 

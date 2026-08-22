@@ -8,7 +8,10 @@
     :maxdepth: 2
     :hidden:
 
+    getting_started.rst
+    simulation_design.rst
+    usage.rst
     theory.rst
     code.rst
-    gallery/index.rst
+    gallery.rst
     references.rst
