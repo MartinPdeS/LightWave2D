@@ -564,7 +564,7 @@ class Experiment(interface_simulator.FDTDSimulator):
         )
 
         if save_as is not None:
-            rendered_animation.save(save_as, writer="Pillow", fps=fps)
+            rendered_animation.save(save_as, writer="pillow", fps=fps)
 
         if show:
             plt.show()
