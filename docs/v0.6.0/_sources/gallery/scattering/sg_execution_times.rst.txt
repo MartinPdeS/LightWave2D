@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**03:44.860** total execution time for 5 files **from gallery/scattering**:
+**04:19.588** total execution time for 5 files **from gallery/scattering**:
 
 .. container::
 
@@ -33,17 +33,17 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_scattering_spherical.py` (``spherical.py``)
-     - 02:28.884
+     - 02:56.636
      - 0.0
    * - :ref:`sphx_glr_gallery_scattering_ellipse.py` (``ellipse.py``)
-     - 00:30.379
+     - 00:33.818
      - 0.0
    * - :ref:`sphx_glr_gallery_scattering_spherical_pulse.py` (``spherical_pulse.py``)
-     - 00:26.781
+     - 00:28.592
      - 0.0
    * - :ref:`sphx_glr_gallery_scattering_square.py` (``square.py``)
-     - 00:17.803
+     - 00:19.336
      - 0.0
    * - :ref:`sphx_glr_gallery_scattering_pulse_response.py` (``pulse_response.py``)
-     - 00:01.013
+     - 00:01.205
      - 0.0
