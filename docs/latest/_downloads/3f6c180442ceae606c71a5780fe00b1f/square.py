@@ -2,8 +2,8 @@
 Square Scatterer
 ================
 
-This example demonstrates the setup and execution of a square scatterer experiment using LightWave2D.
-We will define the simulation grid, add a square scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
+Observe the field scattered by one square dielectric inclusion. The animation is
+the sole result; detector traces are covered in the Measurements section.
 """
 
 # %%
@@ -41,25 +41,10 @@ experiment.add_pml(
     sigma_max=5000 * ureg.siemens / ureg.meter,  # Maximum conductivity for the PML
 )
 
-detector = experiment.add_point_detector(
-    position=(25 * ureg.micrometer, "center")  # Position of the detector
-)
-experiment.plot()
-
 experiment.run()
 
-detector.plot_data()
-
-
 # %%
-# Render an frame
-experiment.plot_frame(
-    frame_number=-1,  # Plot the last frame
-    enhance_contrast=2,  # Maximum scale for the field visualization
-)
-
-# %%
-# Render an animation of the field propagation over time
+# Animate square-scatterer propagation.
 animation = experiment.render_propagation(
     skip_frame=5,  # Number of frames to skip in the animation
     colormap=polytechnique.red_black_blue,  # Colormap for the animation

@@ -21,10 +21,10 @@
 Square Scatterer
 ================
 
-This example demonstrates the setup and execution of a square scatterer experiment using LightWave2D.
-We will define the simulation grid, add a square scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
+Observe the field scattered by one square dielectric inclusion. The animation is
+the sole result; detector traces are covered in the Measurements section.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-54
+.. GENERATED FROM PYTHON SOURCE LINES 10-46
 
 .. code-block:: Python
 
@@ -62,82 +62,20 @@ We will define the simulation grid, add a square scatterer and a line source, ap
         sigma_max=5000 * ureg.siemens / ureg.meter,  # Maximum conductivity for the PML
     )
 
-    detector = experiment.add_point_detector(
-        position=(25 * ureg.micrometer, "center")  # Position of the detector
-    )
-    experiment.plot()
-
     experiment.run()
 
-    detector.plot_data()
 
 
 
 
 
-.. rst-class:: sphx-glr-horizontal
 
 
-    *
+.. GENERATED FROM PYTHON SOURCE LINES 47-48
 
-      .. image-sg:: /gallery/scattering/images/sphx_glr_square_001.png
-         :alt: Fiber structure
-         :srcset: /gallery/scattering/images/sphx_glr_square_001.png
-         :class: sphx-glr-multi-img
+Animate square-scatterer propagation.
 
-    *
-
-      .. image-sg:: /gallery/scattering/images/sphx_glr_square_002.png
-         :alt: square
-         :srcset: /gallery/scattering/images/sphx_glr_square_002.png
-         :class: sphx-glr-multi-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    <Figure size 800x400 with 1 Axes>
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 55-56
-
-Render an frame
-
-.. GENERATED FROM PYTHON SOURCE LINES 56-61
-
-.. code-block:: Python
-
-    experiment.plot_frame(
-        frame_number=-1,  # Plot the last frame
-        enhance_contrast=2,  # Maximum scale for the field visualization
-    )
-
-
-
-
-.. image-sg:: /gallery/scattering/images/sphx_glr_square_003.png
-   :alt: square
-   :srcset: /gallery/scattering/images/sphx_glr_square_003.png
-   :class: sphx-glr-single-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    <Figure size 800x500 with 2 Axes>
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 62-63
-
-Render an animation of the field propagation over time
-
-.. GENERATED FROM PYTHON SOURCE LINES 63-70
+.. GENERATED FROM PYTHON SOURCE LINES 48-55
 
 .. code-block:: Python
 
@@ -151,17 +89,11 @@ Render an animation of the field propagation over time
 
 
 
-.. image-sg:: /gallery/scattering/images/sphx_glr_square_004.png
+.. image-sg:: /gallery/scattering/images/sphx_glr_square_001.png
    :alt: square
-   :srcset: /gallery/scattering/images/sphx_glr_square_004.png
+   :srcset: /gallery/scattering/images/sphx_glr_square_001.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    MovieWriter Pillow unavailable; using Pillow instead.
 
 
 
@@ -169,7 +101,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.461 seconds)
+   **Total running time of the script:** (0 minutes 17.803 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_square.py:

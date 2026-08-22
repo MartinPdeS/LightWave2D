@@ -1,15 +1,15 @@
 """
-Source-Detector
-===============
+Field-history detector trace
+============================
 
-This example demonstrates the setup and execution of a source-detector experiment using LightWave2D.
-We will define the simulation grid, add a lens scatterer, a point source, and a point detector, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
+Record a point-detector trace while retaining the field history. The example's
+single outcome is the detector signal; use ``detector_only.py`` when field
+frames are not needed.
 """
 
 # %%
 # Importing the necessary packages
 from TypedUnit import ureg
-from MPSPlots import colormaps
 
 from LightWave2D.grid import Grid
 from LightWave2D.experiment import Experiment
@@ -25,15 +25,6 @@ grid = Grid(
 
 # Initialize the experiment with the defined grid
 experiment = Experiment(grid=grid)
-
-# %%
-# Add a lens scatterer to the experiment
-scatterer = experiment.add_lense(
-    position=("35%", "50%"),  # Center position of the lens
-    epsilon_r=2,  # Relative permittivity of the lens
-    curvature=10 * ureg.micrometer,
-    width=5 * ureg.micrometer,
-)
 
 # %%
 # Add a point source to the experiment
@@ -58,29 +49,9 @@ experiment.add_pml(
 )
 
 # %%
-# Plot the entire experiment setup
-experiment.plot()
-
-# Run the FDTD simulation
+# Retain the field history while acquiring the detector trace.
 experiment.run()
 
-# Plot the field measured at the detector
+# %%
+# The detector signal is the only result shown on this page.
 detector.plot_data()
-
-# %%
-# Plot the last time frame of the computed fields
-experiment.plot_frame(
-    frame_number=-1,  # Plot the last frame
-    enhance_contrast=3,  # Maximum scale for the field visualization
-    colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the plot
-)
-
-# %%
-# Render an animation of the field propagation over time
-animation = experiment.render_propagation(
-    skip_frame=5,  # Number of frames to skip in the animation
-    colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
-    enhance_contrast=4,  # Enhance contrast for better visualization
-    save_as="./detector.gif",  # Save the animation as a GIF file
-    fps=30,
-)

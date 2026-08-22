@@ -18,22 +18,22 @@
 .. _sphx_glr_gallery_detector_source_detector.py:
 
 
-Source-Detector
-===============
+Field-history detector trace
+============================
 
-This example demonstrates the setup and execution of a source-detector experiment using LightWave2D.
-We will define the simulation grid, add a lens scatterer, a point source, and a point detector, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
+Record a point-detector trace while retaining the field history. The example's
+single outcome is the detector signal; use ``detector_only.py`` when field
+frames are not needed.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-11
+.. GENERATED FROM PYTHON SOURCE LINES 11-12
 
 Importing the necessary packages
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-17
+.. GENERATED FROM PYTHON SOURCE LINES 12-17
 
 .. code-block:: Python
 
     from TypedUnit import ureg
-    from MPSPlots import colormaps
 
     from LightWave2D.grid import Grid
     from LightWave2D.experiment import Experiment
@@ -72,31 +72,9 @@ Define the simulation grid
 
 .. GENERATED FROM PYTHON SOURCE LINES 30-31
 
-Add a lens scatterer to the experiment
-
-.. GENERATED FROM PYTHON SOURCE LINES 31-38
-
-.. code-block:: Python
-
-    scatterer = experiment.add_lense(
-        position=("35%", "50%"),  # Center position of the lens
-        epsilon_r=2,  # Relative permittivity of the lens
-        curvature=10 * ureg.micrometer,
-        width=5 * ureg.micrometer,
-    )
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 39-40
-
 Add a point source to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-46
+.. GENERATED FROM PYTHON SOURCE LINES 31-37
 
 .. code-block:: Python
 
@@ -113,11 +91,11 @@ Add a point source to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-48
+.. GENERATED FROM PYTHON SOURCE LINES 38-39
 
 Add a point detector to the experiment
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-52
+.. GENERATED FROM PYTHON SOURCE LINES 39-43
 
 .. code-block:: Python
 
@@ -132,11 +110,11 @@ Add a point detector to the experiment
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-54
+.. GENERATED FROM PYTHON SOURCE LINES 44-45
 
 Add a perfectly matched layer (PML) to absorb boundary reflections
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-60
+.. GENERATED FROM PYTHON SOURCE LINES 45-51
 
 .. code-block:: Python
 
@@ -155,117 +133,44 @@ Add a perfectly matched layer (PML) to absorb boundary reflections
  .. code-block:: none
 
 
-    PML(grid=Grid(resolution=<Quantity(0.1, 'micrometer')>, size_x=<Quantity(60, 'micrometer')>, size_y=<Quantity(30, 'micrometer')>, n_steps=300), width='10%', sigma_max=<Quantity(5000, 'siemens / meter')>, order=1)
+    <LightWave2D.pml.PML object at 0x7ff3e7edf4f0>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-62
+.. GENERATED FROM PYTHON SOURCE LINES 52-53
 
-Plot the entire experiment setup
+Retain the field history while acquiring the detector trace.
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-70
+.. GENERATED FROM PYTHON SOURCE LINES 53-55
 
 .. code-block:: Python
 
-    experiment.plot()
-
-    # Run the FDTD simulation
     experiment.run()
 
-    # Plot the field measured at the detector
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 56-57
+
+The detector signal is the only result shown on this page.
+
+.. GENERATED FROM PYTHON SOURCE LINES 57-58
+
+.. code-block:: Python
+
     detector.plot_data()
 
 
 
-
-.. rst-class:: sphx-glr-horizontal
-
-
-    *
-
-      .. image-sg:: /gallery/detector/images/sphx_glr_source_detector_001.png
-         :alt: Fiber structure
-         :srcset: /gallery/detector/images/sphx_glr_source_detector_001.png
-         :class: sphx-glr-multi-img
-
-    *
-
-      .. image-sg:: /gallery/detector/images/sphx_glr_source_detector_002.png
-         :alt: source detector
-         :srcset: /gallery/detector/images/sphx_glr_source_detector_002.png
-         :class: sphx-glr-multi-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    <Figure size 800x400 with 1 Axes>
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 71-72
-
-Plot the last time frame of the computed fields
-
-.. GENERATED FROM PYTHON SOURCE LINES 72-78
-
-.. code-block:: Python
-
-    experiment.plot_frame(
-        frame_number=-1,  # Plot the last frame
-        enhance_contrast=3,  # Maximum scale for the field visualization
-        colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the plot
-    )
-
-
-
-
-.. image-sg:: /gallery/detector/images/sphx_glr_source_detector_003.png
+.. image-sg:: /gallery/detector/images/sphx_glr_source_detector_001.png
    :alt: source detector
-   :srcset: /gallery/detector/images/sphx_glr_source_detector_003.png
+   :srcset: /gallery/detector/images/sphx_glr_source_detector_001.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    <Figure size 800x500 with 2 Axes>
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 79-80
-
-Render an animation of the field propagation over time
-
-.. GENERATED FROM PYTHON SOURCE LINES 80-87
-
-.. code-block:: Python
-
-    animation = experiment.render_propagation(
-        skip_frame=5,  # Number of frames to skip in the animation
-        colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
-        enhance_contrast=4,  # Enhance contrast for better visualization
-        save_as="./detector.gif",  # Save the animation as a GIF file
-        fps=30,
-    )
-
-
-
-.. image-sg:: /gallery/detector/images/sphx_glr_source_detector_004.png
-   :alt: source detector
-   :srcset: /gallery/detector/images/sphx_glr_source_detector_004.png
-   :class: sphx-glr-single-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    MovieWriter Pillow unavailable; using Pillow instead.
 
 
 
@@ -273,7 +178,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 12.222 seconds)
+   **Total running time of the script:** (0 minutes 0.663 seconds)
 
 
 .. _sphx_glr_download_gallery_detector_source_detector.py:

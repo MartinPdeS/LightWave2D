@@ -27,54 +27,62 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/docs/source/_static/default.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/docs/source/_static/default.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/default.css?v=1e1c20c4" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'gallery/scattering/sg_execution_times';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/MartinPdeS/LightWave2D/documentation_page/version_switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.6.0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="icon" href="../../_static/thumbnail.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.6.0" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -100,7 +108,7 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
@@ -145,6 +153,27 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../simulation_design.html">
+    Designing a simulation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../usage.html">
+    Running simulations efficiently
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../theory.html">
     Theoretical Background
   </a>
@@ -157,13 +186,30 @@
   </a>
 </li>
 
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../gallery.html">
+    Example gallery
+  </a>
+</li>
 
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../references.html">
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../references.html">
     References
   </a>
 </li>
 
+                </ul>
+            </li>
+            
   </ul>
 </nav></div>
       
@@ -214,8 +260,7 @@
           
           
           
-          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -226,8 +271,7 @@
           
           
           
-          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">PyPI</span></a>
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
         <li class="nav-item">
           
@@ -238,8 +282,7 @@
           
           
           
-          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">Anaconda</span></a>
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i><span class="visually-hidden">Anaconda</span></a>
         </li>
 </ul></div>
       
@@ -292,6 +335,27 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../simulation_design.html">
+    Designing a simulation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../usage.html">
+    Running simulations efficiently
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../theory.html">
     Theoretical Background
   </a>
@@ -301,6 +365,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../code.html">
     Source code structures
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../gallery.html">
+    Example gallery
   </a>
 </li>
 
@@ -352,8 +423,7 @@
           
           
           
-          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -364,8 +434,7 @@
           
           
           
-          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">PyPI</span></a>
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
         <li class="nav-item">
           
@@ -376,8 +445,7 @@
           
           
           
-          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">Anaconda</span></a>
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i><span class="visually-hidden">Anaconda</span></a>
         </li>
 </ul></div>
         
@@ -439,7 +507,7 @@
                   
   <section id="computation-times">
 <span id="sphx-glr-gallery-scattering-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Link to this heading">#</a></h1>
-<p><strong>01:03.003</strong> total execution time for 4 files <strong>from gallery/scattering</strong>:</p>
+<p><strong>03:44.860</strong> total execution time for 5 files <strong>from gallery/scattering</strong>:</p>
 <div class="docutils container">
 <style scoped>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
@@ -461,19 +529,23 @@ $(document).ready( function () {
 </thead>
 <tbody>
 <tr class="row-even"><td><p><a class="reference internal" href="spherical.html#sphx-glr-gallery-scattering-spherical-py"><span class="std std-ref">Circular Scatterer</span></a> (<code class="docutils literal notranslate"><span class="pre">spherical.py</span></code>)</p></td>
-<td><p>00:24.042</p></td>
+<td><p>02:28.884</p></td>
 <td><p>0.0</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="spherical_impulsion.html#sphx-glr-gallery-scattering-spherical-impulsion-py"><span class="std std-ref">Circular Scatterer</span></a> (<code class="docutils literal notranslate"><span class="pre">spherical_impulsion.py</span></code>)</p></td>
-<td><p>00:15.971</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ellipse.html#sphx-glr-gallery-scattering-ellipse-py"><span class="std std-ref">Elliptic Scatterer</span></a> (<code class="docutils literal notranslate"><span class="pre">ellipse.py</span></code>)</p></td>
+<td><p>00:30.379</p></td>
 <td><p>0.0</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="ellipse.html#sphx-glr-gallery-scattering-ellipse-py"><span class="std std-ref">Elliptic Scatterer</span></a> (<code class="docutils literal notranslate"><span class="pre">ellipse.py</span></code>)</p></td>
-<td><p>00:12.530</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="spherical_pulse.html#sphx-glr-gallery-scattering-spherical-pulse-py"><span class="std std-ref">Circular Scatterer</span></a> (<code class="docutils literal notranslate"><span class="pre">spherical_pulse.py</span></code>)</p></td>
+<td><p>00:26.781</p></td>
 <td><p>0.0</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="square.html#sphx-glr-gallery-scattering-square-py"><span class="std std-ref">Square Scatterer</span></a> (<code class="docutils literal notranslate"><span class="pre">square.py</span></code>)</p></td>
-<td><p>00:10.461</p></td>
+<td><p>00:17.803</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pulse_response.html#sphx-glr-gallery-scattering-pulse-response-py"><span class="std std-ref">Broadband pulse response</span></a> (<code class="docutils literal notranslate"><span class="pre">pulse_response.py</span></code>)</p></td>
+<td><p>00:01.013</p></td>
 <td><p>0.0</p></td>
 </tr>
 </tbody>
@@ -498,13 +570,13 @@ $(document).ready( function () {
 
 
   <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/gallery/scattering/sg_execution_times.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/gallery/scattering/sg_execution_times.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
 
 </div></div>
               
@@ -519,8 +591,8 @@ $(document).ready( function () {
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -554,7 +626,7 @@ $(document).ready( function () {
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.19.0.
 </p></div>
       
     </div>

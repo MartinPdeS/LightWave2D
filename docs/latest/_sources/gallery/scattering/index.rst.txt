@@ -4,9 +4,14 @@
 
 Scattering Examples
 -------------------
-This section provides examples related to scattering simulations, demonstrating how to set up and analyze scattering events using LightWave2D. Learn how to configure the grid, set up scatterers, and visualize the results.
+Each page isolates one scatterer geometry or one broadband response. Start
+with :doc:`spherical` for a circular scatterer, then compare the square and
+ellipse. :doc:`spherical_pulse` focuses only on pulse propagation.
 
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
 
 
 .. raw:: html
@@ -34,6 +39,23 @@ This section provides examples related to scattering simulations, demonstrating 
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Excite a dielectric circle with a short pulse and measure the transmitted time trace. Pulse sources are useful when a single simulation must cover a range of frequencies.">
+
+.. only:: html
+
+  .. image:: /gallery/scattering/images/thumb/sphx_glr_pulse_response_thumb.png
+    :alt:
+
+  :doc:`/gallery/scattering/pulse_response`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Broadband pulse response</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the setup and execution of a circular scatterer experiment using LightWave2D. We will define the simulation grid, add a circular scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.">
 
 .. only:: html
@@ -55,10 +77,10 @@ This section provides examples related to scattering simulations, demonstrating 
 
 .. only:: html
 
-  .. image:: /gallery/scattering/images/thumb/sphx_glr_spherical_impulsion_thumb.png
+  .. image:: /gallery/scattering/images/thumb/sphx_glr_spherical_pulse_thumb.png
     :alt:
 
-  :doc:`/gallery/scattering/spherical_impulsion`
+  :doc:`/gallery/scattering/spherical_pulse`
 
 .. raw:: html
 
@@ -68,7 +90,7 @@ This section provides examples related to scattering simulations, demonstrating 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the setup and execution of a square scatterer experiment using LightWave2D. We will define the simulation grid, add a square scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.">
+    <div class="sphx-glr-thumbcontainer" tooltip="Observe the field scattered by one square dielectric inclusion. The animation is the sole result; detector traces are covered in the Measurements section.">
 
 .. only:: html
 
@@ -94,8 +116,9 @@ This section provides examples related to scattering simulations, demonstrating 
    :hidden:
 
    /gallery/scattering/ellipse
+   /gallery/scattering/pulse_response
    /gallery/scattering/spherical
-   /gallery/scattering/spherical_impulsion
+   /gallery/scattering/spherical_pulse
    /gallery/scattering/square
 
 

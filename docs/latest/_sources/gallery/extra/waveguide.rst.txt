@@ -21,8 +21,8 @@
 Waveguide
 =========
 
-This example demonstrates the setup and execution of a waveguide experiment using LightWave2D.
-We will define the simulation grid, add a waveguide and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
+Observe guided propagation in one straight dielectric waveguide. The animation
+is the single result of this example.
 
 .. GENERATED FROM PYTHON SOURCE LINES 10-11
 
@@ -123,7 +123,7 @@ Add a perfectly matched layer (PML) to absorb boundary reflections
  .. code-block:: none
 
 
-    PML(grid=Grid(resolution=<Quantity(0.1, 'micrometer')>, size_x=<Quantity(50, 'micrometer')>, size_y=<Quantity(15, 'micrometer')>, n_steps=100), width='10%', sigma_max=<Quantity(5000, 'siemens / meter')>, order=1)
+    <LightWave2D.pml.PML object at 0x7ff3d130bc30>
 
 
 
@@ -146,60 +146,9 @@ Run the FDTD simulation
 
 .. GENERATED FROM PYTHON SOURCE LINES 59-60
 
-Plot the experiment layout
+Animate guided propagation.
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-63
-
-.. code-block:: Python
-
-    experiment.plot()
-
-
-
-
-
-.. image-sg:: /gallery/extra/images/sphx_glr_waveguide_001.png
-   :alt: Fiber structure
-   :srcset: /gallery/extra/images/sphx_glr_waveguide_001.png
-   :class: sphx-glr-single-img
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 64-65
-
-Plot the resulting electric field distribution at a certain time
-
-.. GENERATED FROM PYTHON SOURCE LINES 65-67
-
-.. code-block:: Python
-
-    experiment.plot_frame(frame_number=-1)
-
-
-
-
-.. image-sg:: /gallery/extra/images/sphx_glr_waveguide_002.png
-   :alt: waveguide
-   :srcset: /gallery/extra/images/sphx_glr_waveguide_002.png
-   :class: sphx-glr-single-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-
-    <Figure size 800x500 with 2 Axes>
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 68-69
-
-Render an animation of the wave propagation
-
-.. GENERATED FROM PYTHON SOURCE LINES 69-76
+.. GENERATED FROM PYTHON SOURCE LINES 60-67
 
 .. code-block:: Python
 
@@ -213,17 +162,11 @@ Render an animation of the wave propagation
 
 
 
-.. image-sg:: /gallery/extra/images/sphx_glr_waveguide_003.png
+.. image-sg:: /gallery/extra/images/sphx_glr_waveguide_001.png
    :alt: waveguide
-   :srcset: /gallery/extra/images/sphx_glr_waveguide_003.png
+   :srcset: /gallery/extra/images/sphx_glr_waveguide_001.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    MovieWriter Pillow unavailable; using Pillow instead.
 
 
 
@@ -231,7 +174,7 @@ Render an animation of the wave propagation
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.013 seconds)
+   **Total running time of the script:** (0 minutes 2.495 seconds)
 
 
 .. _sphx_glr_download_gallery_extra_waveguide.py:
