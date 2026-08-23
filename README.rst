@@ -2,20 +2,26 @@ LightWave2D
 ===========
 
 .. list-table::
-   :widths: 10 25 25
-   :header-rows: 0
+   :widths: 35 65
+   :header-rows: 1
 
-   * - Meta
+   * - Badge
+     - Status
+   * - Python versions
      - |python|
+   * - Documentation
      - |docs|
-   * - Testing
+   * - Continuous integration
      - |ci/cd|
+   * - Test coverage
      - |coverage|
-   * - PyPi
-     - |PyPi|
-     - |PyPi_download|
-   * - Anaconda
+   * - PyPI package
+     - |PyPI|
+   * - PyPI downloads
+     - |PyPI_download|
+   * - Anaconda package
      - |anaconda|
+   * - Anaconda downloads
      - |anaconda_download|
 
 
@@ -38,7 +44,7 @@ Key Features
 
 Documentation
 **************
-All the latest available documentation is available `here <https://lightwave2d.readthedocs.io/en/latest/>`_ or you can click the following badge:
+All the latest available documentation is available `here <https://martinpdes.github.io/LightWave2D/>`_ or you can click the following badge:
 
 |docs|
 
@@ -221,7 +227,7 @@ Lens
 
 |example_lens|
 
-Plenty of other examples are available online, I invite you to check the `examples <https://lightwave2d.readthedocs.io/en/master/gallery/index.html>`_
+Plenty of other examples are available online; see the `examples <https://martinpdes.github.io/LightWave2D/gallery.html>`_
 section of the documentation.
 
 
@@ -272,22 +278,25 @@ Email:`martin.poinsinet-de-sivry@polymtl.ca <mailto:martin.poinsinet-de-sivry@po
    :class: with-shadow float-left
    :width: 800px
 
-.. |python| image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg
+.. |python| image:: https://img.shields.io/pypi/pyversions/lightwave2d.svg
+   :alt: Python
    :target: https://www.python.org/
 
 .. |docs| image:: https://github.com/martinpdes/LightWave2D/actions/workflows/deploy_documentation.yml/badge.svg
-   :target: https://lightwave2d.readthedocs.io/en/latest/code.html
+   :target: https://martinpdes.github.io/LightWave2D/
    :alt: Documentation Status
 
 .. |coverage| image:: https://raw.githubusercontent.com/MartinPdeS/LightWave2D/python-coverage-comment-action-data/badge.svg
    :alt: Unittest coverage
    :target: https://htmlpreview.github.io/?https://github.com/MartinPdeS/LightWave2D/blob/python-coverage-comment-action-data/htmlcov/index.html
 
-.. |PyPi| image:: https://badge.fury.io/py/LightWave2D.svg
+.. |PyPI| image:: https://badge.fury.io/py/LightWave2D.svg
+   :alt: PyPI version
    :target: https://pypi.org/project/LightWave2D/
 
-.. |PyPi_download| image:: https://img.shields.io/pypi/dm/lightwave2d.svg
-   :target: https://pypistats.org/packages/lightwave2d
+.. |PyPI_download| image:: https://api.pepy.tech/badge/LightWave2D/month
+   :alt: PyPI downloads
+   :target: https://pepy.tech/projects/lightwave2d
 
 .. |ci/cd| image:: https://github.com/martinpdes/lightwave2d/actions/workflows/deploy_coverage.yml/badge.svg
     :alt: Unittest Status
