@@ -16,3 +16,18 @@ div.highlight a {
 .bd-footer .footer-items__end, .bd-footer .footer-items__start {
   flex-direction: row;
 }
+
+/* The custom lockup includes the product name and motto, so allow enough
+   breathing room without making the navigation bar taller than necessary. */
+.navbar-brand.logo .logo__image {
+  height: 3rem;
+  max-width: min(17rem, 34vw);
+  width: auto;
+}
+
+@media (max-width: 46rem) {
+  .navbar-brand.logo .logo__image {
+    height: 2.6rem;
+    max-width: 13rem;
+  }
+}

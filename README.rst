@@ -1,3 +1,8 @@
+.. image:: docs/source/_static/lightwave2d-logo-light.svg
+   :alt: LightWave2D — Simulating light, clearly.
+   :width: 420px
+   :align: center
+
 LightWave2D
 ===========
 

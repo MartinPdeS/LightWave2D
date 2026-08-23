@@ -48,8 +48,8 @@ extensions = [
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
 
-html_logo = "_static/thumbnail.png"
-html_favicon = "_static/thumbnail.png"
+html_logo = "_static/lightwave2d-logo-light.svg"
+html_favicon = "_static/lightwave2d-favicon.svg"
 
 
 def reset_mpl(gallery_conf, fname):
@@ -107,7 +107,11 @@ binder_branch = f"v{major}.{minor}.x"
 
 html_theme_options = dict()
 
-html_theme_options["logo"] = dict(text=package_name, image="_static/thumbnail.png")
+html_theme_options["logo"] = dict(
+    image_light="_static/lightwave2d-logo-light.svg",
+    image_dark="_static/lightwave2d-logo-dark.svg",
+    alt_text="LightWave2D — Simulating light, clearly.",
+)
 html_theme_options["show_nav_level"] = 0
 
 html_theme_options.update(
@@ -130,6 +134,10 @@ html_theme_options.update(
             },
         ],
         "navbar_align": "left",
+        # Keep the header focused: the remaining documentation links live in
+        # an accessible Explore dropdown instead of stretching across the bar.
+        "header_links_before_dropdown": 2,
+        "header_dropdown_text": "Explore",
         "navbar_end": ["version-switcher", "navbar-icon-links"],
         "show_prev_next": False,
         "show_version_warning_banner": True,
