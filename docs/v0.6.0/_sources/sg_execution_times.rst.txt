@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**05:42.869** total execution time for 10 files **from all galleries**:
+**05:03.593** total execution time for 10 files **from all galleries**:
 
 .. container::
 
@@ -33,32 +33,32 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_scattering_spherical.py` (``../examples/scattering/spherical.py``)
-     - 02:55.989
+     - 02:33.055
      - 0.0
    * - :ref:`sphx_glr_gallery_extra_resonator.py` (``../examples/extra/resonator.py``)
-     - 00:45.945
-     - 0.0
-   * - :ref:`sphx_glr_gallery_extra_lens.py` (``../examples/extra/lens.py``)
-     - 00:34.557
+     - 00:40.475
      - 0.0
    * - :ref:`sphx_glr_gallery_scattering_ellipse.py` (``../examples/scattering/ellipse.py``)
-     - 00:34.175
+     - 00:30.655
+     - 0.0
+   * - :ref:`sphx_glr_gallery_extra_lens.py` (``../examples/extra/lens.py``)
+     - 00:30.311
      - 0.0
    * - :ref:`sphx_glr_gallery_scattering_spherical_pulse.py` (``../examples/scattering/spherical_pulse.py``)
-     - 00:28.438
+     - 00:27.086
      - 0.0
    * - :ref:`sphx_glr_gallery_scattering_square.py` (``../examples/scattering/square.py``)
-     - 00:19.178
+     - 00:17.727
      - 0.0
    * - :ref:`sphx_glr_gallery_extra_waveguide.py` (``../examples/extra/waveguide.py``)
-     - 00:02.508
+     - 00:02.419
      - 0.0
    * - :ref:`sphx_glr_gallery_scattering_pulse_response.py` (``../examples/scattering/pulse_response.py``)
-     - 00:01.194
+     - 00:01.029
      - 0.0
    * - :ref:`sphx_glr_gallery_detector_source_detector.py` (``../examples/detector/source_detector.py``)
-     - 00:00.676
+     - 00:00.657
      - 0.0
    * - :ref:`sphx_glr_gallery_detector_detector_only.py` (``../examples/detector/detector_only.py``)
-     - 00:00.209
+     - 00:00.181
      - 0.0
