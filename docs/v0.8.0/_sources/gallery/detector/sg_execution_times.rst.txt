@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.869** total execution time for 2 files **from gallery/detector**:
+**00:00.863** total execution time for 2 files **from gallery/detector**:
 
 .. container::
 
@@ -33,8 +33,8 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_detector_source_detector.py` (``source_detector.py``)
-     - 00:00.693
+     - 00:00.662
      - 0.0
    * - :ref:`sphx_glr_gallery_detector_detector_only.py` (``detector_only.py``)
-     - 00:00.176
+     - 00:00.201
      - 0.0
