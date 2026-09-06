@@ -8,11 +8,16 @@
 !development
 !docs
 !tests
+!tools
 !.flake8
 !.gitignore
 !.pre-commit-config.yaml
+!CONTRIBUTING.md
+!CITATION.cff
 !LICENSE
+!Makefile
 !meta.yaml
+!.zenodo.json
 !pyproject.toml
 !README.rst
 !notebook.ipynb

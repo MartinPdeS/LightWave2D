@@ -1,0 +1,76 @@
+.DEFAULT_GOAL := help
+
+PYTHON ?= python3.13
+BUILD_DIR ?= build
+ROOT_DIR := $(CURDIR)
+PYBIND11_DIR = $(shell $(PYTHON) -m pybind11 --cmakedir)
+RELEASE_KIND := $(filter major minor patch,$(MAKECMDGOALS))
+
+.PHONY: help bootstrap configure build install uninstall quick rebuild editable quality test check release-check tag release major minor patch clean
+
+help:
+	@echo "LightWave2D development commands"
+	@echo ""
+	@echo "  make editable              Build and install an editable package"
+	@echo "  make test                  Run the test suite"
+	@echo "  make quality               Run static checks"
+	@echo "  make check                 Run quality and tests"
+	@echo "  make release-check         Check tag-derived release metadata"
+	@echo "  make tag VERSION=vX.Y.Z    Create a release commit and annotated tag"
+	@echo "  make release patch         Create and push the next patch release"
+	@echo "  make release minor         Create and push the next minor release"
+	@echo "  make release major         Create and push the next major release"
+
+bootstrap:
+	$(PYTHON) -m pip install --upgrade pip
+	$(PYTHON) -m pip install --upgrade "scikit-build-core>=0.3.3" pybind11 "setuptools_scm[toml]>=8.0"
+
+quality:
+	$(PYTHON) -m ruff check LightWave2D tests
+
+test:
+	$(PYTHON) -m pytest --config-file=pytest.ini
+
+check: quality test
+
+release-check:
+	$(PYTHON) tools/check_release.py $(if $(VERSION),--version $(VERSION),)
+
+tag:
+	@test -n "$(VERSION)" || { echo "usage: make tag VERSION=vX.Y.Z" >&2; exit 2; }
+	$(PYTHON) tools/release_tag.py "$(VERSION)"
+
+release:
+	@test "$(words $(RELEASE_KIND))" -eq 1 || { echo "usage: make release [patch|minor|major]" >&2; exit 2; }
+	@set -eu; release_tag="$$($(PYTHON) tools/next_release_version.py $(RELEASE_KIND))"; \
+	$(PYTHON) tools/release_tag.py "$$release_tag"; \
+	git push origin HEAD "refs/tags/$$release_tag"
+
+major minor patch:
+	@:
+
+configure:
+	cmake -S . -B $(BUILD_DIR) \
+		-Dpybind11_DIR="$(PYBIND11_DIR)" \
+		-DPython_EXECUTABLE="$$(which $(PYTHON))" \
+		-DCMAKE_INSTALL_PREFIX="$(ROOT_DIR)"
+
+build:
+	cmake --build $(BUILD_DIR) -j
+
+install:
+	cmake --install $(BUILD_DIR)
+
+uninstall:
+	$(PYTHON) -m pip uninstall -y LightWave2D
+
+quick: configure build install
+
+rebuild: configure build install
+
+editable: bootstrap
+	$(PYTHON) -m pip install --no-build-isolation -Cbuild-dir=$(BUILD_DIR) -Ceditable.rebuild=false -Ceditable.mode=inplace -e .
+
+clean:
+	rm -rf $(BUILD_DIR) .skbuild .pytest_cache htmlcov .coverage
+	rm -f LightWave2D/binary/*.so LightWave2D/binary/*.a

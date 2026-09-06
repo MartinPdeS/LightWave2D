@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use LightWave2D in your research, please cite this software."
+title: "LightWave2D"
+type: software
+authors:
+  - family-names: "Poinsinet de Sivry-Houle"
+    given-names: "Martin"
+abstract: >
+  LightWave2D is an open-source Python package for two-dimensional
+  finite-difference time-domain simulations of light propagation, scattering,
+  diffraction, and photonic components.
+license: "MIT"
+repository-code: "https://github.com/MartinPdeS/LightWave2D"
+keywords:
+  - finite-difference time-domain
+  - light propagation
+  - photonics
+  - electromagnetics
+  - simulation
