@@ -6,9 +6,8 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Computation times &#8212; LightWave2D  documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LightWave2D.result &#8212; LightWave2D  documentation</title>
   
   
   
@@ -48,7 +47,7 @@
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'gallery/detector/sg_execution_times';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/LightWave2D/result';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/MartinPdeS/LightWave2D/documentation_page/version_switcher.json';
@@ -300,10 +299,6 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
 </div>
 
     </header>
@@ -486,7 +481,10 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Computation times</span></li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">LightWave2D.result</span></li>
   </ul>
 </nav>
 </div>
@@ -503,43 +501,130 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="computation-times">
-<span id="sphx-glr-gallery-detector-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Link to this heading">#</a></h1>
-<p><strong>00:00.675</strong> total execution time for 2 files <strong>from gallery/detector</strong>:</p>
-<div class="docutils container">
-<style scoped>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
-</style>
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-<script type="text/javascript" class="init">
-$(document).ready( function () {
-    $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
-} );
-</script><div class="pst-scrollable-table-container"><table class="table table-striped sg-datatable">
-<thead>
-<tr class="row-odd"><th class="head"><p>Example</p></th>
-<th class="head"><p>Time</p></th>
-<th class="head"><p>Mem (MB)</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="source_detector.html#sphx-glr-gallery-detector-source-detector-py"><span class="std std-ref">Field-history detector trace</span></a> (<code class="docutils literal notranslate"><span class="pre">source_detector.py</span></code>)</p></td>
-<td><p>00:00.481</p></td>
-<td><p>0.0</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="detector_only.html#sphx-glr-gallery-detector-detector-only-py"><span class="std std-ref">Detector-only recording</span></a> (<code class="docutils literal notranslate"><span class="pre">detector_only.py</span></code>)</p></td>
-<td><p>00:00.194</p></td>
-<td><p>0.0</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
+  <h1>Source code for LightWave2D.result</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Stored outputs of one simulation, independent of subsequent runs."""</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleNamespace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<div class="viewcode-block" id="SimulationResult">
+<a class="viewcode-back" href="../../code.html#LightWave2D.result.SimulationResult">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimulationResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""One run's field history, timestamps, and detector samples.</span>
+
+<span class="sd">    ``detector_data`` has shape (detector samples, detectors), in insertion order,</span>
+<span class="sd">    with ``detector_time_stamp`` timestamps. ``recorded_time_stamp`` belongs to</span>
+<span class="sd">    field frames and may have a different cadence. ``flux`` holds FluxRecords.</span>
+<span class="sd">    ``Ez_t`` is a NumPy array or disk-backed memmap, or None for detector-only runs. Arrays are owned by this run and</span>
+<span class="sd">    remain available when the experiment runs again. Geometry overlays retain</span>
+<span class="sd">    references to the configured objects; array contents remain user-editable.</span>
+<span class="sd">    """</span>
+
+    <span class="n">Ez_t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">recorded_time_stamp</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">detector_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">components</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">sources</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">detectors</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="n">detector_time_stamp</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">flux</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">field_path</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">detector_spectrum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">detector</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="s2">"hann"</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Return frequency bins in Hz and complex point-detector amplitudes."""</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.monitors</span><span class="w"> </span><span class="kn">import</span> <span class="n">FieldSpectrum</span><span class="p">,</span> <span class="n">fourier</span>
+
+        <span class="n">frequency</span><span class="p">,</span> <span class="n">amplitude</span> <span class="o">=</span> <span class="n">fourier</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">detector_data</span><span class="p">[:,</span> <span class="n">detector</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector_time_stamp</span><span class="p">,</span> <span class="n">window</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">FieldSpectrum</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_experiment</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">experiment</span><span class="p">,</span>
+        <span class="n">detector_data</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">detector_time_stamp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">flux</span><span class="o">=</span><span class="p">(),</span>
+        <span class="n">field_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">SimpleNamespace</span><span class="p">(</span>
+            <span class="n">x_stamp</span><span class="o">=</span><span class="n">experiment</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+            <span class="n">y_stamp</span><span class="o">=</span><span class="n">experiment</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">experiment</span><span class="o">.</span><span class="n">Ez_t</span><span class="p">,</span>
+            <span class="n">experiment</span><span class="o">.</span><span class="n">recorded_time_stamp</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+            <span class="n">detector_data</span><span class="p">,</span>
+            <span class="n">grid</span><span class="p">,</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">components</span><span class="p">),</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">sources</span><span class="p">),</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">detectors</span><span class="p">),</span>
+            <span class="p">(</span>
+                <span class="n">detector_time_stamp</span>
+                <span class="k">if</span> <span class="n">detector_time_stamp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="k">else</span> <span class="n">experiment</span><span class="o">.</span><span class="n">recorded_time_stamp</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="p">),</span>
+            <span class="n">flux</span><span class="p">,</span>
+            <span class="n">field_path</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Reopen disk-backed fields and coordinate metadata read-only.</span>
+
+<span class="sd">        Detector signals and geometry overlays are not stored in this format.</span>
+<span class="sd">        Missing metadata indicates an incomplete recording.</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span>
+
+        <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">+</span> <span class="s2">".metadata.npz"</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">metadata</span><span class="p">:</span>
+            <span class="n">times</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">"time_seconds"</span><span class="p">]</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">second</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">SimpleNamespace</span><span class="p">(</span>
+                <span class="n">x_stamp</span><span class="o">=</span><span class="n">metadata</span><span class="p">[</span><span class="s2">"x_meters"</span><span class="p">]</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">,</span>
+                <span class="n">y_stamp</span><span class="o">=</span><span class="n">metadata</span><span class="p">[</span><span class="s2">"y_meters"</span><span class="p">]</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">mmap_mode</span><span class="o">=</span><span class="s2">"r"</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fields</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Field data and metadata shapes do not match."</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">fields</span><span class="p">,</span>
+            <span class="n">times</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="mi">0</span><span class="p">)),</span>
+            <span class="n">grid</span><span class="p">,</span>
+            <span class="n">detector_time_stamp</span><span class="o">=</span><span class="n">times</span><span class="p">,</span>
+            <span class="n">field_path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_require_field_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">"No field history was stored. Re-run with store_fields=True to plot or render fields."</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Plot a recorded frame; accepts visualization.plot_frame arguments."""</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_frame</span>
+
+        <span class="k">return</span> <span class="n">plot_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">render_propagation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Animate recorded frames; accepts visualization.render_propagation arguments."""</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">render_propagation</span>
+
+        <span class="k">return</span> <span class="n">render_propagation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+</pre></div>
 
                 </article>
               
@@ -550,21 +635,6 @@ $(document).ready( function () {
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../../_sources/gallery/detector/sg_execution_times.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
-
-</div></div>
               
             
           </div>

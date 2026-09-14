@@ -560,6 +560,139 @@ converged.</p></li>
 wave source for a single-frequency steady-state field.</p></li>
 </ul>
 </section>
+<section id="keeping-results-from-multiple-runs">
+<h2>Keeping results from multiple runs<a class="headerlink" href="#keeping-results-from-multiple-runs" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">run()</span></code> returns a <a class="reference internal" href="code.html#LightWave2D.result.SimulationResult" title="LightWave2D.result.SimulationResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimulationResult</span></code></a>. Keep this
+object to compare runs without copying the full field history yourself:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">first</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">store_every</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">second</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">store_fields</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">first</span><span class="o">.</span><span class="n">plot_frame</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">animation</span> <span class="o">=</span> <span class="n">first</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span><span class="n">skip_frame</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">signals</span> <span class="o">=</span> <span class="n">second</span><span class="o">.</span><span class="n">detector_data</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">second</span><span class="o">.</span><span class="n">recorded_time_stamp</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">detector_data</span></code> has shape <code class="docutils literal notranslate"><span class="pre">(recorded_steps,</span> <span class="pre">number_of_detectors)</span></code>; columns
+follow detector insertion order. <code class="docutils literal notranslate"><span class="pre">Ez_t</span></code> has shape <code class="docutils literal notranslate"><span class="pre">(recorded_steps,</span> <span class="pre">nx,</span> <span class="pre">ny)</span></code>
+or is <code class="docutils literal notranslate"><span class="pre">None</span></code> in detector-only mode. Timestamps retain their units. Each run
+allocates its own output arrays, so a later run does not overwrite earlier
+results. Arrays remain editable; geometry overlays reference the original
+configured objects rather than deep copies.</p>
+<p>Existing <code class="docutils literal notranslate"><span class="pre">experiment.Ez_t</span></code>, <code class="docutils literal notranslate"><span class="pre">experiment.recorded_time_stamp</span></code>, plotting
+methods, and <code class="docutils literal notranslate"><span class="pre">detector.data</span></code> still refer to the latest successful run.</p>
+</section>
+<section id="implementation-and-validation">
+<h2>Implementation and validation<a class="headerlink" href="#implementation-and-validation" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Experiment</span></code> configures geometry and exposes the convenience API.
+<code class="docutils literal notranslate"><span class="pre">execution.py</span></code> prepares material meshes, invokes the native solver, and
+collects results. <code class="docutils literal notranslate"><span class="pre">result.py</span></code> stores each run’s outputs, while
+<code class="docutils literal notranslate"><span class="pre">visualization.py</span></code> implements geometry plots, field plots, and animations.
+The native time loop computes spatial differences directly and prepares fixed
+material coefficients once per run.</p>
+<p>The physics regression suite checks vacuum pulse speed, normal-incidence
+Fresnel amplitudes, decreasing pulse error with mesh refinement, and reduced
+boundary reflection. The graded-conductivity boundary benchmark currently
+permits up to 30% reflected amplitude (about 25% measured for that setup).
+This is a regression baseline, not a guarantee of negligible PML reflection;
+check boundary convergence for your own simulation.</p>
+<p>For a repeatable local timing comparison, run
+<code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS=1</span> <span class="pre">python</span> <span class="pre">tools/benchmark_solver.py</span></code> from a source checkout
+before and after rebuilding. The script reports median timings for two grid
+resolutions, including setup and detector recording but no field history.</p>
+</section>
+<section id="independent-sampling-and-disk-recording">
+<h2>Independent sampling and disk recording<a class="headerlink" href="#independent-sampling-and-disk-recording" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">field_every</span></code> and <code class="docutils literal notranslate"><span class="pre">detector_every</span></code> override <code class="docutils literal notranslate"><span class="pre">store_every</span></code> independently.
+Point detectors and flux monitors share <code class="docutils literal notranslate"><span class="pre">detector_every</span></code>. For dense detector
+signals with sparse field frames:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">field_every</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">detector_every</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">field_times</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">recorded_time_stamp</span>
+<span class="n">detector_times</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">detector_time_stamp</span>
+</pre></div>
+</div>
+<p>Decimation does not apply an anti-aliasing filter. Choose the detector cadence
+to resolve the highest frequency of interest; use every step when unsure.</p>
+<p>To write field frames directly to disk:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.result</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationResult</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+    <span class="n">field_every</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">detector_every</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">field_path</span><span class="o">=</span><span class="s2">"fields.npy"</span>
+<span class="p">)</span>
+<span class="n">reopened</span> <span class="o">=</span> <span class="n">SimulationResult</span><span class="o">.</span><span class="n">load_fields</span><span class="p">(</span><span class="s2">"fields.npy"</span><span class="p">)</span>
+<span class="n">reopened</span><span class="o">.</span><span class="n">plot_frame</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The solver writes into a NumPy memory map, avoiding an in-memory allocation
+of the entire field history. The operating system manages disk caching.
+<code class="docutils literal notranslate"><span class="pre">fields.npy.metadata.npz</span></code> stores SI coordinates and field timestamps;
+it is written after successful integration and flushing. Missing metadata
+indicates an incomplete recording. Existing output files are never overwritten.
+Both files are needed to reopen a result. This format stores field history,
+not detector signals, flux records, or geometry overlays. Animation color-limit
+calculation scans one frame at a time to avoid a full-history temporary array.</p>
+</section>
+<section id="spectra-and-power-flux-monitors">
+<h2>Spectra and power-flux monitors<a class="headerlink" href="#spectra-and-power-flux-monitors" title="Link to this heading">#</a></h2>
+<p>Point detector spectra return frequencies in Hz and complex, one-sided
+electric-field amplitudes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spectrum</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">detector_spectrum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="s2">"hann"</span><span class="p">)</span>
+<span class="n">frequency</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">frequency</span>
+<span class="n">amplitude</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">amplitude</span>
+</pre></div>
+</div>
+<p>Supported windows are <code class="docutils literal notranslate"><span class="pre">&quot;hann&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;boxcar&quot;</span></code>. Scaling compensates for the
+window’s coherent gain. At least two samples are needed (three for Hann).
+The result uses coherent electric samples even if the detector’s display data
+was configured as magnitude-only.</p>
+<p>A flux monitor integrates the signed Poynting flux along an axis-aligned line.
+For a source propagating in positive x, place vertical monitors upstream and
+downstream of the structure, outside sources and absorbing layers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span>
+
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_flux_monitor</span><span class="p">(</span>
+    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">"30%"</span><span class="p">,</span> <span class="s2">"20%"</span><span class="p">),</span> <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">"30%"</span><span class="p">,</span> <span class="s2">"80%"</span><span class="p">),</span> <span class="n">normal</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_flux_monitor</span><span class="p">(</span>
+    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">"80%"</span><span class="p">,</span> <span class="s2">"20%"</span><span class="p">),</span> <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">"80%"</span><span class="p">,</span> <span class="s2">"80%"</span><span class="p">),</span> <span class="n">normal</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+<span class="n">reference</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">store_fields</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">detector_every</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Add the structure of interest, keeping source and monitor settings fixed.</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_circle</span><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s2">"55%"</span><span class="p">,</span> <span class="s2">"50%"</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">1</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span> <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">4</span>
+<span class="p">)</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">store_fields</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">detector_every</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">incident</span> <span class="o">=</span> <span class="n">reference</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">spectrum</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="s2">"boxcar"</span><span class="p">)</span>
+<span class="n">reflected</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">spectrum</span><span class="p">(</span>
+    <span class="n">window</span><span class="o">=</span><span class="s2">"boxcar"</span><span class="p">,</span> <span class="n">subtract</span><span class="o">=</span><span class="n">reference</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">reflection</span> <span class="o">=</span> <span class="o">-</span><span class="n">reflected</span><span class="o">.</span><span class="n">normalized</span><span class="p">(</span><span class="n">incident</span><span class="p">)</span>
+<span class="n">transmission</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">spectrum</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="s2">"boxcar"</span><span class="p">)</span><span class="o">.</span><span class="n">normalized</span><span class="p">(</span>
+    <span class="n">reference</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">spectrum</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="s2">"boxcar"</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Reflection subtraction operates on electric and magnetic fields before forming
+power. Field subtraction requires matching monitor geometry, sampling and normal. Use identical
+run durations and spectral windows, and capture the complete pulse response.
+Weak reference bins (below <code class="docutils literal notranslate"><span class="pre">cutoff=1e-6</span></code> times the largest absolute reference
+power) return NaN instead of unstable ratios. Normalization assumes the
+reference monitor measures the intended incident flux; finite apertures and
+unwanted boundary returns affect the interpretation.</p>
+<p><code class="docutils literal notranslate"><span class="pre">normal=1</span></code> points along positive x for vertical monitors and positive y for
+horizontal monitors; <code class="docutils literal notranslate"><span class="pre">normal=-1</span></code> reverses the sign. Endpoints are snapped to
+grid cells and integrated with trapezoidal weights. Lines must be at least one
+cell inside grid boundaries. The native solver centers H spatially on Ez and
+averages adjacent electric time steps to align with H’s half-step. Flux record
+timestamps therefore equal detector timestamps minus half a solver time step.</p>
+<p><code class="docutils literal notranslate"><span class="pre">FluxRecord.data</span></code> has shape <code class="docutils literal notranslate"><span class="pre">(samples,</span> <span class="pre">line</span> <span class="pre">points,</span> <span class="pre">2)</span></code>. Its last axis holds
+the centered electric field and signed tangential magnetic field (<code class="docutils literal notranslate"><span class="pre">-Hy</span></code> for
+vertical lines, <code class="docutils literal notranslate"><span class="pre">Hx</span></code> for horizontal lines). Flux spectra report W/m per unit
+out-of-plane length when source amplitudes represent V/m. They are Fourier-bin
+powers, not a power spectral density; pulse spectra are most useful normalized
+to a matching reference run.</p>
+</section>
 </section>
 
 
@@ -587,6 +720,10 @@ wave source for a single-frequency steady-state field.</p></li>
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recording-fields-and-detectors">Recording fields and detectors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-setup-checklist">Practical setup checklist</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keeping-results-from-multiple-runs">Keeping results from multiple runs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-and-validation">Implementation and validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independent-sampling-and-disk-recording">Independent sampling and disk recording</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spectra-and-power-flux-monitors">Spectra and power-flux monitors</a></li>
 </ul>
   </nav></div>
 

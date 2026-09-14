@@ -48,7 +48,6 @@
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/sg-tags.js?v=d80f6fa4"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'code';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
@@ -540,6 +539,12 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.add_flux_monitor">
+<span class="sig-name descname"><span class="pre">add_flux_monitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.add_flux_monitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.add_flux_monitor" title="Link to this definition">#</a></dt>
+<dd><p>Add an axis-aligned power-flux line; see monitors.FluxMonitor.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.add_grating">
 <span class="sig-name descname"><span class="pre">add_grating</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.add_grating"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.add_grating" title="Link to this definition">#</a></dt>
 <dd><p>Method to add a components.Grating to the simulation.</p>
@@ -683,8 +688,8 @@ Method to add a components.Square to the simulation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Axes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#LightWave2D.experiment.Experiment.plot" title="Link to this definition">#</a></dt>
-<dd><p>Wrapper injected around the plotting function.</p>
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.plot" title="Link to this definition">#</a></dt>
+<dd><p>Plot the simulation setup; see visualization.plot.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -734,29 +739,14 @@ an animation showing the evolution of the field over time.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_every</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.run" title="Link to this definition">#</a></dt>
-<dd><p>Run the Finite-Difference Time-Domain (FDTD) simulation.</p>
-<p>This method updates the electric field (Ez) and magnetic fields (Hx, Hy) over time
-based on Maxwell’s equations using the FDTD method. It incorporates the effects
-of absorption, sources, and non-linear interactions.</p>
-<p>Maxwell’s equations in 2D for non-magnetic media:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\frac{\partial H_x}{\partial t} = -\frac{1}{\mu} \frac{\partial E_z}{\partial y} \\[10pt]
-\frac{\partial H_y}{\partial t} = \frac{1}{\mu} \frac{\partial E_z}{\partial x} \\[10pt]
-\frac{\partial E_z}{\partial t} = \frac{1}{\epsilon} \left( \frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y} \right) - \sigma E_z\end{split}\]</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>store_fields</strong> (<em>bool</em><em>, </em><em>optional</em>) – Store electric-field frames for plotting and animation. Disable this
-for detector-only simulations to avoid allocating a 3D time history.</p></li>
-<li><p><strong>store_every</strong> (<em>int</em><em>, </em><em>optional</em>) – Record field frames and detector samples every this many time steps.</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>The full field history uses <code class="docutils literal notranslate"><span class="pre">n_frames</span> <span class="pre">*</span> <span class="pre">n_x</span> <span class="pre">*</span> <span class="pre">n_y</span> <span class="pre">*</span> <span class="pre">8</span></code> bytes. Use
-<code class="docutils literal notranslate"><span class="pre">store_every</span></code> to reduce it, or <code class="docutils literal notranslate"><span class="pre">store_fields=False</span></code> for detector-only
-simulations.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_every</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#LightWave2D.result.SimulationResult" title="LightWave2D.result.SimulationResult"><span class="pre">SimulationResult</span></a></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.run" title="Link to this definition">#</a></dt>
+<dd><p>Execute this setup and return a SimulationResult.</p>
+<p>Set store_fields=False for detector/flux-only output. store_every is
+the default cadence; field_every and detector_every override it
+independently. field_path writes fields directly to a new .npy file
+with a coordinate/timestamp sidecar. Existing files are never replaced.
+Legacy Ez_t, recorded_time_stamp and detector.data remain available.
+See execution.run for parameter details.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1408,6 +1398,20 @@ wave reflections.</p>
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="LightWave2D.result.SimulationResult">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SimulationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ez_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recorded_time_stamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detectors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_time_stamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/result.html#SimulationResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.result.SimulationResult" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>One run’s field history, timestamps, and detector samples.</p>
+<p><code class="docutils literal notranslate"><span class="pre">detector_data</span></code> has shape (detector samples, detectors), in insertion order,
+with <code class="docutils literal notranslate"><span class="pre">detector_time_stamp</span></code> timestamps. <code class="docutils literal notranslate"><span class="pre">recorded_time_stamp</span></code> belongs to
+field frames and may have a different cadence. <code class="docutils literal notranslate"><span class="pre">flux</span></code> holds FluxRecords.
+<code class="docutils literal notranslate"><span class="pre">Ez_t</span></code> is a NumPy array or disk-backed memmap, or None for detector-only runs. Arrays are owned by this run and
+remain available when the experiment runs again. Geometry overlays retain
+references to the configured objects; array contents remain user-editable.</p>
+</dd></dl>
+
+<p id="module-LightWave2D.monitors">Axis-aligned line monitors and Fourier analysis of recorded fields.</p>
 </section>
 
 
@@ -1436,6 +1440,7 @@ wave reflections.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment"><code class="docutils literal notranslate"><span class="pre">Experiment</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.add_circle"><code class="docutils literal notranslate"><span class="pre">Experiment.add_circle()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.add_ellipse"><code class="docutils literal notranslate"><span class="pre">Experiment.add_ellipse()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.add_flux_monitor"><code class="docutils literal notranslate"><span class="pre">Experiment.add_flux_monitor()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.add_grating"><code class="docutils literal notranslate"><span class="pre">Experiment.add_grating()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.add_lens"><code class="docutils literal notranslate"><span class="pre">Experiment.add_lens()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.add_line_pulse"><code class="docutils literal notranslate"><span class="pre">Experiment.add_line_pulse()</span></code></a></li>
@@ -1618,6 +1623,7 @@ wave reflections.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.pml.PML.width_stop"><code class="docutils literal notranslate"><span class="pre">PML.width_stop</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.result.SimulationResult"><code class="docutils literal notranslate"><span class="pre">SimulationResult</span></code></a></li>
 </ul>
   </nav></div>
 

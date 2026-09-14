@@ -511,19 +511,17 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.animation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">animation</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic.dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ticker</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">mps</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots</span><span class="w"> </span><span class="kn">import</span> <span class="n">colormaps</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.result</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationResult</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Physics</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="w"> </span><span class="kn">import</span> <span class="n">components</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="w"> </span><span class="kn">import</span> <span class="n">source</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.detector</span><span class="w"> </span><span class="kn">import</span> <span class="n">PointDetector</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.pml</span><span class="w"> </span><span class="kn">import</span> <span class="n">PML</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.helper</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_helper</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.binary</span><span class="w"> </span><span class="kn">import</span> <span class="n">interface_simulator</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">config_dict</span>
 
@@ -544,6 +542,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">components</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">detectors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flux_monitors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">recorded_time_stamp</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">Physics</span><span class="o">.</span><span class="n">epsilon_0</span>
@@ -578,30 +578,14 @@
         <span class="k">return</span> <span class="n">gradient</span></div>
 
 
-    <span class="nd">@plot_helper</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""</span>
-<span class="sd">        Generates a plot of the FDTD simulation setup using a specified colormap.</span>
+<div class="viewcode-block" id="Experiment.plot">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.plot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Plot the simulation setup; see visualization.plot."""</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot</span>
 
-<span class="sd">        This function initializes a plotting scene and adds elements of the FDTD simulation</span>
-<span class="sd">        such as components, sources, detectors, and optionally the PML layers. It adjusts</span>
-<span class="sd">        the axis properties and attaches a colorbar based on the selected colormap.</span>
+        <span class="k">return</span> <span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<span class="sd">        """</span>
-        <span class="c1"># Add PML layers to the plot if present</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pml</span><span class="p">:</span>
-            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Plotting PML: grid=</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pml</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">]:</span>
-            <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Plotting </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">component</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-            <span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-
-        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">autoscale_view</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Experiment.add_to_component">
 <a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_to_component">[docs]</a>
@@ -778,6 +762,17 @@
         <span class="k">return</span> <span class="n">PointDetector</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="Experiment.add_flux_monitor">
+<a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.add_flux_monitor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_flux_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Add an axis-aligned power-flux line; see monitors.FluxMonitor."""</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.monitors</span><span class="w"> </span><span class="kn">import</span> <span class="n">FluxMonitor</span>
+
+        <span class="n">monitor</span> <span class="o">=</span> <span class="n">FluxMonitor</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flux_monitors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">monitor</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">monitor</span></div>
+
+
 <div class="viewcode-block" id="Experiment.get_sigma">
 <a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.get_sigma">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_sigma</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
@@ -823,115 +818,34 @@
 
 <div class="viewcode-block" id="Experiment.run">
 <a class="viewcode-back" href="../../code.html#LightWave2D.experiment.Experiment.run">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">store_fields</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">store_every</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
-<span class="sd">        Run the Finite-Difference Time-Domain (FDTD) simulation.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">store_fields</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">store_every</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">field_every</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">detector_every</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">field_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Execute this setup and return a SimulationResult.</span>
 
-<span class="sd">        This method updates the electric field (Ez) and magnetic fields (Hx, Hy) over time</span>
-<span class="sd">        based on Maxwell's equations using the FDTD method. It incorporates the effects</span>
-<span class="sd">        of absorption, sources, and non-linear interactions.</span>
-
-<span class="sd">        Maxwell's equations in 2D for non-magnetic media:</span>
-
-<span class="sd">        .. math::</span>
-<span class="sd">            \frac{\partial H_x}{\partial t} = -\frac{1}{\mu} \frac{\partial E_z}{\partial y} \\[10pt]</span>
-<span class="sd">            \frac{\partial H_y}{\partial t} = \frac{1}{\mu} \frac{\partial E_z}{\partial x} \\[10pt]</span>
-<span class="sd">            \frac{\partial E_z}{\partial t} = \frac{1}{\epsilon} \left( \frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y} \right) - \sigma E_z</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        store_fields : bool, optional</span>
-<span class="sd">            Store electric-field frames for plotting and animation. Disable this</span>
-<span class="sd">            for detector-only simulations to avoid allocating a 3D time history.</span>
-<span class="sd">        store_every : int, optional</span>
-<span class="sd">            Record field frames and detector samples every this many time steps.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        The full field history uses ``n_frames * n_x * n_y * 8`` bytes. Use</span>
-<span class="sd">        ``store_every`` to reduce it, or ``store_fields=False`` for detector-only</span>
-<span class="sd">        simulations.</span>
+<span class="sd">        Set store_fields=False for detector/flux-only output. store_every is</span>
+<span class="sd">        the default cadence; field_every and detector_every override it</span>
+<span class="sd">        independently. field_path writes fields directly to a new .npy file</span>
+<span class="sd">        with a coordinate/timestamp sidecar. Existing files are never replaced.</span>
+<span class="sd">        Legacy Ez_t, recorded_time_stamp and detector.data remain available.</span>
+<span class="sd">        See execution.run for parameter details.</span>
 <span class="sd">        """</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">store_every</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">store_every</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"store_every must be a positive integer."</span><span class="p">)</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.execution</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
 
-        <span class="n">recorded_steps</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span> <span class="n">store_every</span><span class="p">)</span>
-        <span class="n">n_recorded_steps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">recorded_steps</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">store_fields</span><span class="p">:</span>
-            <span class="n">field_data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_recorded_steps</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># The compiled solver accepts an empty field buffer and still</span>
-            <span class="c1"># records point detectors, avoiding the dominant memory cost.</span>
-            <span class="n">field_data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
-
-        <span class="n">detector_data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_recorded_steps</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">)))</span>
-        <span class="n">detector_indexes</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
-            <span class="p">[[</span><span class="n">detector</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">x_index</span><span class="p">,</span> <span class="n">detector</span><span class="o">.</span><span class="n">p0</span><span class="o">.</span><span class="n">y_index</span><span class="p">]</span> <span class="k">for</span> <span class="n">detector</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">],</span>
-            <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s2">"Preparing FDTD run: grid=</span><span class="si">%s</span><span class="s2">, steps=</span><span class="si">%d</span><span class="s2">, stored_frames=</span><span class="si">%d</span><span class="s2">, sources=</span><span class="si">%d</span><span class="s2">, detectors=</span><span class="si">%d</span><span class="s2">, components=</span><span class="si">%d</span><span class="s2">"</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_steps</span><span class="p">,</span>
-            <span class="n">n_recorded_steps</span><span class="p">,</span>
-            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">),</span>
-            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">),</span>
-            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">),</span>
-        <span class="p">)</span>
-
-        <span class="n">sigma_x</span><span class="p">,</span> <span class="n">sigma_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sigma</span><span class="p">()</span>
-        <span class="n">epsilon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_epsilon</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mesh</span> <span class="ow">in</span> <span class="p">(</span>
-            <span class="p">(</span><span class="s2">"epsilon"</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">),</span>
-            <span class="p">(</span><span class="s2">"sigma_x"</span><span class="p">,</span> <span class="n">sigma_x</span><span class="p">),</span>
-            <span class="p">(</span><span class="s2">"sigma_y"</span><span class="p">,</span> <span class="n">sigma_y</span><span class="p">),</span>
-        <span class="p">):</span>
-            <span class="k">if</span> <span class="n">mesh</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> has shape </span><span class="si">{</span><span class="n">mesh</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">; expected </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">."</span>
-                <span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">numpy</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">to_base_units</span><span class="p">()</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> contains non-finite values."</span><span class="p">)</span>
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Validated material meshes; configuring native solver"</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp_set_config</span><span class="p">(</span>
-            <span class="n">dt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"second"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="n">dx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dx</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"meter"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="n">dy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dy</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"meter"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="n">nx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_x</span><span class="p">,</span>
-            <span class="n">ny</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">n_y</span><span class="p">,</span>
-            <span class="n">time_stamp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"second"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp_set_geometry_mesh</span><span class="p">(</span>
-            <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"farad/meter"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="n">n2</span><span class="o">=</span><span class="p">(</span><span class="n">epsilon</span> <span class="o">*</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"farad/meter"</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>  <span class="c1"># Non-linear refractive index, if any</span>
-            <span class="n">gamma</span><span class="o">=</span><span class="p">(</span><span class="n">epsilon</span> <span class="o">*</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"farad/meter"</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>  <span class="c1"># Non-linear absorption, if any</span>
-            <span class="n">sigma_x</span><span class="o">=</span><span class="n">sigma_x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"siemens/meter"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="n">sigma_y</span><span class="o">=</span><span class="n">sigma_y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"siemens/meter"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="n">mu_0</span><span class="o">=</span><span class="n">Physics</span><span class="o">.</span><span class="n">mu_0</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"henry/meter"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp_set_sources</span><span class="p">(</span><span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">])</span>
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Native solver configured; starting time integration"</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp_run</span><span class="p">(</span>
-            <span class="n">Ez_time</span><span class="o">=</span><span class="n">field_data</span><span class="p">,</span>
-            <span class="n">record_every</span><span class="o">=</span><span class="n">store_every</span><span class="p">,</span>
-            <span class="n">detector_data</span><span class="o">=</span><span class="n">detector_data</span><span class="p">,</span>
-            <span class="n">detector_indexes</span><span class="o">=</span><span class="n">detector_indexes</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Native time integration completed"</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">Ez_t</span> <span class="o">=</span> <span class="n">field_data</span> <span class="k">if</span> <span class="n">store_fields</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">recorded_time_stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_stamp</span><span class="p">[</span><span class="n">recorded_steps</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">detector</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">,</span> <span class="n">detector_data</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
-            <span class="n">detector</span><span class="o">.</span><span class="n">update_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">time_stamp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">recorded_time_stamp</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">run</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">store_fields</span><span class="o">=</span><span class="n">store_fields</span><span class="p">,</span>
+            <span class="n">store_every</span><span class="o">=</span><span class="n">store_every</span><span class="p">,</span>
+            <span class="n">field_every</span><span class="o">=</span><span class="n">field_every</span><span class="p">,</span>
+            <span class="n">detector_every</span><span class="o">=</span><span class="n">detector_every</span><span class="p">,</span>
+            <span class="n">field_path</span><span class="o">=</span><span class="n">field_path</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_require_field_history</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -967,30 +881,16 @@
 <span class="sd">        colormap : Optional[Union[str, object]], optional</span>
 <span class="sd">            The colormap used for visualization. Default is a blue-black-red colormap from the Polytechnique collection.</span>
 <span class="sd">        """</span>
-        <span class="n">field_history</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_require_field_history</span><span class="p">()</span>
-        <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">show_intensity</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">field_history</span><span class="p">[</span><span class="n">frame_number</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">field_history</span><span class="p">[</span><span class="n">frame_number</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="w"> </span><span class="kn">import</span> <span class="n">visualization</span>
 
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"meter"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"meter"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="n">data</span><span class="p">,</span>
-            <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">detectors</span><span class="p">]:</span>
-            <span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-
-        <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_clim</span><span class="p">()</span>
-        <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">vmin</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">vmax</span><span class="p">))</span> <span class="o">/</span> <span class="n">enhance_contrast</span>
-        <span class="n">image</span><span class="o">.</span><span class="n">set_clim</span><span class="p">([</span><span class="o">-</span><span class="n">max_diff</span><span class="p">,</span> <span class="n">max_diff</span><span class="p">])</span>
-
-        <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">figure</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_require_field_history</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">visualization</span><span class="o">.</span><span class="n">plot_frame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">,</span>
+            <span class="n">frame_number</span><span class="o">=</span><span class="n">frame_number</span><span class="p">,</span>
+            <span class="n">enhance_contrast</span><span class="o">=</span><span class="n">enhance_contrast</span><span class="p">,</span>
+            <span class="n">show_intensity</span><span class="o">=</span><span class="n">show_intensity</span><span class="p">,</span>
+            <span class="n">colormap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Experiment.render_propagation">
@@ -1033,117 +933,19 @@
 <span class="sd">        animation.FuncAnimation</span>
 <span class="sd">            The animation object that can be displayed or saved.</span>
 <span class="sd">        """</span>
-        <span class="n">field_history</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_require_field_history</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">skip_frame</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">skip_frame</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"skip_frame must be a positive integer."</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fps</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">or</span> <span class="n">fps</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"fps must be positive."</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">field_history</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Cannot render an empty field history."</span><span class="p">)</span>
-        <span class="n">frame_indexes</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">field_history</span><span class="p">),</span> <span class="n">skip_frame</span><span class="p">)</span>
-        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s2">"Rendering </span><span class="si">%d</span><span class="s2"> frames from </span><span class="si">%d</span><span class="s2"> stored fields (skip_frame=</span><span class="si">%d</span><span class="s2">, fps=</span><span class="si">%s</span><span class="s2">)"</span><span class="p">,</span>
-            <span class="n">frame_indexes</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-            <span class="nb">len</span><span class="p">(</span><span class="n">field_history</span><span class="p">),</span>
-            <span class="n">skip_frame</span><span class="p">,</span>
-            <span class="n">fps</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">figure</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="w"> </span><span class="kn">import</span> <span class="n">visualization</span>
 
-        <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="sa">r</span><span class="s2">"x position [m]"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="sa">r</span><span class="s2">"y position [m]"</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">"equal"</span><span class="p">)</span>
-
-        <span class="n">ticks_x</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="s2">"</span><span class="si">{0:g}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">1e-6</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticks_x</span><span class="p">)</span>
-
-        <span class="n">ticks_y</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="s2">"</span><span class="si">{0:g}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="mf">1e-6</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticks_y</span><span class="p">)</span>
-
-        <span class="c1"># Initialize the field display</span>
-        <span class="n">initial_field</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">field_history</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">field_artist</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"meter"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y_stamp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"meter"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
-            <span class="n">initial_field</span><span class="p">,</span>
-            <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="n">title</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-            <span class="n">x</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"white"</span>
-        <span class="p">)</span>
-
-        <span class="c1"># Store all artists for updating</span>
-        <span class="n">artist_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">field_artist</span><span class="p">]</span>
-
-        <span class="c1"># Add other components to the axis and their artists to the list</span>
-        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
-            <span class="n">artist_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">add_to_ax</span><span class="p">(</span><span class="n">ax</span><span class="p">))</span>
-
-        <span class="n">max_amplitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">field_history</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">enhance_contrast</span>
-        <span class="n">field_artist</span><span class="o">.</span><span class="n">set_clim</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">max_amplitude</span><span class="p">)</span>
-
-        <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">"""</span>
-<span class="sd">            Update function for the animation; called for each frame.</span>
-
-<span class="sd">            Parameters</span>
-<span class="sd">            ----------</span>
-<span class="sd">            frame : int</span>
-<span class="sd">                The current frame number.</span>
-
-<span class="sd">            Returns</span>
-<span class="sd">            -------</span>
-<span class="sd">            List</span>
-<span class="sd">                A list of updated artists for the animation.</span>
-<span class="sd">            """</span>
-            <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">time_stamp</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span>
-            <span class="n">field_t</span> <span class="o">=</span> <span class="n">field_history</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
-            <span class="n">field_artist</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">field_t</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">auto_adjust_clim</span><span class="p">:</span>
-                <span class="n">max_amplitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">field_t</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">enhance_contrast</span>
-                <span class="n">field_artist</span><span class="o">.</span><span class="n">set_clim</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">max_amplitude</span><span class="p">)</span>
-
-            <span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"time: </span><span class="si">{</span><span class="n">time</span><span class="si">:</span><span class="s2">.1e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-            <span class="k">return</span> <span class="p">(</span>
-                <span class="o">*</span><span class="n">artist_list</span><span class="p">,</span>
-                <span class="n">title</span><span class="p">,</span>
-            <span class="p">)</span>
-
-        <span class="k">def</span><span class="w"> </span><span class="nf">init_func</span><span class="p">():</span>
-<span class="w">            </span><span class="sd">"""</span>
-<span class="sd">            Initialization function for the animation; called at the start.</span>
-
-<span class="sd">            Returns</span>
-<span class="sd">            -------</span>
-<span class="sd">            Tuple</span>
-<span class="sd">                A tuple containing the initial field artist and title.</span>
-<span class="sd">            """</span>
-            <span class="n">time</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"time: </span><span class="si">{</span><span class="n">time</span><span class="si">:</span><span class="s2">.1e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
-            <span class="k">return</span> <span class="p">(</span>
-                <span class="n">field_artist</span><span class="p">,</span>
-                <span class="n">title</span><span class="p">,</span>
-            <span class="p">)</span>
-
-        <span class="n">rendered_animation</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span>
-            <span class="n">fig</span><span class="o">=</span><span class="n">figure</span><span class="p">,</span>
-            <span class="n">func</span><span class="o">=</span><span class="n">update</span><span class="p">,</span>
-            <span class="n">frames</span><span class="o">=</span><span class="n">frame_indexes</span><span class="p">,</span>
-            <span class="n">interval</span><span class="o">=</span><span class="mi">1000</span> <span class="o">/</span> <span class="n">fps</span><span class="p">,</span>
-            <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">init_func</span><span class="o">=</span><span class="n">init_func</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">save_as</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">rendered_animation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">save_as</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s2">"pillow"</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-        <span class="k">return</span> <span class="n">rendered_animation</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_require_field_history</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">visualization</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">,</span>
+            <span class="n">skip_frame</span><span class="o">=</span><span class="n">skip_frame</span><span class="p">,</span>
+            <span class="n">enhance_contrast</span><span class="o">=</span><span class="n">enhance_contrast</span><span class="p">,</span>
+            <span class="n">auto_adjust_clim</span><span class="o">=</span><span class="n">auto_adjust_clim</span><span class="p">,</span>
+            <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span>
+            <span class="n">save_as</span><span class="o">=</span><span class="n">save_as</span><span class="p">,</span>
+            <span class="n">show</span><span class="o">=</span><span class="n">show</span><span class="p">,</span>
+            <span class="n">colormap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span>
+        <span class="p">)</span></div>
 </div>
 
 
