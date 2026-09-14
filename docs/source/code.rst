@@ -29,3 +29,9 @@ Source code structures
     :members:
     :show-inheritance:
     :inherited-members:
+
+.. autoclass:: LightWave2D.result.SimulationResult
+    :members:
+
+.. automodule:: LightWave2D.monitors
+    :members:

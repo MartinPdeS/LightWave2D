@@ -39,6 +39,7 @@ PYBIND11_MODULE(interface_simulator, m) {
                 Initialize an empty FDTDSimulator instance.
             )pbdoc"
         )
+        .def("_cpp_set_monitors", &FDTDSimulator::set_monitors, py::arg("data"), py::arg("indexes"))
         .def("_cpp_set_sources",
             &FDTDSimulator::set_sources,
             pybind11::arg("sources")
@@ -105,6 +106,7 @@ PYBIND11_MODULE(interface_simulator, m) {
             pybind11::arg("record_every"),
             pybind11::arg("detector_data"),
             pybind11::arg("detector_indexes"),
+            pybind11::arg("detector_every") = 0,
             R"pbdoc(
             Run the FDTD simulation for a given number of time steps.
 

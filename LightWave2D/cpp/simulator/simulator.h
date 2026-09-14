@@ -23,16 +23,8 @@ class FDTDSimulator {
 public:
     FDTDSimulator(){};
 
-    /// Compute the Yee gradients of the electric field.
-    std::tuple<pybind11::array_t<double>, pybind11::array_t<double>>
-    compute_yee_gradients(FieldSet& field_set);
-
     /// Update the magnetic fields Hx and Hy using Maxwell's equations.
     void update_magnetic_fields(FieldSet& field_set);
-
-    /// Compute the Yee gradients of the magnetic fields.
-    std::tuple<pybind11::array_t<double>, pybind11::array_t<double>>
-    compute_magnetic_field_gradients(FieldSet& field_set);
 
     /// Apply Kerr nonlinearity to the electric field Ez.
     void apply_kerr_effect(FieldSet& field_set);
@@ -68,9 +60,18 @@ public:
     }
 
     /// Run the full FDTD simulation.
-    void run(pybind11::array_t<double> Ez_time, const int64_t record_every, pybind11::array_t<double> detector_data, pybind11::array_t<int64_t> detector_indexes);
+    void run(pybind11::array_t<double> Ez_time, const int64_t record_every, pybind11::array_t<double> detector_data, pybind11::array_t<int64_t> detector_indexes, int64_t detector_every = 0);
+
+    void set_monitors(pybind11::array_t<double> data, pybind11::array_t<int64_t> indexes) {
+        monitor_data = data;
+        monitor_indexes = indexes;
+    }
 
 private:
+    pybind11::array_t<double> monitor_data{std::vector<pybind11::ssize_t>{0, 0, 2}};
+    pybind11::array_t<int64_t> monitor_indexes{std::vector<pybind11::ssize_t>{0, 3}};
+    void prepare_coefficients();
+    std::vector<double> electric, magnetic_x, magnetic_y, absorption;
     Config config;
     MeshSet mesh_set;
     std::vector<std::shared_ptr<BaseSource>> sources;
