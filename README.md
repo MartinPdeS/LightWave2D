@@ -2,12 +2,16 @@
 
 [Full report](https://htmlpreview.github.io/?https://github.com/MartinPdeS/LightWave2D/blob/python-coverage-comment-action-data/htmlcov/index.html)
 
-| Name                      |    Stmts |     Miss |   Branch |   BrPart |      Cover |   Missing |
-|-------------------------- | -------: | -------: | -------: | -------: | ---------: | --------: |
-| LightWave2D/experiment.py |      219 |       26 |       46 |       10 |     84.91% |69, 86-\>90, 156, 170, 177, 184, 323, 327, 399-422, 464, 466, 468, 529-530, 566-\>569, 570 |
-| LightWave2D/helper.py     |       19 |        6 |        6 |        3 |     64.00% |37-45, 53-\>56, 57 |
-| LightWave2D/utils.py      |       29 |        2 |       10 |        1 |     92.31% |     52-53 |
-| **TOTAL**                 |  **278** |   **34** |   **62** |   **14** | **84.71%** |           |
+| Name                         |    Stmts |     Miss |   Branch |   BrPart |      Cover |   Missing |
+|----------------------------- | -------: | -------: | -------: | -------: | ---------: | --------: |
+| LightWave2D/execution.py     |       71 |        3 |       26 |        3 |     93.81% |76, 109, 113 |
+| LightWave2D/experiment.py    |      140 |        8 |       12 |        1 |     94.08% |69, 137, 151, 158, 165, 307-310 |
+| LightWave2D/helper.py        |       19 |        6 |        6 |        3 |     64.00% |37-45, 53-\>56, 57 |
+| LightWave2D/monitors.py      |       67 |        8 |       28 |        9 |     82.11% |11, 13, 18, 21, 25-\>27, 59, 83, 109, 139, 147-\>149 |
+| LightWave2D/result.py        |       42 |        1 |        4 |        1 |     95.65% |        92 |
+| LightWave2D/utils.py         |       29 |        2 |       10 |        1 |     92.31% |     52-53 |
+| LightWave2D/visualization.py |       78 |        7 |       22 |        7 |     86.00% |29-\>33, 73, 141, 143, 145, 209-210, 250 |
+| **TOTAL**                    |  **457** |   **35** |  **108** |   **25** | **89.38%** |           |
 
 1 file skipped due to complete coverage.
 
