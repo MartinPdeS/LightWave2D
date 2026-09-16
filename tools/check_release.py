@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Check LightWave2D's tag-derived release metadata."""
+"""Check that LightWave2D release metadata agrees across project files."""
 
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 import re
 import subprocess
@@ -12,60 +13,83 @@ import tomllib
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION_FILE = ROOT / "LightWave2D" / "_version.py"
 
 
-def source_version() -> str:
-    """Return the generated source version."""
-    match = re.search(
-        r"^__version__\s*=\s*['\"]([^'\"]+)",
-        VERSION_FILE.read_text(encoding="utf-8"),
-        flags=re.MULTILINE,
-    )
+def normalized_version(version: str) -> str:
+    """Return a version without an optional Git tag prefix."""
+    return version.removeprefix("v")
+
+
+def extract(pattern: str, path: Path, description: str) -> str:
+    """Extract one version from a text file."""
+    match = re.search(pattern, path.read_text(encoding="utf-8"), flags=re.MULTILINE)
     if match is None:
-        raise RuntimeError("could not find the generated package version")
+        raise RuntimeError(f"could not find {description} in {path.relative_to(ROOT)}")
     return match.group(1)
 
 
-def latest_tag() -> str | None:
-    """Return the newest reachable semantic-version tag, if one exists."""
-    completed = subprocess.run(
-        ["git", "describe", "--tags", "--abbrev=0", "--match", "v[0-9]*"],
-        cwd=ROOT,
-        check=False,
-        text=True,
-        capture_output=True,
-    )
-    return completed.stdout.strip() if completed.returncode == 0 else None
+def versions() -> dict[str, str]:
+    """Return release versions declared by each project artifact."""
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    zenodo = json.loads((ROOT / ".zenodo.json").read_text(encoding="utf-8"))
+    return {
+        "pyproject.toml": str(project["project"]["version"]),
+        ".zenodo.json": str(zenodo["version"]),
+        "LightWave2D/_version.py": extract(
+            r"^__version__\s*=\s*version\s*=\s*['\"]([^'\"]+)",
+            ROOT / "LightWave2D" / "_version.py",
+            "generated package version",
+        ),
+    }
 
 
-def main() -> int:
-    """Print release metadata and return nonzero when it is inconsistent."""
+def parse_arguments() -> argparse.Namespace:
+    """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--version", help="expected version, optionally prefixed with v"
     )
-    arguments = parser.parse_args()
+    return parser.parse_args()
+
+
+def main() -> int:
+    """Print version metadata and return failure when values differ."""
+    arguments = parse_arguments()
     try:
-        project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-        if "version" not in project["project"].get("dynamic", []):
-            raise RuntimeError("pyproject.toml must retain dynamic SCM versioning")
-        version = source_version()
+        declared = versions()
     except (KeyError, RuntimeError) as error:
         print(f"release check failed: {error}", file=sys.stderr)
         return 1
-    expected = arguments.version.removeprefix("v") if arguments.version else version
-    tag = latest_tag()
-    failures = []
-    print(
-        f"{'OK' if version == expected else 'MISMATCH':8} LightWave2D/_version.py: {version}"
+
+    expected = (
+        normalized_version(arguments.version)
+        if arguments.version
+        else declared["pyproject.toml"]
     )
-    if version != expected:
-        failures.append(f"generated version is {version}; expected {expected}")
-    if tag is not None and tag.removeprefix("v") != expected:
-        failures.append(f"latest Git tag is {tag}; expected v{expected}")
+    failures = []
+    for source, version in declared.items():
+        status = "OK" if version == expected else "MISMATCH"
+        print(f"{status:8} {source}: {version}")
+        if version != expected:
+            failures.append(f"{source} declares {version}; expected {expected}")
+
+    tag = f"v{expected}"
+    tag_exists = (
+        subprocess.run(
+            ["git", "rev-parse", "--verify", "--quiet", f"refs/tags/{tag}"],
+            cwd=ROOT,
+            check=False,
+            stdout=subprocess.DEVNULL,
+        ).returncode
+        == 0
+    )
+    print(
+        f"{'OK' if tag_exists else 'INFO':8} Git tag: {tag} {'exists' if tag_exists else 'not created'}"
+    )
+
     if failures:
-        print("\n".join(f"ERROR: {failure}" for failure in failures), file=sys.stderr)
+        for failure in failures:
+            print(f"ERROR: {failure}", file=sys.stderr)
         return 1
     print(f"Release metadata consistently declares {expected}.")
     return 0
