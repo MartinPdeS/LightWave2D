@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Check that LightWave2D release metadata agrees across project files."""
 
-from __future__ import annotations
 
 import argparse
 import json
