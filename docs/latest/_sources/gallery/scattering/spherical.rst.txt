@@ -288,7 +288,7 @@ We will define the simulation grid, add a circular scatterer and a line source, 
      19.27927928 19.30930931 19.33933934 19.36936937 19.3993994  19.42942943
      19.45945946 19.48948949 19.51951952 19.54954955 19.57957958 19.60960961
      19.63963964 19.66966967 19.6996997  19.72972973 19.75975976 19.78978979
-     19.81981982 19.84984985 19.87987988 19.90990991 19.93993994 19.96996997], 'micrometer')>), components=(<LightWave2D.components.Circle object at 0x7f0276304bf0>,), sources=(<LightWave2D.source.LineWaveSource object at 0x7f0275397530>,), detectors=(), detector_time_stamp=<Quantity([0.00000000e+00 7.08171678e-17 1.41634336e-16 2.12451503e-16
+     19.81981982 19.84984985 19.87987988 19.90990991 19.93993994 19.96996997], 'micrometer')>), components=(<LightWave2D.components.Circle object at 0x7fef32cb63b0>,), sources=(<LightWave2D.source.LineWaveSource object at 0x7fef31f4cdb0>,), detectors=(), detector_time_stamp=<Quantity([0.00000000e+00 7.08171678e-17 1.41634336e-16 2.12451503e-16
      2.83268671e-16 3.54085839e-16 4.24903007e-16 4.95720175e-16
      5.66537342e-16 6.37354510e-16 7.08171678e-16 7.78988846e-16
      8.49806014e-16 9.20623181e-16 9.91440349e-16 1.06225752e-15
@@ -371,7 +371,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (2 minutes 53.502 seconds)
+   **Total running time of the script:** (2 minutes 8.715 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_spherical.py:
