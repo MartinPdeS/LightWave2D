@@ -61,7 +61,7 @@ measurements on large grids.
  .. code-block:: none
 
 
-    <LightWave2D.pml.PML object at 0x7fb0867911f0>
+    <LightWave2D.pml.PML object at 0x7fe823d39db0>
 
 
 
@@ -92,7 +92,7 @@ run, while the detector retains both the samples and their physical times.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.144 seconds)
+   **Total running time of the script:** (0 minutes 0.174 seconds)
 
 
 .. _sphx_glr_download_gallery_detector_detector_only.py:

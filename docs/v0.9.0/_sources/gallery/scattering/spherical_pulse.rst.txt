@@ -402,7 +402,7 @@ Importing the necessary packages
      30.8 31.  31.2 31.4 31.6 31.8 32.  32.2 32.4 32.6 32.8 33.  33.2 33.4
      33.6 33.8 34.  34.2 34.4 34.6 34.8 35.  35.2 35.4 35.6 35.8 36.  36.2
      36.4 36.6 36.8 37.  37.2 37.4 37.6 37.8 38.  38.2 38.4 38.6 38.8 39.
-     39.2 39.4 39.6 39.8], 'micrometer')>), components=(<LightWave2D.components.Circle object at 0x7fb078fa3cb0>,), sources=(<LightWave2D.source.LinePulseSource object at 0x7fb078f94730>,), detectors=(), detector_time_stamp=<Quantity([0.00000000e+00 4.71730867e-16 9.43461735e-16 1.41519260e-15
+     39.2 39.4 39.6 39.8], 'micrometer')>), components=(<LightWave2D.components.Circle object at 0x7fe82d0f6c30>,), sources=(<LightWave2D.source.LinePulseSource object at 0x7fe81644d4b0>,), detectors=(), detector_time_stamp=<Quantity([0.00000000e+00 4.71730867e-16 9.43461735e-16 1.41519260e-15
      1.88692347e-15 2.35865434e-15 2.83038520e-15 3.30211607e-15
      3.77384694e-15 4.24557781e-15 4.71730867e-15 5.18903954e-15
      5.66077041e-15 6.13250128e-15 6.60423214e-15 7.07596301e-15
@@ -635,7 +635,7 @@ Render an animation of the field propagation over time
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 20.289 seconds)
+   **Total running time of the script:** (0 minutes 26.220 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_spherical_pulse.py:
