@@ -123,7 +123,7 @@ Add a perfectly matched layer (PML) to absorb boundary reflections
  .. code-block:: none
 
 
-    <LightWave2D.pml.PML object at 0x7fef31f13570>
+    <LightWave2D.pml.PML object at 0x7fb08dd818f0>
 
 
 
@@ -263,7 +263,7 @@ Run the FDTD simulation
       9.8  9.9 10.  10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9 11.  11.1
      11.2 11.3 11.4 11.5 11.6 11.7 11.8 11.9 12.  12.1 12.2 12.3 12.4 12.5
      12.6 12.7 12.8 12.9 13.  13.1 13.2 13.3 13.4 13.5 13.6 13.7 13.8 13.9
-     14.  14.1 14.2 14.3 14.4 14.5 14.6 14.7 14.8 14.9], 'micrometer')>), components=(<LightWave2D.components.Waveguide object at 0x7fef31f12ab0>,), sources=(<LightWave2D.source.LineWaveSource object at 0x7fef31f13ab0>,), detectors=(), detector_time_stamp=<Quantity([0.00000000e+00 2.35865434e-16 4.71730867e-16 7.07596301e-16
+     14.  14.1 14.2 14.3 14.4 14.5 14.6 14.7 14.8 14.9], 'micrometer')>), components=(<LightWave2D.components.Waveguide object at 0x7fb0870b0030>,), sources=(<LightWave2D.source.LineWaveSource object at 0x7fb0870b0130>,), detectors=(), detector_time_stamp=<Quantity([0.00000000e+00 2.35865434e-16 4.71730867e-16 7.07596301e-16
      9.43461735e-16 1.17932717e-15 1.41519260e-15 1.65105804e-15
      1.88692347e-15 2.12278890e-15 2.35865434e-15 2.59451977e-15
      2.83038520e-15 3.06625064e-15 3.30211607e-15 3.53798151e-15
@@ -321,7 +321,7 @@ Animate guided propagation.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.932 seconds)
+   **Total running time of the script:** (0 minutes 1.852 seconds)
 
 
 .. _sphx_glr_download_gallery_extra_waveguide.py:

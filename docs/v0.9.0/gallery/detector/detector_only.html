@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/docs/source/_static/default.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -556,41 +556,39 @@ to download the full example code.</p>
 <p>Record a point-detector trace without allocating the full electric-field time
 history. This is the preferred mode for transmission, reflection, and spectral
 measurements on large grids.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
-
-
-<span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.25</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-    <span class="n">size_x</span><span class="o">=</span><span class="mi">24</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-    <span class="n">size_y</span><span class="o">=</span><span class="mi">12</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-    <span class="n">n_steps</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
-
-<span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span><span class="p">(</span>
-    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">"15%"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">),</span>
-    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">"15%"</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">),</span>
-    <span class="n">wavelength</span><span class="o">=</span><span class="mf">1.55</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>
-    <span class="n">amplitude</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">detector</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_point_detector</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s2">"75%"</span><span class="p">,</span> <span class="s2">"center"</span><span class="p">))</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s2">"15%"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;LightWave2D.pml.PML object at 0x7fef311352f0&gt;
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span><span class="w">
+</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="nn">.</span><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="nn">experiment</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="n">Experiment</span></a><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="nn">.</span><span class="nn">grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span><span class="w">
+</span>    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.25</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span><span class="w">
+</span>    <span class="n">size_x</span><span class="o">=</span><span class="mi">24</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span><span class="w">
+</span>    <span class="n">size_y</span><span class="o">=</span><span class="mi">12</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span><span class="w">
+</span>    <span class="n">n_steps</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="n">experiment</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="n">Experiment</span></a><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.add_line_source" title="LightWave2D.experiment.Experiment.add_line_source"><span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">15</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">bottom</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">,</span><span class="w">
+</span>    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">15</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">top</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">,</span><span class="w">
+</span>    <span class="n">wavelength</span><span class="o">=</span><span class="mf">1.55</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span><span class="w">
+</span>    <span class="n">amplitude</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="n">detector</span> <span class="o">=</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.add_point_detector" title="LightWave2D.experiment.Experiment.add_point_detector"><span class="n">experiment</span><span class="o">.</span><span class="n">add_point_detector</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">75</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">center</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.add_pml" title="LightWave2D.experiment.Experiment.add_pml"><span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span></a><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">15</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;LightWave2D.pml.PML object at 0x7fb0867911f0&gt;
 </pre></div>
 </div>
 <p>Keep one sample every five solver steps. <code class="docutils literal notranslate"><span class="pre">Ez_t</span></code> remains <code class="docutils literal notranslate"><span class="pre">None</span></code> after this
 run, while the detector retains both the samples and their physical times.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">store_fields</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">store_every</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-
-<span class="n">detector</span><span class="o">.</span><span class="n">plot_data</span><span class="p">()</span>
-</pre></div>
-</div>
-<img src="../../_images/sphx_glr_detector_only_001.png" srcset="../../_images/sphx_glr_detector_only_001.png" alt="detector only" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.149 seconds)</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.run" title="LightWave2D.experiment.Experiment.run"><span class="n">experiment</span><span class="o">.</span><span class="n">run</span></a><span class="p">(</span><span class="n">store_fields</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">store_every</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">detector</span><span class="o">.</span><span class="n">plot_data</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../../_images/sphx_glr_detector_only_001.png" srcset="../../_images/sphx_glr_detector_only_001.png" alt="detector only" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.144 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-detector-detector-only-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6ca68d29fb0b6f6dba7ee863ff89c3c2/detector_only.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">detector_only.ipynb</span></code></a></p>

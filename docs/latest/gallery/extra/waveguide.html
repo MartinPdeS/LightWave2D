@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/docs/source/_static/default.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -556,57 +556,52 @@ to download the full example code.</p>
 <p>Observe guided propagation in one straight dielectric waveguide. The animation
 is the single result of this example.</p>
 <p>Importing the necessary packages</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots</span><span class="w"> </span><span class="kn">import</span> <span class="n">colormaps</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D.experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots</span><span class="w"> </span><span class="kn">import</span> <span class="n">colormaps</span><span class="w">
+</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="nn">.</span><span class="nn">grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="nn">.</span><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="nn">experiment</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="n">Experiment</span></a><span class="w">
+</span></pre></div></div>
 <p>Define the simulation grid</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid resolution in meters</span>
-    <span class="n">size_x</span><span class="o">=</span><span class="mi">50</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid size in the x direction in meters</span>
-    <span class="n">size_y</span><span class="o">=</span><span class="mi">15</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid size in the y direction in meters</span>
-    <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># Number of time steps for the simulation</span>
-<span class="p">)</span>
-
-<span class="c1"># Initialize the experiment with the defined grid</span>
-<span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span><span class="w">
+</span>    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid resolution in meters</span><span class="w">
+</span>    <span class="n">size_x</span><span class="o">=</span><span class="mi">50</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid size in the x direction in meters</span><span class="w">
+</span>    <span class="n">size_y</span><span class="o">=</span><span class="mi">15</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid size in the y direction in meters</span><span class="w">
+</span>    <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># Number of time steps for the simulation</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Initialize the experiment with the defined grid</span><span class="w">
+</span><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="n">experiment</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="n">Experiment</span></a><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <p>Add a waveguide to the experiment</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">scatterer</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_waveguide</span><span class="p">(</span>
-    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">"0%"</span><span class="p">,</span> <span class="s2">"50%"</span><span class="p">),</span>  <span class="c1"># Starting position of the waveguide</span>
-    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">"100%"</span><span class="p">,</span> <span class="s2">"50%"</span><span class="p">),</span>  <span class="c1"># Ending position of the waveguide</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Width of the waveguide in meters</span>
-    <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># Relative permittivity of the waveguide</span>
-<span class="p">)</span>
-
-<span class="c1"># Add a line source to the experiment</span>
-<span class="n">source</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>  <span class="c1"># Wavelength of the source in meters</span>
-    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">"20%"</span><span class="p">,</span> <span class="s2">"45%"</span><span class="p">),</span>  <span class="c1"># Starting position of the source</span>
-    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">"20%"</span><span class="p">,</span> <span class="s2">"55%"</span><span class="p">),</span>  <span class="c1"># Ending position of the source</span>
-    <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Amplitude of the source</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-LightWave2D-components sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../code.html#LightWave2D.components.Waveguide" title="LightWave2D.components.Waveguide"><span class="n">scatterer</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.add_waveguide" title="LightWave2D.experiment.Experiment.add_waveguide"><span class="n">experiment</span><span class="o">.</span><span class="n">add_waveguide</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">0</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">50</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">,</span>  <span class="c1"># Starting position of the waveguide</span><span class="w">
+</span>    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">100</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">50</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">,</span>  <span class="c1"># Ending position of the waveguide</span><span class="w">
+</span>    <span class="n">width</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Width of the waveguide in meters</span><span class="w">
+</span>    <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># Relative permittivity of the waveguide</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Add a line source to the experiment</span><span class="w">
+</span><a class="sphx-glr-backref-module-LightWave2D-source sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../code.html#LightWave2D.source.LineWaveSource" title="LightWave2D.source.LineWaveSource"><span class="n">source</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.add_line_source" title="LightWave2D.experiment.Experiment.add_line_source"><span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>  <span class="c1"># Wavelength of the source in meters</span><span class="w">
+</span>    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">20</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">45</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">,</span>  <span class="c1"># Starting position of the source</span><span class="w">
+</span>    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">20</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">55</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">,</span>  <span class="c1"># Ending position of the source</span><span class="w">
+</span>    <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Amplitude of the source</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <p>Add a perfectly matched layer (PML) to absorb boundary reflections</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span><span class="p">(</span>
-    <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Order of the PML polynomial profile</span>
-    <span class="n">width</span><span class="o">=</span><span class="s2">"10%"</span><span class="p">,</span>  <span class="c1"># Width of the PML region as a percentage of grid size</span>
-    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span> <span class="o">*</span> <span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">),</span>  <span class="c1"># Maximum conductivity for the PML</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;LightWave2D.pml.PML object at 0x7fef31f13570&gt;
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.add_pml" title="LightWave2D.experiment.Experiment.add_pml"><span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Order of the PML polynomial profile</span><span class="w">
+</span>    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">10</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Width of the PML region as a percentage of grid size</span><span class="w">
+</span>    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span> <span class="o">*</span> <span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span><span class="p">,</span>  <span class="c1"># Maximum conductivity for the PML</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;LightWave2D.pml.PML object at 0x7fb08dd818f0&gt;
 </pre></div>
 </div>
 <p>Run the FDTD simulation</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.run" title="LightWave2D.experiment.Experiment.run"><span class="n">experiment</span><span class="o">.</span><span class="n">run</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>SimulationResult(Ez_t=array([[[0., 0., 0., ..., 0., 0., 0.],
         [0., 0., 0., ..., 0., 0., 0.],
         [0., 0., 0., ..., 0., 0., 0.],
@@ -724,7 +719,7 @@ is the single result of this example.</p>
   9.8  9.9 10.  10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9 11.  11.1
  11.2 11.3 11.4 11.5 11.6 11.7 11.8 11.9 12.  12.1 12.2 12.3 12.4 12.5
  12.6 12.7 12.8 12.9 13.  13.1 13.2 13.3 13.4 13.5 13.6 13.7 13.8 13.9
- 14.  14.1 14.2 14.3 14.4 14.5 14.6 14.7 14.8 14.9], 'micrometer')&gt;), components=(&lt;LightWave2D.components.Waveguide object at 0x7fef31f12ab0&gt;,), sources=(&lt;LightWave2D.source.LineWaveSource object at 0x7fef31f13ab0&gt;,), detectors=(), detector_time_stamp=&lt;Quantity([0.00000000e+00 2.35865434e-16 4.71730867e-16 7.07596301e-16
+ 14.  14.1 14.2 14.3 14.4 14.5 14.6 14.7 14.8 14.9], 'micrometer')&gt;), components=(&lt;LightWave2D.components.Waveguide object at 0x7fb0870b0030&gt;,), sources=(&lt;LightWave2D.source.LineWaveSource object at 0x7fb0870b0130&gt;,), detectors=(), detector_time_stamp=&lt;Quantity([0.00000000e+00 2.35865434e-16 4.71730867e-16 7.07596301e-16
  9.43461735e-16 1.17932717e-15 1.41519260e-15 1.65105804e-15
  1.88692347e-15 2.12278890e-15 2.35865434e-15 2.59451977e-15
  2.83038520e-15 3.06625064e-15 3.30211607e-15 3.53798151e-15
@@ -752,16 +747,15 @@ is the single result of this example.</p>
 </pre></div>
 </div>
 <p>Animate guided propagation.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">animation</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span><span class="p">(</span>
-    <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># Number of frames to skip in the animation</span>
-    <span class="n">colormap</span><span class="o">=</span><span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span><span class="p">,</span>  <span class="c1"># Colormap for the animation</span>
-    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># Enhance contrast for better visualization</span>
-    <span class="n">save_as</span><span class="o">=</span><span class="s2">"./waveguide.gif"</span><span class="p">,</span>  <span class="c1"># Save the animation as a GIF file</span>
-    <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<img src="../../_images/sphx_glr_waveguide_001.png" srcset="../../_images/sphx_glr_waveguide_001.png" alt="waveguide" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.932 seconds)</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">animation</span> <span class="o">=</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.render_propagation" title="LightWave2D.experiment.Experiment.render_propagation"><span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># Number of frames to skip in the animation</span><span class="w">
+</span>    <span class="n">colormap</span><span class="o">=</span><span class="n">colormaps</span><span class="o">.</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span><span class="p">,</span>  <span class="c1"># Colormap for the animation</span><span class="w">
+</span>    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># Enhance contrast for better visualization</span><span class="w">
+</span>    <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">./waveguide.gif</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Save the animation as a GIF file</span><span class="w">
+</span>    <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../../_images/sphx_glr_waveguide_001.png" srcset="../../_images/sphx_glr_waveguide_001.png" alt="waveguide" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.852 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-extra-waveguide-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/4a6b7ed60f51a26fb04b24fe434e1b63/waveguide.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">waveguide.ipynb</span></code></a></p>
