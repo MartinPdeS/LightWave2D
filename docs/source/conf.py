@@ -133,7 +133,7 @@ html_theme_options.update(
                 "icon": "fa-brands fa-python",
             },
         ],
-        "navbar_align": "left",
+        "navbar_align": "content",
         # Keep the header focused: the remaining documentation links live in
         # an accessible Explore dropdown instead of stretching across the bar.
         "header_links_before_dropdown": 2,
@@ -190,7 +190,7 @@ epub_title = project
 
 html_static_path = ["_static"]
 templates_path = ["_templates"]
-html_css_files = ["default.css"]
+html_css_files = ["default.css", "layout.css"]
 epub_exclude_files = ["search.html"]
 
 # -
