@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 150" role="img" aria-labelledby="title desc">
+  <title id="title">LightWave2D</title>
+  <desc id="desc">LightWave2D logo: a wavefront crossing a simulation grid, with the motto Simulating light, clearly.</desc>
+  <defs>
+    <linearGradient id="wave" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#13c5df"/>
+      <stop offset="1" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(10 15)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="2" width="116" height="116" rx="22" stroke="#17324d" stroke-width="7"/>
+    <path d="M31 18v84M60 18v84M89 18v84M18 31h84M18 60h84M18 89h84" stroke="#9bb1c8" stroke-width="3" opacity=".7"/>
+    <circle cx="33" cy="60" r="8" fill="#4f46e5" stroke="none"/>
+    <path d="M47 40a27 27 0 0 1 0 40M55 29a43 43 0 0 1 0 62M65 18a59 59 0 0 1 0 84" stroke="url(#wave)" stroke-width="7"/>
+  </g>
+  <text x="155" y="73" fill="#17324d" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="700" letter-spacing="-1.5">LightWave<tspan fill="#4f46e5">2D</tspan></text>
+  <text x="158" y="108" fill="#54708b" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" letter-spacing=".8">SIMULATING LIGHT, CLEARLY.</text>
+</svg>
