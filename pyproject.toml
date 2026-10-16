@@ -21,7 +21,7 @@ sdist.exclude = [
 
 [project]
 name = "LightWave2D"
-version = "0.10.1"
+version = "0.10.2"
 description = "A package for finite-difference time-domain simulation of light propagation."
 license = { file = "LICENSE" }
 readme = "README.rst"
