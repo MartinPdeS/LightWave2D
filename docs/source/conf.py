@@ -1,196 +1,55 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""LightWave2D documentation configuration."""
 
-import sys
 import os
-from sphinx_gallery.sorting import FileNameSortKey
-from MPSPlots.styles import use_mpsplots_style
+import sys
 from pathlib import Path
-import LightWave2D
-from LightWave2D.directories import doc_css_path
+
+from MPSPlots.styles import use_mpsplots_style
+from sphinx_gallery.sorting import FileNameSortKey
+from martinpdes_docs import configure
 
 
-package_name = "LightWave2D"
-version = LightWave2D.__version__
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
 
-current_dir = Path(".")
-
-sys.path.append(str(current_dir.resolve()))
-
-
-def setup(app):
-    app.add_css_file(str(doc_css_path))
-
-
-autodoc_mock_imports = [
-    "numpy",
-    "matplotlib",
-    "numpydoc",
-]
-
-
-project = package_name
-copyright = "2024, Martin Poinsinet de Sivry-Houle"
-author = "Martin Poinsinet de Sivry-Houle"
-
-extensions = [
-    "sphinx.ext.mathjax",
-    "sphinx_gallery.gen_gallery",
-    "sphinx.ext.autodoc",
-    "sphinx.ext.napoleon",
-    "sphinx.ext.viewcode",
-    "sphinx.ext.autosectionlabel",
-    "sphinx.ext.intersphinx",
-    "numpydoc",
-]
-
-# Napoleon settings for docstrings
-napoleon_google_docstring = False
-napoleon_numpy_docstring = True
-
-html_logo = "_static/lightwave2d-logo-light.svg"
-html_favicon = "_static/lightwave2d-favicon.svg"
+project = "LightWave2D"
+package = "LightWave2D"
+repository = "MartinPdeS/LightWave2D"
+version = os.getenv("tag", "latest")
 
 
 def reset_mpl(gallery_conf, fname):
+    """Apply the project plotting style before each gallery example."""
     use_mpsplots_style()
 
 
 examples_files = ["scattering", "detector", "extra"]
 
-sphinx_gallery_conf = {
-    "examples_dirs": ["../examples/" + f for f in examples_files],
-    "gallery_dirs": ["gallery/" + f for f in examples_files],
-    "image_scrapers": ("matplotlib"),
-    "ignore_pattern": "/__",
-    "filename_pattern": r".*\.py",
-    "plot_gallery": True,
-    "thumbnail_size": [600, 600],
-    "download_all_examples": False,
-    "reset_modules": reset_mpl,
-    "line_numbers": False,
-    "remove_config_comments": True,
-    "capture_repr": ("_repr_html_", "__repr__"),
-    "nested_sections": True,
-    "within_subsection_order": FileNameSortKey,
-}
-
-
-autodoc_default_options = {
-    "members": False,
-    "members-order": "bysource",
-    "undoc-members": False,
-    "show-inheritance": True,
-}
-
-autosectionlabel_prefix_document = True
-numpydoc_show_class_members = False
-add_module_names = False
-
-source_suffix = ".rst"
-master_doc = "index"
-language = "en"
-highlight_language = "python3"
-html_theme = "pydata_sphinx_theme"
-
-# -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-
-exclude_trees = []
-suppress_warnings = ["config.cache"]
-# default_role = "autolink"
-pygments_style = "sphinx"
-
-# -- Sphinx-gallery configuration --------------------------------------------
-major, minor = version[:2]
-binder_branch = f"v{major}.{minor}.x"
-
-html_theme_options = dict()
-
-html_theme_options["logo"] = dict(
-    image_light="_static/lightwave2d-logo-light.svg",
-    image_dark="_static/lightwave2d-logo-dark.svg",
-    alt_text="LightWave2D — Simulating light, clearly.",
-)
-html_theme_options["show_nav_level"] = 0
-
-html_theme_options.update(
-    {
-        "icon_links": [
-            {
-                "name": "GitHub",
-                "url": f"https://github.com/MartinPdeS/{package_name}",
-                "icon": "fa-brands fa-github",
+globals().update(
+    configure(
+        project=project,
+        package=package,
+        repository=repository,
+        version=version,
+        logo="_static/logo.png",
+        favicon="_static/lightwave2d-favicon.svg",
+        sphinx_gallery_conf={
+            "examples_dirs": [f"../examples/{name}" for name in examples_files],
+            "gallery_dirs": [f"gallery/{name}" for name in examples_files],
+            "within_subsection_order": FileNameSortKey,
+            "reset_modules": reset_mpl,
+            "abort_on_example_error": True,
+        },
+        html_theme_options={
+            "logo": {
+                "text": "",
+                "image": "_static/logo.png",
             },
-            {
-                "name": "PyPI",
-                "url": f"https://pypi.org/project/{package_name}/",
-                "icon": "fa-solid fa-box",
-            },
-            {
-                "name": "Anaconda",
-                "url": f"https://anaconda.org/MartinPdeS/{package_name}",
-                "icon": "fa-brands fa-python",
-            },
-        ],
-        "navbar_align": "content",
-        # Keep the header focused: the remaining documentation links live in
-        # an accessible Explore dropdown instead of stretching across the bar.
-        "header_links_before_dropdown": 2,
-        "header_dropdown_text": "Explore",
-        "navbar_end": ["version-switcher", "navbar-icon-links"],
-        "show_prev_next": False,
-        "show_version_warning_banner": True,
-        # Footer
-        "footer_start": ["copyright"],
-        "footer_end": ["sphinx-version", "theme-version"],
-        # Other
-        "pygments_light_style": "default",
-        "pygments_dark_style": "github-dark",
-    }
+        },
+    )
 )
 
-current_version = os.getenv("tag", "latest")
-
-html_theme_options["switcher"] = dict(
-    json_url=f"https://raw.githubusercontent.com/MartinPdeS/{package_name}/documentation_page/version_switcher.json",
-    version_match=current_version,
-)
-
-htmlhelp_basename = f"{package_name}doc"
-
-latex_elements = {}
-
-
-latex_documents = [
-    (
-        master_doc,
-        f"{package_name}.tex",
-        f"{package_name} Documentation",
-        "Martin Poinsinet de Sivry-Houle",
-        "manual",
-    ),
-]
-
-man_pages = [(master_doc, "supymode", f"{package_name} Documentation", [author], 1)]
-
-texinfo_documents = [
-    (
-        master_doc,
-        package_name,
-        f"{package_name} Documentation",
-        author,
-        package_name,
-        "One line description of project.",
-        "Miscellaneous",
-    ),
-]
-
-epub_title = project
-
-html_static_path = ["_static"]
-templates_path = ["_templates"]
-html_css_files = ["default.css", "layout.css"]
-epub_exclude_files = ["search.html"]
-
-# -
+extensions += ["sphinx.ext.mathjax", "sphinx.ext.autosectionlabel", "numpydoc"]
+html_css_files += ["layout.css"]
+html_context["doc_path"] = "docs/source"
+html_context["default_mode"] = "dark"
