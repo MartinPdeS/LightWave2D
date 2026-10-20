@@ -40,13 +40,13 @@ requirements:
   run:
     - python {{PY_VER}}*
     - martinpdes::mpsplots
-    - martinpdes::typedunit
+    - martinpdes::typedunit >=0.2.9
     - shapely ~=2.0
     - numpy ==2.2.6  # [py<314]
     - numpy >=2.3.3,<3  # [py>=314]
     - pydantic >=2.9.2,<2.14
     - pint-pandas ~=0.6
-    - pint >=0.24
+    - pint >=0.24,<0.26
     - tabulate ~=0.9
 
 about:
