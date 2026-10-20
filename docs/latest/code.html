@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="./" data-theme="dark">
 
   <head>
     <meta charset="utf-8" />
@@ -13,8 +13,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
   </script>
   <!--
     this give us a css class that will be invisible only if js is disabled
@@ -31,12 +31,13 @@
 <link href="_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/docs/source/_static/default.css" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/default.css?v=95318798" />
+    <link rel="stylesheet" type="text/css" href="_static/martinpdes_layout.css?v=a8cc01cd" />
     <link rel="stylesheet" type="text/css" href="_static/layout.css?v=dc96f8db" />
   
   <!-- So that users can add custom icons -->
@@ -45,15 +46,16 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/documentation_options.js?v=8a448e45"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'code';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/MartinPdeS/LightWave2D/documentation_page/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.10.2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -65,7 +67,7 @@
     <link rel="prev" title="Theoretical Background" href="theory.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.10.2" />
+  <meta name="docsearch:version" content="latest" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -73,7 +75,7 @@
     <script src="searchindex.js"></script>
   
   </head>
-  <body data-default-mode="">
+  <body data-default-mode="dark">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
@@ -134,11 +136,9 @@
   
     
     
-      
     
-    
-    <img src="_static/lightwave2d-logo-light.svg" class="logo__image only-light" alt="LightWave2D — Simulating light, clearly."/>
-    <img src="_static/lightwave2d-logo-dark.svg" class="logo__image only-dark pst-js-only" alt="LightWave2D — Simulating light, clearly."/>
+    <img src="_static/logo.png" class="logo__image only-dark" alt="LightWave2D  documentation - Home"/>
+    <img src="_static/logo.png" class="logo__image only-light pst-js-only" alt="LightWave2D  documentation - Home"/>
   
   
 </a></div>
@@ -166,35 +166,35 @@
   </a>
 </li>
 
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false"
-                aria-controls="pst-nav-more-links">
-                    Explore
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="usage.html">
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="usage.html">
     Running simulations efficiently
   </a>
 </li>
 
 
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="theory.html">
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="theory.html">
     Theoretical Background
   </a>
 </li>
 
 
-<li class=" current active">
-  <a class="nav-link dropdown-item nav-internal" href="#">
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
     Source code structures
   </a>
 </li>
 
-
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="gallery.html">
     Example gallery
@@ -524,9 +524,14 @@
 <h1>Source code structures<a class="headerlink" href="#source-code-structures" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Experiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Experiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FDTDSimulator</span></code></p>
 <p>Class representing an FDTD simulation experiment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>grid</strong> (<em>Grid</em>)</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.add_circle">
 <span class="sig-name descname"><span class="pre">add_circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.add_circle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.add_circle" title="Link to this definition">#</a></dt>
@@ -571,8 +576,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.add_pml">
-<span class="sig-name descname"><span class="pre">add_pml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#LightWave2D.pml.PML" title="LightWave2D.pml.PML"><span class="pre">PML</span></a></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.add_pml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.add_pml" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_pml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.add_pml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.add_pml" title="Link to this definition">#</a></dt>
 <dd><p>Add a Perfectly Matched Layer (PML) to the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#LightWave2D.pml.PML" title="LightWave2D.pml.PML"><em>PML</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -635,7 +645,7 @@ Method to add a components.Square to the simulation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.get_epsilon">
-<span class="sig-name descname"><span class="pre">get_epsilon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.get_epsilon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.get_epsilon" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_epsilon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.get_epsilon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.get_epsilon" title="Link to this definition">#</a></dt>
 <dd><p>Construct the epsilon mesh with contributions from all components.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -649,7 +659,7 @@ Method to add a components.Square to the simulation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.get_gradient">
-<span class="sig-name descname"><span class="pre">get_gradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.get_gradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.get_gradient" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_gradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.get_gradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.get_gradient" title="Link to this definition">#</a></dt>
 <dd><p>Compute the gradient of the field along the specified axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -669,7 +679,7 @@ Method to add a components.Square to the simulation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.get_sigma">
-<span class="sig-name descname"><span class="pre">get_sigma</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.get_sigma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.get_sigma" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_sigma</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.get_sigma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.get_sigma" title="Link to this definition">#</a></dt>
 <dd><p>Retrieve the sigma values for the PML.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -695,7 +705,7 @@ Method to add a components.Square to the simulation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.plot_frame">
-<span class="sig-name descname"><span class="pre">plot_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame_number:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhance_contrast:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_intensity:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">object</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.plot_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.plot_frame" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">plot_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame_number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhance_contrast=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_intensity=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap=&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.plot_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.plot_frame" title="Link to this definition">#</a></dt>
 <dd><p>Plot a specific frame from the FDTD simulation.</p>
 <p>This method visualizes the electric field distribution for a specified frame, including
 the components, sources, and detectors present in the simulation.</p>
@@ -708,12 +718,15 @@ the components, sources, and detectors present in the simulation.</p>
 <li><p><strong>colormap</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>object</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The colormap used for visualization. Default is a blue-black-red colormap from the Polytechnique collection.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.render_propagation">
-<span class="sig-name descname"><span class="pre">render_propagation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">skip_frame:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhance_contrast:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_adjust_clim:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_as:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">object</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">FuncAnimation</span></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.render_propagation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.render_propagation" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">render_propagation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">skip_frame=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhance_contrast=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_adjust_clim=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_as=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap=&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.render_propagation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.render_propagation" title="Link to this definition">#</a></dt>
 <dd><p>Render an animation of the field propagation.</p>
 <p>This method sets up the scene, initializes the field display, and creates
 an animation showing the evolution of the field over time.</p>
@@ -740,7 +753,7 @@ an animation showing the evolution of the field over time.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_every</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#LightWave2D.result.SimulationResult" title="LightWave2D.result.SimulationResult"><span class="pre">SimulationResult</span></a></span></span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.run" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.run" title="Link to this definition">#</a></dt>
 <dd><p>Execute this setup and return a SimulationResult.</p>
 <p>Set store_fields=False for detector/flux-only output. store_every is
 the default cadence; field_every and detector_every override it
@@ -748,6 +761,17 @@ independently. field_path writes fields directly to a new .npy file
 with a coordinate/timestamp sidecar. Existing files are never replaced.
 Legacy Ez_t, recorded_time_stamp and detector.data remain available.
 See execution.run for parameter details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>store_fields</strong> (<em>bool</em>)</p></li>
+<li><p><strong>store_every</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#LightWave2D.result.SimulationResult" title="LightWave2D.result.SimulationResult"><em>SimulationResult</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1401,7 +1425,7 @@ wave reflections.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.result.SimulationResult">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SimulationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ez_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recorded_time_stamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detectors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_time_stamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/result.html#SimulationResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.result.SimulationResult" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SimulationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ez_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recorded_time_stamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detectors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_time_stamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/result.html#SimulationResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.result.SimulationResult" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>One run’s field history, timestamps, and detector samples.</p>
 <p><code class="docutils literal notranslate"><span class="pre">detector_data</span></code> has shape (detector samples, detectors), in insertion order,
@@ -1410,6 +1434,22 @@ field frames and may have a different cadence. <code class="docutils literal not
 <code class="docutils literal notranslate"><span class="pre">Ez_t</span></code> is a NumPy array or disk-backed memmap, or None for detector-only runs. Arrays are owned by this run and
 remain available when the experiment runs again. Geometry overlays retain
 references to the configured objects; array contents remain user-editable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ez_t</strong> (<em>ndarray</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>recorded_time_stamp</strong> (<em>Any</em>)</p></li>
+<li><p><strong>detector_data</strong> (<em>ndarray</em>)</p></li>
+<li><p><strong>grid</strong> (<em>Any</em>)</p></li>
+<li><p><strong>components</strong> (<em>tuple</em>)</p></li>
+<li><p><strong>sources</strong> (<em>tuple</em>)</p></li>
+<li><p><strong>detectors</strong> (<em>tuple</em>)</p></li>
+<li><p><strong>detector_time_stamp</strong> (<em>Any</em>)</p></li>
+<li><p><strong>flux</strong> (<em>tuple</em>)</p></li>
+<li><p><strong>field_path</strong> (<em>Any</em>)</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <p id="module-LightWave2D.monitors">Axis-aligned line monitors and Fourier analysis of recorded fields.</p>
@@ -1438,7 +1478,7 @@ references to the configured objects; array contents remain user-editable.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment"><code class="docutils literal notranslate"><span class="pre">Experiment</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment"><code class="docutils literal notranslate"><span class="pre">Experiment</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.add_circle"><code class="docutils literal notranslate"><span class="pre">Experiment.add_circle()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.add_ellipse"><code class="docutils literal notranslate"><span class="pre">Experiment.add_ellipse()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.add_flux_monitor"><code class="docutils literal notranslate"><span class="pre">Experiment.add_flux_monitor()</span></code></a></li>
@@ -1467,7 +1507,7 @@ references to the configured objects; array contents remain user-editable.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.experiment.Experiment.run"><code class="docutils literal notranslate"><span class="pre">Experiment.run()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.BaseComponent"><code class="docutils literal notranslate"><span class="pre">BaseComponent</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.BaseComponent"><code class="docutils literal notranslate"><span class="pre">BaseComponent</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.BaseComponent.add_non_linear_effect_to_field"><code class="docutils literal notranslate"><span class="pre">BaseComponent.add_non_linear_effect_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.BaseComponent.add_to_ax"><code class="docutils literal notranslate"><span class="pre">BaseComponent.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.BaseComponent.add_to_epsilon_r_mesh"><code class="docutils literal notranslate"><span class="pre">BaseComponent.add_to_epsilon_r_mesh()</span></code></a></li>
@@ -1478,7 +1518,7 @@ references to the configured objects; array contents remain user-editable.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.BaseComponent.plot"><code class="docutils literal notranslate"><span class="pre">BaseComponent.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Circle"><code class="docutils literal notranslate"><span class="pre">Circle</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Circle"><code class="docutils literal notranslate"><span class="pre">Circle</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Circle.add_non_linear_effect_to_field"><code class="docutils literal notranslate"><span class="pre">Circle.add_non_linear_effect_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Circle.add_to_ax"><code class="docutils literal notranslate"><span class="pre">Circle.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Circle.add_to_epsilon_r_mesh"><code class="docutils literal notranslate"><span class="pre">Circle.add_to_epsilon_r_mesh()</span></code></a></li>
@@ -1489,7 +1529,7 @@ references to the configured objects; array contents remain user-editable.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Circle.plot"><code class="docutils literal notranslate"><span class="pre">Circle.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Ellipse"><code class="docutils literal notranslate"><span class="pre">Ellipse</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Ellipse"><code class="docutils literal notranslate"><span class="pre">Ellipse</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Ellipse.add_non_linear_effect_to_field"><code class="docutils literal notranslate"><span class="pre">Ellipse.add_non_linear_effect_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Ellipse.add_to_ax"><code class="docutils literal notranslate"><span class="pre">Ellipse.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Ellipse.add_to_epsilon_r_mesh"><code class="docutils literal notranslate"><span class="pre">Ellipse.add_to_epsilon_r_mesh()</span></code></a></li>
@@ -1500,7 +1540,7 @@ references to the configured objects; array contents remain user-editable.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Ellipse.plot"><code class="docutils literal notranslate"><span class="pre">Ellipse.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Grating"><code class="docutils literal notranslate"><span class="pre">Grating</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Grating"><code class="docutils literal notranslate"><span class="pre">Grating</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Grating.add_non_linear_effect_to_field"><code class="docutils literal notranslate"><span class="pre">Grating.add_non_linear_effect_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Grating.add_to_ax"><code class="docutils literal notranslate"><span class="pre">Grating.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Grating.add_to_epsilon_r_mesh"><code class="docutils literal notranslate"><span class="pre">Grating.add_to_epsilon_r_mesh()</span></code></a></li>
@@ -1511,7 +1551,7 @@ references to the configured objects; array contents remain user-editable.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Grating.plot"><code class="docutils literal notranslate"><span class="pre">Grating.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Lens"><code class="docutils literal notranslate"><span class="pre">Lens</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Lens"><code class="docutils literal notranslate"><span class="pre">Lens</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Lens.add_non_linear_effect_to_field"><code class="docutils literal notranslate"><span class="pre">Lens.add_non_linear_effect_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Lens.add_to_ax"><code class="docutils literal notranslate"><span class="pre">Lens.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Lens.add_to_epsilon_r_mesh"><code class="docutils literal notranslate"><span class="pre">Lens.add_to_epsilon_r_mesh()</span></code></a></li>
@@ -1522,7 +1562,7 @@ references to the configured objects; array contents remain user-editable.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Lens.plot"><code class="docutils literal notranslate"><span class="pre">Lens.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.RingResonator"><code class="docutils literal notranslate"><span class="pre">RingResonator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.RingResonator"><code class="docutils literal notranslate"><span class="pre">RingResonator</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.RingResonator.add_non_linear_effect_to_field"><code class="docutils literal notranslate"><span class="pre">RingResonator.add_non_linear_effect_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.RingResonator.add_to_ax"><code class="docutils literal notranslate"><span class="pre">RingResonator.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.RingResonator.add_to_epsilon_r_mesh"><code class="docutils literal notranslate"><span class="pre">RingResonator.add_to_epsilon_r_mesh()</span></code></a></li>
@@ -1533,7 +1573,7 @@ references to the configured objects; array contents remain user-editable.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.RingResonator.plot"><code class="docutils literal notranslate"><span class="pre">RingResonator.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Square"><code class="docutils literal notranslate"><span class="pre">Square</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Square"><code class="docutils literal notranslate"><span class="pre">Square</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Square.add_non_linear_effect_to_field"><code class="docutils literal notranslate"><span class="pre">Square.add_non_linear_effect_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Square.add_to_ax"><code class="docutils literal notranslate"><span class="pre">Square.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Square.add_to_epsilon_r_mesh"><code class="docutils literal notranslate"><span class="pre">Square.add_to_epsilon_r_mesh()</span></code></a></li>
@@ -1544,7 +1584,7 @@ references to the configured objects; array contents remain user-editable.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Square.plot"><code class="docutils literal notranslate"><span class="pre">Square.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Triangle"><code class="docutils literal notranslate"><span class="pre">Triangle</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Triangle"><code class="docutils literal notranslate"><span class="pre">Triangle</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Triangle.add_non_linear_effect_to_field"><code class="docutils literal notranslate"><span class="pre">Triangle.add_non_linear_effect_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Triangle.add_to_ax"><code class="docutils literal notranslate"><span class="pre">Triangle.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Triangle.add_to_epsilon_r_mesh"><code class="docutils literal notranslate"><span class="pre">Triangle.add_to_epsilon_r_mesh()</span></code></a></li>
@@ -1555,7 +1595,7 @@ references to the configured objects; array contents remain user-editable.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Triangle.plot"><code class="docutils literal notranslate"><span class="pre">Triangle.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Waveguide"><code class="docutils literal notranslate"><span class="pre">Waveguide</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Waveguide"><code class="docutils literal notranslate"><span class="pre">Waveguide</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Waveguide.add_non_linear_effect_to_field"><code class="docutils literal notranslate"><span class="pre">Waveguide.add_non_linear_effect_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Waveguide.add_to_ax"><code class="docutils literal notranslate"><span class="pre">Waveguide.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.components.Waveguide.add_to_epsilon_r_mesh"><code class="docutils literal notranslate"><span class="pre">Waveguide.add_to_epsilon_r_mesh()</span></code></a></li>
@@ -1567,51 +1607,51 @@ references to the configured objects; array contents remain user-editable.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.BaseSource"><code class="docutils literal notranslate"><span class="pre">BaseSource</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineGeometry"><code class="docutils literal notranslate"><span class="pre">LineGeometry</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineGeometry"><code class="docutils literal notranslate"><span class="pre">LineGeometry</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineGeometry.indexes"><code class="docutils literal notranslate"><span class="pre">LineGeometry.indexes</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource"><code class="docutils literal notranslate"><span class="pre">LinePulseSource</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource"><code class="docutils literal notranslate"><span class="pre">LinePulseSource</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.add_to_ax"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.add_to_field"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.add_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LinePulseSource.plot"><code class="docutils literal notranslate"><span class="pre">LinePulseSource.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource"><code class="docutils literal notranslate"><span class="pre">LineWaveSource</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource"><code class="docutils literal notranslate"><span class="pre">LineWaveSource</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.add_to_ax"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.add_to_field"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.add_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.LineWaveSource.plot"><code class="docutils literal notranslate"><span class="pre">LineWaveSource.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.MultiWavelength"><code class="docutils literal notranslate"><span class="pre">MultiWavelength</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.MultiWavelength"><code class="docutils literal notranslate"><span class="pre">MultiWavelength</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.MultiWavelength.add_to_field"><code class="docutils literal notranslate"><span class="pre">MultiWavelength.add_to_field()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointGeometry"><code class="docutils literal notranslate"><span class="pre">PointGeometry</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointGeometry"><code class="docutils literal notranslate"><span class="pre">PointGeometry</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointGeometry.indexes"><code class="docutils literal notranslate"><span class="pre">PointGeometry.indexes</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource"><code class="docutils literal notranslate"><span class="pre">PointPulseSource</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource"><code class="docutils literal notranslate"><span class="pre">PointPulseSource</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.add_to_ax"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.add_to_field"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.add_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointPulseSource.plot"><code class="docutils literal notranslate"><span class="pre">PointPulseSource.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource"><code class="docutils literal notranslate"><span class="pre">PointWaveSource</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource"><code class="docutils literal notranslate"><span class="pre">PointWaveSource</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.add_to_ax"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.add_to_field"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.add_to_field()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.PointWaveSource.plot"><code class="docutils literal notranslate"><span class="pre">PointWaveSource.plot()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.Pulse"><code class="docutils literal notranslate"><span class="pre">Pulse</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.Pulse"><code class="docutils literal notranslate"><span class="pre">Pulse</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.Pulse.add_to_field"><code class="docutils literal notranslate"><span class="pre">Pulse.add_to_field()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.SourceGeometry"><code class="docutils literal notranslate"><span class="pre">SourceGeometry</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.SourceGeometry"><code class="docutils literal notranslate"><span class="pre">SourceGeometry</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.source.SourceGeometry.indexes"><code class="docutils literal notranslate"><span class="pre">SourceGeometry.indexes</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.pml.PML"><code class="docutils literal notranslate"><span class="pre">PML</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.pml.PML"><code class="docutils literal notranslate"><span class="pre">PML</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.pml.PML.add_to_ax"><code class="docutils literal notranslate"><span class="pre">PML.add_to_ax()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.pml.PML.grid"><code class="docutils literal notranslate"><span class="pre">PML.grid</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.pml.PML.order"><code class="docutils literal notranslate"><span class="pre">PML.order</span></code></a></li>
@@ -1627,6 +1667,22 @@ references to the configured objects; array contents remain user-editable.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#LightWave2D.result.SimulationResult"><code class="docutils literal notranslate"><span class="pre">SimulationResult</span></code></a></li>
 </ul>
   </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/MartinPdeS/LightWave2D/edit/master/docs/source/code.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
 
   <div class="sidebar-secondary-item">
 
@@ -1662,7 +1718,7 @@ references to the configured objects; array contents remain user-editable.</p>
 
   <p class="copyright">
     
-      © Copyright 2024, Martin Poinsinet de Sivry-Houle.
+      © Copyright Martin Poinsinet de Sivry-Houle.
       <br/>
     
   </p>

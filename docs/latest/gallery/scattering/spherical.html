@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../../" >
+<html lang="en" data-content_root="../../" data-theme="dark">
 
   <head>
     <meta charset="utf-8" />
@@ -13,8 +13,8 @@
   
   
   <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
   </script>
   <!--
     this give us a css class that will be invisible only if js is disabled
@@ -31,12 +31,13 @@
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/docs/source/_static/default.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/default.css?v=95318798" />
+    <link rel="stylesheet" type="text/css" href="../../_static/martinpdes_layout.css?v=a8cc01cd" />
     <link rel="stylesheet" type="text/css" href="../../_static/layout.css?v=dc96f8db" />
   
   <!-- So that users can add custom icons -->
@@ -45,15 +46,16 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
-    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/documentation_options.js?v=8a448e45"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'gallery/scattering/spherical';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/MartinPdeS/LightWave2D/documentation_page/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.10.2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -65,7 +67,7 @@
     <link rel="prev" title="Broadband pulse response" href="pulse_response.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.10.2" />
+  <meta name="docsearch:version" content="latest" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -73,7 +75,7 @@
     <script src="../../searchindex.js"></script>
   
   </head>
-  <body data-default-mode="">
+  <body data-default-mode="dark">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
@@ -134,11 +136,9 @@
   
     
     
-      
     
-    
-    <img src="../../_static/lightwave2d-logo-light.svg" class="logo__image only-light" alt="LightWave2D — Simulating light, clearly."/>
-    <img src="../../_static/lightwave2d-logo-dark.svg" class="logo__image only-dark pst-js-only" alt="LightWave2D — Simulating light, clearly."/>
+    <img src="../../_static/logo.png" class="logo__image only-dark" alt="LightWave2D  documentation - Home"/>
+    <img src="../../_static/logo.png" class="logo__image only-light pst-js-only" alt="LightWave2D  documentation - Home"/>
   
   
 </a></div>
@@ -166,35 +166,35 @@
   </a>
 </li>
 
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false"
-                aria-controls="pst-nav-more-links">
-                    Explore
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../usage.html">
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../usage.html">
     Running simulations efficiently
   </a>
 </li>
 
 
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../theory.html">
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../theory.html">
     Theoretical Background
   </a>
 </li>
 
 
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../code.html">
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../code.html">
     Source code structures
   </a>
 </li>
 
-
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
 <li class=" current active">
   <a class="nav-link dropdown-item nav-internal" href="../../gallery.html">
     Example gallery
@@ -473,12 +473,12 @@
 <li class="toctree-l2"><a class="reference internal" href="square.html">Square Scatterer</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../detector/index.html">Detector Examples</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../detector/index.html">Detector Examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../detector/detector_only.html">Detector-only recording</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../detector/source_detector.html">Field-history detector trace</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../extra/index.html">Guided-wave components</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../extra/index.html">Guided-wave components</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../extra/lens.html">Lens focusing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extra/resonator.html">Ring Resonator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extra/waveguide.html">Waveguide</a></li>
@@ -802,7 +802,7 @@ We will define the simulation grid, add a circular scatterer and a line source, 
  19.27927928 19.30930931 19.33933934 19.36936937 19.3993994  19.42942943
  19.45945946 19.48948949 19.51951952 19.54954955 19.57957958 19.60960961
  19.63963964 19.66966967 19.6996997  19.72972973 19.75975976 19.78978979
- 19.81981982 19.84984985 19.87987988 19.90990991 19.93993994 19.96996997], 'micrometer')&gt;), components=(&lt;LightWave2D.components.Circle object at 0x7f7798f209b0&gt;,), sources=(&lt;LightWave2D.source.LineWaveSource object at 0x7f7798f22b30&gt;,), detectors=(), detector_time_stamp=&lt;Quantity([0.00000000e+00 7.08171678e-17 1.41634336e-16 2.12451503e-16
+ 19.81981982 19.84984985 19.87987988 19.90990991 19.93993994 19.96996997], 'micrometer')&gt;), components=(&lt;LightWave2D.components.Circle object at 0x7ffa3ab9eef0&gt;,), sources=(&lt;LightWave2D.source.LineWaveSource object at 0x7ffa3ab9ebf0&gt;,), detectors=(), detector_time_stamp=&lt;Quantity([0.00000000e+00 7.08171678e-17 1.41634336e-16 2.12451503e-16
  2.83268671e-16 3.54085839e-16 4.24903007e-16 4.95720175e-16
  5.66537342e-16 6.37354510e-16 7.08171678e-16 7.78988846e-16
  8.49806014e-16 9.20623181e-16 9.91440349e-16 1.06225752e-15
@@ -863,7 +863,7 @@ We will define the simulation grid, add a circular scatterer and a line source, 
 </span>    <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="w">
 </span><span class="p">)</span><span class="w">
 </span></pre></div></div>
-<img src="../../_images/sphx_glr_spherical_002.png" srcset="../../_images/sphx_glr_spherical_002.png" alt="spherical" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (2 minutes 55.000 seconds)</p>
+<img src="../../_images/sphx_glr_spherical_002.png" srcset="../../_images/sphx_glr_spherical_002.png" alt="spherical" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (2 minutes 48.346 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-scattering-spherical-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a842247c84a675cbbcbf49ad45fdd42b/spherical.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">spherical.ipynb</span></code></a></p>
@@ -892,6 +892,22 @@ We will define the simulation grid, add a circular scatterer and a line source, 
                 <dialog id="pst-secondary-sidebar-modal"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/MartinPdeS/LightWave2D/edit/master/docs/source/gallery/scattering/spherical.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
 
   <div class="sidebar-secondary-item">
 
@@ -927,7 +943,7 @@ We will define the simulation grid, add a circular scatterer and a line source, 
 
   <p class="copyright">
     
-      © Copyright 2024, Martin Poinsinet de Sivry-Houle.
+      © Copyright Martin Poinsinet de Sivry-Houle.
       <br/>
     
   </p>

@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**01:22.775** total execution time for 3 files **from gallery/extra**:
+**01:20.974** total execution time for 3 files **from gallery/extra**:
 
 .. container::
 
@@ -33,11 +33,11 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_extra_resonator.py` (``resonator.py``)
-     - 00:46.186
+     - 00:44.900
      - 0.0
    * - :ref:`sphx_glr_gallery_extra_lens.py` (``lens.py``)
-     - 00:34.061
+     - 00:33.639
      - 0.0
    * - :ref:`sphx_glr_gallery_extra_waveguide.py` (``waveguide.py``)
-     - 00:02.528
+     - 00:02.435
      - 0.0
