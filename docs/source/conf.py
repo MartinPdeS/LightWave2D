@@ -10,7 +10,9 @@ from martinpdes_docs import configure
 
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT))
+# Prefer the installed package built by the documentation workflow so the
+# compiled extension modules are available to autodoc and gallery examples.
+sys.path.append(str(ROOT))
 
 project = "LightWave2D"
 package = "LightWave2D"
