@@ -68,7 +68,6 @@ dependencies = [
 ]
 
 [tool.setuptools_scm]
-write_to = "LightWave2D/_version.py"
 version_scheme = "only-version"
 local_scheme = "no-local-version"
 
