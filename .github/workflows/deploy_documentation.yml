@@ -1,29 +1,23 @@
-# Simple workflow for deploying static content to GitHub Pages
 name: Documentation
-
-on:
+'on':
   push:
-    branches: [ "**" ]
-    tags: [ "v*" ]
+    branches:
+    - '**'
   pull_request:
-    branches: [ "master" ]
-
-
-concurrency:
-  group: documentation-build-${{ github.repository }}-${{ github.ref }}
-  cancel-in-progress: true
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages.
+    branches:
+    - master
 permissions:
-  contents: write
-  pages: write
-  id-token: write
-
+  contents: read
 jobs:
-  ManyLinux_x86_64:
-    uses: MartinPdeS/MPSActions/.github/workflows/publish_documentation.yml@v11
+  documentation:
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    uses: MartinPdeS/MPSActions/.github/workflows/publish_documentation.yml@v12
     with:
-      python-version: "3.11"
-      package-name: "LightWave2D"
+      python-version: '3.11'
+      package-name: LightWave2D
       apt-package: xvfb jq
-      deploy-pages: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')) }}
+      deploy-pages: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      debug: true
