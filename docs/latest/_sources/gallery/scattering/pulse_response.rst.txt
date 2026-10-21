@@ -67,7 +67,7 @@ frequencies.
  .. code-block:: none
 
 
-    <LightWave2D.pml.PML object at 0x7fd50d04fd70>
+    <LightWave2D.pml.PML object at 0x7f8c51cf72f0>
 
 
 
@@ -92,7 +92,7 @@ frequencies.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.129 seconds)
+   **Total running time of the script:** (0 minutes 0.982 seconds)
 
 
 .. _sphx_glr_download_gallery_scattering_pulse_response.py:
