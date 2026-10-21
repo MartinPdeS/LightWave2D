@@ -41,7 +41,6 @@ globals().update(
             "reset_modules": reset_mpl,
             "abort_on_example_error": True,
         },
-        extension_additions=["numpydoc"],
         logo_text="",
         html_css_files=["layout.css"],
     )
