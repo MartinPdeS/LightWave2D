@@ -41,16 +41,8 @@ globals().update(
             "reset_modules": reset_mpl,
             "abort_on_example_error": True,
         },
-        html_theme_options={
-            "logo": {
-                "text": "",
-                "image": "_static/logo.png",
-            },
-        },
+        extension_additions=["numpydoc"],
+        logo_text="",
+        html_css_files=["layout.css"],
     )
 )
-
-extensions += ["numpydoc"]
-html_css_files += ["layout.css"]
-html_context["doc_path"] = "docs/source"
-html_context["default_mode"] = "dark"
