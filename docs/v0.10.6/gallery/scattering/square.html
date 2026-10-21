@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="dark">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Square Scatterer &#8212; LightWave2D  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/default.css?v=95318798" />
+    <link rel="stylesheet" type="text/css" href="../../_static/martinpdes_layout.css?v=a8cc01cd" />
+    <link rel="stylesheet" type="text/css" href="../../_static/layout.css?v=dc96f8db" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+    <script src="../../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gallery/scattering/square';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/MartinPdeS/LightWave2D/documentation_page/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.10.6';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../../_static/lightwave2d-favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Detector Examples" href="../detector/index.html" />
+    <link rel="prev" title="Circular Scatterer" href="spherical_pulse.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="dark">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-dark" alt="LightWave2D  documentation - Home"/>
+    <img src="../../_static/logo.png" class="logo__image only-light pst-js-only" alt="LightWave2D  documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../simulation_design.html">
+    Design
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../usage.html">
+    Usage
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../gallery.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference.html">
+    Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i><span class="visually-hidden">Anaconda</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../simulation_design.html">
+    Design
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../usage.html">
+    Usage
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../gallery.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference.html">
+    Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MartinPdeS/LightWave2D" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/LightWave2D/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/MartinPdeS/LightWave2D" title="Anaconda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i><span class="visually-hidden">Anaconda</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Scattering Examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ellipse.html">Elliptic Scatterer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pulse_response.html">Broadband pulse response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spherical.html">Circular Scatterer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spherical_pulse.html">Circular Scatterer</a></li>
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">Square Scatterer</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../detector/index.html">Detector Examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../detector/detector_only.html">Detector-only recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../detector/source_detector.html">Field-history detector trace</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../extra/index.html">Guided-wave components</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../extra/lens.html">Lens focusing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extra/resonator.html">Ring Resonator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extra/waveguide.html">Waveguide</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../gallery.html" class="nav-link">Example gallery</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Scattering Examples</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Square Scatterer</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-scattering-square-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="square-scatterer">
+<span id="sphx-glr-gallery-scattering-square-py"></span><h1>Square Scatterer<a class="headerlink" href="#square-scatterer" title="Link to this heading">#</a></h1>
+<p>Observe the field scattered by one square dielectric inclusion. The animation is
+the sole result; detector traces are covered in the Measurements section.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">from</span><span class="w"> </span><span class="nn">TypedUnit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">MPSPlots</span><span class="nn">.</span><span class="nn">colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">polytechnique</span><span class="w">
+</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="nn">.</span><span class="nn">grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">LightWave2D</span><span class="nn">.</span><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="nn">experiment</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="n">Experiment</span></a><span class="w">
+</span><span class="w">
+</span><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span><span class="w">
+</span>    <span class="n">resolution</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid resolution</span><span class="w">
+</span>    <span class="n">size_x</span><span class="o">=</span><span class="mi">32</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid size in the x direction</span><span class="w">
+</span>    <span class="n">size_y</span><span class="o">=</span><span class="mi">16</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Grid size in the y direction</span><span class="w">
+</span>    <span class="n">n_steps</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="n">experiment</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-class reference internal" href="../../code.html#LightWave2D.experiment.Experiment" title="LightWave2D.experiment.Experiment"><span class="n">Experiment</span></a><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-LightWave2D-components sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../code.html#LightWave2D.components.Square" title="LightWave2D.components.Square"><span class="n">scatterer</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.add_square" title="LightWave2D.experiment.Experiment.add_square"><span class="n">experiment</span><span class="o">.</span><span class="n">add_square</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">25</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">50</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">,</span>  <span class="c1"># Center position of the scatterer</span><span class="w">
+</span>    <span class="n">epsilon_r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># Relative permittivity of the scatterer</span><span class="w">
+</span>    <span class="n">side_length</span><span class="o">=</span><span class="mi">5</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">micrometer</span><span class="p">,</span>  <span class="c1"># Side length of the square scatterer</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-LightWave2D-source sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../code.html#LightWave2D.source.LineWaveSource" title="LightWave2D.source.LineWaveSource"><span class="n">source</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.add_line_source" title="LightWave2D.experiment.Experiment.add_line_source"><span class="n">experiment</span><span class="o">.</span><span class="n">add_line_source</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">wavelength</span><span class="o">=</span><span class="mi">1550</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span>  <span class="c1"># Wavelength of the source</span><span class="w">
+</span>    <span class="n">position_0</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">10</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">100</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">,</span>  <span class="c1"># Starting position of the source</span><span class="w">
+</span>    <span class="n">position_1</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">10</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">0</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">,</span>  <span class="c1"># Ending position of the source</span><span class="w">
+</span>    <span class="n">amplitude</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Amplitude of the source</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.add_pml" title="LightWave2D.experiment.Experiment.add_pml"><span class="n">experiment</span><span class="o">.</span><span class="n">add_pml</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Order of the PML polynomial profile</span><span class="w">
+</span>    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">10</span><span class="s2">%</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Width of the PML region as a percentage of grid size</span><span class="w">
+</span>    <span class="n">sigma_max</span><span class="o">=</span><span class="mi">5000</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">siemens</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">,</span>  <span class="c1"># Maximum conductivity for the PML</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.run" title="LightWave2D.experiment.Experiment.run"><span class="n">experiment</span><span class="o">.</span><span class="n">run</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>SimulationResult(Ez_t=array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        ...,
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ]],
+
+       [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        ...,
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ]],
+
+       [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        ...,
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ]],
+
+       ...,
+
+       [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.07145502,  0.1722254 , ...,  0.1722254 ,
+          0.07145502,  0.        ],
+        [ 0.        ,  0.14638292,  0.31384317, ...,  0.31384317,
+          0.14638293,  0.        ],
+        ...,
+        [ 0.        , -0.05600771, -0.11502945, ..., -0.11502946,
+         -0.05600771,  0.        ],
+        [ 0.        , -0.04209559, -0.08676283, ..., -0.08676284,
+         -0.04209559,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ]],
+
+       [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.0937147 ,  0.19730845, ...,  0.19730845,
+          0.0937147 ,  0.        ],
+        [ 0.        ,  0.18158904,  0.36971996, ...,  0.36971996,
+          0.18158905,  0.        ],
+        ...,
+        [ 0.        , -0.09397538, -0.18993464, ..., -0.18993464,
+         -0.09397538,  0.        ],
+        [ 0.        , -0.07402428, -0.14517733, ..., -0.14517733,
+         -0.07402428,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ]],
+
+       [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [ 0.        ,  0.11491225,  0.21275996, ...,  0.21275996,
+          0.11491226,  0.        ],
+        [ 0.        ,  0.20473508,  0.40038779, ...,  0.40038779,
+          0.20473509,  0.        ],
+        ...,
+        [ 0.        , -0.11936664, -0.24020886, ..., -0.24020886,
+         -0.11936664,  0.        ],
+        [ 0.        , -0.07704155, -0.15079402, ..., -0.15079402,
+         -0.07704155,  0.        ],
+        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ]]], shape=(500, 320, 160)), recorded_time_stamp=&lt;Quantity([0.00000000e+00 2.35865434e-16 4.71730867e-16 7.07596301e-16
+ 9.43461735e-16 1.17932717e-15 1.41519260e-15 1.65105804e-15
+ 1.88692347e-15 2.12278890e-15 2.35865434e-15 2.59451977e-15
+ 2.83038520e-15 3.06625064e-15 3.30211607e-15 3.53798151e-15
+ 3.77384694e-15 4.00971237e-15 4.24557781e-15 4.48144324e-15
+ 4.71730867e-15 4.95317411e-15 5.18903954e-15 5.42490497e-15
+ 5.66077041e-15 5.89663584e-15 6.13250128e-15 6.36836671e-15
+ 6.60423214e-15 6.84009758e-15 7.07596301e-15 7.31182844e-15
+ 7.54769388e-15 7.78355931e-15 8.01942474e-15 8.25529018e-15
+ 8.49115561e-15 8.72702105e-15 8.96288648e-15 9.19875191e-15
+ 9.43461735e-15 9.67048278e-15 9.90634821e-15 1.01422136e-14
+ 1.03780791e-14 1.06139445e-14 1.08498099e-14 1.10856754e-14
+ 1.13215408e-14 1.15574063e-14 1.17932717e-14 1.20291371e-14
+ 1.22650026e-14 1.25008680e-14 1.27367334e-14 1.29725989e-14
+ 1.32084643e-14 1.34443297e-14 1.36801952e-14 1.39160606e-14
+ 1.41519260e-14 1.43877915e-14 1.46236569e-14 1.48595223e-14
+ 1.50953878e-14 1.53312532e-14 1.55671186e-14 1.58029841e-14
+ 1.60388495e-14 1.62747149e-14 1.65105804e-14 1.67464458e-14
+ 1.69823112e-14 1.72181767e-14 1.74540421e-14 1.76899075e-14
+ 1.79257730e-14 1.81616384e-14 1.83975038e-14 1.86333693e-14
+ 1.88692347e-14 1.91051001e-14 1.93409656e-14 1.95768310e-14
+ 1.98126964e-14 2.00485619e-14 2.02844273e-14 2.05202927e-14
+ 2.07561582e-14 2.09920236e-14 2.12278890e-14 2.14637545e-14
+ 2.16996199e-14 2.19354853e-14 2.21713508e-14 2.24072162e-14
+ 2.26430816e-14 2.28789471e-14 2.31148125e-14 2.33506779e-14
+ 2.35865434e-14 2.38224088e-14 2.40582742e-14 2.42941397e-14
+ 2.45300051e-14 2.47658705e-14 2.50017360e-14 2.52376014e-14
+ 2.54734668e-14 2.57093323e-14 2.59451977e-14 2.61810631e-14
+ 2.64169286e-14 2.66527940e-14 2.68886594e-14 2.71245249e-14
+ 2.73603903e-14 2.75962557e-14 2.78321212e-14 2.80679866e-14
+ 2.83038520e-14 2.85397175e-14 2.87755829e-14 2.90114483e-14
+ 2.92473138e-14 2.94831792e-14 2.97190446e-14 2.99549101e-14
+ 3.01907755e-14 3.04266409e-14 3.06625064e-14 3.08983718e-14
+ 3.11342372e-14 3.13701027e-14 3.16059681e-14 3.18418335e-14
+ 3.20776990e-14 3.23135644e-14 3.25494298e-14 3.27852953e-14
+ 3.30211607e-14 3.32570261e-14 3.34928916e-14 3.37287570e-14
+ 3.39646224e-14 3.42004879e-14 3.44363533e-14 3.46722188e-14
+ 3.49080842e-14 3.51439496e-14 3.53798151e-14 3.56156805e-14
+ 3.58515459e-14 3.60874114e-14 3.63232768e-14 3.65591422e-14
+ 3.67950077e-14 3.70308731e-14 3.72667385e-14 3.75026040e-14
+ 3.77384694e-14 3.79743348e-14 3.82102003e-14 3.84460657e-14
+ 3.86819311e-14 3.89177966e-14 3.91536620e-14 3.93895274e-14
+ 3.96253929e-14 3.98612583e-14 4.00971237e-14 4.03329892e-14
+ 4.05688546e-14 4.08047200e-14 4.10405855e-14 4.12764509e-14
+ 4.15123163e-14 4.17481818e-14 4.19840472e-14 4.22199126e-14
+ 4.24557781e-14 4.26916435e-14 4.29275089e-14 4.31633744e-14
+ 4.33992398e-14 4.36351052e-14 4.38709707e-14 4.41068361e-14
+ 4.43427015e-14 4.45785670e-14 4.48144324e-14 4.50502978e-14
+ 4.52861633e-14 4.55220287e-14 4.57578941e-14 4.59937596e-14
+ 4.62296250e-14 4.64654904e-14 4.67013559e-14 4.69372213e-14
+ 4.71730867e-14 4.74089522e-14 4.76448176e-14 4.78806830e-14
+ 4.81165485e-14 4.83524139e-14 4.85882793e-14 4.88241448e-14
+ 4.90600102e-14 4.92958756e-14 4.95317411e-14 4.97676065e-14
+ 5.00034719e-14 5.02393374e-14 5.04752028e-14 5.07110682e-14
+ 5.09469337e-14 5.11827991e-14 5.14186645e-14 5.16545300e-14
+ 5.18903954e-14 5.21262608e-14 5.23621263e-14 5.25979917e-14
+ 5.28338571e-14 5.30697226e-14 5.33055880e-14 5.35414534e-14
+ 5.37773189e-14 5.40131843e-14 5.42490497e-14 5.44849152e-14
+ 5.47207806e-14 5.49566460e-14 5.51925115e-14 5.54283769e-14
+ 5.56642423e-14 5.59001078e-14 5.61359732e-14 5.63718386e-14
+ 5.66077041e-14 5.68435695e-14 5.70794349e-14 5.73153004e-14
+ 5.75511658e-14 5.77870313e-14 5.80228967e-14 5.82587621e-14
+ 5.84946276e-14 5.87304930e-14 5.89663584e-14 5.92022239e-14
+ 5.94380893e-14 5.96739547e-14 5.99098202e-14 6.01456856e-14
+ 6.03815510e-14 6.06174165e-14 6.08532819e-14 6.10891473e-14
+ 6.13250128e-14 6.15608782e-14 6.17967436e-14 6.20326091e-14
+ 6.22684745e-14 6.25043399e-14 6.27402054e-14 6.29760708e-14
+ 6.32119362e-14 6.34478017e-14 6.36836671e-14 6.39195325e-14
+ 6.41553980e-14 6.43912634e-14 6.46271288e-14 6.48629943e-14
+ 6.50988597e-14 6.53347251e-14 6.55705906e-14 6.58064560e-14
+ 6.60423214e-14 6.62781869e-14 6.65140523e-14 6.67499177e-14
+ 6.69857832e-14 6.72216486e-14 6.74575140e-14 6.76933795e-14
+ 6.79292449e-14 6.81651103e-14 6.84009758e-14 6.86368412e-14
+ 6.88727066e-14 6.91085721e-14 6.93444375e-14 6.95803029e-14
+ 6.98161684e-14 7.00520338e-14 7.02878992e-14 7.05237647e-14
+ 7.07596301e-14 7.09954955e-14 7.12313610e-14 7.14672264e-14
+ 7.17030918e-14 7.19389573e-14 7.21748227e-14 7.24106881e-14
+ 7.26465536e-14 7.28824190e-14 7.31182844e-14 7.33541499e-14
+ 7.35900153e-14 7.38258807e-14 7.40617462e-14 7.42976116e-14
+ 7.45334770e-14 7.47693425e-14 7.50052079e-14 7.52410733e-14
+ 7.54769388e-14 7.57128042e-14 7.59486696e-14 7.61845351e-14
+ 7.64204005e-14 7.66562659e-14 7.68921314e-14 7.71279968e-14
+ 7.73638622e-14 7.75997277e-14 7.78355931e-14 7.80714585e-14
+ 7.83073240e-14 7.85431894e-14 7.87790548e-14 7.90149203e-14
+ 7.92507857e-14 7.94866511e-14 7.97225166e-14 7.99583820e-14
+ 8.01942474e-14 8.04301129e-14 8.06659783e-14 8.09018438e-14
+ 8.11377092e-14 8.13735746e-14 8.16094401e-14 8.18453055e-14
+ 8.20811709e-14 8.23170364e-14 8.25529018e-14 8.27887672e-14
+ 8.30246327e-14 8.32604981e-14 8.34963635e-14 8.37322290e-14
+ 8.39680944e-14 8.42039598e-14 8.44398253e-14 8.46756907e-14
+ 8.49115561e-14 8.51474216e-14 8.53832870e-14 8.56191524e-14
+ 8.58550179e-14 8.60908833e-14 8.63267487e-14 8.65626142e-14
+ 8.67984796e-14 8.70343450e-14 8.72702105e-14 8.75060759e-14
+ 8.77419413e-14 8.79778068e-14 8.82136722e-14 8.84495376e-14
+ 8.86854031e-14 8.89212685e-14 8.91571339e-14 8.93929994e-14
+ 8.96288648e-14 8.98647302e-14 9.01005957e-14 9.03364611e-14
+ 9.05723265e-14 9.08081920e-14 9.10440574e-14 9.12799228e-14
+ 9.15157883e-14 9.17516537e-14 9.19875191e-14 9.22233846e-14
+ 9.24592500e-14 9.26951154e-14 9.29309809e-14 9.31668463e-14
+ 9.34027117e-14 9.36385772e-14 9.38744426e-14 9.41103080e-14
+ 9.43461735e-14 9.45820389e-14 9.48179043e-14 9.50537698e-14
+ 9.52896352e-14 9.55255006e-14 9.57613661e-14 9.59972315e-14
+ 9.62330969e-14 9.64689624e-14 9.67048278e-14 9.69406932e-14
+ 9.71765587e-14 9.74124241e-14 9.76482895e-14 9.78841550e-14
+ 9.81200204e-14 9.83558858e-14 9.85917513e-14 9.88276167e-14
+ 9.90634821e-14 9.92993476e-14 9.95352130e-14 9.97710784e-14
+ 1.00006944e-13 1.00242809e-13 1.00478675e-13 1.00714540e-13
+ 1.00950406e-13 1.01186271e-13 1.01422136e-13 1.01658002e-13
+ 1.01893867e-13 1.02129733e-13 1.02365598e-13 1.02601464e-13
+ 1.02837329e-13 1.03073195e-13 1.03309060e-13 1.03544925e-13
+ 1.03780791e-13 1.04016656e-13 1.04252522e-13 1.04488387e-13
+ 1.04724253e-13 1.04960118e-13 1.05195983e-13 1.05431849e-13
+ 1.05667714e-13 1.05903580e-13 1.06139445e-13 1.06375311e-13
+ 1.06611176e-13 1.06847041e-13 1.07082907e-13 1.07318772e-13
+ 1.07554638e-13 1.07790503e-13 1.08026369e-13 1.08262234e-13
+ 1.08498099e-13 1.08733965e-13 1.08969830e-13 1.09205696e-13
+ 1.09441561e-13 1.09677427e-13 1.09913292e-13 1.10149158e-13
+ 1.10385023e-13 1.10620888e-13 1.10856754e-13 1.11092619e-13
+ 1.11328485e-13 1.11564350e-13 1.11800216e-13 1.12036081e-13
+ 1.12271946e-13 1.12507812e-13 1.12743677e-13 1.12979543e-13
+ 1.13215408e-13 1.13451274e-13 1.13687139e-13 1.13923004e-13
+ 1.14158870e-13 1.14394735e-13 1.14630601e-13 1.14866466e-13
+ 1.15102332e-13 1.15338197e-13 1.15574063e-13 1.15809928e-13
+ 1.16045793e-13 1.16281659e-13 1.16517524e-13 1.16753390e-13
+ 1.16989255e-13 1.17225121e-13 1.17460986e-13 1.17696851e-13], 'second')&gt;, detector_data=array([], shape=(500, 0), dtype=float64), grid=namespace(x_stamp=&lt;Quantity([ 0.   0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9  1.   1.1  1.2  1.3
+  1.4  1.5  1.6  1.7  1.8  1.9  2.   2.1  2.2  2.3  2.4  2.5  2.6  2.7
+  2.8  2.9  3.   3.1  3.2  3.3  3.4  3.5  3.6  3.7  3.8  3.9  4.   4.1
+  4.2  4.3  4.4  4.5  4.6  4.7  4.8  4.9  5.   5.1  5.2  5.3  5.4  5.5
+  5.6  5.7  5.8  5.9  6.   6.1  6.2  6.3  6.4  6.5  6.6  6.7  6.8  6.9
+  7.   7.1  7.2  7.3  7.4  7.5  7.6  7.7  7.8  7.9  8.   8.1  8.2  8.3
+  8.4  8.5  8.6  8.7  8.8  8.9  9.   9.1  9.2  9.3  9.4  9.5  9.6  9.7
+  9.8  9.9 10.  10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9 11.  11.1
+ 11.2 11.3 11.4 11.5 11.6 11.7 11.8 11.9 12.  12.1 12.2 12.3 12.4 12.5
+ 12.6 12.7 12.8 12.9 13.  13.1 13.2 13.3 13.4 13.5 13.6 13.7 13.8 13.9
+ 14.  14.1 14.2 14.3 14.4 14.5 14.6 14.7 14.8 14.9 15.  15.1 15.2 15.3
+ 15.4 15.5 15.6 15.7 15.8 15.9 16.  16.1 16.2 16.3 16.4 16.5 16.6 16.7
+ 16.8 16.9 17.  17.1 17.2 17.3 17.4 17.5 17.6 17.7 17.8 17.9 18.  18.1
+ 18.2 18.3 18.4 18.5 18.6 18.7 18.8 18.9 19.  19.1 19.2 19.3 19.4 19.5
+ 19.6 19.7 19.8 19.9 20.  20.1 20.2 20.3 20.4 20.5 20.6 20.7 20.8 20.9
+ 21.  21.1 21.2 21.3 21.4 21.5 21.6 21.7 21.8 21.9 22.  22.1 22.2 22.3
+ 22.4 22.5 22.6 22.7 22.8 22.9 23.  23.1 23.2 23.3 23.4 23.5 23.6 23.7
+ 23.8 23.9 24.  24.1 24.2 24.3 24.4 24.5 24.6 24.7 24.8 24.9 25.  25.1
+ 25.2 25.3 25.4 25.5 25.6 25.7 25.8 25.9 26.  26.1 26.2 26.3 26.4 26.5
+ 26.6 26.7 26.8 26.9 27.  27.1 27.2 27.3 27.4 27.5 27.6 27.7 27.8 27.9
+ 28.  28.1 28.2 28.3 28.4 28.5 28.6 28.7 28.8 28.9 29.  29.1 29.2 29.3
+ 29.4 29.5 29.6 29.7 29.8 29.9 30.  30.1 30.2 30.3 30.4 30.5 30.6 30.7
+ 30.8 30.9 31.  31.1 31.2 31.3 31.4 31.5 31.6 31.7 31.8 31.9], 'micrometer')&gt;, y_stamp=&lt;Quantity([ 0.   0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9  1.   1.1  1.2  1.3
+  1.4  1.5  1.6  1.7  1.8  1.9  2.   2.1  2.2  2.3  2.4  2.5  2.6  2.7
+  2.8  2.9  3.   3.1  3.2  3.3  3.4  3.5  3.6  3.7  3.8  3.9  4.   4.1
+  4.2  4.3  4.4  4.5  4.6  4.7  4.8  4.9  5.   5.1  5.2  5.3  5.4  5.5
+  5.6  5.7  5.8  5.9  6.   6.1  6.2  6.3  6.4  6.5  6.6  6.7  6.8  6.9
+  7.   7.1  7.2  7.3  7.4  7.5  7.6  7.7  7.8  7.9  8.   8.1  8.2  8.3
+  8.4  8.5  8.6  8.7  8.8  8.9  9.   9.1  9.2  9.3  9.4  9.5  9.6  9.7
+  9.8  9.9 10.  10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9 11.  11.1
+ 11.2 11.3 11.4 11.5 11.6 11.7 11.8 11.9 12.  12.1 12.2 12.3 12.4 12.5
+ 12.6 12.7 12.8 12.9 13.  13.1 13.2 13.3 13.4 13.5 13.6 13.7 13.8 13.9
+ 14.  14.1 14.2 14.3 14.4 14.5 14.6 14.7 14.8 14.9 15.  15.1 15.2 15.3
+ 15.4 15.5 15.6 15.7 15.8 15.9], 'micrometer')&gt;), components=(&lt;LightWave2D.components.Square object at 0x7f9c27eb56f0&gt;,), sources=(&lt;LightWave2D.source.LineWaveSource object at 0x7f9c27eb6b70&gt;,), detectors=(), detector_time_stamp=&lt;Quantity([0.00000000e+00 2.35865434e-16 4.71730867e-16 7.07596301e-16
+ 9.43461735e-16 1.17932717e-15 1.41519260e-15 1.65105804e-15
+ 1.88692347e-15 2.12278890e-15 2.35865434e-15 2.59451977e-15
+ 2.83038520e-15 3.06625064e-15 3.30211607e-15 3.53798151e-15
+ 3.77384694e-15 4.00971237e-15 4.24557781e-15 4.48144324e-15
+ 4.71730867e-15 4.95317411e-15 5.18903954e-15 5.42490497e-15
+ 5.66077041e-15 5.89663584e-15 6.13250128e-15 6.36836671e-15
+ 6.60423214e-15 6.84009758e-15 7.07596301e-15 7.31182844e-15
+ 7.54769388e-15 7.78355931e-15 8.01942474e-15 8.25529018e-15
+ 8.49115561e-15 8.72702105e-15 8.96288648e-15 9.19875191e-15
+ 9.43461735e-15 9.67048278e-15 9.90634821e-15 1.01422136e-14
+ 1.03780791e-14 1.06139445e-14 1.08498099e-14 1.10856754e-14
+ 1.13215408e-14 1.15574063e-14 1.17932717e-14 1.20291371e-14
+ 1.22650026e-14 1.25008680e-14 1.27367334e-14 1.29725989e-14
+ 1.32084643e-14 1.34443297e-14 1.36801952e-14 1.39160606e-14
+ 1.41519260e-14 1.43877915e-14 1.46236569e-14 1.48595223e-14
+ 1.50953878e-14 1.53312532e-14 1.55671186e-14 1.58029841e-14
+ 1.60388495e-14 1.62747149e-14 1.65105804e-14 1.67464458e-14
+ 1.69823112e-14 1.72181767e-14 1.74540421e-14 1.76899075e-14
+ 1.79257730e-14 1.81616384e-14 1.83975038e-14 1.86333693e-14
+ 1.88692347e-14 1.91051001e-14 1.93409656e-14 1.95768310e-14
+ 1.98126964e-14 2.00485619e-14 2.02844273e-14 2.05202927e-14
+ 2.07561582e-14 2.09920236e-14 2.12278890e-14 2.14637545e-14
+ 2.16996199e-14 2.19354853e-14 2.21713508e-14 2.24072162e-14
+ 2.26430816e-14 2.28789471e-14 2.31148125e-14 2.33506779e-14
+ 2.35865434e-14 2.38224088e-14 2.40582742e-14 2.42941397e-14
+ 2.45300051e-14 2.47658705e-14 2.50017360e-14 2.52376014e-14
+ 2.54734668e-14 2.57093323e-14 2.59451977e-14 2.61810631e-14
+ 2.64169286e-14 2.66527940e-14 2.68886594e-14 2.71245249e-14
+ 2.73603903e-14 2.75962557e-14 2.78321212e-14 2.80679866e-14
+ 2.83038520e-14 2.85397175e-14 2.87755829e-14 2.90114483e-14
+ 2.92473138e-14 2.94831792e-14 2.97190446e-14 2.99549101e-14
+ 3.01907755e-14 3.04266409e-14 3.06625064e-14 3.08983718e-14
+ 3.11342372e-14 3.13701027e-14 3.16059681e-14 3.18418335e-14
+ 3.20776990e-14 3.23135644e-14 3.25494298e-14 3.27852953e-14
+ 3.30211607e-14 3.32570261e-14 3.34928916e-14 3.37287570e-14
+ 3.39646224e-14 3.42004879e-14 3.44363533e-14 3.46722188e-14
+ 3.49080842e-14 3.51439496e-14 3.53798151e-14 3.56156805e-14
+ 3.58515459e-14 3.60874114e-14 3.63232768e-14 3.65591422e-14
+ 3.67950077e-14 3.70308731e-14 3.72667385e-14 3.75026040e-14
+ 3.77384694e-14 3.79743348e-14 3.82102003e-14 3.84460657e-14
+ 3.86819311e-14 3.89177966e-14 3.91536620e-14 3.93895274e-14
+ 3.96253929e-14 3.98612583e-14 4.00971237e-14 4.03329892e-14
+ 4.05688546e-14 4.08047200e-14 4.10405855e-14 4.12764509e-14
+ 4.15123163e-14 4.17481818e-14 4.19840472e-14 4.22199126e-14
+ 4.24557781e-14 4.26916435e-14 4.29275089e-14 4.31633744e-14
+ 4.33992398e-14 4.36351052e-14 4.38709707e-14 4.41068361e-14
+ 4.43427015e-14 4.45785670e-14 4.48144324e-14 4.50502978e-14
+ 4.52861633e-14 4.55220287e-14 4.57578941e-14 4.59937596e-14
+ 4.62296250e-14 4.64654904e-14 4.67013559e-14 4.69372213e-14
+ 4.71730867e-14 4.74089522e-14 4.76448176e-14 4.78806830e-14
+ 4.81165485e-14 4.83524139e-14 4.85882793e-14 4.88241448e-14
+ 4.90600102e-14 4.92958756e-14 4.95317411e-14 4.97676065e-14
+ 5.00034719e-14 5.02393374e-14 5.04752028e-14 5.07110682e-14
+ 5.09469337e-14 5.11827991e-14 5.14186645e-14 5.16545300e-14
+ 5.18903954e-14 5.21262608e-14 5.23621263e-14 5.25979917e-14
+ 5.28338571e-14 5.30697226e-14 5.33055880e-14 5.35414534e-14
+ 5.37773189e-14 5.40131843e-14 5.42490497e-14 5.44849152e-14
+ 5.47207806e-14 5.49566460e-14 5.51925115e-14 5.54283769e-14
+ 5.56642423e-14 5.59001078e-14 5.61359732e-14 5.63718386e-14
+ 5.66077041e-14 5.68435695e-14 5.70794349e-14 5.73153004e-14
+ 5.75511658e-14 5.77870313e-14 5.80228967e-14 5.82587621e-14
+ 5.84946276e-14 5.87304930e-14 5.89663584e-14 5.92022239e-14
+ 5.94380893e-14 5.96739547e-14 5.99098202e-14 6.01456856e-14
+ 6.03815510e-14 6.06174165e-14 6.08532819e-14 6.10891473e-14
+ 6.13250128e-14 6.15608782e-14 6.17967436e-14 6.20326091e-14
+ 6.22684745e-14 6.25043399e-14 6.27402054e-14 6.29760708e-14
+ 6.32119362e-14 6.34478017e-14 6.36836671e-14 6.39195325e-14
+ 6.41553980e-14 6.43912634e-14 6.46271288e-14 6.48629943e-14
+ 6.50988597e-14 6.53347251e-14 6.55705906e-14 6.58064560e-14
+ 6.60423214e-14 6.62781869e-14 6.65140523e-14 6.67499177e-14
+ 6.69857832e-14 6.72216486e-14 6.74575140e-14 6.76933795e-14
+ 6.79292449e-14 6.81651103e-14 6.84009758e-14 6.86368412e-14
+ 6.88727066e-14 6.91085721e-14 6.93444375e-14 6.95803029e-14
+ 6.98161684e-14 7.00520338e-14 7.02878992e-14 7.05237647e-14
+ 7.07596301e-14 7.09954955e-14 7.12313610e-14 7.14672264e-14
+ 7.17030918e-14 7.19389573e-14 7.21748227e-14 7.24106881e-14
+ 7.26465536e-14 7.28824190e-14 7.31182844e-14 7.33541499e-14
+ 7.35900153e-14 7.38258807e-14 7.40617462e-14 7.42976116e-14
+ 7.45334770e-14 7.47693425e-14 7.50052079e-14 7.52410733e-14
+ 7.54769388e-14 7.57128042e-14 7.59486696e-14 7.61845351e-14
+ 7.64204005e-14 7.66562659e-14 7.68921314e-14 7.71279968e-14
+ 7.73638622e-14 7.75997277e-14 7.78355931e-14 7.80714585e-14
+ 7.83073240e-14 7.85431894e-14 7.87790548e-14 7.90149203e-14
+ 7.92507857e-14 7.94866511e-14 7.97225166e-14 7.99583820e-14
+ 8.01942474e-14 8.04301129e-14 8.06659783e-14 8.09018438e-14
+ 8.11377092e-14 8.13735746e-14 8.16094401e-14 8.18453055e-14
+ 8.20811709e-14 8.23170364e-14 8.25529018e-14 8.27887672e-14
+ 8.30246327e-14 8.32604981e-14 8.34963635e-14 8.37322290e-14
+ 8.39680944e-14 8.42039598e-14 8.44398253e-14 8.46756907e-14
+ 8.49115561e-14 8.51474216e-14 8.53832870e-14 8.56191524e-14
+ 8.58550179e-14 8.60908833e-14 8.63267487e-14 8.65626142e-14
+ 8.67984796e-14 8.70343450e-14 8.72702105e-14 8.75060759e-14
+ 8.77419413e-14 8.79778068e-14 8.82136722e-14 8.84495376e-14
+ 8.86854031e-14 8.89212685e-14 8.91571339e-14 8.93929994e-14
+ 8.96288648e-14 8.98647302e-14 9.01005957e-14 9.03364611e-14
+ 9.05723265e-14 9.08081920e-14 9.10440574e-14 9.12799228e-14
+ 9.15157883e-14 9.17516537e-14 9.19875191e-14 9.22233846e-14
+ 9.24592500e-14 9.26951154e-14 9.29309809e-14 9.31668463e-14
+ 9.34027117e-14 9.36385772e-14 9.38744426e-14 9.41103080e-14
+ 9.43461735e-14 9.45820389e-14 9.48179043e-14 9.50537698e-14
+ 9.52896352e-14 9.55255006e-14 9.57613661e-14 9.59972315e-14
+ 9.62330969e-14 9.64689624e-14 9.67048278e-14 9.69406932e-14
+ 9.71765587e-14 9.74124241e-14 9.76482895e-14 9.78841550e-14
+ 9.81200204e-14 9.83558858e-14 9.85917513e-14 9.88276167e-14
+ 9.90634821e-14 9.92993476e-14 9.95352130e-14 9.97710784e-14
+ 1.00006944e-13 1.00242809e-13 1.00478675e-13 1.00714540e-13
+ 1.00950406e-13 1.01186271e-13 1.01422136e-13 1.01658002e-13
+ 1.01893867e-13 1.02129733e-13 1.02365598e-13 1.02601464e-13
+ 1.02837329e-13 1.03073195e-13 1.03309060e-13 1.03544925e-13
+ 1.03780791e-13 1.04016656e-13 1.04252522e-13 1.04488387e-13
+ 1.04724253e-13 1.04960118e-13 1.05195983e-13 1.05431849e-13
+ 1.05667714e-13 1.05903580e-13 1.06139445e-13 1.06375311e-13
+ 1.06611176e-13 1.06847041e-13 1.07082907e-13 1.07318772e-13
+ 1.07554638e-13 1.07790503e-13 1.08026369e-13 1.08262234e-13
+ 1.08498099e-13 1.08733965e-13 1.08969830e-13 1.09205696e-13
+ 1.09441561e-13 1.09677427e-13 1.09913292e-13 1.10149158e-13
+ 1.10385023e-13 1.10620888e-13 1.10856754e-13 1.11092619e-13
+ 1.11328485e-13 1.11564350e-13 1.11800216e-13 1.12036081e-13
+ 1.12271946e-13 1.12507812e-13 1.12743677e-13 1.12979543e-13
+ 1.13215408e-13 1.13451274e-13 1.13687139e-13 1.13923004e-13
+ 1.14158870e-13 1.14394735e-13 1.14630601e-13 1.14866466e-13
+ 1.15102332e-13 1.15338197e-13 1.15574063e-13 1.15809928e-13
+ 1.16045793e-13 1.16281659e-13 1.16517524e-13 1.16753390e-13
+ 1.16989255e-13 1.17225121e-13 1.17460986e-13 1.17696851e-13], 'second')&gt;, flux=(), field_path=None)
+</pre></div>
+</div>
+<p>Animate square-scatterer propagation.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">animation</span> <span class="o">=</span> <a class="sphx-glr-backref-module-LightWave2D-experiment sphx-glr-backref-type-py-method reference internal" href="../../code.html#LightWave2D.experiment.Experiment.render_propagation" title="LightWave2D.experiment.Experiment.render_propagation"><span class="n">experiment</span><span class="o">.</span><span class="n">render_propagation</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">skip_frame</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># Number of frames to skip in the animation</span><span class="w">
+</span>    <span class="n">colormap</span><span class="o">=</span><span class="n">polytechnique</span><span class="o">.</span><span class="n">red_black_blue</span><span class="p">,</span>  <span class="c1"># Colormap for the animation</span><span class="w">
+</span>    <span class="n">enhance_contrast</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>  <span class="c1"># Enhance contrast for better visualization</span><span class="w">
+</span>    <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">./square_scatterer.gif</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Save the animation as a GIF file</span><span class="w">
+</span>    <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../../_images/sphx_glr_square_001.png" srcset="../../_images/sphx_glr_square_001.png" alt="square" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 9.792 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-scattering-square-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/2a72475ee5541660d3e65a4289197731/square.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">square.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/3f6c180442ceae606c71a5780fe00b1f/square.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">square.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/116952be4900582fe7eb33b62cbae8d8/square.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">square.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/MartinPdeS/LightWave2D/edit/v0.10.6/docs/source/gallery/scattering/square.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/gallery/scattering/square.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright Martin Poinsinet de Sivry-Houle.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+  </p>
+</div>
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.23.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
