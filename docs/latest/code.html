@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -27,8 +26,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=c83e6b79" />
@@ -41,19 +40,19 @@
     <link rel="stylesheet" type="text/css" href="_static/layout.css?v=dc96f8db" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
     <script src="_static/documentation_options.js?v=8a448e45"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/sg-tags.js?v=d80f6fa4"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'code';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/MartinPdeS/LightWave2D/documentation_page/version_switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.4';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
@@ -66,6 +65,7 @@
     <link rel="next" title="References" href="references.html" />
     <link rel="prev" title="Theoretical Background" href="theory.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
   
@@ -115,7 +115,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -198,7 +198,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -270,7 +270,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -279,7 +279,7 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -415,7 +415,8 @@
   </div>
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
     <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
   </svg>
   <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
@@ -428,7 +429,7 @@
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="theory.html">Theoretical Background</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Source code structures</a></li>
+<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">Source code structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 </ul>
 </div>
@@ -494,7 +495,7 @@
 <h1>Source code structures<a class="headerlink" href="#source-code-structures" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Experiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Experiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FDTDSimulator</span></code></p>
 <p>Class representing an FDTD simulation experiment.</p>
 <dl class="field-list simple">
@@ -663,7 +664,7 @@ Method to add a components.Square to the simulation.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.grid">
-<span class="sig-name descname"><span class="pre">grid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Grid</span></em><a class="headerlink" href="#LightWave2D.experiment.Experiment.grid" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">grid</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Grid</span></span><a class="headerlink" href="#LightWave2D.experiment.Experiment.grid" title="Link to this definition">#</a></dt>
 <dd><p>The grid of the simulation mesh.</p>
 </dd></dl>
 
@@ -675,7 +676,7 @@ Method to add a components.Square to the simulation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.plot_frame">
-<span class="sig-name descname"><span class="pre">plot_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame_number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhance_contrast=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_intensity=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap=&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.plot_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.plot_frame" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">plot_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame_number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhance_contrast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_intensity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.plot_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.plot_frame" title="Link to this definition">#</a></dt>
 <dd><p>Plot a specific frame from the FDTD simulation.</p>
 <p>This method visualizes the electric field distribution for a specified frame, including
 the components, sources, and detectors present in the simulation.</p>
@@ -696,7 +697,7 @@ the components, sources, and detectors present in the simulation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.experiment.Experiment.render_propagation">
-<span class="sig-name descname"><span class="pre">render_propagation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">skip_frame=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhance_contrast=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_adjust_clim=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_as=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap=&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.render_propagation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.render_propagation" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">render_propagation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">skip_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enhance_contrast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_adjust_clim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_as</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/experiment.html#Experiment.render_propagation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.experiment.Experiment.render_propagation" title="Link to this definition">#</a></dt>
 <dd><p>Render an animation of the field propagation.</p>
 <p>This method sets up the scene, initializes the field display, and creates
 an animation showing the evolution of the field over time.</p>
@@ -752,7 +753,7 @@ See execution.run for parameter details.</p>
 apply relative permittivity or conductivity to simulation meshes.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.components.BaseComponent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseComponent</span></span><a class="headerlink" href="#LightWave2D.components.BaseComponent" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">BaseComponent</span></span><a class="headerlink" href="#LightWave2D.components.BaseComponent" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>Base class for grid-rasterized optical components.</p>
 <p class="rubric">Notes</p>
@@ -780,17 +781,17 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.BaseComponent.coordinate">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.BaseComponent.coordinate" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.BaseComponent.coordinate" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.BaseComponent.epsilon_r">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.BaseComponent.epsilon_r" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.BaseComponent.epsilon_r" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.BaseComponent.idx">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.BaseComponent.idx" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.BaseComponent.idx" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -802,7 +803,7 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.components.Circle">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Circle</span></span><a class="headerlink" href="#LightWave2D.components.Circle" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Circle</span></span><a class="headerlink" href="#LightWave2D.components.Circle" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.components.BaseComponent" title="LightWave2D.components.BaseComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseComponent</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.components.Circle.add_non_linear_effect_to_field">
@@ -826,17 +827,17 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Circle.coordinate">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Circle.coordinate" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Circle.coordinate" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Circle.epsilon_r">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Circle.epsilon_r" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Circle.epsilon_r" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Circle.idx">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Circle.idx" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Circle.idx" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -848,7 +849,7 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.components.Ellipse">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Ellipse</span></span><a class="headerlink" href="#LightWave2D.components.Ellipse" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Ellipse</span></span><a class="headerlink" href="#LightWave2D.components.Ellipse" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.components.BaseComponent" title="LightWave2D.components.BaseComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseComponent</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.components.Ellipse.add_non_linear_effect_to_field">
@@ -872,17 +873,17 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Ellipse.coordinate">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Ellipse.coordinate" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Ellipse.coordinate" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Ellipse.epsilon_r">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Ellipse.epsilon_r" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Ellipse.epsilon_r" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Ellipse.idx">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Ellipse.idx" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Ellipse.idx" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -894,7 +895,7 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.components.Grating">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Grating</span></span><a class="headerlink" href="#LightWave2D.components.Grating" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Grating</span></span><a class="headerlink" href="#LightWave2D.components.Grating" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.components.BaseComponent" title="LightWave2D.components.BaseComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseComponent</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.components.Grating.add_non_linear_effect_to_field">
@@ -918,17 +919,17 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Grating.coordinate">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Grating.coordinate" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Grating.coordinate" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Grating.epsilon_r">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Grating.epsilon_r" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Grating.epsilon_r" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Grating.idx">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Grating.idx" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Grating.idx" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -940,7 +941,7 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.components.Lens">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Lens</span></span><a class="headerlink" href="#LightWave2D.components.Lens" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Lens</span></span><a class="headerlink" href="#LightWave2D.components.Lens" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.components.BaseComponent" title="LightWave2D.components.BaseComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseComponent</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.components.Lens.add_non_linear_effect_to_field">
@@ -964,17 +965,17 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Lens.coordinate">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Lens.coordinate" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Lens.coordinate" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Lens.epsilon_r">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Lens.epsilon_r" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Lens.epsilon_r" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Lens.idx">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Lens.idx" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Lens.idx" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -986,7 +987,7 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.components.RingResonator">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RingResonator</span></span><a class="headerlink" href="#LightWave2D.components.RingResonator" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RingResonator</span></span><a class="headerlink" href="#LightWave2D.components.RingResonator" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.components.BaseComponent" title="LightWave2D.components.BaseComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseComponent</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.components.RingResonator.add_non_linear_effect_to_field">
@@ -1010,17 +1011,17 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.RingResonator.coordinate">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.RingResonator.coordinate" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.RingResonator.coordinate" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.RingResonator.epsilon_r">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.RingResonator.epsilon_r" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.RingResonator.epsilon_r" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.RingResonator.idx">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.RingResonator.idx" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.RingResonator.idx" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1032,7 +1033,7 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.components.Square">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Square</span></span><a class="headerlink" href="#LightWave2D.components.Square" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Square</span></span><a class="headerlink" href="#LightWave2D.components.Square" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.components.BaseComponent" title="LightWave2D.components.BaseComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseComponent</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.components.Square.add_non_linear_effect_to_field">
@@ -1056,17 +1057,17 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Square.coordinate">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Square.coordinate" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Square.coordinate" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Square.epsilon_r">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Square.epsilon_r" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Square.epsilon_r" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Square.idx">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Square.idx" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Square.idx" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1078,7 +1079,7 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.components.Triangle">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Triangle</span></span><a class="headerlink" href="#LightWave2D.components.Triangle" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Triangle</span></span><a class="headerlink" href="#LightWave2D.components.Triangle" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.components.BaseComponent" title="LightWave2D.components.BaseComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseComponent</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.components.Triangle.add_non_linear_effect_to_field">
@@ -1102,17 +1103,17 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Triangle.coordinate">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Triangle.coordinate" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Triangle.coordinate" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Triangle.epsilon_r">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Triangle.epsilon_r" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Triangle.epsilon_r" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Triangle.idx">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Triangle.idx" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Triangle.idx" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1124,7 +1125,7 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.components.Waveguide">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Waveguide</span></span><a class="headerlink" href="#LightWave2D.components.Waveguide" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Waveguide</span></span><a class="headerlink" href="#LightWave2D.components.Waveguide" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.components.BaseComponent" title="LightWave2D.components.BaseComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseComponent</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.components.Waveguide.add_non_linear_effect_to_field">
@@ -1148,17 +1149,17 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Waveguide.coordinate">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Waveguide.coordinate" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">coordinate</span></span><a class="headerlink" href="#LightWave2D.components.Waveguide.coordinate" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Waveguide.epsilon_r">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Waveguide.epsilon_r" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">epsilon_r</span></span><a class="headerlink" href="#LightWave2D.components.Waveguide.epsilon_r" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.components.Waveguide.idx">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Waveguide.idx" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#LightWave2D.components.Waveguide.idx" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1173,7 +1174,7 @@ properties. Their <code class="docutils literal notranslate"><span class="pre">i
 into the native FDTD field update.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.BaseSource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseSource</span></span><a class="headerlink" href="#LightWave2D.source.BaseSource" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">BaseSource</span></span><a class="headerlink" href="#LightWave2D.source.BaseSource" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>Abstract FDTD source.</p>
 <p class="rubric">Notes</p>
@@ -1182,11 +1183,11 @@ into the native FDTD field update.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.LineGeometry">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LineGeometry</span></span><a class="headerlink" href="#LightWave2D.source.LineGeometry" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">LineGeometry</span></span><a class="headerlink" href="#LightWave2D.source.LineGeometry" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.source.SourceGeometry" title="LightWave2D.source.SourceGeometry"><code class="xref py py-class docutils literal notranslate"><span class="pre">SourceGeometry</span></code></a></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.source.LineGeometry.indexes">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">indexes</span></span><a class="headerlink" href="#LightWave2D.source.LineGeometry.indexes" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">indexes</span></span><a class="headerlink" href="#LightWave2D.source.LineGeometry.indexes" title="Link to this definition">#</a></dt>
 <dd><p>Grid indexes with shape (n_points, 2).</p>
 </dd></dl>
 
@@ -1194,7 +1195,7 @@ into the native FDTD field update.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LinePulseSource</span></span><a class="headerlink" href="#LightWave2D.source.LinePulseSource" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">LinePulseSource</span></span><a class="headerlink" href="#LightWave2D.source.LinePulseSource" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.source.Pulse" title="LightWave2D.source.Pulse"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pulse</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.LinePulseSource.add_to_ax">
@@ -1215,7 +1216,7 @@ into the native FDTD field update.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LineWaveSource</span></span><a class="headerlink" href="#LightWave2D.source.LineWaveSource" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">LineWaveSource</span></span><a class="headerlink" href="#LightWave2D.source.LineWaveSource" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.source.MultiWavelength" title="LightWave2D.source.MultiWavelength"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiWavelength</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.LineWaveSource.add_to_ax">
@@ -1236,7 +1237,7 @@ into the native FDTD field update.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.MultiWavelength">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultiWavelength</span></span><a class="headerlink" href="#LightWave2D.source.MultiWavelength" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">MultiWavelength</span></span><a class="headerlink" href="#LightWave2D.source.MultiWavelength" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.source.BaseSource" title="LightWave2D.source.BaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSource</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.MultiWavelength.add_to_field">
@@ -1247,11 +1248,11 @@ into the native FDTD field update.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.PointGeometry">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PointGeometry</span></span><a class="headerlink" href="#LightWave2D.source.PointGeometry" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PointGeometry</span></span><a class="headerlink" href="#LightWave2D.source.PointGeometry" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.source.SourceGeometry" title="LightWave2D.source.SourceGeometry"><code class="xref py py-class docutils literal notranslate"><span class="pre">SourceGeometry</span></code></a></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.source.PointGeometry.indexes">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">indexes</span></span><a class="headerlink" href="#LightWave2D.source.PointGeometry.indexes" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">indexes</span></span><a class="headerlink" href="#LightWave2D.source.PointGeometry.indexes" title="Link to this definition">#</a></dt>
 <dd><p>Grid indexes with shape (n_points, 2).</p>
 </dd></dl>
 
@@ -1259,7 +1260,7 @@ into the native FDTD field update.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PointPulseSource</span></span><a class="headerlink" href="#LightWave2D.source.PointPulseSource" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PointPulseSource</span></span><a class="headerlink" href="#LightWave2D.source.PointPulseSource" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.source.Pulse" title="LightWave2D.source.Pulse"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pulse</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.PointPulseSource.add_to_ax">
@@ -1280,7 +1281,7 @@ into the native FDTD field update.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PointWaveSource</span></span><a class="headerlink" href="#LightWave2D.source.PointWaveSource" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PointWaveSource</span></span><a class="headerlink" href="#LightWave2D.source.PointWaveSource" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.source.MultiWavelength" title="LightWave2D.source.MultiWavelength"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiWavelength</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.PointWaveSource.add_to_ax">
@@ -1301,7 +1302,7 @@ into the native FDTD field update.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.Pulse">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Pulse</span></span><a class="headerlink" href="#LightWave2D.source.Pulse" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Pulse</span></span><a class="headerlink" href="#LightWave2D.source.Pulse" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#LightWave2D.source.BaseSource" title="LightWave2D.source.BaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSource</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="LightWave2D.source.Pulse.add_to_field">
@@ -1312,12 +1313,12 @@ into the native FDTD field update.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.source.SourceGeometry">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SourceGeometry</span></span><a class="headerlink" href="#LightWave2D.source.SourceGeometry" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SourceGeometry</span></span><a class="headerlink" href="#LightWave2D.source.SourceGeometry" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>Discrete grid geometry occupied by a source.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.source.SourceGeometry.indexes">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">indexes</span></span><a class="headerlink" href="#LightWave2D.source.SourceGeometry.indexes" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">indexes</span></span><a class="headerlink" href="#LightWave2D.source.SourceGeometry.indexes" title="Link to this definition">#</a></dt>
 <dd><p>Grid indexes with shape (n_points, 2).</p>
 </dd></dl>
 
@@ -1328,7 +1329,7 @@ into the native FDTD field update.</p>
 wave reflections.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.pml.PML">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PML</span></span><a class="headerlink" href="#LightWave2D.pml.PML" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PML</span></span><a class="headerlink" href="#LightWave2D.pml.PML" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>Perfectly matched layer conductivity profile.</p>
 <dl class="field-list simple">
@@ -1348,12 +1349,12 @@ wave reflections.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.pml.PML.grid">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">grid</span></span><a class="headerlink" href="#LightWave2D.pml.PML.grid" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">grid</span></span><a class="headerlink" href="#LightWave2D.pml.PML.grid" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.pml.PML.order">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">order</span></span><a class="headerlink" href="#LightWave2D.pml.PML.order" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">order</span></span><a class="headerlink" href="#LightWave2D.pml.PML.order" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1363,39 +1364,39 @@ wave reflections.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.pml.PML.sigma_max">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sigma_max</span></span><a class="headerlink" href="#LightWave2D.pml.PML.sigma_max" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">sigma_max</span></span><a class="headerlink" href="#LightWave2D.pml.PML.sigma_max" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.pml.PML.sigma_x">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sigma_x</span></span><a class="headerlink" href="#LightWave2D.pml.PML.sigma_x" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">sigma_x</span></span><a class="headerlink" href="#LightWave2D.pml.PML.sigma_x" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.pml.PML.sigma_y">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sigma_y</span></span><a class="headerlink" href="#LightWave2D.pml.PML.sigma_y" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">sigma_y</span></span><a class="headerlink" href="#LightWave2D.pml.PML.sigma_y" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.pml.PML.width">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#LightWave2D.pml.PML.width" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#LightWave2D.pml.PML.width" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.pml.PML.width_start">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width_start</span></span><a class="headerlink" href="#LightWave2D.pml.PML.width_start" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">width_start</span></span><a class="headerlink" href="#LightWave2D.pml.PML.width_start" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="LightWave2D.pml.PML.width_stop">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width_stop</span></span><a class="headerlink" href="#LightWave2D.pml.PML.width_stop" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">width_stop</span></span><a class="headerlink" href="#LightWave2D.pml.PML.width_stop" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="LightWave2D.result.SimulationResult">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SimulationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ez_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recorded_time_stamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detectors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_time_stamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/result.html#SimulationResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.result.SimulationResult" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SimulationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ez_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recorded_time_stamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detectors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_time_stamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LightWave2D/result.html#SimulationResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LightWave2D.result.SimulationResult" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>One run’s field history, timestamps, and detector samples.</p>
 <p><code class="docutils literal notranslate"><span class="pre">detector_data</span></code> has shape (detector samples, detectors), in insertion order,
@@ -1676,8 +1677,8 @@ references to the configured objects; array contents remain user-editable.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1703,15 +1704,14 @@ references to the configured objects; array contents remain user-editable.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
-    <br/>
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
   </p>
 </div>
       
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.19.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.23.0.
 </p></div>
       
     </div>
