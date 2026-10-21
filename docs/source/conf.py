@@ -1,11 +1,9 @@
 """LightWave2D documentation configuration."""
 
-import os
 import sys
 from pathlib import Path
 
 from MPSPlots.styles import use_mpsplots_style
-from sphinx_gallery.sorting import FileNameSortKey
 from martinpdes_docs import configure
 
 
@@ -21,7 +19,6 @@ sys.path[:] = [
 project = "LightWave2D"
 package = "LightWave2D"
 repository = "MartinPdeS/LightWave2D"
-version = os.getenv("tag", "latest")
 
 
 def reset_mpl(gallery_conf, fname):
@@ -36,13 +33,11 @@ globals().update(
         project=project,
         package=package,
         repository=repository,
-        version=version,
         logo="_static/logo.png",
         favicon="_static/lightwave2d-favicon.svg",
-        sphinx_gallery_conf={
-            "examples_dirs": [f"../examples/{name}" for name in examples_files],
-            "gallery_dirs": [f"gallery/{name}" for name in examples_files],
-            "within_subsection_order": FileNameSortKey,
+        prefer_installed_package=True,
+        gallery_sections=examples_files,
+        gallery_options={
             "reset_modules": reset_mpl,
             "abort_on_example_error": True,
         },
@@ -55,7 +50,7 @@ globals().update(
     )
 )
 
-extensions += ["sphinx.ext.mathjax", "sphinx.ext.autosectionlabel", "numpydoc"]
+extensions += ["numpydoc"]
 html_css_files += ["layout.css"]
 html_context["doc_path"] = "docs/source"
 html_context["default_mode"] = "dark"
