@@ -8,10 +8,8 @@
     :maxdepth: 2
     :hidden:
 
-    getting_started.rst
-    simulation_design.rst
-    usage.rst
-    theory.rst
-    code.rst
-    gallery.rst
-    references.rst
+    Start <getting_started.rst>
+    Design <simulation_design.rst>
+    Usage <usage.rst>
+    Examples <gallery.rst>
+    Reference <reference.rst>
