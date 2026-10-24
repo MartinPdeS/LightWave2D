@@ -1,5 +1,5 @@
 [build-system]
-requires = ["scikit-build-core>=0.3.3", "pybind11>=3.0,<4", "setuptools_scm[toml]>=8.0"]
+requires = ["scikit-build-core>=0.3.3", "pybind11>=3.0,<4"]
 build-backend = "scikit_build_core.build"
 
 [tool.scikit-build]
@@ -54,7 +54,7 @@ keywords = ["fdtd", "light", "propagation", "electromagnetics", "photonics", "wa
 urls = {"Documentation" = "https://martinpdes.github.io/LightWave2D/", "Repository" = "https://github.com/MartinPdeS/LightWave2D"}
 
 dependencies = [
-    "setuptools_scm[toml] >=8,<11",
+
     "MPSPlots ==1.8.9",
     'shapely ~=2.0',
     # NumPy 2.3 introduced CPython 3.14 wheels; retain the older pin below 3.14.
@@ -67,14 +67,11 @@ dependencies = [
     "TypedUnit>=0.2.9"
 ]
 
-[tool.setuptools_scm]
-version_scheme = "only-version"
-local_scheme = "no-local-version"
-
 [tool.setuptools.packages.find]
 where = ["LightWave2D"]
 
 [project.optional-dependencies]
+release = ["martinpdes-maintenance==0.2.2"]
 testing = [
     "pytest>=8.0",
     "pytest-cov>=5.0",
@@ -129,3 +126,9 @@ test-command = 'python -m pytest --import-mode=importlib --config-file={project}
 archs = ["AMD64"]
 build = ["cp311-*", "cp312-*", "cp313-*", "cp314-*"]
 test-command = 'python -m pytest --import-mode=importlib --config-file={project}/pytest.ini {project}/tests'
+
+[tool.mps-maintenance]
+version-file = "LightWave2D/_version.py"
+version-method = "literal"
+conda-recipe = "meta.yaml"
+zenodo = ".zenodo.json"

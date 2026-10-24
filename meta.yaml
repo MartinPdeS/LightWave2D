@@ -1,6 +1,6 @@
 package:
   name: lightwave2d
-  version: {{ GIT_DESCRIBE_TAG | replace("v", "") }}
+  version: 0.10.6
 
 source:
   path: .
@@ -34,7 +34,6 @@ requirements:
     - scikit-build-core ~=0.3
     - pybind11 >=3.0.1,<4
     - python-build ~=1.2
-    - setuptools_scm[toml] ~=8.0
     - numpy >=2.0,<3  # [py<314]
     - numpy >=2.3.3,<3  # [py>=314]
   run:

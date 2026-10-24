@@ -24,7 +24,7 @@ help:
 
 bootstrap:
 	$(PYTHON) -m pip install --upgrade pip
-	$(PYTHON) -m pip install --upgrade "scikit-build-core>=0.3.3" pybind11 "setuptools_scm[toml]>=8.0"
+	$(PYTHON) -m pip install --upgrade "scikit-build-core>=0.3.3" pybind11
 
 quality:
 	$(PYTHON) -m ruff check LightWave2D tests

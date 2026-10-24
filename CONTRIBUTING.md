@@ -15,8 +15,8 @@ make test
 ```
 
 After changing native C++ sources, rebuild the editable installation before
-testing. Do not hand-edit `LightWave2D/_version.py`; setuptools-scm generates
-it from Git metadata during builds and releases.
+testing. Do not hand-edit `LightWave2D/_version.py`; the shared release helper
+maintains it alongside explicit project metadata.
 
 ## Contribution expectations
 
@@ -46,3 +46,21 @@ Release tags use `vMAJOR.MINOR.PATCH`. `make tag VERSION=vX.Y.Z` regenerates
 the source version file, creates a release commit, and creates an annotated
 tag without pushing. `make release patch`, `make release minor`, and
 `make release major` derive the next tag and push the release commit and tag.
+
+## Shared release versioning
+
+Versions are explicit in `[project].version`; builds never derive versions from
+Git. Install the pinned release tool in the interpreter used by Make:
+
+```sh
+python -m pip install "martinpdes-maintenance==0.2.2"
+make release-check PYTHON=python
+```
+
+The `release` extra declares the same tool. The scripts in `tools/` delegate to
+it, and `[tool.mps-maintenance]` declares the package's release files. Use
+`python tools/release_tag.py vX.Y.Z --dry-run` to preview changes from a clean,
+full checkout. The tool aligns configured metadata, commits, and creates an
+annotated tag; it never pushes. Existing Makefile publishing shortcuts retain
+their push behavior. Fetch remote tags first. With no release tags, `next` uses
+the explicit project version as its starting point.
