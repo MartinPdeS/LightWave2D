@@ -57,9 +57,9 @@ python -m pip install "martinpdes-maintenance==0.2.2"
 make release-check PYTHON=python
 ```
 
-The `release` extra declares the same tool. The scripts in `tools/` delegate to
-it, and `[tool.mps-maintenance]` declares the package's release files. Use
-`python tools/release_tag.py vX.Y.Z --dry-run` to preview changes from a clean,
+The `release` extra declares the same tool. The Makefile calls the installed module directly, and
+`[tool.mps-maintenance]` declares the package's release files. Use
+`python -m martinpdes_maintenance.cli tag vX.Y.Z --dry-run` to preview changes from a clean,
 full checkout. The tool aligns configured metadata, commits, and creates an
 annotated tag; it never pushes. Existing Makefile publishing shortcuts retain
 their push behavior. Fetch remote tags first. With no release tags, `next` uses
