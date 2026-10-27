@@ -9,7 +9,7 @@
   "license": "MIT",
   "upload_type": "software",
   "access_right": "open",
-  "version": "0.10.7",
+  "version": "0.10.8",
   "keywords": [
     "finite-difference time-domain",
     "light propagation",
