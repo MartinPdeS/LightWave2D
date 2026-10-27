@@ -1,6 +1,6 @@
 package:
   name: lightwave2d
-  version: 0.10.6
+  version: "0.10.7"
 
 source:
   path: .
