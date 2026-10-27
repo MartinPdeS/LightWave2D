@@ -32,6 +32,7 @@ globals().update(
     configure(
         project=project,
         package=package,
+        version="auto",
         repository=repository,
         logo="_static/logo.png",
         favicon="_static/lightwave2d-favicon.svg",
