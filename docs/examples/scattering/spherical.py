@@ -16,7 +16,7 @@ grid = Grid(
     resolution=0.03 * ureg.micrometer,
     size_x=32 * ureg.micrometer,
     size_y=20 * ureg.micrometer,
-    n_steps=200,
+    n_steps=500,
 )
 
 experiment = Experiment(grid=grid)
