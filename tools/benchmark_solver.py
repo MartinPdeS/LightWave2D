@@ -21,7 +21,7 @@ def main():
     if args.repeats < 1:
         parser.error("--repeats must be positive")
     fixture = runpy.run_path(
-        str(Path(__file__).resolve().parents[1] / "tests" / "test_physics_accuracy.py")
+        str(Path(__file__).resolve().parents[1] / "tests" / "physics" / "test_physics_accuracy.py")
     )["plane"]
     for spacing in (1.0, 0.5):
         fixture(spacing)  # Warm up imports, allocation, and OpenMP workers.

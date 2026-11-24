@@ -88,7 +88,7 @@ def test_invalid_monitor_geometry(experiment, start, end):
 
 @pytest.mark.parametrize("axis", [0, 1])
 def test_native_flux_fresnel_spectra(axis):
-    from tests.test_physics_accuracy import plane
+    from tests.physics.test_physics_accuracy import plane
 
     t, _, vacuum, locations = plane(monitor=True, axis=axis)
     _, _, dielectric, _ = plane(monitor=True, dielectric=True, axis=axis)
