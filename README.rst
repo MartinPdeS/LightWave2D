@@ -1,316 +1,179 @@
-.. image:: docs/source/_static/lightwave2d-logo-light.svg
-   :alt: LightWave2D — Simulating light, clearly.
-   :width: 420px
-   :align: center
-
 LightWave2D
 ===========
 
+.. image:: https://raw.githubusercontent.com/MartinPdeS/LightWave2D/HEAD/docs/source/_static/lightwave2d-logo-light.svg
+   :alt: LightWave2D logo
+   :width: 100%
+
 .. list-table::
+   :width: 100%
    :widths: 35 65
    :header-rows: 1
 
    * - Badge
      - Status
    * - Python versions
-     - |python|
+     - |mps-python|
    * - Documentation
-     - |docs|
-   * - Continuous integration
-     - |ci/cd|
-   * - Test coverage
-     - |coverage|
-   * - PyPI package
-     - |PyPI|
-   * - PyPI downloads
-     - |PyPI_download|
-   * - Anaconda package
-     - |anaconda|
-   * - Anaconda downloads
-     - |anaconda_download|
+     - |mps-docs|
+   * - Tests
+     - |mps-ci| |mps-coverage|
+   * - PyPI
+     - |mps-pypi| |mps-downloads|
+   * - Conda
+     - |mps-conda| |mps-conda-downloads| |mps-conda-release|
 
+A package for finite-difference time-domain simulation of light propagation.
 
+Set the grid, material boundaries, source, and absorbing layers to model propagation
+of an electromagnetic pulse in two dimensions. The circular-scatterer example shows
+the incident and scattered waves evolving together.
 
-LightWave2D is a software designed for comprehensive 2D Finite-Difference Time-Domain (FDTD) simulations, featuring a user-friendly installation and operation process. The characterization of wave propagation, scattering, and diffraction within LightWave2D is determined by a set of specific components, as illustrated in the subsequent figure.
-
-LightWave2D integrates various components, including waveguides, scatterers  (squares, circles, ellipses, triangles, lenses), gratings, and resonators. Additional parameters governing the simulation are contingent upon the attributes of the components and the simulation setup.
-
-Key Features
-************
-
-- Intuitive API for configuring simulations.
-- Support for waveguides, scatterers, gratings, and resonators.
-- Built-in tools for rendering field animations.
-- Extensive gallery of examples in the documentation.
-
-
-
-----
-
-Documentation
-**************
-All the latest available documentation is available `here <https://martinpdes.github.io/LightWave2D/>`_ or you can click the following badge:
-
-|docs|
-
-
-----
+See the `usage guide <https://github.com/MartinPdeS/LightWave2D/blob/HEAD/USAGE.rst>`__ for further examples and implementation details.
 
 Installation
-************
+------------
 
-Install the published package with pip:
+Requires Python ``>=3.10``.
+
+.. code-block:: console
+
+   $ python -m pip install LightWave2D
+
+Install from the ``martinpdes`` Conda channel:
+
+.. code-block:: console
+
+   $ conda install -c martinpdes lightwave2d
+
+For an editable source installation:
+
+.. code-block:: console
+
+   $ git clone https://github.com/MartinPdeS/LightWave2D.git
+   $ cd LightWave2D
+   $ python -m pip install -e .
+
+Scatter a wave from a circular inclusion
+----------------------------------------
 
 .. code-block:: python
 
-   >>> pip install LightWave2D
+   """
+   Circular Scatterer
+   ==================
 
-Building Documentation Locally
-******************************
+   This example demonstrates the setup and execution of a circular scatterer experiment using LightWave2D.
+   We will define the simulation grid, add a circular scatterer and a line source, apply a perfectly matched layer (PML), run the simulation, and visualize the results.
+   """
 
-To generate the HTML documentation on your machine, install the optional dependencies and run:
-
-.. code-block:: bash
-
-   pip install .[documentation]
-   cd docs && make html
-   firefox build/html/index.html
-
-
-Coding examples
-***************
-
-
-LightWave2D was developed with the aim of being an intuitive and easy to use tool.
-All dimensional arguments can now be provided using `pint` quantities or strings with units.
-Below are two examples that illustrate this:
-
-Spherical scatterer
--------------------
-
-.. code:: python
-
-    from LightWave2D.grid import Grid
-    from LightWave2D.experiment import Experiment
-    from MPSPlots import colormaps
-    from TypedUnit import ureg
-
-    grid = Grid(
-        resolution=0.1 * ureg.micrometer,
-        size_x=32 * ureg.micrometer,
-        size_y=20 * ureg.micrometer,
-        n_steps=300
-    )
-
-   experiment = Experiment(grid=grid)
-
-    scatterer = experiment.add_circle(
-        position=('30%', '50%'),
-        epsilon_r=2,
-        radius=3 * ureg.micrometer
-    )
-
-    source = experiment.add_line_source(
-        wavelength=1550 * ureg.nanometer,
-        position_0=('10%', '100%'),
-        position_1=('10%', '0%'),
-        amplitude=10,
-    )
-
-   experiment.add_pml(order=1, width="10%", sigma_max=5000 * ureg.siemens / ureg.meter)
-
-   experiment.run()
-
-   animation = experiment.render_propagation(
-       skip_frame=5,
-       colormap=colormaps.polytechnique.red_black_blue
-   )
-
-   animation.save('./spherical_scatterer.gif', writer='Pillow', fps=10)
-
-
-|example_scatterer|
-
-
-Ring resonator
---------------
-
-
-.. code:: python
-
-   from LightWave2D.grid import Grid
-   from LightWave2D.experiment import Experiment
-   from MPSPlots.colormaps import polytechnique
-   from TypedUnit import ureg
-
-    grid = Grid(
-        resolution=0.1 * ureg.micrometer,
-        size_x=50 * ureg.micrometer,
-        size_y=30 * ureg.micrometer,
-        n_steps=800
-    )
-
-   experiment = Experiment(grid=grid)
-
-
-    scatterer = experiment.add_ring_resonator(
-        position=('35%', '50%'),
-        epsilon_r=1.5,
-        inner_radius=4 * ureg.micrometer,
-        width=2 * ureg.micrometer
-    )
-
-    source = experiment.add_point_source(
-        wavelength=1550 * ureg.nanometer,
-        position=('25%', '50%'),
-        amplitude=100,
-    )
-
-   experiment.add_pml(order=1, width="10%", sigma_max=5000 * ureg.siemens / ureg.meter)
-
-   experiment.run()
-
-   animation = experiment.render_propagation(skip_frame=5, colormap=polytechnique.red_black_blue)
-
-   animation.save('./resonator.gif', writer='Pillow', fps=10)
-
-
-|example_resonator|
-
-
-Lens
-----
-
-
-.. code:: python
-
+   # %%
    from LightWave2D.grid import Grid
    from LightWave2D.experiment import Experiment
    from MPSPlots import colormaps
    from TypedUnit import ureg
 
-    grid = Grid(
-        resolution=0.1 * ureg.micrometer,
-        size_x=60 * ureg.micrometer,
-        size_y=30 * ureg.micrometer,
-        n_steps=1200
-    )
+   grid = Grid(
+       resolution=0.03 * ureg.micrometer,
+       size_x=32 * ureg.micrometer,
+       size_y=20 * ureg.micrometer,
+       n_steps=500,
+   )
 
    experiment = Experiment(grid=grid)
 
-    scatterer = experiment.add_lens(
-        position=('35%', '50%'),
-        epsilon_r=2,
-        curvature=10 * ureg.micrometer,
-        width=5 * ureg.micrometer
-    )
+   scatterer = experiment.add_circle(
+       position=("30%", "50%"),  # Center position of the scatterer
+       epsilon_r=1.5,  # Relative permittivity of the scatterer
+       radius=3 * ureg.micrometer,
+       sigma=0 * (ureg.siemens / ureg.meter),  # Conductivity of the scatterer
+   )
 
-    source = experiment.add_point_source(
-        wavelength=1550 * ureg.nanometer,
-        position=('10%', '50%'),
-        amplitude=10,
-    )
+   source = experiment.add_line_source(
+       wavelength=1550 * ureg.nanometer,
+       position_0=("10%", "80%"),  # Starting position of the source
+       position_1=("10%", "20%"),  # Ending position of the source
+       amplitude=10,  # Amplitude of the source
+   )
 
+   experiment.add_pml(
+       order=1,  # Order of the PML polynomial profile
+       width="10%",  # Width of the PML region as a percentage of grid size
+       sigma_max=5000 * (ureg.siemens / ureg.meter),  # Maximum conductivity for the PML
+   )
 
-   experiment.add_pml(order=1, width="10%", sigma_max=5000 * ureg.siemens / ureg.meter)
+   experiment.plot()
 
    experiment.run()
 
-   experiment.plot_frame(
-       frame_number=-1,
-       enhance_contrast=5,
-       colormap=colormaps.polytechnique.red_black_blue
-   )
-
+   # %%
+   # Render an animation of the field propagation over time
    animation = experiment.render_propagation(
-       skip_frame=5,
-       colormap=colormaps.polytechnique.red_black_blue
+       skip_frame=5,  # Number of frames to skip in the animation
+       colormap=colormaps.polytechnique.red_black_blue,  # Colormap for the animation
+       enhance_contrast=3,  # Enhance contrast for better visualization
+       save_as="./circular_scatterer.gif",  # Save the animation as a GIF file
+       fps=30,
    )
 
-   animation.save('./lens.gif', writer='Pillow', fps=10)
+.. figure:: https://raw.githubusercontent.com/MartinPdeS/LightWave2D/HEAD/docs/images/spherical_scatterer.gif
 
+   Time evolution of the field around a circular scatterer.
 
-|example_lens|
+Documentation
+-------------
 
-Plenty of other examples are available online; see the `examples <https://martinpdes.github.io/LightWave2D/gallery.html>`_
-section of the documentation.
-
-
-Testing
-*******
-
-To test locally (with cloning the GitHub repository) you'll need to install the dependencies and run the coverage command as
-
-.. code:: python
-
-   >>> git clone https://github.com/MartinPdeS/LightWave2D.git
-   >>> cd LightWave2D
-   >>> pip install -r requirements/requirements.txt
-   >>> coverage run --source=LightWave2D --module pytest --verbose tests
-   >>> coverage report --show-missing
+Use the `LightWave2D documentation <https://martinpdes.github.io/LightWave2D/>`__ to work through
+examples and look up the inputs and return values of individual functions.
 
 Contributing
-************
+------------
 
-Contributions are welcome! Feel free to open an issue or submit a pull request on GitHub.
+Bug reports, worked examples, and documentation corrections are welcome.
+To set up a development checkout and run the tests, follow the `contributing guide <https://github.com/MartinPdeS/LightWave2D/blob/HEAD/CONTRIBUTING.md>`__.
 
+Contact
+-------
 
-----
+For questions, contact `Martin Poinsinet de Sivry-Houle <mailto:martin.poinsinet.de.sivry@gmail.com?subject=LightWave2D>`__.
 
-Contact Information
-*******************
+License
+-------
 
-As of 2024 the project is still under development if you want to collaborate it would be a pleasure. I encourage you to contact me.
+See the `LightWave2D license <https://github.com/MartinPdeS/LightWave2D/blob/HEAD/LICENSE>`__ for terms of use.
 
-LightWave2D was written by `Martin Poinsinet de Sivry-Houle <https://github.com/MartinPdS>`_  .
+.. |mps-python| image:: https://img.shields.io/pypi/pyversions/lightwave2d.svg
+   :alt: Supported Python versions
+   :target: https://pypi.org/project/lightwave2d/
 
-Email:`martin.poinsinet-de-sivry@polymtl.ca <mailto:martin.poinsinet-de-sivry@polymtl.ca?subject=LightWave2D>`_ .
+.. |mps-pypi| image:: https://img.shields.io/pypi/v/lightwave2d.svg
+   :alt: PyPI version
+   :target: https://pypi.org/project/lightwave2d/
 
+.. |mps-downloads| image:: https://img.shields.io/pypi/dm/lightwave2d.svg
+   :alt: Monthly PyPI downloads
+   :target: https://pypistats.org/packages/lightwave2d
 
-
-.. |example_resonator| image:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/resonator.gif?raw=true
-   :alt: some image
-   :class: with-shadow float-left
-   :width: 800px
-
-.. |example_lens| image:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/lens.gif?raw=true
-   :alt: some image
-   :class: with-shadow float-left
-   :width: 800px
-
-.. |example_scatterer| image:: https://github.com/MartinPdeS/LightWave2D/blob/master/docs/images/spherical_scatterer.gif?raw=true
-   :alt: some image
-   :class: with-shadow float-left
-   :width: 800px
-
-.. |python| image:: https://img.shields.io/pypi/pyversions/lightwave2d.svg
-   :alt: Python
-   :target: https://www.python.org/
-
-.. |docs| image:: https://github.com/martinpdes/LightWave2D/actions/workflows/deploy_documentation.yml/badge.svg
+.. |mps-docs| image:: https://github.com/MartinPdeS/LightWave2D/actions/workflows/deploy_documentation.yml/badge.svg
+   :alt: Documentation
    :target: https://martinpdes.github.io/LightWave2D/
-   :alt: Documentation Status
 
-.. |coverage| image:: https://raw.githubusercontent.com/MartinPdeS/LightWave2D/python-coverage-comment-action-data/badge.svg
-   :alt: Unittest coverage
+.. |mps-ci| image:: https://github.com/MartinPdeS/LightWave2D/actions/workflows/tests.yml/badge.svg
+   :alt: Tests
+   :target: https://github.com/MartinPdeS/LightWave2D/actions/workflows/tests.yml
+
+.. |mps-coverage| image:: https://raw.githubusercontent.com/MartinPdeS/LightWave2D/python-coverage-comment-action-data/badge.svg
+   :alt: Test coverage
    :target: https://htmlpreview.github.io/?https://github.com/MartinPdeS/LightWave2D/blob/python-coverage-comment-action-data/htmlcov/index.html
 
-.. |PyPI| image:: https://badge.fury.io/py/LightWave2D.svg
-   :alt: PyPI version
-   :target: https://pypi.org/project/LightWave2D/
-
-.. |PyPI_download| image:: https://api.pepy.tech/badge/LightWave2D/month
-   :alt: PyPI downloads
-   :target: https://pepy.tech/projects/lightwave2d
-
-.. |ci/cd| image:: https://github.com/martinpdes/lightwave2d/actions/workflows/deploy_coverage.yml/badge.svg
-    :alt: Unittest Status
-    :target: https://martinpdes.github.io/LightWave2D/actions
-
-.. |anaconda| image:: https://anaconda.org/martinpdes/lightwave2d/badges/version.svg
+.. |mps-conda| image:: https://anaconda.org/martinpdes/lightwave2d/badges/version.svg
    :alt: Anaconda version
    :target: https://anaconda.org/martinpdes/lightwave2d
 
-.. |anaconda_download| image:: https://anaconda.org/martinpdes/lightwave2d/badges/downloads.svg
+.. |mps-conda-downloads| image:: https://anaconda.org/martinpdes/lightwave2d/badges/downloads.svg
    :alt: Anaconda downloads
+   :target: https://anaconda.org/martinpdes/lightwave2d
+
+.. |mps-conda-release| image:: https://anaconda.org/martinpdes/lightwave2d/badges/latest_release_relative_date.svg
+   :alt: Latest Anaconda release
    :target: https://anaconda.org/martinpdes/lightwave2d

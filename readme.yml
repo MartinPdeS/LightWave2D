@@ -1,0 +1,13 @@
+introduction: |-
+  Set the grid, material boundaries, source, and absorbing layers to model propagation
+  of an electromagnetic pulse in two dimensions. The circular-scatterer example shows
+  the incident and scattered waves evolving together.
+
+  See the `usage guide <https://github.com/MartinPdeS/LightWave2D/blob/HEAD/USAGE.rst>`__ for further examples and implementation details.
+logo: docs/source/_static/lightwave2d-logo-light.svg
+quickstart:
+  title: Scatter a wave from a circular inclusion
+  source: docs/examples/scattering/spherical.py
+  figure:
+    path: docs/images/spherical_scatterer.gif
+    caption: Time evolution of the field around a circular scatterer.

@@ -35,3 +35,7 @@ docs/source/gallery/
 *.DS_Store*
 *.so*
 *.a*
+
+!/readme.yml
+
+!/USAGE.rst

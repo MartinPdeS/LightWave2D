@@ -64,3 +64,13 @@ full checkout. The tool aligns configured metadata, commits, and creates an
 annotated tag; it never pushes. Existing Makefile publishing shortcuts retain
 their push behavior. Fetch remote tags first. With no release tags, `next` uses
 the explicit project version as its starting point.
+
+## Updating the README
+
+Edit `readme.yml` and run the following commands from the repository root. Commit the generated README with its inputs.
+
+```sh
+python -m pip install --group readme
+make readme PYTHON=python
+mps-maintenance readme --check
+```

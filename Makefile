@@ -82,3 +82,8 @@ editable: bootstrap
 clean:
 	rm -rf $(BUILD_DIR) .skbuild .pytest_cache htmlcov .coverage
 	rm -f LightWave2D/binary/*.so LightWave2D/binary/*.a
+
+# Install the generator with: python -m pip install --group readme
+.PHONY: readme
+readme:
+	$(PYTHON) -m martinpdes_maintenance.cli readme
